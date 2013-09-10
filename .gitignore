@@ -6,3 +6,4 @@
 *.ear
 
 !lib/*
+!WebContent/WEB-INF/lib/*

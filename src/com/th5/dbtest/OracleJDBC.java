@@ -1,4 +1,4 @@
-package dbtest;
+package com.th5.dbtest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
