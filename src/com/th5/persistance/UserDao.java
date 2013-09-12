@@ -1,4 +1,4 @@
-package com.th5.domain;
+package com.th5.persistance;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.sun.crypto.provider.RSACipher;
-import com.th5.jdbc.JDBCService;
+import com.th5.domain.User;
 
 public class UserDao implements UserDAOInterface{
 

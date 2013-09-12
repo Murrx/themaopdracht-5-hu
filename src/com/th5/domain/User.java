@@ -1,9 +1,5 @@
 package com.th5.domain;
 
-import java.util.ArrayList;
-
-import com.th5.jdbc.JDBCLogin;
-
 public class User {
 	
 	private String username;

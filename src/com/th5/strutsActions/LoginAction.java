@@ -2,8 +2,7 @@ package com.th5.strutsActions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.User;
-import com.th5.domain.UserDao;
-import com.th5.jdbc.JDBCLogin;
+import com.th5.persistance.UserDao;
 
 /**
  * Class that contains all the login-related methods.

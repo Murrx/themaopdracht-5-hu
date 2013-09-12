@@ -1,14 +1,10 @@
-package com.th5.jdbc;
+package com.th5.persistance;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class JDBCService {
-
-	public static void main(String[]args){
-		getConnection();
-	}
 	
 	public static Connection getConnection() {
 
