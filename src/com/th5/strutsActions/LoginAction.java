@@ -3,6 +3,7 @@ package com.th5.strutsActions;
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.User;
 import com.th5.persistance.UserDao;
+import com.th5.service.ServiceProvider;
 
 /**
  * Class that contains all the login-related methods.
@@ -26,16 +27,7 @@ public class LoginAction extends ActionSupport {
 	 *  	   <code>error</code> if the login information is wrong.
 	 */
 	public String execute() {
-		UserDao uDao = new UserDao();
-
-		User user = uDao.login(username, password);
-
-		if (user != null){
-			username = user.getUsername();
-			return "success";
-		}
-		else return "error";
-
+		return ServiceProvider.getBiebService().login(username, password);
 	}
 
 	/**

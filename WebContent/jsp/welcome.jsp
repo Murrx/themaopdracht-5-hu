@@ -10,7 +10,7 @@
 
 <body>
 	<h2>
-		Howdy,
+		Welcome,
 		<s:property value="username" />
 		...!
 	</h2>
