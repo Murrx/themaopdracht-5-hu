@@ -1,0 +1,50 @@
+package com.th5.domain;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.sun.crypto.provider.RSACipher;
+import com.th5.jdbc.JDBCService;
+
+public class UserDao implements UserDAOInterface{
+
+	@Override
+	public User login(String username, String password) {
+		Connection connection = JDBCService.getConnection();
+		PreparedStatement statement = null;
+		User user = null;
+
+
+		try{
+			statement = connection.prepareStatement("select * from USERS where username = ? and pw = ?");
+			statement.setString(1, username);
+			statement.setString(2, password);
+			ResultSet result = statement.executeQuery();
+
+			while(result.next()){
+				String uname = result.getString("username");
+				user = new User(uname);
+				System.out.println(uname);
+			}
+
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return user;
+	}
+
+}
