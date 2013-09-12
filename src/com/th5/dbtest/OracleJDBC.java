@@ -27,7 +27,7 @@ public class OracleJDBC {
 		Connection connection = null;
  
 		try {
-			connection = DriverManager.getConnection("jdbc:oracle:thin:@//ondora01.hu.nl:8521/cursus01.hu.nl","stud1566357","team5");
+			connection = DriverManager.getConnection("jdbc:oracle:thin:@//ondora01.hu.nl:8521/cursus01.hu.nl","tho5_2013_2a_team5","team5iscool");
  
 		} catch (SQLException e) {
  
