@@ -19,5 +19,10 @@ public class AuctionService implements AuctionServiceInterface{
 		return userList.getUser(username,password);
 	}
 	
+	@Override
+	public boolean register(String username, String password) {
+		return userList.register(username, password);
+	}
+	
 
 }

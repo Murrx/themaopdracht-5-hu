@@ -23,7 +23,14 @@ public class ObservableList extends ArrayList<User> {
 			this.add(user);
 		return user;
 	}
-	
-	
 
+	public boolean register(String username, String password){
+		boolean result = false;
+		
+		if (!userDAO.contains(username)){
+			result = userDAO.register(username, password);
+			System.out.println(result);
+		}
+		return result;
+	}
 }

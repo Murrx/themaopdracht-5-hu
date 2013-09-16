@@ -47,4 +47,65 @@ public class UserDao implements UserDAOInterface{
 		return user;
 	}
 
+	@Override
+	public boolean contains(String username) {
+		Connection connection = JDBCService.getConnection();
+		PreparedStatement statement = null;
+		boolean result = false;
+		
+		try{
+			statement = connection.prepareStatement("select username from USERS where username = ?");
+			statement.setString(1, username);
+			ResultSet resultSet = statement.executeQuery();
+
+			while(resultSet.next()){
+				String uname = resultSet.getString("username");
+				result = username.equals(uname);
+			}
+
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean register(String username, String password) {
+		Connection connection = JDBCService.getConnection();
+		PreparedStatement statement = null;
+		boolean result = true;
+		
+		try{
+			statement = connection.prepareStatement("insert into USERS values(?,?)");
+			statement.setString(1, username);
+			statement.setString(2, password);
+			statement.executeQuery();
+
+		}catch(SQLException e){
+			e.printStackTrace();
+			result = false;
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(result);
+		return result;
+	}
+
 }

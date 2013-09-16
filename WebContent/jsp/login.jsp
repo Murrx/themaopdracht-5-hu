@@ -8,4 +8,5 @@
 
 		<s:submit method="execute" key="label.login" align="center" />
 	</s:form>
+	<a href="<s:url value="/jsp/register.jsp"  />">Register here</a>
 <jsp:include page="/includes/footer.jsp" />
