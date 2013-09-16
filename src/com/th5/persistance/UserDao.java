@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.sun.crypto.provider.RSACipher;
-import com.th5.domain.User;
+import com.th5.domain.model.User;
 
 public class UserDao implements UserDAOInterface{
 
@@ -17,7 +17,6 @@ public class UserDao implements UserDAOInterface{
 		PreparedStatement statement = null;
 		User user = null;
 
-
 		try{
 			statement = connection.prepareStatement("select * from USERS where username = ? and pw = ?");
 			statement.setString(1, username);
@@ -25,9 +24,11 @@ public class UserDao implements UserDAOInterface{
 			ResultSet result = statement.executeQuery();
 
 			while(result.next()){
+				
 				String uname = result.getString("username");
-				user = new User(uname);
-				System.out.println(uname);
+				String pw = result.getString("pw");
+				
+				user = new User(uname, pw);
 			}
 
 		}catch(SQLException e){
@@ -39,7 +40,6 @@ public class UserDao implements UserDAOInterface{
 				if(connection != null)
 					connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
