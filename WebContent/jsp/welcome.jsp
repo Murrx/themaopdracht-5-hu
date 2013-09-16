@@ -5,8 +5,8 @@
 </s:include>
 
 	<div class="bodyContent">
-	<h2>Welcome!</h2>
-	<p>Welcome to Auctify, <s:property value="username" />!</p>
+		<h2>Welcome!</h2>
+		<p>Welcome to Auctify, <s:property value="username" />!</p>
 	
 	</div>
   
