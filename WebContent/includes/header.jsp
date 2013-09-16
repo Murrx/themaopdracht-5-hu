@@ -5,6 +5,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title><s:property value="title"/></title>
+		<title>Auctify - ${param.title}</title>
 	</head>
 	<body>
