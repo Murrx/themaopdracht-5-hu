@@ -25,6 +25,7 @@
 		<action name="login" class="com.th5.strutsActions.LoginAction">
 			<result name="success">/jsp/welcome.jsp</result>
 			<result name="error">/jsp/login.jsp</result>
+			<result name="input">/jsp/login.jsp</result>
 		</action>
 		
 		<action name="register" class="com.th5.strutsActions.RegisterAction">

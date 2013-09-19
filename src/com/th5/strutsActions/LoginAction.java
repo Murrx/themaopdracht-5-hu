@@ -34,6 +34,33 @@ public class LoginAction extends ActionSupport {
 			return ActionSupport.SUCCESS;
 		}
 	}
+	/**
+	 * This method validates the LoginAction for valid input. If the input is valid, then the LoginAcion execute will be called.
+	 * @return void
+	 */
+	@Override
+	public void validate() {
+
+		/*String loginEmailRegex = "A-Za-z0-9.%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z\\S]{2,4}";
+		
+		if (username.trim().equals("")) {
+			addFieldError("username", "username is required");
+		}
+		
+		else if (!username.matches(loginEmailRegex)) {
+			addFieldError("username", "Invalid username");
+		}
+		
+		String loginPasswordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
+		
+	    if (password.trim().equals("")) {
+			addFieldError("password", "password is required");
+		}
+				
+		else if (!password.matches(loginPasswordRegex)) {
+			addFieldError("password", "Invalid password");
+		}*/
+	}
 
 	/**
 	 * Gets the username from the Username textfield.
