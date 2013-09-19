@@ -3,15 +3,15 @@ package com.th5.domain.service;
 import java.util.List;
 
 import com.th5.domain.model.User;
-import com.th5.domain.other.ObservableList;
+import com.th5.domain.other.UserListManager;
 import com.th5.persistance.UserDao;
 
 public class AuctionService implements AuctionServiceInterface{
 
-	private ObservableList userList;
+	private UserListManager userList;
 	
 	public AuctionService(){
-		userList = new ObservableList();
+		userList = new UserListManager();
 	}
 	
 	@Override

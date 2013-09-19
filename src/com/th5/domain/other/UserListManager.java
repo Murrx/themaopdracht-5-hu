@@ -1,18 +1,25 @@
 package com.th5.domain.other;
 
 import java.util.ArrayList;
-import com.th5.domain.model.*;
+import java.util.List;
 
+import com.th5.domain.model.User;
 import com.th5.persistance.UserDAOInterface;
 import com.th5.persistance.UserDao;
 
 @SuppressWarnings("hiding")
-public class ObservableList extends ArrayList<User> {
+public class UserListManager{
 
-	UserDAOInterface userDAO = new UserDao();
+	List<User> userList;
+	UserDAOInterface userDAO;
+	
+	public UserListManager(){
+		userList = new ArrayList<User>();
+		userDAO  = new UserDao();
+	}
 
 	public User getUser(String username, String password){
-		for(User user : this){
+		for(User user : userList){
 			if (user != null && username.equals(user.getUsername()) && password.equals(user.getPassword())){
 				System.out.println("Found user in list");
 				return user;
@@ -20,7 +27,7 @@ public class ObservableList extends ArrayList<User> {
 		}
 		User user = userDAO.login(username, password);
 		if (user != null)
-			this.add(user);
+			userList.add(user);
 		return user;
 	}
 
