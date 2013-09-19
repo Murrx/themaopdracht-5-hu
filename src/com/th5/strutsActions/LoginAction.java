@@ -16,21 +16,21 @@ import com.th5.persistance.UserDao;
  */
 public class LoginAction extends ActionSupport {
 
-	private String username;
+	private String email;
 	private String password;
 
 	/**
-	 * This function executes the login action. If the username and the password both
+	 * This function executes the login action. If the email and the password both
 	 * equal <code>admin</code>, then the user is logged in.
 	 *
 	 * @return <code>success</code> if the login is succesful, <br>
 	 *  	   <code>error</code> if the login information is wrong.
 	 */
 	public String execute() {
-		User user = ServiceProvider.getService().login(username, password);
+		User user = ServiceProvider.getService().login(email, password);
 		if (user == null) return ActionSupport.ERROR;
 		else {
-			username = user.getUsername();
+			email = user.getEmail();
 			return ActionSupport.SUCCESS;
 		}
 	}
@@ -63,27 +63,27 @@ public class LoginAction extends ActionSupport {
 	}
 
 	/**
-	 * Gets the username from the Username textfield.
-	 * This function always returns the value of the Username textfield, even
+	 * Gets the email from the email textfield.
+	 * This function always returns the value of the email textfield, even
 	 * if the textfield is empty. 
 	 *
-	 * @return	<code>String</code> input of the Username textfield
-	 * @see #setUsername(String)
+	 * @return	<code>String</code> input of the email textfield
+	 * @see #setEmail(String)
 	 */
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
 
 	/**
-	 * Sets the username in the Username textfield.
+	 * Sets the email in the emial textfield.
 	 * <p>
 	 * <i>This function is currently not in use.</i>
 	 *
-	 * @param username	<code>String</code> the new username to set
-	 * @see #getUsername()
+	 * @param username	<code>String</code> the new email to set
+	 * @see #getEmail()
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/**

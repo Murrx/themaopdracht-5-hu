@@ -15,8 +15,8 @@ public class AuctionService implements AuctionServiceInterface{
 	}
 	
 	@Override
-	public User login(String username, String password) {
-		return userList.getUser(username,password);
+	public User login(String email, String password) {
+		return userList.getUser(email,password);
 	}
 	
 	@Override

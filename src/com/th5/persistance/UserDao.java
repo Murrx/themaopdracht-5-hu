@@ -12,14 +12,14 @@ import com.th5.domain.model.User;
 public class UserDao implements UserDAOInterface{
 
 	@Override
-	public User login(String username, String password) {
+	public User login(String email, String password) {
 		Connection connection = JDBCService.getConnection();
 		PreparedStatement statement = null;
 		User user = null;
 
 		try{
 			statement = connection.prepareStatement("select * from USERS where username = ? and pw = ?");
-			statement.setString(1, username);
+			statement.setString(1, email);
 			statement.setString(2, password);
 			ResultSet result = statement.executeQuery();
 

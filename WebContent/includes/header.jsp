@@ -38,8 +38,8 @@
 				<s:actionerror />
 				<s:form action="login.action" method="post" theme="simple" cssClass="navbar-form navbar-right" role="form">
 					<div class="form-group">
-						<label class="sr-only" for="exampleInputEmail2">username</label>
-						<s:textfield name="username" key="label.username" size="8" cssClass="form-control" id="inputEmail1" placeholder="Username" />
+						<label class="sr-only" for="exampleInputEmail2">email</label>
+						<s:textfield name="email" key="label.email" size="8" cssClass="form-control" id="inputEmail1" placeholder="Email" />
 					</div>
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputPassword2">Password</label>

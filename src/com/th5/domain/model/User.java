@@ -2,14 +2,14 @@ package com.th5.domain.model;
 
 public class User implements Comparable<User>{
 	
-	private String username;
+	private String email;
 	private String password;
 	
-	public User(String username){
-		this.username = username;
+	public User(String email){
+		this.email = email;
 	}
-	public User(String username,String password){
-		this.username = username;
+	public User(String email,String password){
+		this.email = email;
 		this.password = password;
 	}
 
@@ -20,11 +20,11 @@ public class User implements Comparable<User>{
 		this.password = password;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	@Override
@@ -33,17 +33,17 @@ public class User implements Comparable<User>{
 		System.out.println(!(obj instanceof User));
 		User otherUser = (User)obj;
 		boolean equals = true;
-		equals = equals && username.equals(otherUser.username);
+		equals = equals && email.equals(otherUser.email);
 		equals = equals && password.equals(otherUser.password);
 		System.out.println(equals);
 		return equals;
 	}
 	@Override
 	public int compareTo(User user) {
-		return username.compareTo(user.username);
+		return email.compareTo(user.email);
 	}
 	@Override
 	public String toString() {
-		return username;
+		return email;
 	}
 }
