@@ -4,12 +4,15 @@
    <s:param name="title">Register</s:param>
 </s:include>
 
-	<h2>Register Application</h2>
-	<s:actionerror />
-	<s:form action="register.action" method="post">
-		<s:textfield name="username" key="label.username" size="20" />
-		<s:password name="password" key="label.password" size="20" />
-		<s:submit method="execute" key="label.login" align="center" />
-	</s:form>
+	<div class="bodyContent">
+	
+		<h2>Register Application</h2>
+		<s:actionerror />
+		<s:form action="register.action" method="post">
+			<s:textfield name="username" key="label.username" size="20" />
+			<s:password name="password" key="label.password" size="20" />
+			<s:submit method="execute" key="label.login" align="center" />
+		</s:form>
+	</div>
 		
 <s:include value="/includes/footer.jsp" />

@@ -11,11 +11,6 @@
 		<link href="/themaopdracht5/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	</head>
 	<body>
-		<nav class="navbar navbar-default navbar-add-fixed-top">
-			<ol class="breadcrumb">
-				<li class="active">Home</li>
-			</ol>
-		</nav>
 		
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -53,27 +48,35 @@
 		
 					<button type="submit" class="btn btn-default">Sign in</button>
 				</s:form>
+				<p class="navbar-text pull-right"><small><a href="/themaopdracht5/jsp/register.jsp">Nog geen gebruiker? Registreer hier!</a></small></p>
+				
 			</div>
-			<!-- /.navbar-collapse --> </nav>
 			
-			<div id="leftNavigation">
+		</nav> <!-- /.navbar-collapse --> 
 			
-				<ul class="nav nav-pills nav-stacked">
-					<li class="active">
-						<a href="#">
-							<span class="badge pull-right">/</span> Home
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span class="badge pull-right">54</span> Auctions
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span class="badge pull-right">25</span> Mass Auctions
-						</a>
-					</li>
-				</ul>
-			</div>
+			<!-- Navbar breadcrumbs -->
+			<ol class="breadcrumb">
+				<li class="active">Home</li>
+			</ol>
+			
+		<div id="leftNavigation">
+		
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active">
+					<a href="#">
+						<span class="badge pull-right">/</span> Home
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="badge pull-right">54</span> Auctions
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="badge pull-right">25</span> Mass Auctions
+					</a>
+				</li>
+			</ul>
+		</div>
 		
