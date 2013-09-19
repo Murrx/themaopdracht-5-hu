@@ -6,27 +6,27 @@ import com.th5.domain.service.ServiceProvider;
 
 public class RegisterAction extends ActionSupport{
 
-	String username;
+	String email;
 	String password;
 
 	@Override
 	public String execute() throws Exception {
-		boolean result = ServiceProvider.getService().register(username, password);
+		boolean result = ServiceProvider.getService().register(email, password);
 		if (result == false) return ActionSupport.ERROR;
 		else return ActionSupport.SUCCESS;
 	}
 
 
-	public String getUsername(){
-		return username;
+	public String getEmail(){
+		return email;
 	}
 
 	public String getPassword(){
 		return password;
 	}
 
-	public void setUsername(String username){
-		this.username = username;
+	public void setEmail(String email){
+		this.email = email;
 	}
 
 	public void setPassword(String password){

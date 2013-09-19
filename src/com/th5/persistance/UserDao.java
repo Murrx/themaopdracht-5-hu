@@ -48,19 +48,19 @@ public class UserDao implements UserDAOInterface{
 	}
 
 	@Override
-	public boolean contains(String username) {
+	public boolean contains(String email) {
 		Connection connection = JDBCService.getConnection();
 		PreparedStatement statement = null;
 		boolean result = false;
 		
 		try{
 			statement = connection.prepareStatement("select username from USERS where username = ?");
-			statement.setString(1, username);
+			statement.setString(1, email);
 			ResultSet resultSet = statement.executeQuery();
 
 			while(resultSet.next()){
-				String uname = resultSet.getString("username");
-				result = username.equals(uname);
+				String resEmail = resultSet.getString("username");
+				result = email.equals(resEmail);
 			}
 
 		}catch(SQLException e){
@@ -80,14 +80,14 @@ public class UserDao implements UserDAOInterface{
 	}
 
 	@Override
-	public boolean register(String username, String password) {
+	public boolean register(String email, String password) {
 		Connection connection = JDBCService.getConnection();
 		PreparedStatement statement = null;
 		boolean result = true;
 		
 		try{
 			statement = connection.prepareStatement("insert into USERS values(?,?)");
-			statement.setString(1, username);
+			statement.setString(1, email);
 			statement.setString(2, password);
 			statement.executeQuery();
 

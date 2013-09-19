@@ -32,12 +32,11 @@ public class UserListManager{
 		return user;
 	}
 
-	public boolean register(String username, String password){
+	public boolean register(String email, String password){
 		boolean result = false;
 		
-		if (!userDAO.contains(username)){
-			result = userDAO.register(username, password);
-			System.out.println(result);
+		if (!userDAO.contains(email)){
+			result = userDAO.register(email, password);
 		}
 		return result;
 	}
