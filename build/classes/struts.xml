@@ -31,6 +31,7 @@
 		<action name="register" class="com.th5.strutsActions.RegisterAction">
 			<result name="success">/jsp/login.jsp</result>
 			<result name="error">/jsp/register.jsp</result>
+			<result name="input">/jsp/register.jsp</result>
 		</action>
 		
 	</package>
