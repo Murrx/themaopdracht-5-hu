@@ -19,15 +19,15 @@ public class RegisterAction extends ActionSupport{
 	@Override
 	public void validate() {
 		
-		String loginEmailRegex = "A-Za-z0-9.%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z\\S]{2,4}";
+		//String loginEmailRegex = "A-Za-z0-9.%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z\\S]{2,4}";
 		
 		if (email.trim().equals("")) {
 			addFieldError("email", "email is required");
 		}
 		
-		else if (!email.matches(loginEmailRegex)) {
-			addFieldError("email", "Invalid email");
-		}
+		//else if (!email.matches(loginEmailRegex)) {
+		//	addFieldError("email", "Invalid email");
+		//}
 		
 		//The loginPasswordRegex checks if there is atleast:
 		//- 1 digit or more.
