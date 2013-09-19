@@ -6,14 +6,38 @@ import com.th5.domain.service.ServiceProvider;
 
 public class RegisterAction extends ActionSupport{
 
-	String email;
-	String password;
+	private String email;
+	private String password;
 
 	@Override
 	public String execute() throws Exception {
 		boolean result = ServiceProvider.getService().register(email, password);
 		if (result == false) return ActionSupport.ERROR;
 		else return ActionSupport.SUCCESS;
+	}
+	
+	@Override
+	public void validate() {
+		
+		String loginEmailRegex = "A-Za-z0-9.%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z\\S]{2,4}";
+		
+		if (email.trim().equals("")) {
+			addFieldError("email", "email is required");
+		}
+		
+		else if (!email.matches(loginEmailRegex)) {
+			addFieldError("username", "Invalid username");
+		}
+		
+		String loginPasswordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
+		
+	    if (password.trim().equals("")) {
+			addFieldError("password", "password is required");
+		}
+				
+		else if (!password.matches(loginPasswordRegex)) {
+			addFieldError("password", "Invalid password");
+		}
 	}
 
 

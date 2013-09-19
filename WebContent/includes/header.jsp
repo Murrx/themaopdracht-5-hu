@@ -40,10 +40,12 @@
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputEmail2">email</label>
 						<s:textfield name="email" key="label.email" size="8" cssClass="form-control" id="inputEmail1" placeholder="Email" />
+						<s:fielderror fieldName="email"/>
 					</div>
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputPassword2">Password</label>
 						<s:password name="password" key="label.password" size="8" cssClass="form-control" id="inputPassword1" placeholder="Password" />
+						<s:fielderror fieldName="password"/>
 					</div>
 		
 					<button type="submit" class="btn btn-default">Sign in</button>
