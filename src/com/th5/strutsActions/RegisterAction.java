@@ -26,9 +26,14 @@ public class RegisterAction extends ActionSupport{
 		}
 		
 		else if (!email.matches(loginEmailRegex)) {
-			addFieldError("username", "Invalid username");
+			addFieldError("email", "Invalid email");
 		}
 		
+		//The loginPasswordRegex checks if there is atleast:
+		//- 1 digit or more.
+		//- 1 Uppercase letter or more.
+		//- 1 lowercase letter or more.
+		//- 8 characters or more in the string.
 		String loginPasswordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
 		
 	    if (password.trim().equals("")) {
