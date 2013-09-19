@@ -1,6 +1,6 @@
 package com.th5.domain.model;
 
-public class User {
+public class User implements Comparable<User>{
 	
 	private String username;
 	private String password;
@@ -37,5 +37,13 @@ public class User {
 		equals = equals && password.equals(otherUser.password);
 		System.out.println(equals);
 		return equals;
+	}
+	@Override
+	public int compareTo(User user) {
+		return username.compareTo(user.username);
+	}
+	@Override
+	public String toString() {
+		return username;
 	}
 }
