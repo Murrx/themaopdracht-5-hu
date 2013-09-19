@@ -37,6 +37,7 @@ public class UserListManager{
 		
 		if (!userDAO.contains(email)){
 			result = userDAO.register(email, password);
+			if (result)userList.add(new User(email, password));
 		}
 		return result;
 	}

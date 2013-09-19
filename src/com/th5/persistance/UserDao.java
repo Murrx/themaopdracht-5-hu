@@ -18,15 +18,15 @@ public class UserDao implements UserDAOInterface{
 		User user = null;
 
 		try{
-			statement = connection.prepareStatement("select * from USERS where username = ? and pw = ?");
+			statement = connection.prepareStatement("SELECT * FROM usr_users WHERE usr_email = ? AND usr_password = ?");
 			statement.setString(1, email);
 			statement.setString(2, password);
 			ResultSet result = statement.executeQuery();
 
 			while(result.next()){
 				
-				String uname = result.getString("username");
-				String pw = result.getString("pw");
+				String uname = result.getString("usr_username");
+				String pw = result.getString("usr_password");
 				
 				user = new User(uname, pw);
 			}
@@ -54,12 +54,12 @@ public class UserDao implements UserDAOInterface{
 		boolean result = false;
 		
 		try{
-			statement = connection.prepareStatement("select username from USERS where username = ?");
+			statement = connection.prepareStatement("SELECT * FROM usr_users WHERE usr_email = ?");
 			statement.setString(1, email);
 			ResultSet resultSet = statement.executeQuery();
 
 			while(resultSet.next()){
-				String resEmail = resultSet.getString("username");
+				String resEmail = resultSet.getString("usr_email");
 				result = email.equals(resEmail);
 			}
 
@@ -86,7 +86,7 @@ public class UserDao implements UserDAOInterface{
 		boolean result = true;
 		
 		try{
-			statement = connection.prepareStatement("insert into USERS values(?,?)");
+			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password) VALUES(?,?)");
 			statement.setString(1, email);
 			statement.setString(2, password);
 			statement.executeQuery();
