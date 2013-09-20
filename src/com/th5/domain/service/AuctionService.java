@@ -13,7 +13,7 @@ public class AuctionService implements AuctionServiceInterface{
 	
 	@Override
 	public User login(String login_email, String login_password) {
-		return userList.getUser(login_email,login_password);
+		return userList.userLogin(login_email,login_password);
 	}
 	
 	@Override

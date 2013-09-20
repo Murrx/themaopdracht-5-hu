@@ -5,29 +5,31 @@ import java.util.Collections;
 import java.util.List;
 
 import com.th5.domain.model.User;
-import com.th5.persistance.UserDAOInterface;
-import com.th5.persistance.UserDao;
+import com.th5.persistance.CRUD_Interface;
+import com.th5.persistance.UserCRUD;
 
 @SuppressWarnings("hiding")
 public class UserListManager{
 
 	List<User> userList;
-	UserDAOInterface userDAO;
+	CRUD_Interface<User> userCRUD;
 	
 	public UserListManager(){
-		userDAO  = new UserDao();
 		userList = new SortedArrayList<User>();
+		userCRUD = new UserCRUD();
 	}
 
-	public User getUser(String login_email, String login_password){
+	public User userLogin(String login_email, String login_password){
 		User user = null;
 		int index = Collections.binarySearch(userList, new User(login_email, login_password));
 		System.out.println(userList);
 		if (!( index < 0)){
 			user = userList.get(index);
 		}else if (user == null){
-			user = userDAO.login(login_email, login_password);
-			if (user != null) userList.add(user);
+			user = userCRUD.retrieve(login_email);
+			
+			if (user != null && user.getPassword().equals(login_password)) userList.add(user);
+			else user = null;
 		}
 		return user;
 	}
@@ -35,8 +37,8 @@ public class UserListManager{
 	public boolean register(String email, String password){
 		boolean result = false;
 		
-		if (!userDAO.contains(email)){
-			result = userDAO.register(email, password);
+		if (userCRUD.retrieve(email) == null){
+			result = userCRUD.create(new User(email, password));
 			if (result)userList.add(new User(email, password));
 		}
 		return result;
