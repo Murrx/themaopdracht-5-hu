@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import com.th5.domain.model.User;
 
 @SuppressWarnings("hiding")
-public class UserCRUD implements CRUD_Interface<User>{
+public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 	@Override
 	public User retrieve(String identifier) {

@@ -13,12 +13,16 @@ public class AuctionService implements AuctionServiceInterface{
 	
 	@Override
 	public User login(String login_email, String login_password) {
-		return userList.userLogin(login_email,login_password);
+		User user = userList.retrieve(login_email);
+		if (user != null && user.getPassword().equals(login_password)){
+			return user;	
+		}
+		else return null;
 	}
 	
 	@Override
 	public boolean register(String email, String password) {
-		return userList.register(email, password);
+		return userList.create(new User(email, password));
 	}
 	
 

@@ -6,41 +6,56 @@ import java.util.List;
 
 import com.th5.domain.model.User;
 import com.th5.persistance.CRUD_Interface;
-import com.th5.persistance.UserCRUD;
+import com.th5.persistance.UserDatabaseCRUD;
 
 @SuppressWarnings("hiding")
-public class UserListManager{
+public class UserListManager implements CRUD_Interface<User>{
 
 	List<User> userList;
-	CRUD_Interface<User> userCRUD;
-	
+	CRUD_Interface<User> userDatabaseCRUD;
+
 	public UserListManager(){
 		userList = new SortedArrayList<User>();
-		userCRUD = new UserCRUD();
+		userDatabaseCRUD = new UserDatabaseCRUD();
+	}
+	
+	@Override
+	public boolean create(User user) {
+		boolean result = false;
+		if (emailAvailable(user.getEmail())){
+			result = userDatabaseCRUD.create(user);
+			if (result == true) userList.add(user);
+		}
+		return result;
 	}
 
-	public User userLogin(String login_email, String login_password){
-		User user = null;
-		int index = Collections.binarySearch(userList, new User(login_email, login_password));
-		System.out.println(userList);
-		if (!( index < 0)){
-			user = userList.get(index);
-		}else if (user == null){
-			user = userCRUD.retrieve(login_email);
-			
-			if (user != null && user.getPassword().equals(login_password)) userList.add(user);
-			else user = null;
+	@Override
+	public User retrieve(String login_email) {
+		User user = getUserFromList(login_email);
+		if (user == null){
+			user = userDatabaseCRUD.retrieve(login_email);
+			if (user != null) userList.add(user);
 		}
 		return user;
 	}
 
-	public boolean register(String email, String password){
-		boolean result = false;
-		
-		if (userCRUD.retrieve(email) == null){
-			result = userCRUD.create(new User(email, password));
-			if (result)userList.add(new User(email, password));
+	private User getUserFromList(String login_email){
+		User user = null;
+		int index = Collections.binarySearch(userList, new User(login_email));
+		System.out.println(userList);
+		if ( index >= 0){
+			user = userList.get(index);
 		}
-		return result;
+		return user;
 	}
+
+	private boolean emailAvailable(String email){
+		return userDatabaseCRUD.retrieve(email) == null;
+	}
+	
+	//Uninplemented methods
+	public ArrayList<User> search(String search) {System.out.println("Not implemented");return null;}
+	public ArrayList<User> retrieveAll() {System.out.println("Not implemented");return null;}
+	public void update(User object) {System.out.println("Not implemented");}
+	public void delete(User object){System.out.println("Not implemented");}
 }
