@@ -12,20 +12,20 @@ import com.th5.domain.model.User;
 public class UserDao implements UserDAOInterface{
 
 	@Override
-	public User login(String email, String password) {
+	public User login(String login_email, String login_password) {
 		Connection connection = JDBCService.getConnection();
 		PreparedStatement statement = null;
 		User user = null;
 
 		try{
 			statement = connection.prepareStatement("SELECT * FROM usr_users WHERE usr_email = ? AND usr_password = ?");
-			statement.setString(1, email);
-			statement.setString(2, password);
+			statement.setString(1, login_email);
+			statement.setString(2, login_password);
 			ResultSet result = statement.executeQuery();
 
 			while(result.next()){
 				
-				String uname = result.getString("usr_username");
+				String uname = result.getString("usr_email");
 				String pw = result.getString("usr_password");
 				
 				user = new User(uname, pw);

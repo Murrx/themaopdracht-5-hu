@@ -39,13 +39,13 @@
 				<s:form action="login.action" method="post" theme="simple" cssClass="navbar-form navbar-right" role="form">
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputEmail2">email</label>
-						<s:textfield name="email" key="label.email" size="8" cssClass="form-control" id="inputEmail1" placeholder="Email" />
-						<s:fielderror fieldName="email"/>
+						<s:textfield name="login_email" key="label.email" size="8" cssClass="form-control" id="inputEmail1" placeholder="Email" />
+						<s:fielderror fieldName="login_email"/>
 					</div>
 					<div class="form-group">
 						<label class="sr-only" for="exampleInputPassword2">Password</label>
-						<s:password name="password" key="label.password" size="8" cssClass="form-control" id="inputPassword1" placeholder="Password" />
-						<s:fielderror fieldName="password"/>
+						<s:password name="login_password" key="label.password" size="8" cssClass="form-control" id="inputPassword1" placeholder="Password" />
+						<s:fielderror fieldName="login_password"/>
 					</div>
 		
 					<button type="submit" class="btn btn-default">Sign in</button>

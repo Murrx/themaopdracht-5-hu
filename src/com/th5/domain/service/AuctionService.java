@@ -1,10 +1,7 @@
 package com.th5.domain.service;
 
-import java.util.List;
-
 import com.th5.domain.model.User;
 import com.th5.domain.other.UserListManager;
-import com.th5.persistance.UserDao;
 
 public class AuctionService implements AuctionServiceInterface{
 
@@ -15,8 +12,8 @@ public class AuctionService implements AuctionServiceInterface{
 	}
 	
 	@Override
-	public User login(String email, String password) {
-		return userList.getUser(email,password);
+	public User login(String login_email, String login_password) {
+		return userList.getUser(login_email,login_password);
 	}
 	
 	@Override

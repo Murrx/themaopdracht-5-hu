@@ -19,14 +19,14 @@ public class UserListManager{
 		userList = new SortedArrayList<User>();
 	}
 
-	public User getUser(String email, String password){
+	public User getUser(String login_email, String login_password){
 		User user = null;
-		int index = Collections.binarySearch(userList, new User(email, password));
+		int index = Collections.binarySearch(userList, new User(login_email, login_password));
 		System.out.println(userList);
 		if (!( index < 0)){
 			user = userList.get(index);
 		}else if (user == null){
-			user = userDAO.login(email, password);
+			user = userDAO.login(login_email, login_password);
 			if (user != null) userList.add(user);
 		}
 		return user;

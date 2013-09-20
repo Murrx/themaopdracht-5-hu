@@ -6,7 +6,7 @@
 
 	<div class="bodyContent">
 		<h2>Welcome!</h2>
-		<p>Welcome to Auctify, <s:property value="email" />!</p>
+		<p>Welcome to Auctify, <s:property value="login_email" />!</p>
 	</div>
   
 <s:include value="/includes/footer.jsp" />

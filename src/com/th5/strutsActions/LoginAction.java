@@ -19,8 +19,8 @@ import com.th5.domain.service.ServiceProvider;
  */
 public class LoginAction extends ActionSupport {
 
-	private String email;
-	private String password;
+	private String login_email;
+	private String login_password;
 	//private Map session;
 	private User user;
 
@@ -47,20 +47,20 @@ public class LoginAction extends ActionSupport {
 	@Override
 	public void validate() {
 
-		if (email.trim().equals("")) {
-			addFieldError("email", "username is required");
+		if ("".equals(login_email.trim())) {
+			addFieldError("login_email", "username is required");
 		}
-		if (password.trim().equals("")) {
-			addFieldError("password", "password is required");
+		if ("".equals(login_password.trim())) {
+			addFieldError("login_password", "password is required");
 		} else {
 
-			User gevondeUser = ServiceProvider.getService().login(email,
-					password);
+			User foundUser = ServiceProvider.getService().login(login_email,
+					login_password);
 			
-			if (gevondeUser == null) {
-				addFieldError("email", "Invalid username or password");
+			if (foundUser == null) {
+				addFieldError("login_email", "Invalid username or password");
 			} else {
-				user = gevondeUser;
+				user = foundUser;
 			}
 		}
 	}
@@ -72,8 +72,8 @@ public class LoginAction extends ActionSupport {
 	 * @return <code>String</code> input of the email textfield
 	 * @see #setEmail(String)
 	 */
-	public String getEmail() {
-		return email;
+	public String getLogin_email() {
+		return login_email;
 	}
 
 	/**
@@ -85,8 +85,8 @@ public class LoginAction extends ActionSupport {
 	 *            <code>String</code> the new email to set
 	 * @see #getEmail()
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public void setLogin_email(String login_email) {
+		this.login_email = login_email;
 	}
 
 	/**
@@ -97,8 +97,8 @@ public class LoginAction extends ActionSupport {
 	 * @return <code>String</code> input of the Password textfield
 	 * @see #getPassword(String)
 	 */
-	public String getPassword() {
-		return password;
+	public String getLogin_password() {
+		return login_password;
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class LoginAction extends ActionSupport {
 	 *            <code>String</code> the new password to set
 	 * @see #getPassword()
 	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public void setLogin_password(String login_password) {
+		this.login_password = login_password;
 	}
 }
