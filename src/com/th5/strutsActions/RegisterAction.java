@@ -2,6 +2,7 @@ package com.th5.strutsActions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
+import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
 
 public class RegisterAction extends ActionSupport{
@@ -13,9 +14,12 @@ public class RegisterAction extends ActionSupport{
 
 	@Override
 	public String execute() throws Exception {
-		boolean result = ServiceProvider.getService().register(registerEmail, registerPassword, registerDisplayName);
-		if (result == false) return ActionSupport.ERROR;
-		else return ActionSupport.SUCCESS;
+		try {
+			ServiceProvider.getService().register(registerEmail, registerPassword, registerDisplayName);
+		} catch (AuctifyException e) {
+			return ActionSupport.ERROR;
+		}
+		return ActionSupport.SUCCESS;
 	}
 	
 	@Override

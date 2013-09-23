@@ -3,14 +3,15 @@ package com.th5.persistance;
 import java.util.ArrayList;
 
 import com.th5.domain.model.User;
+import com.th5.domain.other.AuctifyException;
 
 public interface CRUD_Interface<T>{
 	
 	   
-	   public T retrieve(String identifier);
-	   public ArrayList<T> search(String search);
-	   public ArrayList<T> retrieveAll();
-	   public boolean create(T object);
-	   public void update(T object);
-	   public void delete(T object);
+	   public T retrieve(String identifier) throws AuctifyException;
+	   public ArrayList<T> search(String search) throws AuctifyException;
+	   public ArrayList<T> retrieveAll() throws AuctifyException;
+	   public void create(T object) throws AuctifyException;
+	   public void update(T object) throws AuctifyException;
+	   public void delete(T object) throws AuctifyException;
 	}

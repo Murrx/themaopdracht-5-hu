@@ -18,19 +18,19 @@ public class UserListManager implements CRUD_Interface<User>{
 		userList = new SortedArrayList<User>();
 		userDatabaseCRUD = new UserDatabaseCRUD();
 	}
-	
+
 	@Override
-	public boolean create(User user) {
+	public void create(User user) throws AuctifyException{
 		boolean result = false;
-		if (emailAvailable(user.getEmail())){
-			result = userDatabaseCRUD.create(user);
-			if (result == true) userList.add(user);
+		if (!emailAvailable(user.getEmail())){
+			throw new AuctifyException("Email adress is already in use");
 		}
-		return result;
+		userDatabaseCRUD.create(user);
+		userList.add(user);
 	}
 
 	@Override
-	public User retrieve(String login_email) {
+	public User retrieve(String login_email) throws AuctifyException{
 		User user = getUserFromList(login_email);
 		if (user == null){
 			user = userDatabaseCRUD.retrieve(login_email);
@@ -49,10 +49,10 @@ public class UserListManager implements CRUD_Interface<User>{
 		return user;
 	}
 
-	private boolean emailAvailable(String email){
+	private boolean emailAvailable(String email) throws AuctifyException{
 		return userDatabaseCRUD.retrieve(email) == null;
 	}
-	
+
 	//Uninplemented methods
 	public ArrayList<User> search(String search) {System.out.println("Not implemented");return null;}
 	public ArrayList<User> retrieveAll() {System.out.println("Not implemented");return null;}

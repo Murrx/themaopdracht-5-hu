@@ -8,6 +8,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
+import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
 
 /**
@@ -34,7 +35,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	 *         <code>error</code> if the login information is wrong.
 	 */
 	public String execute() {
-		
+
 		userSession.put("user", user);
 		return ActionSupport.SUCCESS;
 
@@ -48,21 +49,16 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	 */
 	@Override
 	public void validate() {
-
 		if ("".equals(login_email.trim())) {
 			addFieldError("login_email", "username is required");
 		}
 		if ("".equals(login_password.trim())) {
 			addFieldError("login_password", "password is required");
 		} else {
-
-			User foundUser = ServiceProvider.getService().login(login_email,
-					login_password);
-			
-			if (foundUser == null) {
+			try {
+				user = ServiceProvider.getService().login(login_email,	login_password);
+			} catch (AuctifyException e) {
 				addFieldError("login_email", "Invalid username or password");
-			} else {
-				user = foundUser;
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
+import com.th5.domain.other.AuctifyException;
 
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
@@ -64,10 +65,9 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	}
 
 	@Override
-	public boolean create(User user) {
+	public void create(User user) throws AuctifyException {
 		Connection connection = JDBCService.getConnection();
 		PreparedStatement statement = null;
-		boolean result = true;
 		
 		try{
 			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password, usr_display_name, usr_right_id) VALUES(?,?,?,?)");
@@ -79,7 +79,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 		}catch(SQLException e){
 			e.printStackTrace();
-			result = false;
+			throw new AuctifyException("failed to add user");
 		}finally{
 			try {
 				if(statement != null)
@@ -90,8 +90,6 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				e.printStackTrace();
 			}
 		}
-		System.out.println(result);
-		return result;
 	}
 
 	@Override
