@@ -21,8 +21,8 @@ public class AuctionService implements AuctionServiceInterface{
 	}
 	
 	@Override
-	public boolean register(String email, String password) {
-		return userList.create(new User(email, password));
+	public boolean register(String email, String password, String displayName) {
+		return userList.create(new User(email, password, displayName));
 	}
 	
 

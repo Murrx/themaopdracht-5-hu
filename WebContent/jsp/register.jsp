@@ -9,8 +9,10 @@
 		<h2>Register Application</h2>
 		<s:actionerror />
 		<s:form action="register.action" method="post">
-			<s:textfield name="email" key="label.email" size="20" />
-			<s:password name="password" key="label.password" size="20" />
+			<s:textfield name="registerEmail" key="label.email" size="20" />
+			<s:password name="registerPassword" key="label.password" size="20" />
+			<s:password name="registerPassword2" key="label.password" size="20" />
+			<s:textfield name="registerDisplayName" key="label.displayname" size="20" />
 			<s:submit method="execute" key="label.register" align="center" />
 		</s:form>
 	</div>

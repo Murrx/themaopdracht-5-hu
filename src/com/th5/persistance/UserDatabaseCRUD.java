@@ -24,10 +24,12 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 			while(result.next()){
 				
-				String loginUsername = result.getString("usr_email");
-				String loginPassword = result.getString("usr_password");
+				String username = result.getString("usr_email");
+				String password = result.getString("usr_password");
+				String displayName = result.getString("usr_display_name");
+				int userId = result.getInt("usr_pk_user_id");
 				
-				user = new User(loginUsername, loginPassword);
+				user = new User(username, password, displayName);
 			}
 
 		}catch(SQLException e){
@@ -65,9 +67,10 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		boolean result = true;
 		
 		try{
-			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password) VALUES(?,?)");
+			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password, usr_display_name) VALUES(?,?,?)");
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getPassword());
+			statement.setString(3, user.getDisplayName());
 			statement.executeQuery();
 
 		}catch(SQLException e){

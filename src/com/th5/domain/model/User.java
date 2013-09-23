@@ -4,13 +4,22 @@ public class User implements Comparable<User>{
 	
 	private String email;
 	private String password;
+	private String displayName;
+	private int userId;
 	
 	public User(String email){
 		this.email = email;
 	}
-	public User(String email,String password){
+	public User(String email,String password, String displayName){
 		this.email = email;
 		this.password = password;
+		this.displayName = displayName;
+	}
+	public User(int userId, String email, String password, String displayName){
+		this.userId = userId;
+		this.email = email;
+		this.password = password;
+		this.displayName = displayName;
 	}
 
 	public String getPassword() {
@@ -45,5 +54,8 @@ public class User implements Comparable<User>{
 	@Override
 	public String toString() {
 		return email;
+	}
+	public String getDisplayName(){
+		return displayName;
 	}
 }

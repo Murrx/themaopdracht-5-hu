@@ -6,12 +6,14 @@ import com.th5.domain.service.ServiceProvider;
 
 public class RegisterAction extends ActionSupport{
 
-	private String email;
-	private String password;
+	private String registerEmail;
+	private String registerPassword;
+	private String registerPassword2;
+	private String registerDisplayName;
 
 	@Override
 	public String execute() throws Exception {
-		boolean result = ServiceProvider.getService().register(email, password);
+		boolean result = ServiceProvider.getService().register(registerEmail, registerPassword, registerDisplayName);
 		if (result == false) return ActionSupport.ERROR;
 		else return ActionSupport.SUCCESS;
 	}
@@ -21,8 +23,8 @@ public class RegisterAction extends ActionSupport{
 		
 		//String loginEmailRegex = "A-Za-z0-9.%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z\\S]{2,4}";
 		
-		if (email.trim().equals("")) {
-			addFieldError("email", "email is required");
+		if (registerEmail.trim().equals("")) {
+			addFieldError("registerEmail", "email is required");
 		}
 		
 		//else if (!email.matches(loginEmailRegex)) {
@@ -36,29 +38,41 @@ public class RegisterAction extends ActionSupport{
 		//- 8 characters or more in the string.
 		String loginPasswordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
 		
-	    if (password.trim().equals("")) {
-			addFieldError("password", "password is required");
+	    if (registerPassword.trim().equals("")) {
+			addFieldError("registerPassword", "password is required");
+		}
+	    else if (!registerPassword.equals(registerPassword2)){
+			addFieldError("registerPassword", "Passwords don't match");
 		}
 				
-		else if (!password.matches(loginPasswordRegex)) {
-			addFieldError("password", "Invalid password");
+		else if (!registerPassword.matches(loginPasswordRegex)) {
+			addFieldError("registerPassword", "Invalid password");
 		}
 	}
 
 
-	public String getEmail(){
-		return email;
+	public String getRegisterEmail(){
+		return registerEmail;
 	}
-
-	public String getPassword(){
-		return password;
+	public String getRegisterPassword(){
+		return registerPassword;
 	}
-
-	public void setEmail(String email){
-		this.email = email;
+	public void setRegisterEmail(String registerEmail){
+		this.registerEmail = registerEmail;
 	}
-
-	public void setPassword(String password){
-		this.password = password;
+	public void setRegisterPassword(String registerPassword){
+		this.registerPassword = registerPassword;
+	}
+	public String getRegisterPassword2() {
+		return registerPassword2;
+	}
+	public void setRegisterPassword2(String registerPassword2) {
+		this.registerPassword2 = registerPassword2;
+	}
+	public String getRegisterDisplayName() {
+		return registerDisplayName;
+	}
+	public void setRegisterDisplayName(String registerDisplayName) {
+		this.registerDisplayName = registerDisplayName;
 	}
 }
