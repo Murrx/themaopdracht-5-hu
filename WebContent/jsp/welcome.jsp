@@ -7,6 +7,7 @@
 	<div class="bodyContent">
 		<h2>Welcome!</h2>
 		<p>Welcome to Auctify, <s:property value="login_email" />!</p>
+		<p>User in session: <s:property value="#session.user.email" /></p>
 	</div>
   
 <s:include value="/includes/footer.jsp" />

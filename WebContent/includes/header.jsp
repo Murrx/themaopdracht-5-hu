@@ -36,21 +36,29 @@
 			<!--  Login form -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<s:actionerror />
-				<s:form action="login.action" method="post" theme="simple" cssClass="navbar-form navbar-right" role="form">
-					<div class="form-group">
-						<label class="sr-only" for="exampleInputEmail2">email</label>
-						<s:textfield name="login_email" key="label.email" size="8" cssClass="form-control" id="inputEmail1" placeholder="Email" />
-						<s:fielderror fieldName="login_email"/>
-					</div>
-					<div class="form-group">
-						<label class="sr-only" for="exampleInputPassword2">Password</label>
-						<s:password name="login_password" key="label.password" size="8" cssClass="form-control" id="inputPassword1" placeholder="Password" />
-						<s:fielderror fieldName="login_password"/>
-					</div>
-		
-					<button type="submit" class="btn btn-default">Sign in</button>
-				</s:form>
-				<p class="navbar-text pull-right"><small><a href="/themaopdracht5/jsp/register.jsp">Nog geen gebruiker? Registreer hier!</a></small></p>
+				<s:if test="%{#session.user ==null}">
+				
+					<s:form action="login.action" method="post" theme="simple" cssClass="navbar-form navbar-right" role="form">
+						<div class="form-group">
+							<label class="sr-only" for="exampleInputEmail2">email</label>
+							<s:textfield name="login_email" key="label.email" size="8" cssClass="form-control" id="inputEmail1" placeholder="Email" />
+							<s:fielderror fieldName="login_email"/>
+						</div>
+						<div class="form-group">
+							<label class="sr-only" for="exampleInputPassword2">Password</label>
+							<s:password name="login_password" key="label.password" size="8" cssClass="form-control" id="inputPassword1" placeholder="Password" />
+							<s:fielderror fieldName="login_password"/>
+						</div>
+			
+						<button type="submit" class="btn btn-default">Sign in</button>
+					</s:form>
+					<p class="navbar-text pull-right"><small><a href="/themaopdracht5/jsp/register.jsp">Not using Auctify yet? Register here!</a></small></p>
+				</s:if>
+				<s:else>
+					<p>Welcome, <s:property value="#session.user.email" /></p>
+					<p><small><a href="<s:url action='logout'/>">Log out!</a></small></p>
+					
+				</s:else>
 				
 			</div>
 			

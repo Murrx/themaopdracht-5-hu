@@ -3,6 +3,8 @@ package com.th5.strutsActions;
 import java.util.Map;
 
 import org.apache.catalina.Session;
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
@@ -17,11 +19,11 @@ import com.th5.domain.service.ServiceProvider;
  * @author Joris Rijkes
  * @version 0.1 alpha
  */
-public class LoginAction extends ActionSupport {
+public class LoginAction extends ActionSupport implements SessionAware {
 
 	private String login_email;
 	private String login_password;
-	//private Map session;
+	private SessionMap<String, Object> userSession;
 	private User user;
 
 	/**
@@ -33,7 +35,7 @@ public class LoginAction extends ActionSupport {
 	 */
 	public String execute() {
 		
-		//session.put("user", user);
+		userSession.put("user", user);
 		return ActionSupport.SUCCESS;
 
 	}
@@ -112,5 +114,10 @@ public class LoginAction extends ActionSupport {
 	 */
 	public void setLogin_password(String login_password) {
 		this.login_password = login_password;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.userSession = (SessionMap<String, Object>) session;
 	}
 }
