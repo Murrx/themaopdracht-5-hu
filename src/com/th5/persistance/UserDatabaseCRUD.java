@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.th5.domain.model.User;
+import com.th5.domain.model.UserRights;
 
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
@@ -28,8 +29,10 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				String password = result.getString("usr_password");
 				String displayName = result.getString("usr_display_name");
 				int userId = result.getInt("usr_pk_user_id");
+				UserRights rights = UserRights.fromInteger(result.getInt("usr_right_id"));
 				
-				user = new User(username, password, displayName);
+				user = new User(userId, username, password, displayName, rights);
+				System.out.println("UserDatabaseCRUD.java :" + user);
 			}
 
 		}catch(SQLException e){
@@ -67,10 +70,11 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		boolean result = true;
 		
 		try{
-			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password, usr_display_name) VALUES(?,?,?)");
+			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password, usr_display_name, usr_right_id) VALUES(?,?,?,?)");
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getDisplayName());
+			statement.setInt(4, user.getRights().getRightsValue());
 			statement.executeQuery();
 
 		}catch(SQLException e){

@@ -1,6 +1,7 @@
 package com.th5.domain.service;
 
 import com.th5.domain.model.User;
+import com.th5.domain.model.UserRights;
 import com.th5.domain.other.UserListManager;
 
 public class AuctionService implements AuctionServiceInterface{
@@ -22,7 +23,7 @@ public class AuctionService implements AuctionServiceInterface{
 	
 	@Override
 	public boolean register(String email, String password, String displayName) {
-		return userList.create(new User(email, password, displayName));
+		return userList.create(new User(email, password, displayName, UserRights.USER));
 	}
 	
 
