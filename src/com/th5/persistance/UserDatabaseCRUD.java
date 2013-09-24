@@ -40,7 +40,6 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				UserRights rights = UserRights.fromInteger(result.getInt("usr_right_id"));
 				
 				user = new User(userId, username, password, displayName, rights);
-				System.out.println("UserDatabaseCRUD.java :" + user);
 			}
 
 		}catch(SQLException e){
@@ -55,7 +54,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				e.printStackTrace();
 			}
 		}
-
+		if (user == null) throw new AuctifyException("user not found");
 		return user;
 	}
 

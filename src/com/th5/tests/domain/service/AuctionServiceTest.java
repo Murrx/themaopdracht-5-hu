@@ -29,10 +29,12 @@ public class AuctionServiceTest {
 			fail(e.getMessage());
 		}
 	}
+	
 	@Test (expected = AuctifyException.class)
 	public void loginTestUnexistingUser() throws AuctifyException{
 		User user = service.login("dakoika", "admin");
 	}
+	
 	@Test (expected = AuctifyException.class)
 	public void loginTestIncorrectPassword() throws AuctifyException{
 		User user = service.login("admin", "test");
