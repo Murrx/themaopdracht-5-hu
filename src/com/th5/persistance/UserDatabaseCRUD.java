@@ -14,8 +14,15 @@ import com.th5.domain.other.AuctifyException;
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 	@Override
-	public User retrieve(String identifier) {
-		Connection connection = JDBCService.getConnection();
+	public User retrieve(String identifier) throws AuctifyException {
+		
+		Connection connection;
+		try {
+			connection = JDBCService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		
 		PreparedStatement statement = null;
 		User user = null;
 
@@ -66,7 +73,14 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 	@Override
 	public void create(User user) throws AuctifyException {
-		Connection connection = JDBCService.getConnection();
+		
+		Connection connection;
+		try {
+			connection = JDBCService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		
 		PreparedStatement statement = null;
 		
 		try{

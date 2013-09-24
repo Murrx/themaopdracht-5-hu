@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.th5.domain.other.AuctifyException;
+
 public class JDBCService {
 	
-	public static Connection getConnection() {
+	public static Connection getConnection() throws SQLException{
 
 		System.out.println("-------- Oracle JDBC Connection Testing ------");
 
@@ -32,7 +34,7 @@ public class JDBCService {
 		} catch (SQLException e) {
 
 			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
+			throw e;
 
 		}
 
@@ -41,7 +43,7 @@ public class JDBCService {
 			return connection;
 		} else {
 			System.out.println("Failed to make connection!");
-			return null;
+			throw new SQLException("Failed to make connection!");
 		}
 	}
 

@@ -35,27 +35,27 @@ public class UserListManager implements CRUD_Interface<User>{
 		if (user == null){
 			user = userDatabaseCRUD.retrieve(login_email);
 			if (user != null) userList.add(user);
+			else throw new AuctifyException("user not found");
 		}
 		return user;
 	}
-
-	private User getUserFromList(String login_email){
-		User user = null;
-		int index = Collections.binarySearch(userList, new User(login_email));
-		System.out.println(userList);
-		if ( index >= 0){
-			user = userList.get(index);
+		private User getUserFromList(String login_email){
+			User user = null;
+			int index = Collections.binarySearch(userList, new User(login_email));
+			System.out.println(userList);
+			if ( index >= 0){
+				user = userList.get(index);
+			}
+			return user;
 		}
-		return user;
-	}
 
-	private boolean emailAvailable(String email) throws AuctifyException{
-		return userDatabaseCRUD.retrieve(email) == null;
-	}
+		private boolean emailAvailable(String email) throws AuctifyException{
+			return userDatabaseCRUD.retrieve(email) == null;
+		}
 
-	//Uninplemented methods
-	public ArrayList<User> search(String search) {System.out.println("Not implemented");return null;}
-	public ArrayList<User> retrieveAll() {System.out.println("Not implemented");return null;}
-	public void update(User object) {System.out.println("Not implemented");}
-	public void delete(User object){System.out.println("Not implemented");}
-}
+		//Uninplemented methods
+		public ArrayList<User> search(String search) {System.out.println("Not implemented");return null;}
+		public ArrayList<User> retrieveAll() {System.out.println("Not implemented");return null;}
+		public void update(User object) {System.out.println("Not implemented");}
+		public void delete(User object){System.out.println("Not implemented");}
+	}

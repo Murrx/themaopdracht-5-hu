@@ -16,7 +16,7 @@ public class AuctionService implements AuctionServiceInterface{
 	@Override
 	public User login(String login_email, String login_password) throws AuctifyException {
 		User user = userList.retrieve(login_email);
-		if (user == null && !user.getPassword().equals(login_password)){
+		if (user == null || !user.getPassword().equals(login_password)){
 			throw new AuctifyException("Username op password incorrect");	
 		}
 		return user;

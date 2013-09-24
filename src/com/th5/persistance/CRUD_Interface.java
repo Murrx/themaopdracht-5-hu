@@ -1,5 +1,6 @@
 package com.th5.persistance;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.th5.domain.model.User;
