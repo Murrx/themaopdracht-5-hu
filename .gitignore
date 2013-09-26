@@ -4,6 +4,8 @@
 *.jar
 *.war
 *.ear
+.dS_Store
 
 !lib/*
 !WebContent/WEB-INF/lib/*
+
