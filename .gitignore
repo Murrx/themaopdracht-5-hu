@@ -9,3 +9,5 @@
 !lib/*
 !WebContent/WEB-INF/lib/*
 
+
+build/classes/struts.xml
