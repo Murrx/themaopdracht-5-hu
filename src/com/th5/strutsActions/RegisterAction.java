@@ -1,7 +1,11 @@
 package com.th5.strutsActions;
 
+import java.util.List;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
+import com.th5.domain.model.validators.AttributeError;
+import com.th5.domain.model.validators.UserRegisterValidator;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
 
@@ -25,32 +29,27 @@ public class RegisterAction extends ActionSupport{
 	@Override
 	public void validate() {
 		
-		//String loginEmailRegex = "A-Za-z0-9.%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z\\S]{2,4}";
+		if (registerDisplayName.trim().equals("")) {
+			addFieldError("registerDisplayName", "display name is required");
+		}
 		
 		if (registerEmail.trim().equals("")) {
 			addFieldError("registerEmail", "email is required");
 		}
-		
-		//else if (!email.matches(loginEmailRegex)) {
-		//	addFieldError("email", "Invalid email");
-		//}
-		
-		//The loginPasswordRegex checks if there is atleast:
-		//- 1 digit or more.
-		//- 1 Uppercase letter or more.
-		//- 1 lowercase letter or more.
-		//- 8 characters or more in the string.
-		String loginPasswordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
-		
+				
 	    if (registerPassword.trim().equals("")) {
 			addFieldError("registerPassword", "password is required");
 		}
 	    else if (!registerPassword.equals(registerPassword2)){
 			addFieldError("registerPassword", "Passwords don't match");
 		}
-				
-		else if (!registerPassword.matches(loginPasswordRegex)) {
-			addFieldError("registerPassword", "Invalid password");
+	    User user = new User(registerEmail, registerPassword, registerDisplayName, null);
+		UserRegisterValidator urv = new UserRegisterValidator();
+		List<AttributeError> attributeErrorsList = urv.validate(user);
+		if (attributeErrorsList.size() > 0) {
+			for (AttributeError ate : attributeErrorsList) {
+		addFieldError("register_"+ate.getAttribute(), ate.getErrorMessage());
+			}
 		}
 	}
 
