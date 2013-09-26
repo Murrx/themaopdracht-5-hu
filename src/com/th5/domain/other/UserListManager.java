@@ -11,8 +11,8 @@ import com.th5.persistance.UserDatabaseCRUD;
 @SuppressWarnings("hiding")
 public class UserListManager implements CRUD_Interface<User>{
 
-	List<User> userList;
-	CRUD_Interface<User> userDatabaseCRUD;
+	private List<User> userList;
+	private CRUD_Interface<User> userDatabaseCRUD;
 
 	public UserListManager(){
 		userList = new SortedArrayList<User>();
