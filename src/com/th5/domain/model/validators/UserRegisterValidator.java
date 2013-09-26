@@ -12,6 +12,8 @@ import java.util.List;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+import sun.print.resources.serviceui;
+
 import com.th5.domain.model.User;
 
 public class UserRegisterValidator implements ValidatorInterface<User> {
@@ -39,19 +41,20 @@ public class UserRegisterValidator implements ValidatorInterface<User> {
 	
 	public void isValidPassword(User user) {
 		
-		if (user.getPassword().trim().equals("")) {
-			errorList.add(new AttributeError("password","password is required"));
-		}
 		
 		if (user.getPassword() == null) {
 			errorList.add(new AttributeError("password","password is required"));
-		}
+		} 
 		
-		if (user.getPassword().trim().length() < 8) {
+		else if (user.getPassword().trim().equals("")) {
+			errorList.add(new AttributeError("password","password is required"));
+		}
+				
+		else if (user.getPassword().trim().length() < 8) {
 			errorList.add(new AttributeError("password","Password has to be atleast 8 characters long"));
 		}
 		
-		if (user.getPassword().length() >= 8) {
+		else if (user.getPassword().length() >= 8) {
 			boolean upper = false;
 			boolean lower = false;
 			boolean number = false;
@@ -81,20 +84,21 @@ public class UserRegisterValidator implements ValidatorInterface<User> {
 	
 	public void isValidDisplayName(User user) {
 		
-		if (user.getDisplayName().trim().equals("")) {
-			errorList.add(new AttributeError("displayName","Display name is required"));
-		}
+		String regex = "(?=.*?[`~!@#$%^&*()\\-_=+\\\\\\|\\[{\\]};:'\",<.>/?]).*$";
 		
 		if (user.getDisplayName() == null) {
 			errorList.add(new AttributeError("displayName","Display name is required"));
 		}
 		
-		if (user.getDisplayName().trim().length() < 2) {
+		else if (user.getDisplayName().trim().equals("")) {
+			errorList.add(new AttributeError("displayName","Display name is required"));
+		}
+				
+		else if (user.getDisplayName().trim().length() < 2) {
 			errorList.add(new AttributeError("displayName","Display name has to be atleast 2 characters long"));
 		}
-		
-		String regex = "(?=.*?[`~!@#$%^&*()\\-_=+\\\\\\|\\[{\\]};:'\",<.>/?]).*$";
-		if (user.getDisplayName().matches(regex)) {
+
+		else if (user.getDisplayName().matches(regex)) {
 			errorList.add(new AttributeError("displayName","Display name may not contain special characters"));
 		}
 		
