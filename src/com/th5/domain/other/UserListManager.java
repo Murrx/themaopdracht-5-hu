@@ -21,7 +21,6 @@ public class UserListManager implements CRUD_Interface<User>{
 
 	@Override
 	public void create(User user) throws AuctifyException{
-		boolean result = false;
 		if (!emailAvailable(user.getEmail())){
 			throw new AuctifyException("Email adress is already in use");
 		}
@@ -39,23 +38,28 @@ public class UserListManager implements CRUD_Interface<User>{
 		}
 		return user;
 	}
-		private User getUserFromList(String login_email){
-			User user = null;
-			int index = Collections.binarySearch(userList, new User(login_email));
-			System.out.println(userList);
-			if ( index >= 0){
-				user = userList.get(index);
-			}
-			return user;
+	private User getUserFromList(String login_email){
+		User user = null;
+		int index = Collections.binarySearch(userList, new User(login_email));
+		System.out.println(userList);
+		if ( index >= 0){
+			user = userList.get(index);
 		}
-
-		private boolean emailAvailable(String email) throws AuctifyException{
-			return userDatabaseCRUD.retrieve(email) == null;
-		}
-
-		//Uninplemented methods
-		public ArrayList<User> search(String search) {System.out.println("Not implemented");return null;}
-		public ArrayList<User> retrieveAll() {System.out.println("Not implemented");return null;}
-		public void update(User object) {System.out.println("Not implemented");}
-		public void delete(User object){System.out.println("Not implemented");}
+		return user;
 	}
+
+	private boolean emailAvailable(String email){
+		boolean emailAvailable = true;
+		try {
+			userDatabaseCRUD.retrieve(email);
+			emailAvailable = false;
+		} catch (AuctifyException e) {}
+		return emailAvailable;
+	}
+
+	//Uninplemented methods
+	public ArrayList<User> search(String search) {System.out.println("Not implemented");return null;}
+	public ArrayList<User> retrieveAll() {System.out.println("Not implemented");return null;}
+	public void update(User object) {System.out.println("Not implemented");}
+	public void delete(User object){System.out.println("Not implemented");}
+}
