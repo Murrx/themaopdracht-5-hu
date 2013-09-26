@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
 import com.th5.domain.service.ServiceProvider;
 
+
 /**
  * Class that contains all the login-related methods.
  * 
@@ -48,14 +49,14 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	 */
 	@Override
 	public void validate() {
-
+				
 		if ("".equals(login_email.trim())) {
 			addFieldError("login_email", "username is required");
 		}
 		if ("".equals(login_password.trim())) {
 			addFieldError("login_password", "password is required");
 		} else {
-
+			
 			User foundUser = ServiceProvider.getService().login(login_email,
 					login_password);
 			
