@@ -8,13 +8,21 @@ import java.util.ArrayList;
 
 import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
+import com.th5.domain.other.AuctifyException;
 
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 	@Override
-	public User retrieve(String identifier) {
-		Connection connection = JDBCService.getConnection();
+	public User retrieve(String identifier) throws AuctifyException {
+		
+		Connection connection;
+		try {
+			connection = JDBCService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		
 		PreparedStatement statement = null;
 		User user = null;
 
@@ -32,7 +40,6 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				UserRights rights = UserRights.fromInteger(result.getInt("usr_right_id"));
 				
 				user = new User(userId, username, password, displayName, rights);
-				System.out.println("UserDatabaseCRUD.java :" + user);
 			}
 
 		}catch(SQLException e){
@@ -47,7 +54,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				e.printStackTrace();
 			}
 		}
-
+		if (user == null) throw new AuctifyException("user not found");
 		return user;
 	}
 
@@ -64,10 +71,16 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	}
 
 	@Override
-	public boolean create(User user) {
-		Connection connection = JDBCService.getConnection();
+	public void create(User user) throws AuctifyException {
+		
+		Connection connection;
+		try {
+			connection = JDBCService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		
 		PreparedStatement statement = null;
-		boolean result = true;
 		
 		try{
 			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password, usr_display_name, usr_right_id) VALUES(?,?,?,?)");
@@ -79,7 +92,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 		}catch(SQLException e){
 			e.printStackTrace();
-			result = false;
+			throw new AuctifyException("failed to add user");
 		}finally{
 			try {
 				if(statement != null)
@@ -90,8 +103,6 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				e.printStackTrace();
 			}
 		}
-		System.out.println(result);
-		return result;
 	}
 
 	@Override

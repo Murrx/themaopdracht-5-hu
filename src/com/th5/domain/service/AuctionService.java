@@ -3,6 +3,7 @@ package com.th5.domain.service;
 import com.th5.domain.model.User;
 import org.apache.commons.codec.digest.DigestUtils;
 import com.th5.domain.model.UserRights;
+import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.UserListManager;
 
 public class AuctionService implements AuctionServiceInterface{
@@ -18,20 +19,18 @@ public class AuctionService implements AuctionServiceInterface{
 	}
 	
 	@Override
-	public User login(String login_email, String login_password) {
+	public User login(String login_email, String login_password) throws AuctifyException {
 		login_password = encryptPassword(login_password);
 		User user = userList.retrieve(login_email);
-		if (user != null && user.getPassword().equals(login_password)){
-			return user;	
+		if (user == null || !user.getPassword().equals(login_password)){
+			throw new AuctifyException("Username op password incorrect");	
 		}
-		else return null;
+		return user;
 	}
 	
 	@Override
-	public boolean register(String email, String password, String displayName) {
+	public void register(String email, String password, String displayName) throws AuctifyException{
 		password = encryptPassword(password);
-		return userList.create(new User(email, password, displayName, UserRights.USER));
+		userList.create(new User(email, password, displayName, UserRights.USER));
 	}
-	
-
 }
