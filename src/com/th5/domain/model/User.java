@@ -1,7 +1,7 @@
 package com.th5.domain.model;
 
 public class User implements Comparable<User>{
-	
+	// TEST
 	private String email;
 	private String password;
 	private String displayName;
