@@ -13,8 +13,13 @@ import com.th5.domain.other.AuctifyException;
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
+	/**Attempt to retrieve the user from the database
+	 * @param email
+	 * @return a user object
+	 * @throws AuctifyException when the user is not found or when the database connection fails 
+	 */
 	@Override
-	public User retrieve(String identifier) throws AuctifyException {
+	public User retrieve(String email) throws AuctifyException {
 		
 		Connection connection;
 		try {
@@ -28,7 +33,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 		try{
 			statement = connection.prepareStatement("SELECT * FROM usr_users WHERE usr_email = ?");
-			statement.setString(1, identifier);
+			statement.setString(1, email);
 			ResultSet result = statement.executeQuery();
 
 			while(result.next()){

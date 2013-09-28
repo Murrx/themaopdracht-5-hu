@@ -3,7 +3,21 @@ package com.th5.domain.service;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 
+
 public interface AuctionServiceInterface {
-	public User login(String login_email, String login_password) throws AuctifyException;	
+	
+	/**Login a user with the given username and password
+	 * @param email
+	 * @param password
+	 * @return the user object if login is succesfull
+	 * @throws AuctifyException with a message describing the error, when login fails
+	 */
+	public User login(String email, String password) throws AuctifyException;	
+	
+	/**Encrypts a password to sha512hex
+	 * @param password
+	 * @return the encrypted password
+	 */
+	
 	public void register(String email, String password, String displayName) throws AuctifyException;
 }

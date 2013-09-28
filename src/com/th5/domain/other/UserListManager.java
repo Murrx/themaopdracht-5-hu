@@ -28,19 +28,36 @@ public class UserListManager implements CRUD_Interface<User>{
 		userList.add(user);
 	}
 
+	
+	
+	/**Attempt to retrieve user
+	 * First attempt to retrieve user from userlist
+	 * If that fails it attempts to retrieve use from database
+	 * 
+	 * @param email identifier of user to retrieve
+	 * @return the retrieved user
+	 * @throws AuctifyException when the user is not found
+	 * @throws AuctifyException with a message describing the error, when login fails
+	 */
 	@Override
-	public User retrieve(String login_email) throws AuctifyException{
-		User user = getUserFromList(login_email);
+	public User retrieve(String email) throws AuctifyException{
+		User user = getUserFromUserList(email);
 		if (user == null){
-			user = userDatabaseCRUD.retrieve(login_email);
+			user = userDatabaseCRUD.retrieve(email);
 			if (user != null) userList.add(user);
 			else throw new AuctifyException("user not found");
 		}
 		return user;
 	}
-	private User getUserFromList(String login_email){
+	
+	
+	/**Attempt to get a user from userList
+	 * @param email
+	 * @return the user. returns null when user is not found
+	 */
+	private User getUserFromUserList(String email){
 		User user = null;
-		int index = Collections.binarySearch(userList, new User(login_email));
+		int index = Collections.binarySearch(userList, new User(email));
 		System.out.println(userList);
 		if ( index >= 0){
 			user = userList.get(index);
@@ -48,6 +65,10 @@ public class UserListManager implements CRUD_Interface<User>{
 		return user;
 	}
 
+	/**check if a given email is available to use
+	 * @param email
+	 * @return true if the email is available
+	 */
 	private boolean emailAvailable(String email){
 		boolean emailAvailable = true;
 		try {

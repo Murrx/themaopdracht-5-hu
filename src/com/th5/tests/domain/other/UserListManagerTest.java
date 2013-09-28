@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.UserListManager;
-import com.th5.domain.service.AuctionService;
-import com.th5.domain.service.AuctionServiceInterface;
-import com.th5.domain.service.ServiceProvider;
 
 public class UserListManagerTest {
 	static UserListManager ulm;
