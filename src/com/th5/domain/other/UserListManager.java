@@ -37,7 +37,6 @@ public class UserListManager implements CRUD_Interface<User>{
 	 * @param email identifier of user to retrieve
 	 * @return the retrieved user
 	 * @throws AuctifyException when the user is not found
-	 * @throws AuctifyException with a message describing the error, when login fails
 	 */
 	@Override
 	public User retrieve(String email) throws AuctifyException{
