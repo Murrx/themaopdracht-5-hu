@@ -42,7 +42,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				String password = result.getString("usr_password");
 				String displayName = result.getString("usr_display_name");
 				int userId = result.getInt("usr_pk_user_id");
-				UserRights rights = UserRights.fromInteger(result.getInt("usr_right_id"));
+				UserRights rights = UserRights.fromInteger(result.getInt("usr_fk_right_id"));
 				
 				user = new User(userId, username, password, displayName, rights);
 			}
