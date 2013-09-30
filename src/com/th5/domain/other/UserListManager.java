@@ -19,6 +19,16 @@ public class UserListManager implements CRUD_Interface<User>{
 		userDatabaseCRUD = new UserDatabaseCRUD();
 	}
 
+
+	/**
+	 * Attempt to create user
+	 * Attempts to create user. If the email address is not already in use, the user
+	 * is created and added to the list and the database.
+	 * 
+	 * @param user User object to be created
+	 * @return void
+	 * @throws AuctifyException when the email address of the user is used by another user.
+	 */
 	@Override
 	public void create(User user) throws AuctifyException{
 		if (!emailAvailable(user.getEmail())){
@@ -30,7 +40,8 @@ public class UserListManager implements CRUD_Interface<User>{
 
 	
 	
-	/**Attempt to retrieve user
+	/**
+	 * Attempt to retrieve user
 	 * First attempt to retrieve user from userlist
 	 * If that fails it attempts to retrieve use from database
 	 * 
@@ -50,7 +61,8 @@ public class UserListManager implements CRUD_Interface<User>{
 	}
 	
 	
-	/**Attempt to get a user from userList
+	/**
+	 * Attempt to get a user from userList
 	 * @param email
 	 * @return the user. returns null when user is not found
 	 */
@@ -64,7 +76,8 @@ public class UserListManager implements CRUD_Interface<User>{
 		return user;
 	}
 
-	/**check if a given email is available to use
+	/**
+	 * check if a given email is available to use
 	 * @param email
 	 * @return true if the email is available
 	 */
