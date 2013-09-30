@@ -5,7 +5,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Auctify - ${param.title}</title>
+		<title>Auctify - <s:property value="title" /></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<link href="/themaopdracht5/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="/themaopdracht5/bootstrap/css/style.css" rel="stylesheet">		
@@ -27,7 +27,8 @@
 						<span class="navbar-toggle-bar"></span>
 						<span class="navbar-toggle-bar"></span>
 						<span class="navbar-toggle-bar"></span>
-					</div>
+					</button>
+				</div>
 				<div class="col-sm-6">
 					<!-- Search -->
 					<form role="search">
@@ -70,3 +71,39 @@
 					
 				</div>
 			</header>
+			<div class="row">
+				<s:if test='filter'>
+				<div class="col-sm-2">
+					<!-- Filter -->
+					Filter
+				</div>					
+				</s:if>
+				<s:if test='filter && optional'>
+				<div class="col-sm-8">
+				</s:if>
+				<s:elseif test='filter || optional'>
+				<div class="col-sm-10">
+				</s:elseif>
+				<s:else>
+				<div class="col-sm-12">
+				</s:else>
+					<div class="row">
+						<nav class="col-sm-12">
+							<!-- Navigation -->
+							
+							<ul class="nav nav-tabs">
+								<li <s:if test='location == "home"'>class="active"</s:if>><a href="#">Home</a></li>
+								<li <s:if test='location == "auction"'>class="active"</s:if>><a href="#">Auctions</a></li>
+								<li <s:if test='location == "mass-auctions"'>class="active"</s:if>><a href="#">Mass Auctions</a></li>
+								<li <s:if test='location == "create-new-auction"'>class="active"</s:if>><a href="#">Create New Auction</a></li>
+							</ul>
+						</nav>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<!-- Breadcrumbs -->
+							Home > <s:property value="title" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">

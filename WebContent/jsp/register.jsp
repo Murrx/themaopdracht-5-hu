@@ -1,23 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<s:include value="/includes/header.jsp">
-   <s:param name="title">Register</s:param>
-</s:include>
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="row">
-					<s:include value="/includes/menu.jsp">
-					   <s:param name="location">home</s:param>
-					</s:include>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<!-- Breadcrumbs -->
-							Home > Register
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
+<s:push value="#{'title':'Register', 'location': 'home', 'filter': true}">
+	<s:include value="/includes/header.jsp" />
+</s:push>
 							<!-- Body -->
 							<h2>Register Application</h2>
 							<s:actionerror />
