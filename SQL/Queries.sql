@@ -163,4 +163,26 @@ Insert into THO5_2013_2A_TEAM5.USR_USERS (USR_PK_USER_ID,USR_EMAIL,USR_PASSWORD,
     )
     ;
 
+    ---------------------
+    
+  BEGIN
+
+pkg_user_modification.pr_register_user
+   (
+      'smartlapus@gmail.com',
+      '0efeb7097c048beaf84526394e44dfe9125882bb938945deff496fae2bad73a19417e3a52956fe1164af990b5b49647f72badb48b57c3616a8687673d8801654',
+      'smartlapus',
+      
+      'Martin',
+     'Bakker',
+     1,
+      '12-JUN-88',
+      
+      '3584 LG',
+     '118',
+      'Leuvenplein',
+      'Utrecht'
+    );
+    
+END;
 
