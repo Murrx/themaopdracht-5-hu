@@ -12,11 +12,21 @@ import com.th5.domain.service.ServiceProvider;
 @SuppressWarnings("serial")
 public class RegisterAction extends ActionSupport {
 
-	private String register_email;
-	private String register_password;
-	private String register_password2;
-	private String register_displayName;
-
+	private String 	register_email,
+					register_password, 
+					register_password2, 
+					register_displayName,
+					
+					register_firstName,
+					register_lastName,
+					register_gender,
+					register_birthdate,
+					
+					register_postalCode,
+					register_houseNumber,
+					register_street,
+					register_city;
+	
 	@Override
 	public String execute() throws Exception {
 		try {
@@ -99,5 +109,69 @@ public class RegisterAction extends ActionSupport {
 
 	public void setRegister_displayName(String registerDisplayName) {
 		this.register_displayName = registerDisplayName;
+	}
+
+	public String getRegister_firstName() {
+		return register_firstName;
+	}
+
+	public void setRegister_firstName(String register_firstName) {
+		this.register_firstName = register_firstName;
+	}
+
+	public String getRegister_lastName() {
+		return register_lastName;
+	}
+
+	public void setRegister_lastName(String register_lastName) {
+		this.register_lastName = register_lastName;
+	}
+
+	public String getRegister_gender() {
+		return register_gender;
+	}
+
+	public void setRegister_gender(String register_gender) {
+		this.register_gender = register_gender;
+	}
+
+	public String getRegister_birthdate() {
+		return register_birthdate;
+	}
+
+	public void setRegister_birthdate(String register_birthdate) {
+		this.register_birthdate = register_birthdate;
+	}
+
+	public String getRegister_postalCode() {
+		return register_postalCode;
+	}
+
+	public void setRegister_postalCode(String register_postalCode) {
+		this.register_postalCode = register_postalCode;
+	}
+
+	public String getRegister_houseNumber() {
+		return register_houseNumber;
+	}
+
+	public void setRegister_houseNumber(String register_houseNumber) {
+		this.register_houseNumber = register_houseNumber;
+	}
+
+	public String getRegister_street() {
+		return register_street;
+	}
+
+	public void setRegister_street(String register_street) {
+		this.register_street = register_street;
+	}
+
+	public String getRegister_city() {
+		return register_city;
+	}
+
+	public void setRegister_city(String register_city) {
+		this.register_city = register_city;
 	}
 }

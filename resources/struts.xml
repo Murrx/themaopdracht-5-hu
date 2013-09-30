@@ -5,7 +5,7 @@
 
 <struts>
 	<constant name="struts.custom.i18n.resources"
-		value="ApplicationResources" />
+		value="global" />
 	<constant name="struts.devMode" value="true" />
 	
 	<!-- You can define packages directly in this file, but its probably best 
