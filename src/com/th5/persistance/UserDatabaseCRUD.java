@@ -97,16 +97,16 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			statement.setString(3, user.getDisplayName());
 			
 			// --- PRS_PERSONS ---- //
-			statement.setString(4, user.person.getFirstName());
-			statement.setString(5, user.getLastName());
-			statement.setInt(6, user.getGender());
-			statement.setDate(7, user.getBirthdate());
+			statement.setString(4, user.getPerson().getFirstName());
+			statement.setString(5, user.getPerson().getLastName());
+			statement.setInt(6, user.getPerson().getGender());
+			statement.setDate(7, user.getPerson().getBirthdate());
 			
 			// --- ADR_ADRESSES ---- //
-			statement.setString(8, user.getPostalCode());
-			statement.setString(9, user.getHouseNumber());
-			statement.setString(10, user.getStreet());
-			statement.setString(11, user.getCity());
+			statement.setString(8, user.getAddress().getPostalCode());
+			statement.setString(9, user.getAddress().getHouseNumber());
+			statement.setString(10, user.getAddress().getStreet());
+			statement.setString(11, user.getAddress().getCity());
 						
 			statement.executeQuery();
 			

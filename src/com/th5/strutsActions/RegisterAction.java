@@ -1,5 +1,6 @@
 package com.th5.strutsActions;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -12,26 +13,31 @@ import com.th5.domain.service.ServiceProvider;
 @SuppressWarnings("serial")
 public class RegisterAction extends ActionSupport {
 
-	private String 	register_email,
+	private String register_email, 
 					register_password, 
-					register_password2, 
+					register_password2,
 					register_displayName,
-					
-					register_firstName,
+		
+					register_firstName, 
 					register_lastName,
-					register_gender,
-					register_birthdate,
-					
-					register_postalCode,
-					register_houseNumber,
+				
+					register_postalCode, 
+					register_houseNumber, 
 					register_street,
 					register_city;
 	
+	private int register_gender;
+	Date register_birthdate;
+
 	@Override
 	public String execute() throws Exception {
 		try {
 			ServiceProvider.getService().register(register_email,
-					register_password, register_displayName);
+					register_password, register_displayName,
+					register_firstName, register_lastName, register_gender,
+					register_birthdate, register_postalCode,
+					register_houseNumber, register_street, register_city);
+
 		} catch (AuctifyException e) {
 			return ActionSupport.ERROR;
 		}
@@ -49,8 +55,7 @@ public class RegisterAction extends ActionSupport {
 
 		if (register_email == null) {
 			addFieldError("register_email", "email is required");
-		}
-		else if ("".equals(register_email.trim())) {
+		} else if ("".equals(register_email.trim())) {
 			addFieldError("register_email", "email is required");
 		}
 
@@ -65,6 +70,9 @@ public class RegisterAction extends ActionSupport {
 		} else if (!register_password.equals(register_password2)) {
 			addFieldError("register_password", "Passwords don't match");
 		} else {
+
+//			Person person = new Person();  -- TODO::
+//			Address address = new Address();
 			
 			User user = new User(register_email, register_password,
 					register_displayName, null);
@@ -127,19 +135,21 @@ public class RegisterAction extends ActionSupport {
 		this.register_lastName = register_lastName;
 	}
 
-	public String getRegister_gender() {
+	
+
+	public int getRegister_gender() {
 		return register_gender;
 	}
 
-	public void setRegister_gender(String register_gender) {
+	public void setRegister_gender(int register_gender) {
 		this.register_gender = register_gender;
 	}
 
-	public String getRegister_birthdate() {
+	public Date getRegister_birthdate() {
 		return register_birthdate;
 	}
 
-	public void setRegister_birthdate(String register_birthdate) {
+	public void setRegister_birthdate(Date register_birthdate) {
 		this.register_birthdate = register_birthdate;
 	}
 

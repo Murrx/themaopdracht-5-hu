@@ -2,6 +2,8 @@ package com.th5.domain.service;
 
 import java.sql.Date;
 
+import com.th5.domain.model.Address;
+import com.th5.domain.model.Person;
 import com.th5.domain.model.User;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -41,7 +43,15 @@ public class AuctionService implements AuctionServiceInterface{
 	@Override
 	public void register(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException{
 		password = encryptPassword(password);
-		userList.create(new User(email, password, displayName, UserRights.USER));
+		
+		Person person = new Person(firstName, lastName, gender, birthdate);
+		Address address = new Address(postalCode, houseNumber, street, city);
+		User user = new User(email, password, displayName, UserRights.USER);
+		
+		user.setAddress(address);
+		user.setPerson(person);
+		
+		userList.create(user);
 	}
 	
 	

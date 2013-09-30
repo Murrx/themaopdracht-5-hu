@@ -1,13 +1,12 @@
 package com.th5.domain.model;
 
-import java.sql.Date;
 
 public class User implements Comparable<User>{
 
 	private String email, password, displayName;
 	
 	private Person person;
-	private Address adress;
+	private Address address;
 
 
 	private int userId;
@@ -45,6 +44,20 @@ public class User implements Comparable<User>{
 		this.email = email;
 	}
 	
+	
+	
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		User otherUser = (User)obj;
