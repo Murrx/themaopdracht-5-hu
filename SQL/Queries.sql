@@ -90,28 +90,61 @@ foreign key (USR_FK_PERSON_ID)
 references PRS_PERSONS(PRS_PK_PERSON_ID) 
 deferrable initially deferred;
 
+ALTER TABLE PRS_PERSONS
+add constraint FK_PRS_ADDRESS_ID
+foreign key (PRS_FK_ADDRESS_ID) 
+references ADR_ADDRESSES(ADR_PK_ADDRESS_ID) 
+deferrable initially deferred;
+
 /* --- COMMENTS ON TABLES --- */
 
 COMMENT ON TABLE USR_USERS IS 'Contains information about a User Object';
 
 ---------------------------------------------------
 
-CREATE SEQUENCE usr_pk_user_id
+/* --- SEQUENCES --- */
+CREATE SEQUENCE seq_usr_pk_user_id
 	start with 1
 	increment by 1
 	NOMAXVALUE;
 	
-CREATE SEQUENCE seq_prs_
+CREATE SEQUENCE seq_prs_pk_person_id
 	start with 1
 	increment by 1
 	NOMAXVALUE;
 	
+CREATE SEQUENCE seq_adr_pk_address_id
+	start with 1
+	increment by 1
+	NOMAXVALUE;
+	
+/* --- TRIGGERS --- */
+
 CREATE TRIGGER tr_pk_users
 	BEFORE INSERT ON USR_USERS
 	FOR EACH ROW
 	BEGIN
-		SELECT auto_increment_start.nextval 
+		SELECT seq_usr_.nextval 
 		INTO :new.USR_PK_USER_ID
+		FROM dual;
+	END;
+	
+CREATE TRIGGER tr_pk_persons
+	BEFORE INSERT ON PRS_PERSONS
+	FOR EACH ROW
+	BEGIN
+		SELECT seq_prs_pk_person_id.nextval 
+		INTO :new.PRS_PK_PERSON_ID
+		FROM dual;
+	END;
+	
+
+CREATE TRIGGER tr_pk_address
+	BEFORE INSERT ON ADR_ADDRESSES
+	FOR EACH ROW
+	BEGIN
+		SELECT seq_adr_pk_address_id.nextval 
+		INTO :new.ADR_PK_ADDRESS_ID
 		FROM dual;
 	END;
 	
