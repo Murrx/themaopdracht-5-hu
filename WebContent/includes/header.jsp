@@ -41,6 +41,30 @@
 				</div>
 				<div class="col-sm-3" id="login-form">
 					<!-- Login -->
+					<s:actionerror />
+					<s:if test="%{#session.user ==null}">
+					
+						<s:form action="login.action" method="post" theme="simple" cssClass="navbar-form navbar-right" role="form">
+							<div class="form-group">
+								<label class="sr-only" for="exampleInputEmail2">email</label>
+								<s:textfield name="login_email" key="label.email" size="8" cssClass="form-control" id="inputEmail1" placeholder="Email" />
+								<s:fielderror fieldName="login_email"/>
+							</div>
+							<div class="form-group">
+								<label class="sr-only" for="exampleInputPassword2">Password</label>
+								<s:password name="login_password" key="label.password" size="8" cssClass="form-control" id="inputPassword1" placeholder="Password" />
+								<s:fielderror fieldName="login_password"/>
+							</div>
+				
+							<button type="submit" class="btn btn-default">Sign in</button>
+						</s:form>
+						<p class="navbar-text pull-right"><small><a href="/themaopdracht5/jsp/register.jsp">Not using Auctify yet? Register here!</a></small></p>
+					</s:if>
+					<s:else>
+						<p>Welcome, <s:property value="#session.user.email" /></p>
+						<p><small><a href="<s:url action='logout'/>">Log out!</a></small></p>
+						
+					</s:else>
 					<form>
 						<div class="row">
 							<div class="col-sm-7 col-sm-offset-1">
@@ -62,38 +86,6 @@
 			</header>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Auctify - ${param.title}</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Bootstrap -->
-		<link href="/themaopdracht5/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-	</head>
-	<body>
-		
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
-					<span class="icon-bar"></span> <span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/themaopdracht5">
-					<img src="http://smartlapus.com/th5/logo.png">
-				</a>
-			</div>
-		
-			<!--  Search bar -->
-			<s:form cssClass="navbar-form navbar-left" role="form">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search for a product">
-				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
-			</s:form>
-		
-		
 			<!--  Login form -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<s:actionerror />
