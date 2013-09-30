@@ -1,6 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Auctify - ${param.title}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link href="/themaopdracht5/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/themaopdracht5/bootstrap/css/style.css" rel="stylesheet">		
+		
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+			<script src="/themaopdracht5/bootstrap/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		<div class="container">
+			<header class="row">
+				<div class="col-sm-3">
+					<!-- Logo -->
+					<span class="logo-part-one">Auctify</span><span class="logo-part-two">.com</span>
+					<button class="navbar-toggle pull-right" type="button">
+						<span class="navbar-toggle-bar"></span>
+						<span class="navbar-toggle-bar"></span>
+						<span class="navbar-toggle-bar"></span>
+						<span class="navbar-toggle-bar"></span>
+					</div>
+				<div class="col-sm-6">
+					<!-- Search -->
+					<form role="search">
+						<div class="form-group" id="search-bar">
+							<div id="floater"></div>
+							<div id="search-bar-content">
+								<input type="search" class="form-control input-lg" placeholder="Search">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-sm-3" id="login-form">
+					<!-- Login -->
+					<form>
+						<div class="row">
+							<div class="col-sm-7 col-sm-offset-1">
+								<div class="form-group">
+									<input type="text" class="form-control input-small" placeholder="E-mail" />
+								</div>
+								<div class="form-group">
+									<input type="password" class="form-control input-small" placeholder="Password" />
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<button type="submit" class="btn btn-default btn-block">Log in</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</header>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
