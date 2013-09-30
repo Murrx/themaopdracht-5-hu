@@ -88,12 +88,30 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		PreparedStatement statement = null;
 		
 		try{
-			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password, usr_display_name, usr_fk_right_id) VALUES(?,?,?,?)");
+			
+			statement = connection.prepareCall("{call pkg_user_modification.pr_register_user(?,?,?,?,?,?,?,?,?,?,?)}");
+			
+			// --- USR_USERS ---- //
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getDisplayName());
-			statement.setInt(4, user.getRights().getRightsValue());
+			
+			// --- PRS_PERSONS ---- //
+			statement.setString(4, user.person.getFirstName());
+			statement.setString(5, user.getLastName());
+			statement.setInt(6, user.getGender());
+			statement.setDate(7, user.getBirthdate());
+			
+			// --- ADR_ADRESSES ---- //
+			statement.setString(8, user.getPostalCode());
+			statement.setString(9, user.getHouseNumber());
+			statement.setString(10, user.getStreet());
+			statement.setString(11, user.getCity());
+						
 			statement.executeQuery();
+			
+		
+			
 
 		}catch(SQLException e){
 			e.printStackTrace();

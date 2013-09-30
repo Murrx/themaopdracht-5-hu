@@ -1,10 +1,15 @@
 package com.th5.domain.model;
 
+import java.sql.Date;
+
 public class User implements Comparable<User>{
-	// TEST
-	private String email;
-	private String password;
-	private String displayName;
+
+	private String email, password, displayName;
+	
+	private Person person;
+	private Address adress;
+
+
 	private int userId;
 	private UserRights rights;
 
@@ -67,4 +72,7 @@ public class User implements Comparable<User>{
 	public UserRights getRights(){
 		return rights;
 	}
+
+	
+	
 }

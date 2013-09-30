@@ -1,5 +1,7 @@
 package com.th5.domain.service;
 
+import java.sql.Date;
+
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 
@@ -19,5 +21,5 @@ public interface AuctionServiceInterface {
 	 * @return the encrypted password
 	 */
 	
-	public void register(String email, String password, String displayName) throws AuctifyException;
+	public void register(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException;
 }
