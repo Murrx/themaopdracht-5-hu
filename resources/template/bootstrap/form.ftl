@@ -20,7 +20,7 @@
  * under the License.
  */
 -->
-<#include "/${parameters.templateDir}/css_xhtml/form-validate.ftl" />
+<#include "/${parameters.templateDir}/${parameters.theme}/form-validate.ftl" />
 <#include "/${parameters.templateDir}/simple/form-common.ftl" />
 <#if (parameters.validate?default(false))>
   onreset="${parameters.onreset?default('clearErrorMessages(this);clearErrorLabels(this);')}"
@@ -30,4 +30,5 @@
   </#if>
 </#if>
 >
-<#include "/${parameters.templateDir}/css_xhtml/control.ftl">
+<div class="row"><!-- form row div -->
+<#include "/${parameters.templateDir}/${parameters.theme}/control.ftl">

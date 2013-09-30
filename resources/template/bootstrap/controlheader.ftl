@@ -20,12 +20,11 @@
  * under the License.
  */
 -->
+<div class="form-group"><!-- begin control group -->
 <#include "/${parameters.templateDir}/css_xhtml/controlheader-core.ftl">
 <#if parameters.labelposition?default("top") == 'top'>
-<!--BOOTSTRAP TEST Control Header-->
 <div <#rt/>
 <#else>
 <span <#rt/>
 </#if>
-<#if parameters.id??>id="wwctrl_${parameters.id}"<#rt/></#if> class="wwctrl">
-    
+<#if parameters.id??>id="wwctrl_${parameters.id}"<#rt/></#if> class="wwctrl"> 

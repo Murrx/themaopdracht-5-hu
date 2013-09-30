@@ -20,7 +20,9 @@
  * under the License.
  */
 -->
+
 <#include "/${parameters.templateDir}/css_xhtml/control-close.ftl" />
+</div> <!-- end form row div -->
 <#include "/${parameters.templateDir}/simple/form-close.ftl" />
 <#include "/${parameters.templateDir}/xhtml/form-close-validate.ftl" />
 <#if parameters.focusElement?if_exists != "">

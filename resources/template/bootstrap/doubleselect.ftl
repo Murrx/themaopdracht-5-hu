@@ -20,7 +20,7 @@
  * under the License.
  */
 -->
-<#--include "/${parameters.templateDir}/css_xhtml/controlheader.ftl" /-->
+<#--include "/${parameters.templateDir}/${parameters.theme}/controlheader.ftl" /-->
 <#include "/${parameters.templateDir}/${parameters.theme}/controlheader.ftl" />
 <#include "/${parameters.templateDir}/simple/doubleselect.ftl" />
-<#include "/${parameters.templateDir}/css_xhtml/controlfooter.ftl" /><#nt/>
+<#include "/${parameters.templateDir}/${parameters.theme}/controlfooter.ftl" /><#nt/>

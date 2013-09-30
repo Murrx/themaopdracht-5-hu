@@ -44,3 +44,4 @@ ${parameters.after?if_exists}<#t/>
 </#if>
 </#if>
 </div>
+</div> <!-- end control group -->
