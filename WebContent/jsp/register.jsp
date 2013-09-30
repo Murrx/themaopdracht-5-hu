@@ -22,6 +22,6 @@
 								<s:textfield name="register_street" key="label.street" placeholder="Street" size="20" cssClass="form-control" />
 								<s:textfield name="register_city" key="label.city" placeholder="City" size="20" cssClass="form-control" />
 								
-								<s:submit method="execute" key="label.register" align="center" cssClass="btn btn-default" />
+								<s:submit method="execute" key="Register" align="center" cssClass="btn btn-default" />
 							</s:form>
 <s:include value="/includes/footer.jsp" />
