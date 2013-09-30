@@ -14,15 +14,21 @@ public class AuctionService implements AuctionServiceInterface{
 		userList = new UserListManager();
 	}
 	
+	
+	/**Encrypts a password to sha512hex
+	 * @param password
+	 * @return the encrypted password
+	 */
 	private String encryptPassword (String password) {
 		return DigestUtils.sha512Hex( password );
 	}
 	
+	
 	@Override
-	public User login(String login_email, String login_password) throws AuctifyException {
-		login_password = encryptPassword(login_password);
-		User user = userList.retrieve(login_email);
-		if (user == null || !user.getPassword().equals(login_password)){
+	public User login(String email, String password) throws AuctifyException {
+		password = encryptPassword(password);
+		User user = userList.retrieve(email);
+		if (user == null || !user.getPassword().equals(password)){
 			throw new AuctifyException("Username op password incorrect");	
 		}
 		return user;

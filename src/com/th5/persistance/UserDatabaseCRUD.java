@@ -13,8 +13,13 @@ import com.th5.domain.other.AuctifyException;
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
+	/**Attempt to retrieve the user from the database
+	 * @param email
+	 * @return a user object
+	 * @throws AuctifyException when the user is not found or when the database connection fails 
+	 */
 	@Override
-	public User retrieve(String identifier) throws AuctifyException {
+	public User retrieve(String email) throws AuctifyException {
 		
 		Connection connection;
 		try {
@@ -28,7 +33,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 		try{
 			statement = connection.prepareStatement("SELECT * FROM usr_users WHERE usr_email = ?");
-			statement.setString(1, identifier);
+			statement.setString(1, email);
 			ResultSet result = statement.executeQuery();
 
 			while(result.next()){
@@ -37,7 +42,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				String password = result.getString("usr_password");
 				String displayName = result.getString("usr_display_name");
 				int userId = result.getInt("usr_pk_user_id");
-				UserRights rights = UserRights.fromInteger(result.getInt("usr_right_id"));
+				UserRights rights = UserRights.fromInteger(result.getInt("usr_fk_right_id"));
 				
 				user = new User(userId, username, password, displayName, rights);
 			}
@@ -83,7 +88,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		PreparedStatement statement = null;
 		
 		try{
-			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password, usr_display_name, usr_right_id) VALUES(?,?,?,?)");
+			statement = connection.prepareStatement("INSERT INTO usr_users (usr_email, usr_password, usr_display_name, usr_fk_right_id) VALUES(?,?,?,?)");
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getDisplayName());

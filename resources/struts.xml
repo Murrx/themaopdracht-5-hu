@@ -24,12 +24,12 @@
 	<package name="default" namespace="/" extends="struts-default">
 		<action name="login" class="com.th5.strutsActions.LoginAction">
 			<result name="success">/jsp/welcome.jsp</result>
-			<result name="error">/jsp/login.jsp</result>
-			<result name="input">/jsp/login.jsp</result>
+			<result name="error">/jsp/welcome.jsp</result>
+			<result name="input">/jsp/welcome.jsp</result>
 		</action>
 		
 		<action name="logout" class="com.th5.strutsActions.LogoutAction">
-			<result name="success">/jsp/login.jsp</result>
+			<result name="success">/jsp/welcome.jsp</result>
 		</action>
 		
 		<action name="register" class="com.th5.strutsActions.RegisterAction">

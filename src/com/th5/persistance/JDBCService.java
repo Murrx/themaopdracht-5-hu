@@ -2,14 +2,18 @@ package com.th5.persistance;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import com.th5.domain.other.AuctifyException;
+import oracle.jdbc.pool.OracleDataSource;
 
 public class JDBCService {
 	
 	public static Connection getConnection() throws SQLException{
 
+		
+		
 		System.out.println("-------- Oracle JDBC Connection Testing ------");
 
 		try {

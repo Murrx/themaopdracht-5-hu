@@ -2,7 +2,6 @@ package com.th5.strutsActions;
 
 import java.util.Map;
 
-import org.apache.catalina.Session;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -10,7 +9,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
-
 
 /**
  * Class that contains all the login-related methods.
@@ -21,6 +19,7 @@ import com.th5.domain.service.ServiceProvider;
  * @author Joris Rijkes
  * @version 0.1 alpha
  */
+@SuppressWarnings("serial")
 public class LoginAction extends ActionSupport implements SessionAware {
 
 	private String login_email;
@@ -36,7 +35,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	 *         <code>error</code> if the login information is wrong.
 	 */
 	public String execute() {
-		
+
 		userSession.put("user", user);
 		return ActionSupport.SUCCESS;
 
@@ -50,26 +49,24 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	 */
 	@Override
 	public void validate() {
-				
-		if ("".equals(login_email.trim())) {
-			addFieldError("login_email", "username is required");
+
+		if (login_email == null) {
+			addFieldError("login_email", "email is required");
+		} else if ("".equals(login_email.trim())) {
+			addFieldError("login_email", "email is required");
 		}
-		if ("".equals(login_password.trim())) {
+		if (login_password == null) {
 			addFieldError("login_password", "password is required");
-		} else {
-			
-			User foundUser = null;
+		} else if ("".equals(login_password.trim())) {
+			addFieldError("login_password", "password is required");
+		} else if (!hasFieldErrors()) {
+
 			try {
-				foundUser = ServiceProvider.getService().login(login_email,login_password);
+				user = ServiceProvider.getService().login(login_email,
+						login_password);
 			} catch (AuctifyException e) {
 				// TODO Auto-generated catch block
-				addFieldError("login_email", "username or password incorrect");
-			}
-			
-			if (foundUser == null) {
-				addFieldError("login_email", "Invalid username or password");
-			} else {
-				user = foundUser;
+				addFieldError("login_email", "email or password incorrect");
 			}
 		}
 	}
