@@ -67,6 +67,7 @@
 									<s:password name="login_password" key="label.password" cssClass="form-control input-sm" id="inputPassword1" placeholder="Password" />
 									<s:fielderror fieldName="login_password"/>
 								</div>
+								<a href="/themaopdracht5/jsp/register.jsp">Register a new account</a>
 							</div>
 							<div class="col-sm-4">
 								<div class="form-group">
