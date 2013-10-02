@@ -7,9 +7,10 @@
 		<meta charset="utf-8">
 		<title>Auctify - <s:property value="title" /></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<link href="/themaopdracht5/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/themaopdracht5/bootstrap/css/style.css" rel="stylesheet">		
-		
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+		<!-- Optional Bootstrap theme -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="/themaopdracht5/bootstrap/css/style.css">
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 			<script src="/themaopdracht5/bootstrap/js/html5shiv.js"></script>
@@ -58,14 +59,16 @@
 							</div>
 							<div class="col-sm-4">
 								<div class="form-group">
-									<button type="submit" class="btn btn-default btn-block">Sign in</button>
+									<button type="submit" class="btn btn-default btn-block">
+									<span class="glyphicon glyphicon-user"></span>Sign in
+									</button>
 								</div>
 							</div>
 						</div>
 					</s:form>
 					</s:if>
 					<s:else>
-						<p>Welcome, <s:property value="#session.user.email" /></p>
+						<p><span class="glyphicon glyphicon-user"></span><s:property value="#session.user.email" /></p>
 						<p><small><a href="<s:url action='logout'/>">Log out!</a></small></p>
 					</s:else>
 					

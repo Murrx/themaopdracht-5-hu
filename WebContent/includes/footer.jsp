@@ -10,8 +10,9 @@
 				</div>
 			</footer>
 		</div>
-		<script src="/themaopdracht5/bootstrap/js/jquery-2.0.3.min.js"></script>
-		<script src="/themaopdracht5/bootstrap/js/bootstrap.min.js"></script>
+		<!--  Linking to latest JQuery and Bootstrap CDN  -->
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 		<script src="/themaopdracht5/bootstrap/js/base.js"></script>
 	</body>
 </html>
