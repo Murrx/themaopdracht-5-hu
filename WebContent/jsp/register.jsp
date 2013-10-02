@@ -14,14 +14,14 @@
 								
 								<s:textfield name="register_firstName" key="label.firstName" placeholder="FirstName" size="20" cssClass="form-control" />
 								<s:textfield name="register_lastName" key="label.lastName" placeholder="LastName" size="20" cssClass="form-control" />
-  								<s:radio label="Gender" name="register_gender" list="#{'0':'Female','1':'Male'}" />
-  								<s:textfield name="register_birthdate" key="label.birthDate" placeholder="BirthDate" size="20" cssClass="form-control" />
+  								<s:radio label="Gender" name="register_gender" cssClass="btn-group, btn btn-primary" list="#{'0':'Female','1':'Male'}" theme="simple"/>
+  								<s:textfield name="register_birthdate" key="label.birthDate" cssClass="inputDate form-control" id="inputDate" value="01/01/1980" size="30" />
 								
 								<s:textfield name="register_postalCode" key="label.postalCode" placeholder="PostalCode" size="20" cssClass="form-control" />
 								<s:textfield name="register_houseNumber" key="label.houseNumber" placeholder="HouseNumber" size="20" cssClass="form-control" />
 								<s:textfield name="register_street" key="label.street" placeholder="Street" size="20" cssClass="form-control" />
 								<s:textfield name="register_city" key="label.city" placeholder="City" size="20" cssClass="form-control" />
 								
-								<s:submit method="execute" key="Register" align="center" cssClass="btn btn-default" />
+								<s:submit method="execute" key="Register" align="center" cssClass="btn btn-default" value="Submit!"/>
 							</s:form>
 <s:include value="/includes/footer.jsp" />
