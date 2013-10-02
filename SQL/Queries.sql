@@ -148,7 +148,75 @@ CREATE TRIGGER tr_pk_address
 		FROM dual;
 	END;
 	
----------------------------------------------------
+----------------Packages------------------------	
+create or replace 
+PACKAGE pkg_user_modification AS
+   PROCEDURE pr_register_user
+   (
+      p_usr_email varchar2,
+      p_usr_password varchar2,
+      p_usr_display varchar2,
+      
+      p_prs_first_name varchar2,
+      p_prs_last_name varchar2,
+      p_prs_gender number,
+      p_prs_birthdate date,
+      
+      p_adr_postal_code varchar2,
+      p_adr_house_number varchar2,
+      p_adr_street varchar2,
+      p_adr_city varchar2
+    );
+END pkg_user_modification;
+
+create or replace 
+PACKAGE BODY pkg_user_modification AS
+  PROCEDURE pr_register_user
+  (
+    p_usr_email varchar2,
+    p_usr_password varchar2,
+    p_usr_display varchar2,
+      
+    p_prs_first_name varchar2,
+    p_prs_last_name varchar2,
+    p_prs_gender number,
+    p_prs_birthdate date,
+      
+    p_adr_postal_code varchar2,
+    p_adr_house_number varchar2,
+    p_adr_street varchar2,
+    p_adr_city varchar2
+  )
+  IS
+  
+  v_address_id number := null;
+  v_address_excists boolean := true;
+  
+  BEGIN
+    begin
+        select adr_pk_address_id 
+        into v_address_id 
+        from adr_addresses 
+        where adr_postal_code = p_adr_postal_code 
+        and adr_house_number = p_adr_house_number;
+      exception
+        when no_data_found then
+          v_address_excists := false;
+    end;
+    
+    IF v_address_excists = false THEN
+      Insert into ADR_ADDRESSES (ADR_POSTAL_CODE,ADR_HOUSE_NUMBER,ADR_STREET,ADR_CITY) values (p_adr_postal_code,p_adr_house_number,p_adr_street,p_adr_city);
+      Insert into PRS_PERSONS (PRS_FIRST_NAME,PRS_LAST_NAME,PRS_GENDER,PRS_BIRTHDATE,PRS_FK_ADDRESS_ID) values (p_prs_first_name,p_prs_last_name,p_prs_gender,p_prs_birthdate,seq_adr_pk_address_id.currval);
+    ELSE
+      Insert into PRS_PERSONS (PRS_FIRST_NAME,PRS_LAST_NAME,PRS_GENDER,PRS_BIRTHDATE,PRS_FK_ADDRESS_ID) values (p_prs_first_name,p_prs_last_name,p_prs_gender,p_prs_birthdate,v_address_id);
+    END IF;
+    
+    Insert into USR_USERS (USR_EMAIL,USR_PASSWORD,USR_DISPLAY_NAME,USR_FK_RIGHT_ID,USR_FK_PERSON_ID) values (p_usr_email,p_usr_password,p_usr_display,5,seq_prs_pk_person_id.currval);
+    
+  END pr_register_user;
+END pkg_user_modification;
+	
+---------------Default users----------------------
   
 Insert into THO5_2013_2A_TEAM5.USR_USERS (USR_PK_USER_ID,USR_EMAIL,USR_PASSWORD,USR_DISPLAY_NAME,USR_RIGHT_ID) values (29,'testaccount@auctify.com','0efeb7097c048beaf84526394e44dfe9125882bb938945deff496fae2bad73a19417e3a52956fe1164af990b5b49647f72badb48b57c3616a8687673d8801654','DO_NOT_DELETE',5);
 Insert into THO5_2013_2A_TEAM5.USR_USERS (USR_PK_USER_ID,USR_EMAIL,USR_PASSWORD,USR_DISPLAY_NAME,USR_RIGHT_ID) values (28,'admin','c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec','Admin',256);
