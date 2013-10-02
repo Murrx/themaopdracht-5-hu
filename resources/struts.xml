@@ -22,17 +22,17 @@
 		application. -->
 	
 	<package name="default" namespace="/" extends="struts-default">
-		<action name="login" class="com.th5.strutsActions.LoginAction">
+		<action name="login" class="com.th5.struts.actions.LoginAction">
 			<result name="success">/jsp/welcome.jsp</result>
 			<result name="error">/jsp/welcome.jsp</result>
 			<result name="input">/jsp/welcome.jsp</result>
 		</action>
 		
-		<action name="logout" class="com.th5.strutsActions.LogoutAction">
+		<action name="logout" class="com.th5.struts.actions.LogoutAction">
 			<result name="success">/jsp/welcome.jsp</result>
 		</action>
 		
-		<action name="register" class="com.th5.strutsActions.RegisterAction">
+		<action name="register" class="com.th5.struts.actions.RegisterAction">
 			<result name="success">/jsp/registerSuccess.jsp</result>
 			<result name="error">/jsp/register.jsp</result>
 			<result name="input">/jsp/register.jsp</result>

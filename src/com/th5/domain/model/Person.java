@@ -1,6 +1,6 @@
 package com.th5.domain.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Person {
 	

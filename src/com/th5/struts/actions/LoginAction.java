@@ -1,4 +1,4 @@
-package com.th5.strutsActions;
+package com.th5.struts.actions;
 
 import java.util.Map;
 

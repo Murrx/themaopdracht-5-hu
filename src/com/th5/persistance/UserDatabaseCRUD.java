@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.other.DateConverter;
 
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
@@ -100,7 +101,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			statement.setString(4, user.getPerson().getFirstName());
 			statement.setString(5, user.getPerson().getLastName());
 			statement.setInt(6, user.getPerson().getGender());
-			statement.setDate(7, user.getPerson().getBirthdate());
+			statement.setDate(7, DateConverter.toSQLDate(user.getPerson().getBirthdate()));
 			
 			// --- ADR_ADRESSES ---- //
 			statement.setString(8, user.getAddress().getPostalCode());

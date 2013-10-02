@@ -1,6 +1,6 @@
 package com.th5.domain.service;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.th5.domain.model.Address;
 import com.th5.domain.model.Person;

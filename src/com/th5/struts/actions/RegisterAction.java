@@ -1,19 +1,22 @@
-package com.th5.strutsActions;
+package com.th5.struts.actions;
 
-import java.sql.Date;
 import java.util.List;
+import java.util.Date;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.conversion.annotations.Conversion;
+import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 import com.th5.domain.model.User;
 import com.th5.domain.model.validators.AttributeError;
 import com.th5.domain.model.validators.UserRegisterValidator;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
 
+@Conversion()
 @SuppressWarnings("serial")
 public class RegisterAction extends ActionSupport {
 
-	private String register_email, 
+	private String  register_email, 
 					register_password, 
 					register_password2,
 					register_displayName,
@@ -26,8 +29,8 @@ public class RegisterAction extends ActionSupport {
 					register_street,
 					register_city;
 	
-	private int register_gender;
-	Date register_birthdate;
+	private int 	register_gender;
+	private Date	register_birthdate;
 
 	@Override
 	public String execute() throws Exception {
@@ -46,7 +49,7 @@ public class RegisterAction extends ActionSupport {
 
 	@Override
 	public void validate() {
-
+		
 		if (register_displayName == null) {
 			addFieldError("register_displayName", "display name is required");
 		} else if ("".equals(register_displayName.trim())) {
@@ -141,15 +144,17 @@ public class RegisterAction extends ActionSupport {
 		return register_gender;
 	}
 
+	
 	public void setRegister_gender(int register_gender) {
 		this.register_gender = register_gender;
 	}
-
+	@TypeConversion(converter="com.th5.struts.others.StringToDateTimeConverter")
 	public Date getRegister_birthdate() {
 		return register_birthdate;
 	}
-
+	@TypeConversion(converter="com.th5.struts.others.StringToDateTimeConverter")
 	public void setRegister_birthdate(Date register_birthdate) {
+		
 		this.register_birthdate = register_birthdate;
 	}
 
