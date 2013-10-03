@@ -14,7 +14,7 @@ import com.th5.domain.other.DateConverter;
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
-	/**Attempt to retrieve the user from the database
+	/**Retrieve user from the database
 	 * @param email
 	 * @return a user object
 	 * @throws AuctifyException when the user is not found or when the database connection fails 
@@ -76,6 +76,11 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		return null;
 	}
 
+	
+	/**Add a user to the database
+	 * @param user the user to add
+	 * @throws AuctifyException when the connection fails, or the user cannot be added
+	 */
 	@Override
 	public void create(User user) throws AuctifyException {
 		

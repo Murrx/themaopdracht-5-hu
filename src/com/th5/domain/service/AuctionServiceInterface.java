@@ -16,10 +16,19 @@ public interface AuctionServiceInterface {
 	 */
 	public User login(String email, String password) throws AuctifyException;	
 	
-	/**Encrypts a password to sha512hex
+	/** Register a new user with the given parameters
+	 * @param email
 	 * @param password
-	 * @return the encrypted password
+	 * @param displayName
+	 * @param firstName
+	 * @param lastName
+	 * @param gender
+	 * @param birthdate
+	 * @param postalCode
+	 * @param houseNumber
+	 * @param street
+	 * @param city
+	 * @throws AuctifyException when registration fails
 	 */
-	
 	public void register(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException;
 }
