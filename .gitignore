@@ -11,3 +11,5 @@
 
 
 build/classes/struts.xml
+
+build/classes/ApplicationResources.properties

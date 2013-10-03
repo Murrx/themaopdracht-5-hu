@@ -10,11 +10,11 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 		<!-- Optional Bootstrap theme -->
 		<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css"> -->
-		<link rel="stylesheet" href="/themaopdracht5/bootstrap/css/style.css">
-		
+		<link rel="stylesheet" href="../bootstrap/css/style.css">
+
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
-			<script src="/themaopdracht5/bootstrap/js/html5shiv.js"></script>
+			<script src="../bootstrap/js/html5shiv.js"></script>
 		<![endif]-->
 	</head>
 	
@@ -57,7 +57,7 @@
 									<s:password name="login_password" key="label.password" cssClass="form-control input-sm" id="inputPassword1" placeholder="Password" />
 									<s:fielderror fieldName="login_password"/>
 								</div>
-								<a href="/themaopdracht5/jsp/register.jsp">Register a new account</a>
+								<a href="register.jsp">Register a new account</a>
 							</div>
 							<div class="col-sm-4">
 								<div class="form-group">
@@ -92,18 +92,7 @@
 				<s:else>
 				<div class="col-sm-12">
 				</s:else>
-					<div class="row">
-						<nav class="col-sm-12">
-							<!-- Navigation -->
-							
-							<ul class="nav nav-tabs">
-								<li <s:if test='location == "home"'>class="active"</s:if>><a href="#">Home</a></li>
-								<li <s:if test='location == "auction"'>class="active"</s:if>><a href="#">Auctions</a></li>
-								<li <s:if test='location == "mass-auctions"'>class="active"</s:if>><a href="#">Mass Auctions</a></li>
-								<li <s:if test='location == "create-new-auction"'>class="active"</s:if>><a href="#">Create New Auction</a></li>
-							</ul>
-						</nav>
-					</div>
+					<s:include value="menu.jsp" />
 					<div class="row">
 						<div class="col-sm-12">
 							<!-- Breadcrumbs -->
