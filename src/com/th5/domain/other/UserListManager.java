@@ -78,7 +78,6 @@ public class UserListManager implements CRUD_Interface<User>{
 	private User getUserFromUserList(String email){
 		User user = null;
 		int index = Collections.binarySearch(userList, new User(email));
-		System.out.println(userList);
 		if ( index >= 0){
 			user = userList.get(index);
 		}

@@ -203,8 +203,6 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			statement.setString(5, user.getPerson().getLastName());
 			statement.setInt(6, user.getPerson().getGender());
 			statement.setDate(7, DateConverter.toSQLDate(user.getPerson().getBirthdate()));
-			System.out.println("UserDatabvaseCRUD without conversion :: " + user.getPerson().getBirthdate());
-			System.out.println("UserDatabaseCRUD with conversion :: " + DateConverter.toSQLDate(user.getPerson().getBirthdate()));
 			
 			// --- ADR_ADRESSES ---- //
 			statement.setString(8, user.getAddress().getPostalCode());
