@@ -27,7 +27,7 @@ public class AuctionManager implements CRUD_Interface<Auction>{
 
 	@Override
 	public Auction retrieve(String email) throws AuctifyException{
-		Auction auction = getAuctionFromAuctionList(email);
+		Auction auction = getAuctionFromAuctionList(0);//TODO change this to the id of the auction
 		if (auction == null){
 			auction = auctionDatabaseCRUD.retrieve(email);
 			if (auction != null) {
@@ -39,7 +39,7 @@ public class AuctionManager implements CRUD_Interface<Auction>{
 	}
 
 	@Override
-	public void create(Auction auction) throws AuctifyException {
+	public int create(Auction auction) throws AuctifyException {
 		
 		try {
 		auctionDatabaseCRUD.create(auction);
@@ -48,7 +48,7 @@ public class AuctionManager implements CRUD_Interface<Auction>{
 		} catch (AuctifyException ae) {
 			throw new AuctifyException(ae.getMessage());
 		}
-		
+		return (0); //TODO change return statement to someting usefull
 	}
 	
 	/**

@@ -32,9 +32,9 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	}
 
 	@Override
-	public void create(Auction object) throws AuctifyException {
+	public int create(Auction object) throws AuctifyException {
 		// TODO Auto-generated method stub
-		
+		return (0);
 	}
 
 	@Override
