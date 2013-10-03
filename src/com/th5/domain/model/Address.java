@@ -3,14 +3,19 @@ package com.th5.domain.model;
 public class Address {
 	
 	private String postalCode, houseNumber, street, city;
-	
+	private int id;
 	public Address(String postalCode, String houseNumber, String street, String city){
 		this.postalCode = postalCode;
 		this.houseNumber = houseNumber;
 		this.street = street;
 		this.city = city;
 	}
-
+	
+	public Address(int id, String postalCode, String houseNumber, String street, String city){
+		this(postalCode, houseNumber, street, city);
+		this.id = id;
+	}
+	
 	public String getPostalCode() {
 		return postalCode;
 	}

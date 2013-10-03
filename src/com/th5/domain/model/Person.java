@@ -7,6 +7,7 @@ public class Person {
 	private String firstName, lastName;
 	private int gender;
 	private Date birthdate;
+	private int id;
 	
 	public Person(String firstName, String lastName, int gender, Date birthdate){
 		this.firstName = firstName;
@@ -15,6 +16,11 @@ public class Person {
 		this.birthdate = birthdate;
 	}
 
+	public Person(int id, String firstName, String lastName, int gender, Date birthdate){
+		this(firstName, lastName, gender, birthdate);
+		this.id = id;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.th5.domain.model.Person;
 import com.th5.domain.model.User;
+import com.th5.domain.model.Address;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
@@ -31,14 +33,18 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		
 		PreparedStatement statement = null;
 		User user = null;
+		Address address = null;
+		Person person = null;
 
 		try{
-			statement = connection.prepareStatement("SELECT * FROM usr_users WHERE usr_email = ?");
+			statement = connection.prepareStatement(
+					"SELECT * FROM usr_users, prs_persons, adr_addresses WHERE usr_email = ? AND usr_fk_person_id = prs_pk_person_id AND prs_fk_address_id = adr_pk_address_id");
 			statement.setString(1, email);
 			ResultSet result = statement.executeQuery();
 
 			while(result.next()){
 				
+				//user data
 				String username = result.getString("usr_email");
 				String password = result.getString("usr_password");
 				String displayName = result.getString("usr_display_name");
@@ -46,6 +52,27 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				UserRights rights = UserRights.fromInteger(result.getInt("usr_fk_right_id"));
 				
 				user = new User(userId, username, password, displayName, rights);
+				
+				//person data
+				int personId = result.getInt("prs_pk_person_id");
+				String firstName = result.getString("prs_first_name");
+				String lastName = result.getString("prs_last_name");
+				int gender = result.getInt("prs_gender");
+				java.util.Date birthdate = result.getDate("prs_birthdate");
+				
+				person = new Person(personId,firstName, lastName, gender, birthdate);
+				
+				//address data
+				int addressId = result.getInt("adr_pk_address_id");
+				String postalCode = result.getString("adr_postal_code");
+				String houseNumber = result.getString("adr_pk_address_id");
+				String street = result.getString("adr_street");
+				String city = result.getString("adr_city");
+				
+				address = new Address(addressId,postalCode, houseNumber, street, city);
+				
+				user.setPerson(person);
+				user.setAddress(address);
 			}
 
 		}catch(SQLException e){
@@ -142,9 +169,62 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		
 	}
 
+	
+	/**Only used for testing. Do not use.
+	 * @see com.th5.persistance.CRUD_Interface#delete(java.lang.Object)
+	 */@Deprecated
 	@Override
-	public void delete(User object) {
-		// TODO Auto-generated method stub
+	public void delete(User user) throws AuctifyException {
+		Connection connection;
+		try {
+			connection = DataSourceService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		
+		PreparedStatement statement = null;
+		
+		try{
+			
+			statement = connection.prepareCall("{call pkg_user_modification.pr_delete_user(?,?,?,?,?,?,?,?,?,?,?)}");
+			
+			// --- USR_USERS ---- //
+			statement.setString(1, user.getEmail());
+			statement.setString(2, user.getPassword());
+			statement.setString(3, user.getDisplayName());
+			
+			// --- PRS_PERSONS ---- //
+			statement.setString(4, user.getPerson().getFirstName());
+			statement.setString(5, user.getPerson().getLastName());
+			statement.setInt(6, user.getPerson().getGender());
+			statement.setDate(7, DateConverter.toSQLDate(user.getPerson().getBirthdate()));
+			System.out.println("UserDatabvaseCRUD without conversion :: " + user.getPerson().getBirthdate());
+			System.out.println("UserDatabaseCRUD with conversion :: " + DateConverter.toSQLDate(user.getPerson().getBirthdate()));
+			
+			// --- ADR_ADRESSES ---- //
+			statement.setString(8, user.getAddress().getPostalCode());
+			statement.setString(9, user.getAddress().getHouseNumber());
+			statement.setString(10, user.getAddress().getStreet());
+			statement.setString(11, user.getAddress().getCity());
+						
+			statement.executeQuery();
+			
+		
+			
+
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new AuctifyException("failed to delete user");
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 }
