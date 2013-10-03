@@ -24,7 +24,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		
 		Connection connection;
 		try {
-			connection = JDBCService.getConnection();
+			connection = DataSourceService.getConnection();
 		} catch (SQLException e1) {
 			throw new AuctifyException("failed to connect to database");
 		}
@@ -86,7 +86,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		
 		Connection connection;
 		try {
-			connection = JDBCService.getConnection();
+			connection = DataSourceService.getConnection();
 		} catch (SQLException e1) {
 			throw new AuctifyException("failed to connect to database");
 		}

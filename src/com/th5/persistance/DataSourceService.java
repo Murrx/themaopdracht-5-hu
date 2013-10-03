@@ -11,18 +11,28 @@ import oracle.jdbc.pool.OracleDataSource;
 
 public class DataSourceService {
 
-  public static void main(String args[]) throws ClassNotFoundException,
-      SQLException, NamingException {
+  public static Connection getConnection() throws SQLException{
 
-	OracleDataSource ds = new OracleDataSource();
-    ds.setDriverType("thin");
-	ds.setServerName("ondora01.hu.nl");
-	ds.setServiceName("cursus01.hu.nl");
-	ds.setNetworkProtocol("tcp");
-	ds.setDatabaseName("tho5_2013_2a_team5");
-	ds.setPortNumber(8521);
-	ds.setUser("tho5_2013_2a_team5");
-	ds.setPassword("team5iscool");
+	OracleDataSource ds = null;
+	try {
+		ds = new OracleDataSource();
+		
+		ds.setDriverType("thin");
+		ds.setServerName("ondora01.hu.nl");
+		ds.setServiceName("cursus01.hu.nl");
+		ds.setNetworkProtocol("tcp");
+		ds.setDatabaseName("tho5_2013_2a_team5");
+		ds.setPortNumber(8521);
+		ds.setUser("tho5_2013_2a_team5");
+		ds.setPassword("team5iscool");
+		
+		return ds.getConnection();
+	} catch (SQLException e) {
+		e.printStackTrace();
+		System.out.println("Connection Failed! Check output console");
+		throw e;
+	}
+    
 	
 //	Context ctx = new InitialContext();
 //	try {
@@ -31,15 +41,14 @@ public class DataSourceService {
 //		e.printStackTrace();
 //	}
 
-    Connection conn = ds.getConnection();
 
-    Statement stmt = conn.createStatement();
-    ResultSet rset = stmt.executeQuery("select 'Hello Thin driver data source tester '||" + "initcap(USER)||'!' result from dual");
-    if (rset.next())
-      System.out.println(rset.getString(1));
-    rset.close();
-    stmt.close();
-    conn.close();
+//    Statement stmt = conn.createStatement();
+//    ResultSet rset = stmt.executeQuery("select 'Hello Thin driver data source tester '||" + "initcap(USER)||'!' result from dual");
+//    if (rset.next())
+//      System.out.println(rset.getString(1));
+//    rset.close();
+//    stmt.close();
+//    conn.close();
   }
 }
 
