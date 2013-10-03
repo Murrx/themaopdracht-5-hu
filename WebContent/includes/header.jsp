@@ -107,10 +107,10 @@
 							<!-- Navigation -->
 							
 							<ul class="nav nav-tabs">
-								<li <s:if test='location == "home"'>class="active"</s:if>><a href="#">Home</a></li>
+								<li <s:if test='location == "home"'>class="active"</s:if>><a href="/themaopdracht5/jsp/welcome.jsp">Home</a></li>
 								<li <s:if test='location == "auction"'>class="active"</s:if>><a href="#">Auctions</a></li>
 								<li <s:if test='location == "mass-auctions"'>class="active"</s:if>><a href="#">Mass Auctions</a></li>
-								<li <s:if test='location == "create-new-auction"'>class="active"</s:if>><a href="#">Create New Auction</a></li>
+								<li <s:if test='location == "create-new-auction"'>class="active"</s:if>><a href="/themaopdracht5/jsp/addAuction.jsp">Create New Auction</a></li>
 							</ul>
 						</nav>
 					</div>

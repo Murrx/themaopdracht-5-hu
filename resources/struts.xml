@@ -4,8 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<constant name="struts.custom.i18n.resources"
-		value="global" />
+	<constant name="struts.custom.i18n.resources" value="global" />
 	<constant name="struts.devMode" value="true" />
 	
 	<!-- You can define packages directly in this file, but its probably best 
@@ -36,6 +35,36 @@
 			<result name="success">/jsp/registerSuccess.jsp</result>
 			<result name="error">/jsp/register.jsp</result>
 			<result name="input">/jsp/register.jsp</result>
+		</action>
+		
+		<action name="addAuction" class="com.th5.struts.actions.AddAuctionAction">
+			<result name="success">/jsp/result.jsp</result>
+		</action>
+				
+		<action name="fileUploadAction" class="com.th5.struts.others.FileUploadAction" method="display">
+			<result name="none">/jps/addAuction.jsp</result>
+		</action>
+		
+		<action name="resultAction" class="com.th5.struts.others.FileUploadAction">
+			<interceptor-ref name="exception"/>
+            <interceptor-ref name="i18n"/>
+            <interceptor-ref name="fileUpload">
+       			<param name="allowedTypes">text/plain, image/png</param>
+       			<param name="maximumSize">10240</param>
+  			</interceptor-ref> 
+            <interceptor-ref name="params">
+                <param name="excludeParams">dojo\..*,^struts\..*</param>
+            </interceptor-ref>
+            <interceptor-ref name="validation">
+                <param name="excludeMethods">input,back,cancel,browse</param>
+            </interceptor-ref>
+            <interceptor-ref name="workflow">
+                <param name="excludeMethods">input,back,cancel,browse</param>
+            </interceptor-ref>
+    
+			<result name="success" type="chain">addAuction</result>
+			<result name="input">/jps/addAuction.jsp</result>
+			
 		</action>
 		
 	</package>
