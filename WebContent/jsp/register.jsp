@@ -6,7 +6,7 @@
 							<!-- Body -->
 							<h2>Register Application</h2>
 							<s:actionerror />
-							<s:form action="register.action" method="post">
+							<s:form action="register" method="post">
 								<s:fielderror fieldName="register_email" />
 								<s:textfield name="register_email" key="label.email" size="20" placeholder="Email" cssClass="form-control" />
 								
@@ -26,7 +26,7 @@
 								<s:textfield name="register_lastName" key="label.lastName" placeholder="LastName" size="20" cssClass="form-control" />
   								
   								<s:fielderror fieldName="register_gender" />
-  								<s:radio label="Gender" name="register_gender" cssClass="btn-group, btn btn-primary" list="#{'0':'Female','1':'Male'}" theme="simple"/>
+  								<s:radio label="Gender" name="register_gender" cssClass="btn-group, btn btn-default" list="#{'0':'Female','1':'Male'}" theme="simple"/>
   								
   								<s:fielderror fieldName="register_birthdate" />
   								<s:textfield name="register_birthdate" key="label.birthDate" cssClass="inputDate form-control" id="inputDate" value="01/01/1980" size="30" />								

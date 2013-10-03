@@ -56,7 +56,7 @@
 					<!-- Login -->
 					<s:actionerror />
 					<s:if test="%{#session.user == null}">
-					<s:form action="login.action" method="post">
+					<s:form action="login" method="post">
 						<div class="row">
 							<div class="col-sm-7 col-sm-offset-1">
 								<div class="form-group">

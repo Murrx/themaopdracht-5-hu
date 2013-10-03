@@ -7,6 +7,8 @@
 	<constant name="struts.custom.i18n.resources" value="global" />
 	<constant name="struts.devMode" value="true" />
 	
+	
+	
 	<!-- You can define packages directly in this file, but its probably best 
 		to modularize the configuration files with separate xml files for each package. 
 		Ulitmately its all the same because the include element, seen below, pulls 
@@ -19,30 +21,38 @@
 		it here, in the root namespace, because its not really related to any of 
 		the specific examples or chapters, its just a kind of utility for the whole 
 		application. -->
+		
+		
 	
 	<package name="default" namespace="/" extends="struts-default">
-		<action name="login" class="com.th5.struts.actions.LoginAction">
-			<result name="success">/jsp/welcome.jsp</result>
-			<result name="error">/jsp/welcome.jsp</result>
-			<result name="input">/jsp/welcome.jsp</result>
+		<action name="welcome.jsp">
+			<result>welcome.jsp</result>
+		</action>			
+	</package>
+	
+	<package name="jspPages" namespace="/jsp" extends="struts-default">
+			<action name="login" class="com.th5.struts.actions.LoginAction">
+			<result name="success">welcome.jsp</result>
+			<result name="error">welcome.jsp</result>
+			<result name="input">welcome.jsp</result>
 		</action>
 		
 		<action name="logout" class="com.th5.struts.actions.LogoutAction">
-			<result name="success">/jsp/welcome.jsp</result>
+			<result name="success">welcome.jsp</result>
 		</action>
 		
 		<action name="register" class="com.th5.struts.actions.RegisterAction">
-			<result name="success">/jsp/registerSuccess.jsp</result>
-			<result name="error">/jsp/register.jsp</result>
-			<result name="input">/jsp/register.jsp</result>
+			<result name="success">registerSuccess.jsp</result>
+			<result name="error">register.jsp</result>
+			<result name="input">register.jsp</result>
 		</action>
 		
 		<action name="addAuction" class="com.th5.struts.actions.AddAuctionAction">
-			<result name="success">/jsp/result.jsp</result>
+			<result name="success">result.jsp</result>
 		</action>
 				
 		<action name="fileUploadAction" class="com.th5.struts.others.FileUploadAction" method="display">
-			<result name="none">/jps/addAuction.jsp</result>
+			<result name="none">addAuction.jsp</result>
 		</action>
 		
 		<action name="resultAction" class="com.th5.struts.others.FileUploadAction">
@@ -63,7 +73,7 @@
             </interceptor-ref>
     
 			<result name="success" type="chain">addAuction</result>
-			<result name="input">/jps/addAuction.jsp</result>
+			<result name="input">addAuction.jsp</result>
 			
 		</action>
 		
