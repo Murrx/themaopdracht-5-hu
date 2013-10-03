@@ -151,8 +151,8 @@ CREATE TRIGGER tr_pk_address
 ----------------Packages------------------------	
 create or replace 
 PACKAGE pkg_user_modification AS
-   PROCEDURE pr_register_user
-   (
+    PROCEDURE pr_delete_user
+    (
       p_usr_email varchar2,
       p_usr_password varchar2,
       p_usr_display varchar2,
@@ -167,11 +167,30 @@ PACKAGE pkg_user_modification AS
       p_adr_street varchar2,
       p_adr_city varchar2
     );
+    
+    FUNCTION f_register_user
+    (
+      p_usr_email varchar2,
+      p_usr_password varchar2,
+      p_usr_display varchar2,
+      
+      p_prs_first_name varchar2,
+      p_prs_last_name varchar2,
+      p_prs_gender number,
+      p_prs_birthdate date,
+      
+      p_adr_postal_code varchar2,
+      p_adr_house_number varchar2,
+      p_adr_street varchar2,
+      p_adr_city varchar2
+    )
+    return number;
 END pkg_user_modification;
 
 create or replace 
 PACKAGE BODY pkg_user_modification AS
-  PROCEDURE pr_register_user
+--------------------------------------------------------------------------------
+  PROCEDURE pr_delete_user
   (
     p_usr_email varchar2,
     p_usr_password varchar2,
@@ -188,9 +207,39 @@ PACKAGE BODY pkg_user_modification AS
     p_adr_city varchar2
   )
   IS
+  BEGIN
+    delete
+      from usr_users 
+      where usr_users.usr_email = p_usr_email;
+    
+    delete 
+      from prs_persons
+      where prs_first_name = p_prs_first_name
+      and prs_last_name = p_prs_last_name;
+  END pr_delete_user;
+--------------------------------------------------------------------------------
+ FUNCTION f_register_user
+  (
+    p_usr_email varchar2,
+    p_usr_password varchar2,
+    p_usr_display varchar2,
+      
+    p_prs_first_name varchar2,
+    p_prs_last_name varchar2,
+    p_prs_gender number,
+    p_prs_birthdate date,
+      
+    p_adr_postal_code varchar2,
+    p_adr_house_number varchar2,
+    p_adr_street varchar2,
+    p_adr_city varchar2
+  )
+  return number
+  IS
   
   v_address_id number := null;
   v_address_excists boolean := true;
+  v_new_user_id number;
   
   BEGIN
     begin
@@ -212,8 +261,10 @@ PACKAGE BODY pkg_user_modification AS
     END IF;
     
     Insert into USR_USERS (USR_EMAIL,USR_PASSWORD,USR_DISPLAY_NAME,USR_FK_RIGHT_ID,USR_FK_PERSON_ID) values (p_usr_email,p_usr_password,p_usr_display,5,seq_prs_pk_person_id.currval);
-    
-  END pr_register_user;
+    v_new_user_id := seq_usr_pk_user_id.currval;
+    return v_new_user_id;
+  END f_register_user;
+--------------------------------------------------------------------------------
 END pkg_user_modification;
 	
 ---------------Default users----------------------
