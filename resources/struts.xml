@@ -48,7 +48,8 @@
 		</action>
 		
 		<action name="addAuction" class="com.th5.struts.actions.AddAuctionAction">
-			<result name="success">result.jsp</result>
+			<result name="success">addAuctionResult.jsp</result>
+			<result name="input">addAuction.jsp</result>
 		</action>
 				
 		<action name="fileUploadAction" class="com.th5.struts.others.FileUploadAction" method="display">

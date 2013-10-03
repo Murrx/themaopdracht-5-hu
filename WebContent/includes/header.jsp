@@ -8,19 +8,17 @@
 		<title>Auctify - <s:property value="title" /></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-		<!-- Optional Bootstrap theme -->
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
-		<link rel="stylesheet" href="/themaopdracht5/bootstrap/css/style.css">
+		<link rel="stylesheet" href="../bootstrap/css/style.css">
 		
 		<!-- DatePicker -->
-		<link rel="stylesheet" href="/themaopdracht5/datepicker/css/datepicker.css" type="text/css" />
-   		<link rel="stylesheet" media="screen" type="text/css" href="/themaopdracht5/datepicker/css/layout.css" />
+		<link rel="stylesheet" href="../datepicker/css/datepicker.css" type="text/css" />
+   		<link rel="stylesheet" media="screen" type="text/css" href="../datepicker/css/layout.css" />
     
-		<script type="text/javascript" src="/themaopdracht5/datepicker/js/jquery.js"></script>
-		<script type="text/javascript" src="/themaopdracht5/datepicker/js/datepicker.js"></script>
-	    <script type="text/javascript" src="/themaopdracht5/datepicker/js/eye.js"></script>
-	    <script type="text/javascript" src="/themaopdracht5/datepicker/js/utils.js"></script>
-	    <script type="text/javascript" src="/themaopdracht5/datepicker/js/layout.js?ver=1.0.2"></script>
+		<script type="text/javascript" src="../datepicker/js/jquery.js"></script>
+		<script type="text/javascript" src="../datepicker/js/datepicker.js"></script>
+	    <script type="text/javascript" src="../datepicker/js/eye.js"></script>
+	    <script type="text/javascript" src="../datepicker/js/utils.js"></script>
+	    <script type="text/javascript" src="../datepicker/js/layout.js?ver=1.0.2"></script>
    		<!-- End DatePicker -->
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
@@ -67,7 +65,7 @@
 									<s:password name="login_password" key="label.password" cssClass="form-control input-sm" id="inputPassword1" placeholder="Password" />
 									<s:fielderror fieldName="login_password"/>
 								</div>
-								<a href="/themaopdracht5/jsp/register.jsp">Register a new account</a>
+								<a href="register.jsp">Register a new account</a>
 							</div>
 							<div class="col-sm-4">
 								<div class="form-group">
@@ -102,18 +100,7 @@
 				<s:else>
 				<div class="col-sm-12">
 				</s:else>
-					<div class="row">
-						<nav class="col-sm-12">
-							<!-- Navigation -->
-							
-							<ul class="nav nav-tabs">
-								<li <s:if test='location == "home"'>class="active"</s:if>><a href="/themaopdracht5/jsp/welcome.jsp">Home</a></li>
-								<li <s:if test='location == "auction"'>class="active"</s:if>><a href="#">Auctions</a></li>
-								<li <s:if test='location == "mass-auctions"'>class="active"</s:if>><a href="#">Mass Auctions</a></li>
-								<li <s:if test='location == "create-new-auction"'>class="active"</s:if>><a href="/themaopdracht5/jsp/addAuction.jsp">Create New Auction</a></li>
-							</ul>
-						</nav>
-					</div>
+					<s:include value="menu.jsp" />
 					<div class="row">
 						<div class="col-sm-12">
 							<!-- Breadcrumbs -->
