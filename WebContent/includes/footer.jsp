@@ -13,6 +13,7 @@
 		<!--  Linking to latest JQuery and Bootstrap CDN  -->
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+   		<script type="text/javascript" src="/themaopdracht5/datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="/themaopdracht5/bootstrap/js/base.js"></script>
 	</body>
 </html>

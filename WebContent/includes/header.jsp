@@ -9,19 +9,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 		<!-- Optional Bootstrap theme -->
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+		<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css"> -->
 		<link rel="stylesheet" href="/themaopdracht5/bootstrap/css/style.css">
 		
-		<!-- DatePicker -->
-		<link rel="stylesheet" href="/themaopdracht5/datepicker/css/datepicker.css" type="text/css" />
-   		<link rel="stylesheet" media="screen" type="text/css" href="/themaopdracht5/datepicker/css/layout.css" />
-    
-		<script type="text/javascript" src="/themaopdracht5/datepicker/js/jquery.js"></script>
-		<script type="text/javascript" src="/themaopdracht5/datepicker/js/datepicker.js"></script>
-	    <script type="text/javascript" src="/themaopdracht5/datepicker/js/eye.js"></script>
-	    <script type="text/javascript" src="/themaopdracht5/datepicker/js/utils.js"></script>
-	    <script type="text/javascript" src="/themaopdracht5/datepicker/js/layout.js?ver=1.0.2"></script>
-   		<!-- End DatePicker -->
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 			<script src="/themaopdracht5/bootstrap/js/html5shiv.js"></script>
