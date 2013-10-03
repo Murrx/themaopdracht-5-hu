@@ -1,14 +1,16 @@
 package com.th5.persistance;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 
+import com.th5.domain.model.Address;
 import com.th5.domain.model.Person;
 import com.th5.domain.model.User;
-import com.th5.domain.model.Address;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
@@ -106,10 +108,11 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	
 	/**Add a user to the database
 	 * @param user the user to add
+	 * @return the id of the created user
 	 * @throws AuctifyException when the connection fails, or the user cannot be added
 	 */
 	@Override
-	public void create(User user) throws AuctifyException {
+	public int create(User user) throws AuctifyException {
 		
 		Connection connection;
 		try {
@@ -118,36 +121,38 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			throw new AuctifyException("failed to connect to database");
 		}
 		
-		PreparedStatement statement = null;
+		CallableStatement statement = null;
 		
 		try{
+			String functionCall = "{? = call pkg_user_modification.f_register_user(?,?,?,?,?,?,?,?,?,?,?)}";
+			statement = connection.prepareCall(functionCall);
 			
-			statement = connection.prepareCall("{call pkg_user_modification.pr_register_user(?,?,?,?,?,?,?,?,?,?,?)}");
+			// ---  RETURN  ----- //
+			statement.registerOutParameter(1, Types.NUMERIC);
 			
 			// --- USR_USERS ---- //
-			statement.setString(1, user.getEmail());
-			statement.setString(2, user.getPassword());
-			statement.setString(3, user.getDisplayName());
+			
+			statement.setString(2, user.getEmail());
+			statement.setString(3, user.getPassword());
+			statement.setString(4, user.getDisplayName());
 			
 			// --- PRS_PERSONS ---- //
-			statement.setString(4, user.getPerson().getFirstName());
-			statement.setString(5, user.getPerson().getLastName());
-			statement.setInt(6, user.getPerson().getGender());
-			statement.setDate(7, DateConverter.toSQLDate(user.getPerson().getBirthdate()));
-			System.out.println("UserDatabvaseCRUD without conversion :: " + user.getPerson().getBirthdate());
-			System.out.println("UserDatabaseCRUD with conversion :: " + DateConverter.toSQLDate(user.getPerson().getBirthdate()));
+			statement.setString(5, user.getPerson().getFirstName());
+			statement.setString(6, user.getPerson().getLastName());
+			statement.setInt(7, user.getPerson().getGender());
+			statement.setDate(8, DateConverter.toSQLDate(user.getPerson().getBirthdate()));
 			
 			// --- ADR_ADRESSES ---- //
-			statement.setString(8, user.getAddress().getPostalCode());
-			statement.setString(9, user.getAddress().getHouseNumber());
-			statement.setString(10, user.getAddress().getStreet());
-			statement.setString(11, user.getAddress().getCity());
+			statement.setString(9, user.getAddress().getPostalCode());
+			statement.setString(10, user.getAddress().getHouseNumber());
+			statement.setString(11, user.getAddress().getStreet());
+			statement.setString(12, user.getAddress().getCity());
 						
 			statement.executeQuery();
 			
-		
+			int userId = statement.getInt(1);
+			return userId;
 			
-
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new AuctifyException("failed to add user");

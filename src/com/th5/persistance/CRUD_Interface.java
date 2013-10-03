@@ -12,7 +12,7 @@ public interface CRUD_Interface<T>{
 	   public T retrieve(String identifier) throws AuctifyException;
 	   public ArrayList<T> search(String search) throws AuctifyException;
 	   public ArrayList<T> retrieveAll() throws AuctifyException;
-	   public void create(T object) throws AuctifyException;
+	   public int create(T object) throws AuctifyException;
 	   public void update(T object) throws AuctifyException;
 	   public void delete(T object) throws AuctifyException;
 	}

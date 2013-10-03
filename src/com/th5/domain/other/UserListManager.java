@@ -26,17 +26,19 @@ public class UserListManager implements CRUD_Interface<User>{
 	 * is created and added to the list and the database.
 	 * 
 	 * @param user User object to be created
-	 * @return void
+	 * @return the id of the created user
 	 * @throws AuctifyException when the email address of the user is used by another user.
 	 */
 	@Override
-	public void create(User user) throws AuctifyException{
+	public int create(User user) throws AuctifyException{
 		if (!emailAvailable(user.getEmail())){
 			throw new AuctifyException("Email adress is already in use");
 		}
 		
+		int userId = -1;
+		
 		try {
-		userDatabaseCRUD.create(user);
+		userId = userDatabaseCRUD.create(user);
 		//userList.add(user); moet nog naar gekeken worden.
 		//nu word er een user ZONDER id aan de lijst toegevoegd
 		//er moet dus eerst nog een retrieve komen die wel een userId heeft
@@ -44,6 +46,7 @@ public class UserListManager implements CRUD_Interface<User>{
 		} catch (AuctifyException ae) {
 			throw new AuctifyException(ae.getMessage());
 		}
+		return userId;
 	}
 
 	
