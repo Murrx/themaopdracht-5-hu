@@ -59,10 +59,10 @@
 				  								<s:fielderror fieldName="register_gender" />
 												<div class="btn-group" data-toggle="buttons">
 													<label class="btn btn-primary">
-														<input type="radio" name="register_gender" id="genderF" />Female
+														<input type="radio" name="register_gender" id="genderF" value="0" />Female
 													</label>
 													<label class="btn btn-primary">
-														<input type="radio" name="register_gender" id="genderM" />Male
+														<input type="radio" name="register_gender" id="genderM" value="1" />Male
 													</label>
 												</div>
 											</div>
