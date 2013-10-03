@@ -39,9 +39,7 @@ public class UserListManager implements CRUD_Interface<User>{
 		
 		try {
 		userId = userDatabaseCRUD.create(user);
-		//userList.add(user); moet nog naar gekeken worden.
-		//nu word er een user ZONDER id aan de lijst toegevoegd
-		//er moet dus eerst nog een retrieve komen die wel een userId heeft
+		user.setUserId(userId);
 		userList.add(user);
 		} catch (AuctifyException ae) {
 			throw new AuctifyException(ae.getMessage());

@@ -5,34 +5,29 @@ import com.th5.domain.other.AuctionManager;
 
 public class User implements Comparable<User>{
 
-	private String email, password, displayName;
+	private int 	userId;
+	private String 	email,
+					password, 
+					displayName;
 	
-	private Person person;
-	private Address address;
-
-	private AuctionManager actionManager;
-
-	private int userId;
+	private Person 	person;
+	private Address	address;
 	private UserRights rights;
-
+	private AuctionManager actionManager;
 	
 	public User(String email){
 		this.email = email;
 	}
 	public User(String email,String password, String displayName, UserRights rights){
-		this.email = email;
+		this(email);
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
 		this.actionManager = new AuctionManager();
 	}
 	public User(int userId, String email, String password, String displayName, UserRights rights){
+		this(email, password, displayName, rights);
 		this.userId = userId;
-		this.email = email;
-		this.password = password;
-		this.displayName = displayName;
-		this.rights = rights;
-		this.actionManager = new AuctionManager();
 	}
 
 	public String getPassword() {
@@ -90,7 +85,10 @@ public class User implements Comparable<User>{
 	public UserRights getRights(){
 		return rights;
 	}
-
-	
-	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 }
