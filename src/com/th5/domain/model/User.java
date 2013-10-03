@@ -1,5 +1,7 @@
 package com.th5.domain.model;
 
+import com.th5.domain.other.AuctionManager;
+
 
 public class User implements Comparable<User>{
 
@@ -8,6 +10,7 @@ public class User implements Comparable<User>{
 	private Person person;
 	private Address address;
 
+	private AuctionManager actionManager;
 
 	private int userId;
 	private UserRights rights;
@@ -21,6 +24,7 @@ public class User implements Comparable<User>{
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
+		this.actionManager = new AuctionManager();
 	}
 	public User(int userId, String email, String password, String displayName, UserRights rights){
 		this.userId = userId;
@@ -28,6 +32,7 @@ public class User implements Comparable<User>{
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
+		this.actionManager = new AuctionManager();
 	}
 
 	public String getPassword() {

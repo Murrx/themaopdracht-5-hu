@@ -34,8 +34,16 @@ public class UserListManager implements CRUD_Interface<User>{
 		if (!emailAvailable(user.getEmail())){
 			throw new AuctifyException("Email adress is already in use");
 		}
+		
+		try {
 		userDatabaseCRUD.create(user);
+		//userList.add(user); moet nog naar gekeken worden.
+		//nu word er een user ZONDER id aan de lijst toegevoegd
+		//er moet dus eerst nog een retrieve komen die wel een userId heeft
 		userList.add(user);
+		} catch (AuctifyException ae) {
+			throw new AuctifyException(ae.getMessage());
+		}
 	}
 
 	
