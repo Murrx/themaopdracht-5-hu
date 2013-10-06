@@ -28,6 +28,7 @@ public class User implements Comparable<User>{
 	public User(int userId, String email, String password, String displayName, UserRights rights){
 		this(email, password, displayName, rights);
 		this.userId = userId;
+		
 	}
 
 	public String getPassword() {

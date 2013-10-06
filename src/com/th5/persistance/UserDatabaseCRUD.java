@@ -24,8 +24,8 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	 * @throws AuctifyException when the user is not found or when the database connection fails 
 	 */
 	@Override
-	public User retrieve(String email) throws AuctifyException {
-		
+	public User retrieve(Object em) throws AuctifyException {
+		String email = (String)em;
 		Connection connection;
 		try {
 			connection = DataSourceService.getConnection();

@@ -26,10 +26,11 @@ public class AuctionManager implements CRUD_Interface<Auction>{
 	}
 
 	@Override
-	public Auction retrieve(String email) throws AuctifyException{
+	public Auction retrieve(Object actId) throws AuctifyException{
+		int auctionId = (Integer)actId;
 		Auction auction = getAuctionFromAuctionList(0);//TODO change this to the id of the auction
 		if (auction == null){
-			auction = auctionDatabaseCRUD.retrieve(email);
+			auction = auctionDatabaseCRUD.retrieve(auctionId);
 			if (auction != null) {
 				auctionList.add(auction); 
 			}

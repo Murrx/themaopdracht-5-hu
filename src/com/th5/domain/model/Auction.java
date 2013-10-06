@@ -6,14 +6,29 @@
 
 package com.th5.domain.model;
 
+import com.opensymphony.xwork2.ActionSupport;
+
 public class Auction implements Comparable<Auction> {
 
 	private long startTime;
 	private long endTime;
 	private int auctionId;
+	private int statusId;
+	private Product product;
 	
 	public Auction(int auctionId) {
 		this.auctionId = auctionId;
+	}
+	
+	public Auction(long startTime, long endTime, int statusId) {
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.statusId = statusId;
+	}
+	
+	public Auction(int auctionId, long startTime, long endTime, int statusId) {
+		this(startTime, endTime, statusId);
+		this.statusId = statusId;
 	}
 	
 	@Override
