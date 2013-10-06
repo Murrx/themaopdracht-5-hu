@@ -78,7 +78,21 @@ CREATE TABLE ADR_ADDRESSES (
 			PRIMARY KEY (ADR_PK_ADDRESS_ID))	;					-- PK of Addresses
 			
 );
+/
+
+CREATE TABLE AUC_AUCTIONS (
+		AUC_PK_AUCTION_ID NUMBER(8),
+		AUC_START_TIME DATE NOT NULL,
+		AUC_END_TIME DATE NOT NULL,
+		AUC_FK_USER_ID NUMBER(8) NOT NULL,
+		AUC_FK_STATUS NUMBER(1) NOT NULL,
+		AUC_FK_PRODUCT_ID NUMBER(8) NOT NULL,
 		
+		CONSTRAINT AUC_PK_AUCTION_ID 
+			PRIMARY KEY (AUC_PK_AUCTION_ID))	;					-- PK of Auction
+			
+);
+
 /* --- FOREIGN KEYS CONSTRAINTS --- */
 		 
 /* CONSTRAINT FK_USR_RIGHT_ID
@@ -119,6 +133,11 @@ CREATE SEQUENCE seq_adr_pk_address_id
 	increment by 1
 	NOMAXVALUE;
 	
+CREATE SEQUENCE seq_auc_pk_auction_id
+	start with 1
+	increment by 1
+	NOMAXVALUE;
+	
 /* --- TRIGGERS --- */
 
 CREATE TRIGGER tr_pk_users
@@ -146,6 +165,15 @@ CREATE TRIGGER tr_pk_address
 	BEGIN
 		SELECT seq_adr_pk_address_id.nextval 
 		INTO :new.ADR_PK_ADDRESS_ID
+		FROM dual;
+	END;
+	
+CREATE TRIGGER tr_pk_auctions
+	BEFORE INSERT ON AUC_AUCTIONS
+	FOR EACH ROW
+	BEGIN
+		SELECT seq_auc_pk_auction_id.nextval 
+		INTO :new.AUC_PK_AUCTION_ID
 		FROM dual;
 	END;
 	
