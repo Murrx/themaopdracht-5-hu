@@ -1,13 +1,16 @@
 package com.th5.struts.actions;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
+import com.th5.domain.model.Address;
 import com.th5.domain.model.User;
 import com.th5.domain.model.validators.AttributeError;
+import com.th5.domain.model.validators.UserAddressValidator;
 import com.th5.domain.model.validators.UserRegisterValidator;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
@@ -50,6 +53,58 @@ public class RegisterAction extends ActionSupport {
 	@Override
 	public void validate() {
 		
+		// Address validation
+		
+		if (register_city == null) {
+			addFieldError("register_city", "city is required");
+		} else if ("".equals(register_city.trim())) {
+			addFieldError("register_city", "city is required");
+		}
+		
+		if (register_street == null) {
+			addFieldError("register_street", "street is required");
+		} else if ("".equals(register_street.trim())) {
+			addFieldError("register_street", "street is required");
+		}
+		
+		if (register_postalCode == null) {
+			addFieldError("register_postalCode", "postal code is required");
+		} else if ("".equals(register_postalCode.trim())) {
+			addFieldError("register_postalCode", "postal code is required");
+		}
+		
+		if (register_houseNumber == null) {
+			addFieldError("register_houseNumber", "house number is required");
+		} else if ("".equals(register_houseNumber.trim())) {
+			addFieldError("register_houseNumber", "house number is required");
+		}
+		
+		// Person validation
+		
+		if (register_birthdate == null) {
+			addFieldError("register_birthdate", "birthdate is required");
+		} else if(!register_birthdate.before(Calendar.getInstance().getTime())) {
+			addFieldError("register_birthdate", "birthdate is required");
+		}
+		
+		if (register_gender == 0 || register_gender == 1) {
+			addFieldError("register_gender", "gender is required");
+		} 
+		
+		if (register_lastName == null) {
+			addFieldError("register_lastName", "last name is required");
+		} else if("".equals(register_lastName.trim())) {
+			addFieldError("register_lastName", "last name is required");
+		}
+		
+		if (register_firstName == null) {
+			addFieldError("register_firstName", "first name is required");
+		} else if("".equals(register_firstName.trim())) {
+			addFieldError("register_firstName", "first name is required");
+		}
+		
+		// User validation
+		
 		if (register_displayName == null) {
 			addFieldError("register_displayName", "display name is required");
 		} else if ("".equals(register_displayName.trim())) {
@@ -72,17 +127,28 @@ public class RegisterAction extends ActionSupport {
 			addFieldError("register_password", "retype password is required");
 		} else if (!register_password.equals(register_password2)) {
 			addFieldError("register_password", "Passwords don't match");
-		} else {
+		} 
 
 //			Person person = new Person();  -- TODO::
 //			Address address = new Address();
 			
+		if (!hasFieldErrors()) {
 			User user = new User(register_email, register_password,
 					register_displayName, null);
 			UserRegisterValidator urv = new UserRegisterValidator();
-			List<AttributeError> attributeErrorsList = urv.validate(user);
-			if (attributeErrorsList.size() > 0) {
-				for (AttributeError ate : attributeErrorsList) {
+			List<AttributeError> userAttributeErrorsList = urv.validate(user);
+			if (userAttributeErrorsList.size() > 0) {
+				for (AttributeError ate : userAttributeErrorsList) {
+					addFieldError("register_" + ate.getAttribute(),
+							ate.getErrorMessage());
+				}
+			}
+			
+			Address address = new Address(register_postalCode, register_houseNumber, register_street, register_city);
+			UserAddressValidator uav = new UserAddressValidator();
+			List<AttributeError> addressAttributeErrorsList = uav.validate(address);
+			if (addressAttributeErrorsList.size() > 0) {
+				for (AttributeError ate : addressAttributeErrorsList) {
 					addFieldError("register_" + ate.getAttribute(),
 							ate.getErrorMessage());
 				}

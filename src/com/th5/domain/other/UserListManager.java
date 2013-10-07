@@ -59,7 +59,8 @@ public class UserListManager implements CRUD_Interface<User>{
 	 * @throws AuctifyException when the user is not found
 	 */
 	@Override
-	public User retrieve(String email) throws AuctifyException{
+	public User retrieve(Object em) throws AuctifyException{
+		String email = (String)em;
 		User user = getUserFromUserList(email);
 		if (user == null){
 			user = userDatabaseCRUD.retrieve(email);
