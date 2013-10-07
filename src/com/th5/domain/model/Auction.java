@@ -34,6 +34,42 @@ public class Auction implements Comparable<Auction> {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+	public long getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
+
+	public long getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(long endTime) {
+		this.endTime = endTime;
+	}
+
+	public int getAuctionId() {
+		return auctionId;
+	}
+
+	public void setAuctionId(int auctionId) {
+		this.auctionId = auctionId;
+	}
+
+	public int getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
 	@Override
 	public int compareTo(Auction o) {
 		if (auctionId > o.auctionId) {
