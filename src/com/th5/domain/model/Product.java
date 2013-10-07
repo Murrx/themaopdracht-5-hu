@@ -1,6 +1,5 @@
 /*
- * De
-veloper : Joris Rijkes (Joris_Rijkes@gmail.com)
+ * Developer : Joris Rijkes (Joris_Rijkes@gmail.com)
  * Date : 6 okt. 2013
  * All code (c)2013 Joris Rijkes inc. all rights reserved
  */
@@ -10,20 +9,19 @@ package com.th5.domain.model;
 public class Product {
 
 	private int productId;
-	private String productName;
-	private String productDescription;
+	private String name;
+	private String description;
 	
-
-	private String productPhotoUrl;
-	//private int prdouctCategoryId;
-	
-	public Product(int productId, String productName, String productDescription, String productPhotoUrl) {
-		this.productId = productId;
-		this.productName = productName;
-		this.productDescription = productDescription;
-		this.productPhotoUrl = productPhotoUrl;
+	public Product(String name, String description) {
+		this.name = name;
+		this.description = description;
 	}
 	
+	public Product(int productId, String name, String description) {
+		this(name, description);
+		this.productId = productId;
+	}
+
 	public int getProductId() {
 		return productId;
 	}
@@ -32,27 +30,19 @@ public class Product {
 		this.productId = productId;
 	}
 
-	public String getProductName() {
-		return productName;
+	public String getName() {
+		return name;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getProductDescription() {
-		return productDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setProductDescription(String productDescription) {
-		this.productDescription = productDescription;
-	}
-
-	public String getProductPhotoUrl() {
-		return productPhotoUrl;
-	}
-
-	public void setProductPhotoUrl(String productPhotoUrl) {
-		this.productPhotoUrl = productPhotoUrl;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

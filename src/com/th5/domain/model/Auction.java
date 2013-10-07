@@ -6,47 +6,54 @@
 
 package com.th5.domain.model;
 
-import com.opensymphony.xwork2.ActionSupport;
+import java.util.Calendar;
 
 public class Auction implements Comparable<Auction> {
 
-	private long startTime;
-	private long endTime;
 	private int auctionId;
-	private int statusId;
+	private Calendar startTime;
+	private Calendar endTime;
+	private int price;
+	
 	private Product product;
+	private Category category;
+	private Status status;
 	
 	public Auction(int auctionId) {
 		this.auctionId = auctionId;
 	}
 	
-	public Auction(long startTime, long endTime, int statusId) {
-		this.startTime = startTime;
+	public Auction(Calendar endTime, int price, Category category, String productName, String productDescripion ) {
+		this.startTime = Calendar.getInstance();
 		this.endTime = endTime;
-		this.statusId = statusId;
+		this.price = price;
+		
+		this.category = category;
+		this.status = Status.ACTIVE;
+		this.product = new Product(productName, productDescripion);
 	}
 	
-	public Auction(int auctionId, long startTime, long endTime, int statusId) {
-		this(startTime, endTime, statusId);
-		this.statusId = statusId;
+	public Auction(Calendar endTime, int price, Category category, String productName, String productDescripion , int auctionId) {
+		this( endTime, price, category, productName, productDescripion);
+		this.auctionId = auctionId;
 	}
 	
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	public long getStartTime() {
+	public Calendar getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(long startTime) {
+	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
 	}
 
-	public long getEndTime() {
+	public Calendar getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(long endTime) {
+	public void setEndTime(Calendar endTime) {
 		this.endTime = endTime;
 	}
 
@@ -57,19 +64,35 @@ public class Auction implements Comparable<Auction> {
 	public void setAuctionId(int auctionId) {
 		this.auctionId = auctionId;
 	}
-
-	public int getStatusId() {
-		return statusId;
+	
+	public int getPrice() {
+		return price;
 	}
 
-	public void setStatusId(int statusId) {
-		this.statusId = statusId;
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public Product getProduct() {
 		return product;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
 	@Override
 	public int compareTo(Auction o) {
 		if (auctionId > o.auctionId) {
@@ -82,5 +105,4 @@ public class Auction implements Comparable<Auction> {
 			return 0;
 		}
 	}
-
 }
