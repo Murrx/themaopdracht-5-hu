@@ -12,12 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.th5.domain.model.Address;
 import com.th5.domain.model.Auction;
-import com.th5.domain.model.Person;
 import com.th5.domain.model.Product;
-import com.th5.domain.model.User;
-import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 
 public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
@@ -35,7 +31,6 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		PreparedStatement statement = null;
 		Auction auction = null;
 		Product product = null;
-		//Product product = null;
 
 		try{
 			statement = connection.prepareStatement(
@@ -62,10 +57,8 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				
 				product = new Product(productId, productName, productDescription, productPhotoUrl);
 				
+				auction.setProduct(product);
 				
-				
-				//user.setPerson(person);
-				//user.setAddress(address);
 			}
 
 		}catch(SQLException e){

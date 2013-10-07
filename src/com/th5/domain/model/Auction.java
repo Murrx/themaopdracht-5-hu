@@ -31,6 +31,9 @@ public class Auction implements Comparable<Auction> {
 		this.statusId = statusId;
 	}
 	
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 	@Override
 	public int compareTo(Auction o) {
 		if (auctionId > o.auctionId) {
