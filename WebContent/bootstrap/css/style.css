@@ -71,6 +71,23 @@ button[type="submit"] {
 	background-color: lightgray;
 }
 
+.progress {
+    position: relative;
+}
+
+.progress-bar {
+    z-index: 1;
+    position: absolute;
+}
+
+.progress .progress-bar-label {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+    
+}
+
 @media (max-width: 768px) {
 	button[type="submit"] {
 		height: 34px;
