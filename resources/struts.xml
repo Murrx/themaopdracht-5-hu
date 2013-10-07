@@ -47,6 +47,10 @@
 			<result name="input">register.jsp</result>
 		</action>
 		
+		<action name="addAuctionForm" class="com.th5.struts.actions.AddAuctionFormAction">
+			<result name="success">addAuction.jsp</result>
+		</action>
+		
 		<action name="addAuction" class="com.th5.struts.actions.AddAuctionAction">
 			<result name="success">addAuctionResult.jsp</result>
 			<result name="input">addAuction.jsp</result>
