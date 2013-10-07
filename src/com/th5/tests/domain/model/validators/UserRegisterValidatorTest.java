@@ -12,93 +12,116 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.th5.domain.model.User;
-import com.th5.domain.model.UserRights;
-import com.th5.domain.model.validators.UserRegisterValidator;
+import com.th5.domain.model.Address;
+import com.th5.domain.model.validators.UserAddressValidator;
 
 public class UserRegisterValidatorTest {
 
-	private static UserRegisterValidator userValidator;
-	private User user = new User("test@test.nl", "Testtest1", "test", UserRights.USER);
+	private static UserAddressValidator userAddressValidator;
+	private Address address = new Address("AaAa 20", "73", "steenweg", "Amsterdam");
 	
 	@BeforeClass
 	public static void oneTimeSetupBeforeClass(){
-		userValidator = new UserRegisterValidator();
+		userAddressValidator = new UserAddressValidator();
 	}
 	
 	@Before
 	public void setup() {
-		user.setEmail("test@test.nl");
-		user.setPassword("Testtest1");
-		user.setDisplayName("test");
-		userValidator.clearArray();	
+		address.setCity("Amsterdam");
+		address.setHouseNumber("73");
+		address.setStreet("steenweg");
+		address.setPostalCode("AaAa 20");
+		userAddressValidator.clearArray();
 	}
 
 	@Test
-	public void testValidEmailAdres() {
-		if (userValidator.validate(user).size() > 0) {
+	public void testValidCity() {
+		if (userAddressValidator.validate(address).size() > 0) {
 			fail();
 		}
 	}
 	
 	@Test
-	public void testInValidEmailAdres() {
-		user.setEmail("a@.nl");
-		if (!(userValidator.validate(user).size() > 0)) {
+	public void testInValidCity() {
+		address.setCity("!Amsterdam");
+		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
 		}
 	}
 	
 	@Test
-	public void testNullEmailAdres() {
-		user.setEmail(null);
-		if (!(userValidator.validate(user).size() > 0)) {
+	public void testNullCity() {
+		address.setCity(null);
+		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
 		}
 	}
 	
 	@Test
-	public void testValidPassword() {
-		if (userValidator.validate(user).size() > 0) {
+	public void testValidHouseNumber() {
+		if (userAddressValidator.validate(address).size() > 0) {
 			fail();
 		}
 	}
 	
 	@Test
-	public void testInValidPassword() {
-		user.setPassword("a bla 2!");
-		if (!(userValidator.validate(user).size() > 0)) {
+	public void testInValidHouseNumber() {
+		address.setHouseNumber("!abc %ra");
+		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
 		}
 	}
 	
 	@Test
-	public void testNullPassword() {
-		user.setPassword(null);
-		if (!(userValidator.validate(user).size() > 0)) {
+	public void testNullHouseNumber() {
+		address.setHouseNumber(null);
+		if (!(userAddressValidator.validate(address).size() > 0)) {
+			fail();
+		}
+	}
+
+	@Test
+	public void testValidStreet() {
+		if (userAddressValidator.validate(address).size() > 0) {
 			fail();
 		}
 	}
 	
 	@Test
-	public void testValidDisplayName() {
-		if (userValidator.validate(user).size() > 0) {
+	public void testInValidStreet() {
+		address.setStreet("AABCDEFGH123456");
+		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
 		}
 	}
 	
 	@Test
-	public void testInValidDisplayName() {
-		user.setDisplayName("a");
-		if (!(userValidator.validate(user).size() > 0)) {
+	public void testNullStreet() {
+		address.setStreet(null);
+		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
 		}
 	}
 	
 	@Test
-	public void testNullDisplayName() {
-		user.setDisplayName(null);
-		if (!(userValidator.validate(user).size() > 0)) {
+	public void testValidPostalCode() {
+		if (userAddressValidator.validate(address).size() > 0) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void testInValidPostalCode() {
+		address.setStreet("AABCDEFGH123456");
+		if (!(userAddressValidator.validate(address).size() > 0)) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void testNullPostalCode() {
+		address.setPostalCode(null);
+		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
 		}
 	}
