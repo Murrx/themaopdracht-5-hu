@@ -71,6 +71,32 @@ button[type="submit"] {
 	background-color: lightgray;
 }
 
+.auction-title-box {
+	position: absolute;
+	background: white;
+	opacity:0.7;
+	filter:alpha(opacity=70);
+}
+
+.fullimage {
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+	
+}
+
+.fullimage * {
+	position: relative;
+	z-index: 10;
+}
+
+.fullimage img {
+	position:absolute;
+    left:0;
+    top:0;
+    z-index: 0;
+}
+
 .progress {
     position: relative;
 }
@@ -85,7 +111,6 @@ button[type="submit"] {
     z-index: 2;
     color: white;
     text-shadow: 1px 1px 3px black;
-    
 }
 
 @media (max-width: 768px) {

@@ -10,6 +10,8 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../bootstrap/css/style.css">
 		
+		<script src="../includes/countdown.js" type="text/javascript"></script>		
+		
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 			<script src="../bootstrap/js/html5shiv.js"></script>

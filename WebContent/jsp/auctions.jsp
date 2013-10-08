@@ -6,6 +6,14 @@
 
 <h1>Alle Auctions</h1>
 
+<script type="text/javascript">
+	window.onload=function(){
+		<s:iterator status="stat" value="(25).{ #this }" >
+			dateFuture<s:property value="#stat.count" /> = new Date(2014,<s:property value="#stat.count" />,<s:property value="#stat.count" />);
+			GetCount(dateFuture<s:property value="#stat.count" />, "timer<s:property value="#stat.count" />");
+		</s:iterator>
+	};
+</script>
 <div class="row">
 	<s:iterator status="stat" value="(25).{ #this }" >
 		<s:include value="/includes/auctionBox.jsp" />
