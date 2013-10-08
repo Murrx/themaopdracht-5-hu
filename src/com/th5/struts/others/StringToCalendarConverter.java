@@ -3,6 +3,7 @@ package com.th5.struts.others;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -20,15 +21,17 @@ public class StringToCalendarConverter extends StrutsTypeConverter {
         }
 
         try {
-            return DATETIME_FORMAT.parse(strings[0]);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(DATETIME_FORMAT.parse(strings[0]));
+            return calendar;
         } catch (ParseException e) {
             throw new TypeConversionException("Unable to convert given object to date: " + strings[0]);
         }
     }
 
-    public String convertToString(Map context, Object date) {
-        if (date != null && date instanceof Date) {         
-            return DATETIME_FORMAT.format(date);
+    public String convertToString(Map context, Object calendar) {
+        if (calendar != null && calendar instanceof Calendar) {         
+            return DATETIME_FORMAT.format(calendar);
         } else {
             return null;
         }

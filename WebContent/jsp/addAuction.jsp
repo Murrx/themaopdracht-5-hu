@@ -16,7 +16,7 @@
 			
 			<s:fielderror fieldName="auction_category" />
 			<s:select name="auction_category" 
-    			list="categories" listKey="categories.name">
+    			list="categories" listKey="name()">
 			</s:select>
 			
 			<s:fielderror fieldName="fileUpload" />
@@ -30,8 +30,5 @@
 			
 			<s:submit method="execute" key="label.submit" align="center" cssClass="btn btn-default" value="submit"   />
 		
-		</s:form>
-			
-
-		
+		</s:form>		
 <s:include value="/includes/footer.jsp" />

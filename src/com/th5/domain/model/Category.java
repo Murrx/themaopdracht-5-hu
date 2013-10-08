@@ -6,7 +6,6 @@ public enum Category {ELECTRONICS("Electronics"),BOOKS("Books"),CARS("Cars");
 	Category(String name){
 		this.name = name;
 	}
-	
 	public String toString(){
 		return name;
 	}
