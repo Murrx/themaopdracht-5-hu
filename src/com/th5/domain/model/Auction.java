@@ -18,6 +18,7 @@ public class Auction implements Comparable<Auction> {
 	private Product product;
 	private Category category;
 	private Status status;
+	private User user;
 	
 	public Auction(int auctionId) {
 		this.auctionId = auctionId;
@@ -104,5 +105,13 @@ public class Auction implements Comparable<Auction> {
 		else {
 			return 0;
 		}
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }
