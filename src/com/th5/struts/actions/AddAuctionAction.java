@@ -21,7 +21,7 @@ public class AddAuctionAction extends ActionSupport implements SessionAware{
 	private User 		user;
 	
 	private Map	 		session;
-	
+	private Category[] categories = Category.values();
 	@Override
 	public String execute() throws Exception {
 		user = (User) session.get("user");
@@ -89,4 +89,13 @@ public class AddAuctionAction extends ActionSupport implements SessionAware{
 	public void setSession(Map session) {
 		this.session = session;
 	}
+
+	public Category[] getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Category[] categories) {
+		this.categories = categories;
+	}
+	
 }
