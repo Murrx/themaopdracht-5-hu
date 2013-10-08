@@ -28,7 +28,6 @@ public class AddAuctionAction extends ActionSupport implements SessionAware{
 		
 		Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
 		
-		System.out.println("AddAuctionAction :: running execute from user: " + user.getDisplayName());
 		return ActionSupport.SUCCESS;
 	}
 
@@ -97,5 +96,4 @@ public class AddAuctionAction extends ActionSupport implements SessionAware{
 	public void setCategories(Category[] categories) {
 		this.categories = categories;
 	}
-	
 }

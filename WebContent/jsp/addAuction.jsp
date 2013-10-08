@@ -16,7 +16,7 @@
 			
 			<s:fielderror fieldName="auction_category" />
 			<s:select name="auction_category" 
-    			list="categories">
+    			list="categories" listKey="categories.name">
 			</s:select>
 			
 			<s:fielderror fieldName="fileUpload" />
