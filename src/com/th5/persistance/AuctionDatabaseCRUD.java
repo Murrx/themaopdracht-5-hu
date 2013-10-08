@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.th5.domain.model.Auction;
+import com.th5.domain.model.Category;
 import com.th5.domain.model.Product;
+import com.th5.domain.model.Status;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
 
@@ -50,16 +52,26 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				int aucStatusId = result.getInt("auc_fk_status_id");
 				int auctionID = result.getInt("auc_pk_auction_id");
 				
-				auction = new Auction(auctionID, aucStartTime, aucEndTime, aucStatusId);
+				int startBid = result.getInt("auc_start_bid");
+				//Category category = result.getString("auc_fk_category");
 				
 				//product data
 				int productId = result.getInt("prd_pk_product_id");
 				String productName = result.getString("prd_name");
 				String productDescription = result.getString("prd_description");
-				String productPhotoUrl = result.getString("prd_photo_url");
+				
+				// auction 
+				
+				//auction = new Auction(aucEndTime, startBid, category, productName, productDescription, auctionID);
+				//auction.setStartTime(aucStartTime);
+				//auction.setStatus(Status.fromInteger(aucStatusId));
+				//auction.getProduct().setProductId(productId);
+				
+				
+				
 				//category id
 				
-				product = new Product(productId, productName, productDescription, productPhotoUrl);
+				product = new Product(productId, productName, productDescription);
 				
 				auction.setProduct(product);
 				
@@ -127,7 +139,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			statement.setInt(6, auction.getStartBid());
 			
 			statement.setString(7, auction.getProduct().getName());
-			statement.setString(7, auction.getProduct().getDescription());
+			statement.setString(8, auction.getProduct().getDescription());
 			
 			statement.executeQuery();
 			

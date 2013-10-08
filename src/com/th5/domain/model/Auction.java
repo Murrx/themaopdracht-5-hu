@@ -24,10 +24,10 @@ public class Auction implements Comparable<Auction> {
 		this.auctionId = auctionId;
 	}
 	
-	public Auction(Calendar endTime, int price, Category category, String productName, String productDescripion ) {
+	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion ) {
 		this.startTime = Calendar.getInstance();
 		this.endTime = endTime;
-		this.startBid = price;
+		this.startBid = startBid;
 		
 		this.category = category;
 		this.status = Status.ACTIVE;
