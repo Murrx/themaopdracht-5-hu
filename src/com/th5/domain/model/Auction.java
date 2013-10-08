@@ -13,7 +13,7 @@ public class Auction implements Comparable<Auction> {
 	private int auctionId;
 	private Calendar startTime;
 	private Calendar endTime;
-	private int price;
+	private int startBid;
 	
 	private Product product;
 	private Category category;
@@ -27,15 +27,15 @@ public class Auction implements Comparable<Auction> {
 	public Auction(Calendar endTime, int price, Category category, String productName, String productDescripion ) {
 		this.startTime = Calendar.getInstance();
 		this.endTime = endTime;
-		this.price = price;
+		this.startBid = price;
 		
 		this.category = category;
 		this.status = Status.ACTIVE;
 		this.product = new Product(productName, productDescripion);
 	}
 	
-	public Auction(Calendar endTime, int price, Category category, String productName, String productDescripion , int auctionId) {
-		this( endTime, price, category, productName, productDescripion);
+	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion , int auctionId) {
+		this( endTime, startBid, category, productName, productDescripion);
 		this.auctionId = auctionId;
 	}
 	
@@ -66,12 +66,12 @@ public class Auction implements Comparable<Auction> {
 		this.auctionId = auctionId;
 	}
 	
-	public int getPrice() {
-		return price;
+	public int getStartBid() {
+		return startBid;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setStartBid(int startBid) {
+		this.startBid = startBid;
 	}
 
 	public Status getStatus() {
