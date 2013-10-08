@@ -122,24 +122,17 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			
 			statement.setDate(2, DateConverter.calendarToSQLDate(auction.getStartTime()));
 			statement.setDate(3, DateConverter.calendarToSQLDate(auction.getEndTime()));
-			statement.setString(4, auction.getCategory().name()o);
-//			
-//			// --- PRS_PERSONS ---- //
-//			statement.setString(5, user.getPerson().getFirstName());
-//			statement.setString(6, user.getPerson().getLastName());
-//			statement.setInt(7, user.getPerson().getGender());
-//			statement.setDate(8, DateConverter.toSQLDate(user.getPerson().getBirthdate()));
-//			
-//			// --- ADR_ADRESSES ---- //
-//			statement.setString(9, user.getAddress().getPostalCode());
-//			statement.setString(10, user.getAddress().getHouseNumber());
-//			statement.setString(11, user.getAddress().getStreet());
-//			statement.setString(12, user.getAddress().getCity());
-						
+			statement.setString(4, auction.getCategory().name());
+			statement.setInt(5, auction.getUser().getUserId());
+			statement.setInt(6, auction.getStartBid());
+			
+			statement.setString(7, auction.getProduct().getName());
+			statement.setString(7, auction.getProduct().getDescription());
+			
 			statement.executeQuery();
 			
-			int userId = statement.getInt(1);
-			return userId;
+			int auctionId = statement.getInt(1);
+			return auctionId;
 			
 		}catch(SQLException e){
 			e.printStackTrace();
