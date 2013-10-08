@@ -41,15 +41,15 @@ public class AuctionManager implements CRUD_Interface<Auction>{
 
 	@Override
 	public int create(Auction auction) throws AuctifyException {
-		
+		int newAuctionId = -1;
 		try {
-		auctionDatabaseCRUD.create(auction);
-		//Database functie moet een int van de unieke id teruggeven
+		newAuctionId = auctionDatabaseCRUD.create(auction);
+		auction.setAuctionId(newAuctionId);
 		auctionList.add(auction);
 		} catch (AuctifyException ae) {
 			throw new AuctifyException(ae.getMessage());
 		}
-		return (0); //TODO change return statement to someting usefull
+		return newAuctionId;
 	}
 	
 	/**

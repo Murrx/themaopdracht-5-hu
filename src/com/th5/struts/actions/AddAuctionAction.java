@@ -28,6 +28,8 @@ public class AddAuctionAction extends ActionSupport implements SessionAware{
 		
 		Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
 		
+		user.createAuction(auction);
+		
 		return ActionSupport.SUCCESS;
 	}
 

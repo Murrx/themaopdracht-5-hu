@@ -1,5 +1,6 @@
 package com.th5.domain.model;
 
+import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionManager;
 
 
@@ -13,7 +14,7 @@ public class User implements Comparable<User>{
 	private Person 	person;
 	private Address	address;
 	private UserRights rights;
-	private AuctionManager actionManager;
+	private AuctionManager auctionManager;
 	
 	public User(String email){
 		this.email = email;
@@ -23,12 +24,15 @@ public class User implements Comparable<User>{
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
-		this.actionManager = new AuctionManager();
+		this.auctionManager = new AuctionManager();
 	}
 	public User(int userId, String email, String password, String displayName, UserRights rights){
 		this(email, password, displayName, rights);
 		this.userId = userId;
-		
+	}
+	
+	public void createAuction(Auction auction) throws AuctifyException{
+		auctionManager.create(auction);
 	}
 
 	public String getPassword() {
@@ -44,8 +48,6 @@ public class User implements Comparable<User>{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
 	
 	public Person getPerson() {
 		return person;
