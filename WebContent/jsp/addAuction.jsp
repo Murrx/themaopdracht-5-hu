@@ -6,7 +6,7 @@
 		<h2>Add Auction</h2>
 		<s:actionerror />
 		
-		<s:form action="addAuction" method="post" namespace="/" enctype="multipart/form-data">
+		<s:form action="resultAction" method="post" namespace="/" enctype="multipart/form-data">
 		
 			<s:fielderror fieldName="auction_name" />
 			<s:textfield name="auction_name" key="auction.name" size="20" placeholder="Name" cssClass="form-control" />

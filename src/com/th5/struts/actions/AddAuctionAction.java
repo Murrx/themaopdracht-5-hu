@@ -25,7 +25,7 @@ public class AddAuctionAction extends ActionSupport implements SessionAware{
 	@Override
 	public String execute() throws Exception {
 		user = (User) session.get("user");
-		System.out.println(auction_end_time);
+		
 		Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
 		
 		return ActionSupport.SUCCESS;
