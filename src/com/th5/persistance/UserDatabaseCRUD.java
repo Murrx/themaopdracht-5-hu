@@ -140,7 +140,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			statement.setString(5, user.getPerson().getFirstName());
 			statement.setString(6, user.getPerson().getLastName());
 			statement.setInt(7, user.getPerson().getGender());
-			statement.setDate(8, DateConverter.toSQLDate(user.getPerson().getBirthdate()));
+			statement.setDate(8, DateConverter.dateToSQLDate(user.getPerson().getBirthdate()));
 			
 			// --- ADR_ADRESSES ---- //
 			statement.setString(9, user.getAddress().getPostalCode());
@@ -202,7 +202,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			statement.setString(4, user.getPerson().getFirstName());
 			statement.setString(5, user.getPerson().getLastName());
 			statement.setInt(6, user.getPerson().getGender());
-			statement.setDate(7, DateConverter.toSQLDate(user.getPerson().getBirthdate()));
+			statement.setDate(7, DateConverter.dateToSQLDate(user.getPerson().getBirthdate()));
 			
 			// --- ADR_ADRESSES ---- //
 			statement.setString(8, user.getAddress().getPostalCode());
