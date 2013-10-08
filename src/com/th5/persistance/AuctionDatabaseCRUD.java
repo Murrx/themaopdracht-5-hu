@@ -17,7 +17,6 @@ import java.util.Calendar;
 
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
-import com.th5.domain.model.Product;
 import com.th5.domain.model.Status;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
@@ -36,7 +35,6 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		
 		PreparedStatement statement = null;
 		Auction auction = null;
-		Product product = null;
 
 		try{
 			statement = connection.prepareStatement(
@@ -53,7 +51,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				int auctionID = result.getInt("auc_pk_auction_id");
 				
 				int startBid = result.getInt("auc_start_bid");
-				//Category category = result.getString("auc_fk_category");
+				String categoryString = result.getString("auc_fk_category");
 				
 				//product data
 				int productId = result.getInt("prd_pk_product_id");
@@ -62,18 +60,12 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				
 				// auction 
 				
-				//auction = new Auction(aucEndTime, startBid, category, productName, productDescription, auctionID);
-				//auction.setStartTime(aucStartTime);
-				//auction.setStatus(Status.fromInteger(aucStatusId));
-				//auction.getProduct().setProductId(productId);
+				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID);
+				auction.setStartTime(aucStartTime);
+				auction.setStatus(Status.fromInteger(aucStatusId));
+				auction.getProduct().setProductId(productId);
 				
-				
-				
-				//category id
-				
-				product = new Product(productId, productName, productDescription);
-				
-				auction.setProduct(product);
+				return auction;
 				
 			}
 
