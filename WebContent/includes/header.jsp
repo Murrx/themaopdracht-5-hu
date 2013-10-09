@@ -61,6 +61,7 @@
 									<s:fielderror fieldName="login_password"/>
 								</div>
 								<a href="<s:url action='registerForm' namespace='/' />">Register a new account</a>
+								<a href="registerPage">Register a new account</a>
 							</div>
 							<div class="col-sm-4">
 								<div class="form-group">
@@ -75,6 +76,7 @@
 					<s:else>
 						<p><span class="glyphicon glyphicon-user"></span><s:property value="#session.user.email" /></p>
 						<p><small><a href="<s:url action='logout' namespace='/member' />">Log out!</a></small></p>
+
 					</s:else>
 					
 				</div>

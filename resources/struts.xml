@@ -26,7 +26,10 @@
 	<package name="visitor" namespace="/" extends="struts-default">
 		<action name="welcome">
 			<result>/jsp/welcome.jsp</result>
-		</action>			
+		</action>
+		<action name="registerPage">
+			<result>/jsp/register.jsp</result>
+		</action>		
 		<action name="login" class="com.th5.struts.actions.LoginAction">
 			<result name="success">/jsp/welcome.jsp</result>
 			<result name="error">/jsp/welcome.jsp</result>

@@ -6,7 +6,7 @@ function GetCount(ddate,iid){
 
 	// if time is already past
 	if(amount < 0){
-		document.getElementById(iid).innerHTML="Now!";
+		document.getElementById(iid).innerHTML="This auction has ended.";
 	}
 	// else date is still good
 	else{
