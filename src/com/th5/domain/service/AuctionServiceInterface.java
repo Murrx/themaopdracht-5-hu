@@ -1,7 +1,9 @@
 package com.th5.domain.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 
@@ -31,4 +33,10 @@ public interface AuctionServiceInterface {
 	 * @throws AuctifyException when registration fails
 	 */
 	public void register(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException;
+	
+	/** Retrieve all auctions on Auctify
+	 * @throws AuctifyException 
+	 */
+	public ArrayList<Auction> getAllAuctions() throws AuctifyException;	
+
 }

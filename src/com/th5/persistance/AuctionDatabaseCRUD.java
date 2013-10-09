@@ -41,7 +41,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 					"SELECT * FROM auc_auctions WHERE auc_pk_auction_id = ?");
 			statement.setInt(1, auctionId);
 			ResultSet result = statement.executeQuery();
-
+			
 			while(result.next()){
 				
 				//auction data
@@ -91,11 +91,75 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	
+	/** Retrieve all auctions the database
+	 * @return an ArrayList<Auctions> with all auctions
+	 * @throws AuctifyException when the connection fails, or there are no auctions
+	 */
 	@Override
 	public ArrayList<Auction> retrieveAll() throws AuctifyException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection;
+		try {
+			connection = DataSourceService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		ArrayList<Auction> allAuctions = null;
+		PreparedStatement statement = null;
+		Auction auction = null;
+
+		try{
+			statement = connection.prepareStatement(
+					"SELECT * FROM auc_auctions, prd_products WHERE auc_pk_auction_id = prd_pk_product_id");
+			ResultSet result = statement.executeQuery();
+			allAuctions = new ArrayList<Auction>();
+			while(result.next()){
+				
+				//auction data
+				System.out.println("date before: " + result.getDate("auc_start_time"));
+
+				Calendar aucStartTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_start_time"));
+				Calendar aucEndTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_end_time"));
+				int aucStatusId = result.getInt("auc_fk_status_id");
+				int auctionID = result.getInt("auc_pk_auction_id");
+				
+				System.out.println("date after: " + aucEndTime);
+
+				
+				int startBid = result.getInt("auc_start_bid");
+				String categoryString = result.getString("auc_fk_category");
+				
+				//product data
+				int productId = result.getInt("prd_pk_product_id");
+				String productName = result.getString("prd_name");
+				String productDescription = result.getString("prd_description");
+				
+				// auction 
+				
+				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID);
+				auction.setStartTime(aucStartTime);
+				auction.setStatus(Status.fromInteger(aucStatusId));
+				auction.getProduct().setProductId(productId);
+				
+				allAuctions.add(auction);
+				
+			}
+
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if (allAuctions == null) throw new AuctifyException("no auctions found in auctiondbcrud");
+		return allAuctions;
 	}
 
 	/**Add an auction to the database

@@ -66,11 +66,27 @@ public class AuctionManager implements CRUD_Interface<Auction>{
 		}
 		return auction;
 	}
+	
+	/**
+	 * Returns all auctions from auctionList
+	 * @return ArrayList<Auction> with all auctions.
+	 * @throws AuctifyException when there are no auctions
+	 */
+	public ArrayList<Auction> retrieveAll() throws AuctifyException {
+		ArrayList<Auction> auctions = new ArrayList<Auction>();
+		auctions = auctionDatabaseCRUD.retrieveAll();
+		if (auctions != null) {
+			return auctions;
+		}
+		else {
+			throw new AuctifyException("No auctions found in auctionmanager");
+		}
+	}
+
 
 
 	//Uninplemented methods
 	public ArrayList<Auction> search(String search) {System.out.println("Not implemented");return null;}
-	public ArrayList<Auction> retrieveAll() {System.out.println("Not implemented");return null;}
 	public void update(Auction object) {System.out.println("Not implemented");}
 	public void delete(Auction object){System.out.println("Not implemented");}
 }

@@ -8,14 +8,14 @@
 
 <script type="text/javascript">
 	window.onload=function(){
-		<s:iterator status="stat" value="(25).{ #this }" >
-			dateFuture<s:property value="#stat.count" /> = new Date(2014,<s:property value="#stat.count" />,<s:property value="#stat.count" />);
-			GetCount(dateFuture<s:property value="#stat.count" />, "timer<s:property value="#stat.count" />");
+		<s:iterator value="allAuctions" >
+			dateFuture<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>);
+			GetCount(dateFuture<s:property value='auctionId'/>, "timer<s:property value='auctionId'/>");
 		</s:iterator>
 	};
 </script>
 <div class="row">
-	<s:iterator status="stat" value="(25).{ #this }" >
+	<s:iterator value="allAuctions"  >
 		<s:include value="/includes/auctionBox.jsp" />
 	</s:iterator>
 </div>

@@ -3,16 +3,16 @@
 			<div class="auction panel panel-default">
 	  			<div class="panel-body fullimage">
 	  				<div class="auction-title-box text-center">
-	  					<h3>Titel <s:property value='#stat.count'/></h3>
-	  					<p>Hier komt een omschrijving van artikel <s:property value='#stat.count'/></p>
+	  					<h3><s:property value='product.name'/></h3>
+	  					<p><s:property value='product.description'/></p>
 	  				</div>  			
-			    	<img src="http://hhhhold.com/l?<s:property value='#stat.count'/>"
-			    		alt="Auction name"
+			    	<img src="http://hhhhold.com/l/w/"
+			    		alt="<s:property value='product.name'/>"
 			    		class="img-responsive">
 			    				 
 		  			<div class="progress progress-striped active text-center">
-	  					<div class="progress-bar"  role="progressbar" aria-valuenow="<s:property value="%{#stat.count * 4}" />" aria-valuemin="0" aria-valuemax="100" style="width: <s:property value="%{#stat.count * 4}" />%"></div>
-	  					<span class="progress-bar-label" id="timer<s:property value='#stat.count'/>"></span>
+	  					<div class="progress-bar"  role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div>
+	  					<span class="progress-bar-label" id="timer<s:property value='auctionId'/>"></span>
 					</div>
 	  			</div>
 			</div>

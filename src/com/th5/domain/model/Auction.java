@@ -51,9 +51,25 @@ public class Auction implements Comparable<Auction> {
 	}
 
 	public Calendar getEndTime() {
+		System.out.println("End time: " + endTime);
 		return endTime;
 	}
 
+	public int getEndTimeYear() {
+		System.out.println("End time Year: " + endTime.YEAR);
+		return endTime.YEAR;
+	}
+	
+	public int getEndTimeMonth() {
+		System.out.println("End time Month: " + endTime.MONTH);
+		return endTime.MONTH;
+	}
+	
+	public int getEndTimeDate() {
+		System.out.println("End time Date: " + endTime.DATE);
+		return endTime.DATE;
+	}
+	
 	public void setEndTime(Calendar endTime) {
 		this.endTime = endTime;
 	}

@@ -1,8 +1,10 @@
 package com.th5.domain.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.th5.domain.model.Address;
+import com.th5.domain.model.Auction;
 import com.th5.domain.model.Person;
 import com.th5.domain.model.User;
 
@@ -10,16 +12,29 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.other.AuctionManager;
 import com.th5.domain.other.UserListManager;
+import com.th5.persistance.AuctionDatabaseCRUD;
 
 public class AuctionService implements AuctionServiceInterface{
 
 	private UserListManager userList;
+	//private AuctionManager auctionList;
 	
 	public AuctionService(){
 		userList = new UserListManager();
+		//auctionList = new AuctionManager();
 	}
 	
+	
+	/**Gets all auctions
+	 * @return ArrayList<Auction> with all auctions
+	 * @throws AuctifyException when no auctions found.
+	 */
+	public ArrayList<Auction> getAllAuctions() throws AuctifyException {
+		AuctionDatabaseCRUD adc = new AuctionDatabaseCRUD();
+		return adc.retrieveAll();
+	}
 	
 	/**Encrypts a password to sha512hex
 	 * @param password
