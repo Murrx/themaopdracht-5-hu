@@ -200,7 +200,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			
 		}catch(SQLException e){
 			e.printStackTrace();
-			throw new AuctifyException("failed to add user");
+			throw new AuctifyException("failed to add auction");
 		}finally{
 			try {
 				if(statement != null)
