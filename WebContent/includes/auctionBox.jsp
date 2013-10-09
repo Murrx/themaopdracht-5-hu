@@ -11,8 +11,8 @@
 			    		alt="<s:property value='product.name'/>"
 			    		class="img-responsive">
 			    				 
-		  			<div class="progress progress-striped active text-center">
-	  					<div class="progress-bar"  role="progressbar" aria-valuenow="<s:property value='percentage'/>" aria-valuemin="0" aria-valuemax="100" style="width: <s:property value='percentage'/>%"></div>
+		  			<div class="progress <s:if test='%{percentage != 100}'>progress-striped active </s:if>text-center">
+	  					<div class="progress-bar <s:else>progress-bar-danger</s:else>"  role="progressbar" aria-valuenow="<s:property value='percentage'/>" aria-valuemin="0" aria-valuemax="100" style="width: <s:property value='percentage'/>%"></div>
 	  					<span class="progress-bar-label" id="timer<s:property value='auctionId'/>"></span>
 					</div>
 	  			</div>

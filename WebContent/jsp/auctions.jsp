@@ -4,7 +4,7 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-<h1>Alle Auctions</h1>
+<h1>All Auctions</h1>
 
 <script type="text/javascript">
 	$(function(){
