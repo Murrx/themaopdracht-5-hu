@@ -5,8 +5,7 @@
 
 <struts>
 	<constant name="struts.custom.i18n.resources" value="global" />
-	<constant name="struts.devMode" value="true" />
-	
+	<constant name="struts.devMode" value="true" />	
 	
 	
 	<!-- You can define packages directly in this file, but its probably best 
@@ -24,44 +23,60 @@
 		
 		
 	
-	<package name="default" namespace="/" extends="struts-default">
-		<action name="welcome.jsp">
-			<result>welcome.jsp</result>
+	<package name="visitor" namespace="/" extends="struts-default">
+		<action name="welcome">
+			<result>/jsp/welcome.jsp</result>
 		</action>			
+		<action name="login" class="com.th5.struts.actions.LoginAction">
+			<result name="success">/jsp/welcome.jsp</result>
+			<result name="error">/jsp/welcome.jsp</result>
+			<result name="input">/jsp/welcome.jsp</result>
+		</action>
+		<action name="register" class="com.th5.struts.actions.RegisterAction">
+			<result name="success">/jsp/registerSuccess.jsp</result>
+			<result name="error">/jsp/register.jsp</result>
+			<result name="input">/jsp/register.jsp</result>
+		</action>
+		<action name="allAuctions" class="com.th5.struts.actions.AllAuctionsAction">
+			<result name="success">/jsp/auctions.jsp</result>
+		</action>
 	</package>
 	
-	<package name="jspPages" namespace="/jsp" extends="struts-default">
-			<action name="login" class="com.th5.struts.actions.LoginAction">
-			<result name="success">welcome.jsp</result>
-			<result name="error">welcome.jsp</result>
-			<result name="input">welcome.jsp</result>
-		</action>
+	<package name="member" namespace="/member" extends="struts-default">
+		<interceptors>
+			<interceptor name="authenticationInterceptor"
+				class="com.th5.struts.interceptors.AuthenticationInterceptor" />
+
+			<interceptor-stack name="MemberStack">
+				<interceptor-ref name="authenticationInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+	
+		<default-interceptor-ref name="MemberStack" />	
+		
+		<global-results>
+			<result name="login" type="redirect">
+				/jsp/notLoggedIn.jsp
+			</result>
+		</global-results>
 		
 		<action name="logout" class="com.th5.struts.actions.LogoutAction">
-			<result name="success">welcome.jsp</result>
+			<result name="success">/jsp/welcome.jsp</result>
 		</action>
 		
-		<action name="register" class="com.th5.struts.actions.RegisterAction">
-			<result name="success">registerSuccess.jsp</result>
-			<result name="error">register.jsp</result>
-			<result name="input">register.jsp</result>
-		</action>
-		
-		<action name="allAuctions" class="com.th5.struts.actions.AllAuctionsAction">
-			<result name="success">auctions.jsp</result>
-		</action>
 		
 		<action name="addAuctionForm" class="com.th5.struts.actions.AddAuctionFormAction">
-			<result name="success">addAuction.jsp</result>
+			<result name="success">/jsp/members/addAuction.jsp</result>
 		</action>
 		
 		<action name="addAuction" class="com.th5.struts.actions.AddAuctionAction">
-			<result name="success">addAuctionResult.jsp</result>
-			<result name="input">addAuction.jsp</result>
+			<result name="success">/jsp/members/addAuctionResult.jsp</result>
+			<result name="input">/jsp/members/addAuction.jsp</result>
 		</action>
 				
 		<action name="fileUploadAction" class="com.th5.struts.others.FileUploadAction" method="display">
-			<result name="none">addAuction.jsp</result>
+			<result name="none">/jsp/members/addAuction.jsp</result>
 		</action>
 		
 		<action name="resultAction" class="com.th5.struts.others.FileUploadAction">
@@ -82,7 +97,7 @@
             </interceptor-ref>
     
 			<result name="success" type="chain">addAuction</result>
-			<result name="input">addAuction.jsp</result>
+			<result name="input">/jsp/members/addAuction.jsp</result>
 			
 		</action>
 		

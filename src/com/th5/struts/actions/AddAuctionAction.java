@@ -10,8 +10,10 @@ import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.User;
+import com.th5.struts.awareness.UserAware;
 
-public class AddAuctionAction extends ActionSupport implements SessionAware{
+@SuppressWarnings("serial")
+public class AddAuctionAction extends ActionSupport implements UserAware, SessionAware{
 	
 	private String 		auction_name,
 						auction_description; 

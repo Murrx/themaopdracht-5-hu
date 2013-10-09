@@ -8,7 +8,7 @@
    		<!-- End DatePicker -->
 							<div class="row">
 								<div class="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
-									<h2>Register Application</h2>
+									<h2>Registration Application</h2>
 									<hr />
 									<s:form action="register" cssClass="form-horizontal" method="post">
 										<div class="form-group">

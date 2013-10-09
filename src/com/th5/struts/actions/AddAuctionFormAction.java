@@ -3,6 +3,7 @@ package com.th5.struts.actions;
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Category;
 
+@SuppressWarnings("serial")
 public class AddAuctionFormAction extends ActionSupport{
 
 	private Category[] categories = Category.values();

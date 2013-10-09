@@ -8,13 +8,13 @@
 		<title>Auctify - <s:property value="title" /></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../bootstrap/css/style.css">
+		<link rel="stylesheet" href="bootstrap/css/style.css">
 		
-		<script src="../includes/countdown.js" type="text/javascript"></script>		
+		<script src="includes/countdown.js" type="text/javascript"></script>		
 		
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
-			<script src="../bootstrap/js/html5shiv.js"></script>
+			<script src="bootstrap/js/html5shiv.js"></script>
 		<![endif]-->
 	</head>
 	
@@ -46,7 +46,7 @@
 					<!-- Login -->
 					<s:actionerror />
 					<s:if test="%{#session.user == null}">
-					<s:form action="login" method="post">
+					<s:form action="/login" method="post">
 						<div class="row">
 							<div class="col-sm-7 col-sm-offset-1">
 								<div class="form-group">

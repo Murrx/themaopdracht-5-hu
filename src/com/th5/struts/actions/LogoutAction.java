@@ -9,6 +9,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.struts.awareness.UserAware;
 
 /**
  * Class that contains all the login-related methods.
@@ -19,8 +20,11 @@ import com.th5.domain.service.ServiceProvider;
  * @author Joris Rijkes
  * @version 0.1 alpha
  */
-public class LogoutAction extends ActionSupport implements SessionAware {
+@SuppressWarnings("serial")
+public class LogoutAction extends ActionSupport implements UserAware, SessionAware {
 
+	private User user;
+	
 	private SessionMap<String, Object> userSession;
 
 	/**
@@ -39,4 +43,11 @@ public class LogoutAction extends ActionSupport implements SessionAware {
 	public void setSession(Map<String, Object> session) {
 		this.userSession = (SessionMap<String, Object>) session;
 	}
-}
+
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}}
