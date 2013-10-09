@@ -49,6 +49,20 @@ public class Auction implements Comparable<Auction> {
 	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
 	}
+	
+	public int getPercentage() {
+		Long start = startTime.getTimeInMillis();
+		Long end = endTime.getTimeInMillis();
+		Long now = Calendar.getInstance().getTimeInMillis();
+		double procent = (now.doubleValue()-start.doubleValue())/(end.doubleValue()-start.doubleValue());
+		if (procent < 0) {
+			procent = 0;
+		}
+		if (procent > 1) {
+			procent = 1;
+		}
+		return (int) (100*procent);
+	}
 
 	public Calendar getEndTime() {
 		return endTime;
@@ -64,6 +78,10 @@ public class Auction implements Comparable<Auction> {
 	
 	public int getEndTimeDate() {
 		return endTime.get(Calendar.DATE);
+	}
+	
+	public int getEndTimeMilis() {
+		return endTime.compareTo(Calendar.getInstance());
 	}
 	
 	public void setEndTime(Calendar endTime) {
