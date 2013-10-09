@@ -15,7 +15,7 @@
 											<label for="register_email" class="col-sm-3 control-label">E-mail</label>
 											<div class="col-sm-9">
 												<s:fielderror fieldName="register_email" />
-												<s:textfield name="register_email" id="register_email" key="label.email" size="20" placeholder="E-mail" cssClass="form-control" />
+												<s:textfield type="email" name="register_email" id="register_email" key="label.email" size="20" placeholder="E-mail" cssClass="form-control" />
 											</div>
 										</div>
 										<div class="form-group">
@@ -92,7 +92,7 @@
 											<label for="register_postalCode" class="col-sm-3 control-label">Postal code</label>
 											<div class="col-sm-9">
 												<s:fielderror fieldName="register_postalCode" />
-												<s:textfield name="register_postalCode" id="register_postalCode" key="label.postalCode" placeholder="Postal code" size="20" cssClass="form-control" />
+												<s:textfield pattern="[0-9]{4}[ ]?[a-zA-Z]{2}" name="register_postalCode" id="register_postalCode" key="label.postalCode" placeholder="Postal code" size="20" cssClass="form-control" />
 											</div>
 										</div>
 										<div class="form-group">

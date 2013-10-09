@@ -74,15 +74,16 @@ button[type="submit"] {
 .auction-title-box {
 	position: absolute;
 	background: white;
-	opacity:0.7;
-	filter:alpha(opacity=70);
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	width: 100%;
 }
 
 .fullimage {
 	position: relative;
 	margin: 0;
 	overflow: hidden;
-	
+	padding: 0;
 }
 
 .fullimage * {
@@ -95,10 +96,14 @@ button[type="submit"] {
     left:0;
     top:0;
     z-index: 0;
+    border-radius: 3px;
 }
 
 .progress {
     position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .progress-bar {

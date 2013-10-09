@@ -37,6 +37,9 @@
 			<result name="error">/jsp/register.jsp</result>
 			<result name="input">/jsp/register.jsp</result>
 		</action>
+		<action name="registerForm">
+			<result name="success">/jsp/register.jsp</result>
+		</action>
 		<action name="allAuctions" class="com.th5.struts.actions.AllAuctionsAction">
 			<result name="success">/jsp/auctions.jsp</result>
 		</action>
