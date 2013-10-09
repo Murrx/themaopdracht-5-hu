@@ -11,6 +11,8 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="bootstrap/css/style.css">
 		
+		<!-- JQuery en countdown moeten in header (niet footer), anders werkt de timer van auctions niet meer! -->
+		<script src="//code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 		<script src="includes/countdown.js" type="text/javascript"></script>		
 		
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
