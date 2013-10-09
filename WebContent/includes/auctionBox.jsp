@@ -7,7 +7,7 @@
 	  					<p><s:property value='product.description'/></p>
 	  					<p><s:property value='percentage'/>% complete</p>
 	  				</div>  			
-			    	<img src="http://hhhhold.com/l"
+			    	<img src="http://hhhhold.com/618x312"
 			    		alt="<s:property value='product.name'/>"
 			    		class="img-responsive">
 			    				 
