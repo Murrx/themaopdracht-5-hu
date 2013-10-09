@@ -7,6 +7,7 @@
 		<meta charset="utf-8">
 		<title>Auctify - <s:property value="title" /></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<base href="<%=request.getContextPath()%>/" />
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="bootstrap/css/style.css">
 		
