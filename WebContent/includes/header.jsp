@@ -61,7 +61,6 @@
 									<s:fielderror fieldName="login_password"/>
 								</div>
 								<a href="<s:url action='registerForm' namespace='/' />">Register a new account</a>
-								<a href="registerPage">Register a new account</a>
 							</div>
 							<div class="col-sm-4">
 								<div class="form-group">
