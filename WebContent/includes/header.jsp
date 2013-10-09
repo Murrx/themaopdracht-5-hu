@@ -74,7 +74,7 @@
 					</s:if>
 					<s:else>
 						<p><span class="glyphicon glyphicon-user"></span><s:property value="#session.user.email" /></p>
-						<p><small><a href="<s:url action='logout'/>">Log out!</a></small></p>
+						<p><small><a href="<s:url action='/member/logout'/>">Log out!</a></small></p>
 					</s:else>
 					
 				</div>
