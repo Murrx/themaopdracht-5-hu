@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.Status;
@@ -117,15 +116,12 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			while(result.next()){
 				
 				//auction data
-				System.out.println("date before: " + result.getDate("auc_start_time"));
-
+				
 				Calendar aucStartTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_start_time"));
 				Calendar aucEndTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_end_time"));
+								
 				int aucStatusId = result.getInt("auc_fk_status_id");
 				int auctionID = result.getInt("auc_pk_auction_id");
-				
-				System.out.println("date after: " + aucEndTime);
-
 				
 				int startBid = result.getInt("auc_start_bid");
 				String categoryString = result.getString("auc_fk_category");

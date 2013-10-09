@@ -9,8 +9,8 @@
 <script type="text/javascript">
 	window.onload=function(){
 		<s:iterator value="allAuctions" >
-			dateFuture<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>);
-			GetCount(dateFuture<s:property value='auctionId'/>, "timer<s:property value='auctionId'/>");
+			endDateAuction<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>);
+			GetCount(endDateAuction<s:property value='auctionId'/>, "timer<s:property value='auctionId'/>");
 		</s:iterator>
 	};
 </script>
