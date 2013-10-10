@@ -1,9 +1,3 @@
-/*
- * Developer : Joris Rijkes (Joris_Rijkes@gmail.com)
- * Date : 3 okt. 2013
- * All code (c)2013 Joris Rijkes inc. all rights reserved
- */
-
 package com.th5.domain.model;
 
 import java.util.Calendar;
@@ -45,6 +39,18 @@ public class Auction implements Comparable<Auction> {
 	public Calendar getStartTime() {
 		return startTime;
 	}
+	
+	public int getStartTimeYear() {
+		return startTime.get(Calendar.YEAR);
+	}
+	
+	public int getStartTimeMonth() {
+		return startTime.get(Calendar.MONTH);
+	}
+	
+	public int getStartTimeDate() {
+		return startTime.get(Calendar.DATE);
+	}
 
 	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
@@ -78,10 +84,6 @@ public class Auction implements Comparable<Auction> {
 	
 	public int getEndTimeDate() {
 		return endTime.get(Calendar.DATE);
-	}
-	
-	public int getEndTimeMilis() {
-		return endTime.compareTo(Calendar.getInstance());
 	}
 	
 	public void setEndTime(Calendar endTime) {
