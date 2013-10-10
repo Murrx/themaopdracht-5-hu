@@ -1,11 +1,14 @@
-function GetCount(ddate,iid){
+function GetCount(dateStart, dateEnd, iid){
 
 	dateNow = new Date();	//grab current date
-	amount = ddate.getTime() - dateNow.getTime();	//calc milliseconds between dates
-	delete dateNow;
+	amount = dateEnd.getTime() - dateNow.getTime();	//calc milliseconds between dates
 
 	// if time is already past
-	if(amount < 0){
+	if (dateEnd.getTime() < dateStart.getTime()){
+		document.getElementById(iid).innerHTML="This auction is corrupt.";
+	} else if (dateStart.getTime() > dateNow.getTime()) {
+		document.getElementById(iid).innerHTML="This auction has yet to start.";
+	} else if (dateEnd.getTime() < dateNow.getTime()){
 		document.getElementById(iid).innerHTML="This auction has ended.";
 	}
 	// else date is still good
@@ -31,6 +34,6 @@ function GetCount(ddate,iid){
 		out += (secs<=9?'0':'')+secs;
 		document.getElementById(iid).innerHTML=out;
 
-		setTimeout(function(){GetCount(ddate,iid);}, 1000);
+		setTimeout(function(){GetCount(dateStart, dateEnd, iid);}, 1000);
 	}
 }

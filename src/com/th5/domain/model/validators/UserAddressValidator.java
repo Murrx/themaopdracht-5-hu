@@ -51,9 +51,9 @@ public class UserAddressValidator implements ValidatorInterface<Address>{
 					"street is required"));
 		} else {
 
-			if (!street.matches(POSTALCODE_PATTERN)) {
-				errorList.add(new AttributeError("city",
-						"Invalid city"));
+			if (!street.matches(CITY_PATTERN)) {
+				errorList.add(new AttributeError("street",
+						"Invalid street"));
 			}
 		}
 	}

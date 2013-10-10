@@ -9,8 +9,9 @@
 <script type="text/javascript">
 	$(function(){
 		<s:iterator value="allAuctions" >
+			startDateAuction<s:property value='auctionId'/> = new Date(<s:property value='startTimeYear'/>,<s:property value='startTimeMonth'/>,<s:property value='startTimeDate'/>);
 			endDateAuction<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>);
-			GetCount(endDateAuction<s:property value='auctionId'/>, "timer<s:property value='auctionId'/>");
+			GetCount(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "timer<s:property value='auctionId'/>");
 		</s:iterator>
 	});
 </script>

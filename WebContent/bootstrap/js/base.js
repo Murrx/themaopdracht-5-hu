@@ -6,5 +6,6 @@ $(function () {
 	$('nav .active').click(function(event) {
 		event.preventDefault();
 	});
+	$('#auction_end_time').datepicker({viewMode: 2});  
 });
 
