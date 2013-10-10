@@ -35,7 +35,7 @@
 				<label for="fileUpload" class="col-sm-3 control-label">Image</label>
 				<div class="col-sm-9">
 					<s:fielderror fieldName="fileUpload" />
-		    		<s:file name="fileUpload" label="File"/>
+		    		<s:file disabled="true" cssClass="form-control" name="fileUpload" label="File"/>
 				</div>
 			</div>
 			<div class="form-group">

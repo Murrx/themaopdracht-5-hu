@@ -52,6 +52,10 @@ button[type="submit"] {
 	height: 75px;
 }
 
+textarea {
+	resize: vertical;
+}
+
 .navbar-toggle {
 	margin: 0px;
 	
@@ -135,6 +139,39 @@ button[type="submit"] {
 	
 	#search-bar {
 		border-bottom: 1px solid lightgray;
+	}
+	
+	nav li {
+		position: absolute !important;
+		background-color: white;
+		z-index: 1;
+		width: 100%;
+	}
+	
+	nav li.active {
+		z-index: 5;
+	}
+	
+	nav ul {
+		height: 43px;
+		position: relative;
+	}
+	
+	nav {
+		height: 43px;
+		overflow: hidden;
+	}
+	
+	nav:hover {
+		height: auto;
+	}
+	
+	nav:hover li {
+		position: relative !important;
+	}
+	
+	nav:hover ul {
+		height: auto;
 	}
 }
 
