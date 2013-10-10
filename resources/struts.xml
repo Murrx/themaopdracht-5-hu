@@ -89,7 +89,7 @@
 			<interceptor-ref name="exception"/>
             <interceptor-ref name="i18n"/>
             <interceptor-ref name="fileUpload">
-       			<param name="allowedTypes">image/png,image/gif,image/jpeg,image/pjpeg</param>
+       			<param name="allowedTypes">image/jpeg,image/jpg</param>
        			<param name="maximumSize">5242880</param>
   			</interceptor-ref> 
             <interceptor-ref name="params">

@@ -31,9 +31,11 @@ public class User implements Comparable<User>{
 		this.userId = userId;
 	}
 	
-	public void createAuction(Auction auction) throws AuctifyException{
+	public int createAuction(Auction auction) throws AuctifyException{
 		auction.setUser(this);
-		auctionManager.create(auction);
+		int auctionId = auctionManager.create(auction);
+		
+		return auctionId;
 	}
 
 	public String getPassword() {

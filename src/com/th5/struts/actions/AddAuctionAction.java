@@ -6,7 +6,10 @@ import java.security.MessageDigest;
 import java.util.Calendar;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.util.ServletContextAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
@@ -16,31 +19,31 @@ import com.th5.domain.model.User;
 import com.th5.struts.awareness.UserAware;
 
 @SuppressWarnings("serial")
-public class AddAuctionAction extends ActionSupport implements UserAware, SessionAware{
+public class AddAuctionAction extends ActionSupport implements UserAware, SessionAware, ServletContextAware{
 	
-	private String 		auction_name,
-						auction_description; 
-	private Category 	auction_category;
-	private int			auction_price;
-	private Calendar	auction_end_time;
-	private User 		user;
+	private String 				auction_name,
+								auction_description; 
+	private Category 			auction_category;
+	private int					auction_price;
+	private Calendar			auction_end_time;
+	private User 				user;
 	
-	private Map	 		session;
-	private Category[] 	categories = Category.values();
-	private File 		fileUpload;
-	private String 		fileUploadFileName;
+	private Map<String, Object>	session;
+	private Category[] 			categories = Category.values();
+	private File 				fileUpload;
+	private String 				fileUploadFileName;
+	private ServletContext 		context;
 	
 	@Override
 	public String execute() throws Exception {
 		user = (User) session.get("user");
 		
 		Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
-		// TODO imageName column in product table, figure out good place to store
-		// quick file save test 
-//		fileUpload.renameTo(new File("/Users/Mark/Desktop/" + fileUploadFileName));
-		// end quick file save test
-		user.createAuction(auction);
-		
+
+		int auctionId = user.createAuction(auction);
+
+		String contextPath = context.getRealPath(File.separator);
+		fileUpload.renameTo(new File(contextPath + "images/upload/" + auctionId + ".jpg"));
 		return ActionSupport.SUCCESS;
 	}
 
@@ -94,11 +97,11 @@ public class AddAuctionAction extends ActionSupport implements UserAware, Sessio
 		this.user = user;
 	}
 
-	public Map getSession() {
+	public Map<String, Object> getSession() {
 		return session;
 	}
 
-	public void setSession(Map session) {
+	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
 
@@ -124,5 +127,11 @@ public class AddAuctionAction extends ActionSupport implements UserAware, Sessio
 
 	public void setFileUploadFileName(String fileUploadName) {
 		this.fileUploadFileName = fileUploadName;
+	}
+
+	@Override
+	public void setServletContext(ServletContext context) {
+		this.context = context;  
+		
 	}
 }
