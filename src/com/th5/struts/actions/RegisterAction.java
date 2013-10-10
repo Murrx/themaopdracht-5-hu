@@ -87,7 +87,7 @@ public class RegisterAction extends ActionSupport {
 			addFieldError("register_birthdate", "birthdate is required");
 		}
 		
-		if (register_gender == 0 || register_gender == 1) {
+		if (register_gender != 0 && register_gender != 1) {
 			addFieldError("register_gender", "gender is required");
 		} 
 		
