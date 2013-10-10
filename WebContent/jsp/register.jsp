@@ -71,7 +71,7 @@
 				<label for="register_birthdate" class="col-sm-3 control-label">Birthdate</label>
 				<div class="col-sm-9">
 							<s:fielderror fieldName="register_birthdate" />
-							<s:textfield name="register_birthdate" id="register_birthdate" key="label.birthDate" cssClass="inputDate form-control" value="01/01/1980" size="30" />								
+							<s:textfield name="register_birthdate" id="register_birthdate" key="label.birthDate" cssClass="inputDate form-control" value="01-01-1980" size="30" />								
 				</div>
 			</div>
 			<div class="form-group">
