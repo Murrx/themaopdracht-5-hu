@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+@SuppressWarnings("serial")
 public class FileUploadAction extends ActionSupport{
 
 	private File fileUpload;

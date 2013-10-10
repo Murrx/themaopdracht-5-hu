@@ -28,10 +28,11 @@
 					<!-- Logo -->
 					<span class="logo-part-one">Auctify</span><span class="logo-part-two">.com</span>
 					<button class="navbar-toggle pull-right" type="button">
+<!-- 						<span class="navbar-toggle-bar"></span>
 						<span class="navbar-toggle-bar"></span>
 						<span class="navbar-toggle-bar"></span>
-						<span class="navbar-toggle-bar"></span>
-						<span class="navbar-toggle-bar"></span>
+						<span class="navbar-toggle-bar"></span> -->
+						<span class="glyphicon glyphicon-user"></span>
 					</button>
 				</div>
 				<div class="col-sm-6">
@@ -40,7 +41,7 @@
 						<div class="form-group" id="search-bar">
 							<div id="floater"></div>
 							<div id="search-bar-content">
-								<input type="search" class="form-control input-lg" placeholder="Search">
+								<input disabled type="search" class="form-control input-lg" placeholder="Search">
 							</div>
 						</div>
 					</form>
@@ -60,21 +61,25 @@
 									<s:password name="login_password" key="label.password" cssClass="form-control input-sm" id="inputPassword1" placeholder="Password" />
 									<s:fielderror fieldName="login_password"/>
 								</div>
-								<a href="<s:url action='registerForm' namespace='/' />">Register a new account</a>
 							</div>
 							<div class="col-sm-4">
 								<div class="form-group">
 									<button type="submit" class="btn btn-default btn-block">
-									<span class="glyphicon glyphicon-user"></span>Sign in
+										Sign in
 									</button>
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-11 col-sm-offset-1">
+								<p><a href="<s:url action='registerForm' namespace='/' />">Register a new account</a></p>
 							</div>
 						</div>
 					</s:form>
 					</s:if>
 					<s:else>
-						<p><span class="glyphicon glyphicon-user"></span><s:property value="#session.user.email" /></p>
-						<p><small><a href="<s:url action='logout' namespace='/member' />">Log out!</a></small></p>
+						<p><span class="glyphicon glyphicon-user"></span> <s:property value="#session.user.email" /></p>
+						<p><a href="<s:url action='logout' namespace='/member' />">Log out!</a></p>
 
 					</s:else>
 					

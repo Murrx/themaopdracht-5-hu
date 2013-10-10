@@ -8,7 +8,7 @@
 		<h2>Add Auction</h2>
 		<hr />
 		<s:form action="/member/resultAction" cssClass="form-horizontal" method="post" namespace="/" enctype="multipart/form-data">
-			<div class="form-group">
+ 			<div class="form-group">
 				<label for="auction_name" class="col-sm-3 control-label">Name</label>
 				<div class="col-sm-9">
 					<s:fielderror fieldName="auction_name" />
@@ -35,7 +35,7 @@
 				<label for="fileUpload" class="col-sm-3 control-label">Image</label>
 				<div class="col-sm-9">
 					<s:fielderror fieldName="fileUpload" />
-		    		<s:file disabled="true" cssClass="form-control" name="fileUpload" label="File"/>
+		    		<s:file cssClass="form-control" name="fileUpload" label="File"/>
 				</div>
 			</div>
 			<div class="form-group">

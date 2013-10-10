@@ -14,7 +14,7 @@
 		</s:iterator>
 	});
 </script>
-<div class="row">
+<div class="row" id="allAuctions">
 	<s:iterator value="allAuctions"  >
 		<s:include value="/includes/auctionBox.jsp" />
 	</s:iterator>

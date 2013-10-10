@@ -1,5 +1,8 @@
 package com.th5.struts.actions;
 
+import java.io.File;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -23,13 +26,19 @@ public class AddAuctionAction extends ActionSupport implements UserAware, Sessio
 	private User 		user;
 	
 	private Map	 		session;
-	private Category[] categories = Category.values();
+	private Category[] 	categories = Category.values();
+	private File 		fileUpload;
+	private String 		fileUploadFileName;
+	
 	@Override
 	public String execute() throws Exception {
 		user = (User) session.get("user");
 		
 		Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
-		
+		// TODO imageName column in product table, figure out good place to store
+		// quick file save test 
+//		fileUpload.renameTo(new File("/Users/Mark/Desktop/" + fileUploadFileName));
+		// end quick file save test
 		user.createAuction(auction);
 		
 		return ActionSupport.SUCCESS;
@@ -99,5 +108,21 @@ public class AddAuctionAction extends ActionSupport implements UserAware, Sessio
 
 	public void setCategories(Category[] categories) {
 		this.categories = categories;
+	}
+
+	public File getFileUpload() {
+		return fileUpload;
+	}
+
+	public void setFileUpload(File fileUpload) {
+		this.fileUpload = fileUpload;
+	}
+
+	public String getFileFileUploadName() {
+		return fileUploadFileName;
+	}
+
+	public void setFileUploadFileName(String fileUploadName) {
+		this.fileUploadFileName = fileUploadName;
 	}
 }

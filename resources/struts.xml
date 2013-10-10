@@ -89,8 +89,8 @@
 			<interceptor-ref name="exception"/>
             <interceptor-ref name="i18n"/>
             <interceptor-ref name="fileUpload">
-       			<param name="allowedTypes">text/plain, image/png</param>
-       			<param name="maximumSize">10240</param>
+       			<param name="allowedTypes">image/png,image/gif,image/jpeg,image/pjpeg</param>
+       			<param name="maximumSize">5242880</param>
   			</interceptor-ref> 
             <interceptor-ref name="params">
                 <param name="excludeParams">dojo\..*,^struts\..*</param>
