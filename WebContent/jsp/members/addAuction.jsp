@@ -49,7 +49,7 @@
 				<label for="auction_end_time" class="col-sm-3 control-label">End Date</label>
 				<div class="col-sm-9">
 					<s:fielderror fieldName="auction_end_time" />
-		  			<s:textfield name="auction_end_time" key="auction.endtime" cssClass="inputDate form-control" id="inputDate" value="01/01/1980" size="30" />								
+		  			<s:textfield name="auction_end_time" key="auction.endtime" cssClass="inputDate form-control" id="inputDate" placeholder="dd-mm-yyyy" size="30" />								
 				</div>
 			</div>
 			<div class="form-group">

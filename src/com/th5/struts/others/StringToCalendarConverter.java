@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.conversion.TypeConversionException;
 
 public class StringToCalendarConverter extends StrutsTypeConverter {
 
-    private static final DateFormat DATETIME_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
+    private static final DateFormat DATETIME_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
     public Object convertFromString(Map context, String[] strings, Class toClass) {     
         if (strings == null || strings.length == 0 || strings[0].trim().length() == 0) {
