@@ -5,8 +5,10 @@
 			</div>		
 			<footer class="row">
 				<div class="col-sm-12">
-					<!-- Footer -->
-					Footer
+					<p>
+					Auctified by Robin, Mark, Dimiter, Joris and Martin.
+				
+					</p>
 				</div>
 			</footer>
 		</div>
