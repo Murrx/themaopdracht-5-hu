@@ -85,6 +85,7 @@
 					
 				</div>
 			</header>
+			<main>
 			<div class="row">
 				<s:if test='filter'>
 				<div class="col-sm-2">
