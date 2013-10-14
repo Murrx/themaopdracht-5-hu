@@ -33,7 +33,45 @@ function GetCount(dateStart, dateEnd, iid){
 		out += (mins<=9?'0':'')+mins +":";
 		out += (secs<=9?'0':'')+secs;
 		document.getElementById(iid).innerHTML=out;
-
+		
 		setTimeout(function(){GetCount(dateStart, dateEnd, iid);}, 1000);
 	}
+}
+
+/**
+ * Method for updating the percentages shown in the auctions.
+ * The update is real-time, every 1000 miliseconds.
+ * Percentages are rounded to the nearest integer value.
+ * 
+ * @param dateStart The starting date of the auction
+ * @param dateEnd The ending date of the auction
+ * @param iid Id of the element that shows the percentage as a text
+ * @param barid Id of the progress bar that shows the percentage as a progress-bar for this auction
+ */
+function GetPercentage(dateStart, dateEnd, iid, barid){
+
+	dateNow = new Date();	//grab current date
+	percentage=0;
+	
+	document.getElementById(barid).style.width="100%";
+
+	// if time is already past
+	if (dateEnd.getTime() < dateStart.getTime()){
+		percentage = "ERROR";
+		document.getElementById(barid).className += " progress-bar-warning";
+	} else if (dateStart.getTime() > dateNow.getTime()) {
+		percentage=0;
+		document.getElementById(barid).className += " progress-bar-success";
+	} else if (dateEnd.getTime() < dateNow.getTime()){
+		percentage=100;
+		document.getElementById(barid).className += " progress-bar-danger";
+	}
+	// else date is still good
+	else{
+		percentage = Math.round(100*((dateNow.getTime()-dateStart.getTime())/(dateEnd.getTime()-dateStart.getTime())));
+		document.getElementById(barid).style.width=percentage+"%";
+	}
+	document.getElementById(iid).innerHTML=percentage;
+	setTimeout(function(){GetPercentage(dateStart, dateEnd, iid, barid);}, 1000);
+
 }

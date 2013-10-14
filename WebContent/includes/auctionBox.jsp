@@ -5,14 +5,14 @@
 	  				<div class="auction-title-box text-center">
 	  					<h3><s:property value='product.name'/></h3>
 	  					<p><s:property value='product.description'/></p>
-	  					<p><s:property value='percentage'/>% complete</p>
+	  					<p><span id="percent<s:property value='auctionId'/>">x</span>% complete</p>
 	  				</div>  			
 			    	<img src="images/upload/<s:property value='auctionId'/>.jpg"
 			    		alt="<s:property value='product.name'/>"
 			    		class="img-responsive">
 			    				 
 		  			<div class="progress <s:if test='%{percentage != 100}'>progress-striped active </s:if>text-center">
-	  					<div class="progress-bar <s:else>progress-bar-danger</s:else>"  role="progressbar" aria-valuenow="<s:property value='percentage'/>" aria-valuemin="0" aria-valuemax="100" style="width: <s:property value='percentage'/>%"></div>
+	  					<div id="pbar<s:property value='auctionId'/>" class="progress-bar"  role="progressbar" aria-valuenow="<s:property value='percentage'/>" aria-valuemin="0" aria-valuemax="100"></div>
 	  					<span class="progress-bar-label" id="timer<s:property value='auctionId'/>"></span>
 					</div>
 	  			</div>
