@@ -45,6 +45,7 @@ public class RegisterAction extends ActionSupport {
 					register_houseNumber, register_street, register_city);
 
 		} catch (AuctifyException e) {
+			addFieldError("register_email", e.getMessage());
 			return ActionSupport.ERROR;
 		}
 		return ActionSupport.SUCCESS;

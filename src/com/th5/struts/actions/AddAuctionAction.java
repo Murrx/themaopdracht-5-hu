@@ -4,6 +4,7 @@ import java.io.File;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -16,6 +17,9 @@ import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.User;
+import com.th5.domain.model.validators.AddAuctionValidator;
+import com.th5.domain.model.validators.AttributeError;
+import com.th5.domain.model.validators.UserRegisterValidator;
 import com.th5.struts.awareness.UserAware;
 
 @SuppressWarnings("serial")
@@ -46,7 +50,20 @@ public class AddAuctionAction extends ActionSupport implements UserAware, Sessio
 		fileUpload.renameTo(new File(contextPath + "images/upload/" + auctionId + ".jpg"));
 		return ActionSupport.SUCCESS;
 	}
-
+	
+	public void validate() {
+		if (!hasFieldErrors()) {
+			Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
+			AddAuctionValidator aav = new AddAuctionValidator();
+			List<AttributeError> auctionAttributeErrorsList = aav.validate(auction);
+			if (auctionAttributeErrorsList.size() > 0) {
+				for (AttributeError ate : auctionAttributeErrorsList) {
+					addFieldError("auction_" + ate.getAttribute(),
+							ate.getErrorMessage());
+				}
+			}
+		}
+	}
 	public String getAuction_name() {
 		return auction_name;
 	}
