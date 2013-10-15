@@ -4,7 +4,6 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 <!-- DatePicker -->
-	<link rel="stylesheet" href="/themaopdracht5/datepicker/css/datepicker.css" type="text/css" />
 	<link rel="stylesheet" href="/themaopdracht5/datetimepicker/bootstrap-datetimepicker.css" type="text/css" />
 <!-- End DatePicker -->
 <div class="row">
