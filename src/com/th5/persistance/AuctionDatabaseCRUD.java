@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import com.th5.domain.model.Auction;
@@ -107,13 +108,20 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 					"SELECT * FROM auc_auctions, prd_products WHERE auc_pk_auction_id = prd_pk_product_id");
 			ResultSet result = statement.executeQuery();
 			allAuctions = new ArrayList<Auction>();
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			
 			while(result.next()){
 				
 				//auction data
-				
-				Calendar aucStartTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_start_time"));
-				Calendar aucEndTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_end_time"));
 								
+				Calendar aucStartTime =  Calendar.getInstance();
+				Calendar aucEndTime =  Calendar.getInstance();
+				
+				aucStartTime.setTimeInMillis(result.getTimestamp("auc_start_time").getTime());
+				aucEndTime.setTimeInMillis(result.getTimestamp("auc_end_time").getTime());
+
+
 				int aucStatusId = result.getInt("auc_fk_status_id");
 				int auctionID = result.getInt("auc_pk_auction_id");
 				
@@ -177,9 +185,9 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			statement.registerOutParameter(1, Types.NUMERIC);
 			
 			// --- AUC_AUCTIONS ---- //
-			
-			statement.setDate(2, DateConverter.calendarToSQLDate(auction.getStartTime()));
-			statement.setDate(3, DateConverter.calendarToSQLDate(auction.getEndTime()));
+			statement.setTimestamp(2, new java.sql.Timestamp(auction.getStartTime().getTimeInMillis()));
+			statement.setTimestamp(3, new java.sql.Timestamp(auction.getEndTime().getTimeInMillis()));
+			//statement.setDate(3, DateConverter.calendarToSQLDate(auction.getEndTime()));
 			statement.setString(4, auction.getCategory().name());
 			statement.setInt(5, auction.getUser().getUserId());
 			statement.setInt(6, auction.getStartBid());

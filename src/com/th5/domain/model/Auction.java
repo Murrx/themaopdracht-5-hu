@@ -51,6 +51,14 @@ public class Auction implements Comparable<Auction> {
 	public int getStartTimeDate() {
 		return startTime.get(Calendar.DATE);
 	}
+	
+	public int getStartTimeHours() {
+		return startTime.get(Calendar.HOUR_OF_DAY);
+	}
+	
+	public int getStartTimeMinutes() {
+		return startTime.get(Calendar.MINUTE);
+	}
 
 	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
@@ -84,6 +92,14 @@ public class Auction implements Comparable<Auction> {
 	
 	public int getEndTimeDate() {
 		return endTime.get(Calendar.DATE);
+	}
+	
+	public int getEndTimeHours() {
+		return endTime.get(Calendar.HOUR_OF_DAY);
+	}
+	
+	public int getEndTimeMinutes() {
+		return endTime.get(Calendar.MINUTE);
 	}
 	
 	public void setEndTime(Calendar endTime) {

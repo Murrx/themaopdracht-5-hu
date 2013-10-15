@@ -5,6 +5,7 @@
 </s:push>
 <!-- DatePicker -->
 	<link rel="stylesheet" href="/themaopdracht5/datepicker/css/datepicker.css" type="text/css" />
+	<link rel="stylesheet" href="/themaopdracht5/datetimepicker/bootstrap-datetimepicker.css" type="text/css" />
 <!-- End DatePicker -->
 <div class="row">
 	<div class="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
@@ -50,9 +51,10 @@
 			</div>
 			<div class="form-group">
 				<label for="auction_end_time" class="col-sm-3 control-label">End Date</label>
-				<div class="col-sm-9">
+				<div class="col-sm-9 ">
 					<s:fielderror fieldName="auction_end_time" />
-		  			<s:textfield name="auction_end_time" id="auction_end_time" key="auction.endtime" cssClass="inputDate form-control" value="01-01-2014" size="30" />								
+		  			<!--<s:textfield name="auction_end_time" id="auction_end_time" key="auction.endtime" cssClass="inputDate form-control" value="01-01-2014" size="30" />	-->							
+					<input type="text" name="auction_end_time" size="30" placeholder="dd-mm-yyyy hh:mm" id="auction_end_time" class="form-control form_datetime">
 				</div>
 			</div>
 			<div class="form-group">
