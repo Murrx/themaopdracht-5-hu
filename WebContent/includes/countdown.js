@@ -13,7 +13,7 @@ function GetCount(dateStart, dateEnd, iid){
 	}
 	// else date is still good
 	else{
-		days=0;hours=0;mins=0;secs=0;out="";
+		days=0;hours=0;mins=0;secs=0;out="time ";
 
 		amount = Math.floor(amount/1000);//kill the "milliseconds" so just secs
 
@@ -28,10 +28,22 @@ function GetCount(dateStart, dateEnd, iid){
 
 		secs=Math.floor(amount);//seconds
 
-		out += (days<=9?'0':'')+days+":";
+		if (days > 1) {
+			out = days+" days";
+		} else if (days != 0) {
+			out = days+" day and "+hours+" hours";
+		} else if (hours != 0) {
+			out = hours+" hours and "+mins+" minutes";
+		} else {
+			out = mins+" minutes and "+secs+" seconds";
+		}
+		out += " left";
+		// old countdown
+		/*out += (days<=9?'0':'')+days+":";
 		out += (hours<=9?'0':'')+hours +":";
 		out += (mins<=9?'0':'')+mins +":";
 		out += (secs<=9?'0':'')+secs;
+		*/
 		document.getElementById(iid).innerHTML=out;
 		
 		setTimeout(function(){GetCount(dateStart, dateEnd, iid);}, 1000);
