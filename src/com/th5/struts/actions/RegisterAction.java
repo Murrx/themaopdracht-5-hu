@@ -1,16 +1,18 @@
 package com.th5.struts.actions;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 import com.th5.domain.model.Address;
+import com.th5.domain.model.Person;
 import com.th5.domain.model.User;
 import com.th5.domain.model.validators.AttributeError;
 import com.th5.domain.model.validators.UserAddressValidator;
+import com.th5.domain.model.validators.UserPersonValidator;
 import com.th5.domain.model.validators.UserRegisterValidator;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
@@ -85,7 +87,7 @@ public class RegisterAction extends ActionSupport {
 		if (register_birthdate == null) {
 			addFieldError("register_birthdate", "birthdate is required");
 		} else if(!register_birthdate.before(Calendar.getInstance().getTime())) {
-			addFieldError("register_birthdate", "birthdate is required");
+			addFieldError("register_birthdate", "birthdate cannot be in the future");
 		}
 		
 		if (register_gender != 0 && register_gender != 1) {
@@ -129,10 +131,7 @@ public class RegisterAction extends ActionSupport {
 		} else if (!register_password.equals(register_password2)) {
 			addFieldError("register_password", "Passwords don't match");
 		} 
-
-//			Person person = new Person();  -- TODO::
-//			Address address = new Address();
-			
+		
 		if (!hasFieldErrors()) {
 			User user = new User(register_email, register_password,
 					register_displayName, null);
@@ -140,6 +139,16 @@ public class RegisterAction extends ActionSupport {
 			List<AttributeError> userAttributeErrorsList = urv.validate(user);
 			if (userAttributeErrorsList.size() > 0) {
 				for (AttributeError ate : userAttributeErrorsList) {
+					addFieldError("register_" + ate.getAttribute(),
+							ate.getErrorMessage());
+				}
+			}
+			
+			Person person = new Person(register_firstName, register_lastName, register_gender, register_birthdate);
+			UserPersonValidator upv = new UserPersonValidator();
+			List<AttributeError> personAttributeErrorsList = upv.validate(person);
+			if (personAttributeErrorsList.size() > 0) {
+				for (AttributeError ate : personAttributeErrorsList) {
 					addFieldError("register_" + ate.getAttribute(),
 							ate.getErrorMessage());
 				}
