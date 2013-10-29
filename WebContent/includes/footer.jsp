@@ -45,6 +45,9 @@
 		        max: 10000,
 		        prefix: "<i class='fa fa-btc'></i>"
 		    });
+		    $("#amountSpin").change(function() {
+		    	$("#price").html("€ "+($("#amountSpin").val()/10).toFixed(2).toString().replace(".", ","));
+		    });
 		</script>
    		
    		
