@@ -28,7 +28,7 @@ public class AuctionManager implements CRUD_Interface<Auction>{
 	@Override
 	public Auction retrieve(Object actId) throws AuctifyException{
 		int auctionId = (Integer)actId;
-		Auction auction = getAuctionFromAuctionList(0);//TODO change this to the id of the auction
+		Auction auction = getAuctionFromAuctionList(auctionId);//TODO change this to the id of the auction
 		if (auction == null){
 			auction = auctionDatabaseCRUD.retrieve(auctionId);
 			if (auction != null) {
