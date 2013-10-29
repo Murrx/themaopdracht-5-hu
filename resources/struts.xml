@@ -71,6 +71,9 @@
 			<result name="success">/jsp/welcome.jsp</result>
 		</action>
 		
+		<action name="addBidCoins">
+			<result>/jsp/members/addBidCoins.jsp</result>
+		</action>
 		
 		<action name="addAuctionForm" class="com.th5.struts.actions.AddAuctionFormAction">
 			<result name="success">/jsp/members/addAuction.jsp</result>
