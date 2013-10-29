@@ -7,7 +7,7 @@
 	<div class="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
 		<h2>Add Auction</h2>
 		<hr />
-		<s:form action="/member/resultAction" cssClass="form-horizontal" method="post" namespace="/" enctype="multipart/form-data">
+		<s:form action="" cssClass="form-horizontal" method="post" namespace="/" enctype="multipart/form-data">
  			<div class="form-group">
 				<label for="auction_name" class="col-sm-3 control-label">Amount</label>
 				<div class="col-sm-9">
