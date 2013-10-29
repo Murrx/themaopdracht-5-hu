@@ -1,14 +1,20 @@
 package com.th5.struts.actions;
 
 import java.io.File;
-import java.math.BigInteger;
-import java.security.MessageDigest;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.net.PrintCommandListener;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPReply;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.util.ServletContextAware;
 
@@ -19,7 +25,6 @@ import com.th5.domain.model.Category;
 import com.th5.domain.model.User;
 import com.th5.domain.model.validators.AddAuctionValidator;
 import com.th5.domain.model.validators.AttributeError;
-import com.th5.domain.model.validators.UserRegisterValidator;
 import com.th5.struts.awareness.UserAware;
 
 @SuppressWarnings("serial")
@@ -46,8 +51,26 @@ public class AddAuctionAction extends ActionSupport implements UserAware, Sessio
 
 		int auctionId = user.createAuction(auction);
 
-		String contextPath = context.getRealPath(File.separator);
-		fileUpload.renameTo(new File(contextPath + "images/upload/" + auctionId + ".jpg"));
+		FTPClient ftp = new FTPClient();
+		ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
+		int reply;
+		ftp.connect("ftp.smartlapus.com");
+		reply = ftp.getReplyCode();
+		if (!FTPReply.isPositiveCompletion(reply)) {
+			ftp.disconnect();
+			throw new Exception("Exception in connecting to FTP Server");
+		}
+		ftp.login("garbage@smartlapus.com", "garbageiscool");
+		ftp.setFileType(FTP.BINARY_FILE_TYPE);
+		ftp.enterLocalPassiveMode();
+		InputStream input = new FileInputStream(fileUpload);
+		try {
+			ftp.storeFile(auctionId + ".jpg", input);
+			ftp.logout();
+			ftp.disconnect();
+		} catch(IOException e) {
+			System.out.println("NOOOOOOOO");
+		}
 		return ActionSupport.SUCCESS;
 	}
 	
