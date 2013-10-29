@@ -273,10 +273,13 @@ textarea {
 	}
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) {
 	#login-form {
 		display: block !important;
 	}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
 	#allAuctions.row>div:nth-child(2n+1) {
 		clear: both;
 	}
