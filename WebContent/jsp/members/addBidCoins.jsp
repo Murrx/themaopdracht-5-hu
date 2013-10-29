@@ -12,7 +12,7 @@
 				<label for="auction_name" class="col-sm-3 control-label">Amount</label>
 				<div class="col-sm-9">
 					<s:fielderror fieldName="amount" />
-					<input type="text" id="amountSpin" name="amount" class="form-control" placeholder="Amount">
+					<input type="number" id="amountSpin" name="amount" class="form-control" placeholder="Amount">
 				</div>
 			</div>
 			<div class="form-group">
