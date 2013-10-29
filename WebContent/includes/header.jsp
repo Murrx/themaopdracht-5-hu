@@ -37,7 +37,7 @@
 					<div class="form-group" id="search-bar">
 						<div id="floater"></div>
 						<div id="search-bar-content">
-							<input disabled type="search" class="form-control input-lg" placeholder="Search">
+							<input type="search" class="form-control input-lg" placeholder="Search">
 						</div>
 					</div>
 				</form>

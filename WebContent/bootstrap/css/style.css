@@ -109,6 +109,10 @@ footer {
 	position: relative;
 }
 
+#search-bar-content input {
+	line-height: 43px;
+}
+
 #search-bar {
 	height: 83px;
 }
