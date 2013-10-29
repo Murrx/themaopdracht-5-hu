@@ -156,6 +156,9 @@ public class Auction implements Comparable<Auction> {
 	}
 
 	public User getUser() {
+		if (user == null){
+			System.out.println("Auction.getUser()::no user found");
+		}
 		return user;
 	}
 

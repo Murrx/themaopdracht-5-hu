@@ -5,9 +5,6 @@
 </s:push>
 
 		<h2>Auction info!</h2>
-		<p>This page will soon display info about the auction you just selected.</p>
-		
-		<h3>Auction info</h3>
 		<p>id: <s:property value="auction.auctionId" /></p>
 		<p>start time: <s:property value="auction.startTime.toString()" /></p>
 		<p>end time: <s:property value="auction.endTime.toString()" /></p>
