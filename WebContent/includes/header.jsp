@@ -74,7 +74,7 @@
 					</s:form>
 					</s:if>
 					<s:else>
-						<p><span class="glyphicon glyphicon-user"></span> <s:property value="#session.user.email" /> - BidCoins:  <s:property value="#session.user.bidCoins" /></p>
+						<p><span class="glyphicon glyphicon-user"></span> <s:property value="#session.user.email" /> - ! BidCoins:  <s:property value="#session.user.bidCoins" /></p>
 						<p><a href="<s:url action='logout' namespace='/member' />">Log out!</a></p>
 
 					</s:else>
