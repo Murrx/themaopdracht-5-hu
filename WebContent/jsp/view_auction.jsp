@@ -15,5 +15,5 @@
 		<br/>
 		<p>status: <s:property value="auction.status" /></p>
 		<p>category: <s:property value="auction.category" /></p>
-		<p>user: <s:property value="auction.user" /></p>
+		<p>user id: <s:property value="auction.userId" /></p>
 <s:include value="/includes/footer.jsp" />
