@@ -12,7 +12,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.other.AuctionManager;
+import com.th5.domain.other.AuctionListManager;
 import com.th5.domain.other.UserListManager;
 import com.th5.persistance.AuctionDatabaseCRUD;
 

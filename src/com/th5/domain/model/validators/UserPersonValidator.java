@@ -16,10 +16,7 @@ import com.th5.domain.model.Person;
 public class UserPersonValidator implements ValidatorInterface<Person> {
 
 	private List<AttributeError> errorList = new ArrayList<AttributeError>();
-	// private static String POSTALCODE_PATTERN = "[a-zA-Z0-9-\\s]{3,10}";
-	private static String NAME_PATTERN = "[a-zA-Z-\\s]{3,20}";
-
-	// private static String HOUSENUMBER_PATTERN = "[a-zA-Z0-9-\\s]{1,6}";
+		private static String NAME_PATTERN = "[a-zA-Z-\\s]{3,20}";
 
 	@Override
 	public List<AttributeError> validate(Person person) {
@@ -65,7 +62,7 @@ public class UserPersonValidator implements ValidatorInterface<Person> {
 
 	public void isValidGender(int gender) {
 
-		if (gender == 0 || gender == 1) {
+		if (!((gender == 0) || (gender == 1))) {
 			errorList.add(new AttributeError("gender",
 					"gender is required/invalid"));
 		}
@@ -78,7 +75,7 @@ public class UserPersonValidator implements ValidatorInterface<Person> {
 					"birthdate is required"));
 		} else if (!birthdate.before(Calendar.getInstance().getTime())) {
 			errorList.add(new AttributeError("birthdate",
-					"birthdate is required"));
+					"birthdate cannot be in the future"));
 		}
 
 	}

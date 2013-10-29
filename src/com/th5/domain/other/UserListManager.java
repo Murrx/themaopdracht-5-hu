@@ -9,7 +9,7 @@ import com.th5.persistance.CRUD_Interface;
 import com.th5.persistance.UserDatabaseCRUD;
 
 @SuppressWarnings("hiding")
-public class UserListManager implements CRUD_Interface<User>{
+public class UserListManager{
 
 	private List<User> userList;
 	private CRUD_Interface<User> userDatabaseCRUD;
@@ -18,7 +18,6 @@ public class UserListManager implements CRUD_Interface<User>{
 		userList = new SortedArrayList<User>();
 		userDatabaseCRUD = new UserDatabaseCRUD();
 	}
-
 
 	/**
 	 * Attempt to create user
@@ -29,7 +28,6 @@ public class UserListManager implements CRUD_Interface<User>{
 	 * @return the id of the created user
 	 * @throws AuctifyException when the email address of the user is used by another user.
 	 */
-	@Override
 	public int create(User user) throws AuctifyException{
 		if (!emailAvailable(user.getEmail())){
 			throw new AuctifyException("Email adress is already in use");
@@ -46,8 +44,6 @@ public class UserListManager implements CRUD_Interface<User>{
 		}
 		return userId;
 	}
-
-	
 	
 	/**
 	 * Attempt to retrieve user
@@ -58,7 +54,6 @@ public class UserListManager implements CRUD_Interface<User>{
 	 * @return the retrieved user
 	 * @throws AuctifyException when the user is not found
 	 */
-	@Override
 	public User retrieve(Object em) throws AuctifyException{
 		String email = (String)em;
 		User user = getUserFromUserList(email);
@@ -69,7 +64,6 @@ public class UserListManager implements CRUD_Interface<User>{
 		}
 		return user;
 	}
-	
 	
 	/**
 	 * Attempt to get a user from userList
@@ -98,10 +92,4 @@ public class UserListManager implements CRUD_Interface<User>{
 		} catch (AuctifyException e) {}
 		return emailAvailable;
 	}
-
-	//Uninplemented methods
-	public ArrayList<User> search(String search) {System.out.println("Not implemented");return null;}
-	public ArrayList<User> retrieveAll() {System.out.println("Not implemented");return null;}
-	public void update(User object) {System.out.println("Not implemented");}
-	public void delete(User object){System.out.println("Not implemented");}
 }

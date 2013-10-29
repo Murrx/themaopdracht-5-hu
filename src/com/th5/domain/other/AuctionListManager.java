@@ -11,41 +11,42 @@ import java.util.Collections;
 import java.util.List;
 
 import com.th5.domain.model.Auction;
-import com.th5.domain.model.User;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
 
-public class AuctionManager implements CRUD_Interface<Auction>{
+public class AuctionListManager{
 
 	private List<Auction> auctionList;
+	private static List<Auction> allAuctions;
+	
 	private CRUD_Interface<Auction> auctionDatabaseCRUD;
 
-	public AuctionManager(){
+	public AuctionListManager(){
 		auctionList = new SortedArrayList<Auction>();
 		auctionDatabaseCRUD = new AuctionDatabaseCRUD();
 	}
 
-	@Override
 	public Auction retrieve(Object actId) throws AuctifyException{
 		int auctionId = (Integer)actId;
-		Auction auction = getAuctionFromAuctionList(0);//TODO change this to the id of the auction
+		Auction auction = getAuctionFromAuctionList(auctionId);
 		if (auction == null){
 			auction = auctionDatabaseCRUD.retrieve(auctionId);
 			if (auction != null) {
-				auctionList.add(auction); 
+				auctionList.add(auction);
+				//allAuctions.add(auction);
 			}
 			else { throw new AuctifyException("auction not found"); }
 		}
 		return auction;
 	}
 
-	@Override
 	public int create(Auction auction) throws AuctifyException {
 		int newAuctionId = -1;
 		try {
 		newAuctionId = auctionDatabaseCRUD.create(auction);
 		auction.setAuctionId(newAuctionId);
 		auctionList.add(auction);
+		//allAuctions.add(auction);
 		} catch (AuctifyException ae) {
 			throw new AuctifyException(ae.getMessage());
 		}
@@ -82,12 +83,5 @@ public class AuctionManager implements CRUD_Interface<Auction>{
 			throw new AuctifyException("No auctions found in auctionmanager");
 		}
 	}
-
-
-
-	//Uninplemented methods
-	public ArrayList<Auction> search(String search) {System.out.println("Not implemented");return null;}
-	public void update(Auction object) {System.out.println("Not implemented");}
-	public void delete(Auction object){System.out.println("Not implemented");}
 }
 
