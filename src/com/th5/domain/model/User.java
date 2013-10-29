@@ -6,7 +6,8 @@ import com.th5.domain.other.AuctionManager;
 
 public class User implements Comparable<User>{
 
-	private int 	userId;
+	private int 	userId,
+					bidCoins;
 	private String 	email,
 					password, 
 					displayName;
@@ -25,10 +26,12 @@ public class User implements Comparable<User>{
 		this.displayName = displayName;
 		this.rights = rights;
 		this.auctionManager = new AuctionManager();
+		this.bidCoins = 0;
 	}
-	public User(int userId, String email, String password, String displayName, UserRights rights){
+	public User(int userId, String email, String password, String displayName, UserRights rights, int bidCoins){
 		this(email, password, displayName, rights);
 		this.userId = userId;
+		this.bidCoins = bidCoins;
 	}
 	
 	public int createAuction(Auction auction) throws AuctifyException{
@@ -79,7 +82,7 @@ public class User implements Comparable<User>{
 	}
 	@Override
 	public String toString() {
-		return userId+ " " + email + " " + password + " " + displayName + " " + rights;
+		return userId+ " " + email + " " + password + " " + displayName + " " + rights + " " + bidCoins;
 	}
 	public String getDisplayName(){
 		return displayName;
@@ -96,5 +99,38 @@ public class User implements Comparable<User>{
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	
+	
+	/**
+	 * Returns the users' BidcCoins
+	 * 
+	 * @see #addBidCoins
+	 * @see #takeBidCoins
+	 */
+	public int getBidCoins() {
+		return this.bidCoins;
+	}
+	
+	/**
+	 * Increments the users' BidCoins by a certain amount.
+	 * 
+	 * @param amount Number of BidCoins to increment with
+	 * @see #getBidCoins
+	 * @see #takeBidCoins
+	 */
+	public void addBidCoins (int amount) {
+		this.bidCoins += amount;
+	}
+	
+	/**
+	 * Decrements the users' BidCoins by a certain amount.
+	 * 
+	 * @param amount Number of BidCoins to decrement with
+	 * @see #getBidCoins
+	 * @see #addBidCoins
+	 */
+	public void takeBidCoins (int amount) {
+		this.bidCoins -= amount;
 	}
 }

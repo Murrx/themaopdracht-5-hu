@@ -52,8 +52,9 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				String displayName = result.getString("usr_display_name");
 				int userId = result.getInt("usr_pk_user_id");
 				UserRights rights = UserRights.fromInteger(result.getInt("usr_fk_right_id"));
-				
-				user = new User(userId, username, password, displayName, rights);
+				int bidCoins = result.getInt("usr_bidcoins");
+
+				user = new User(userId, username, password, displayName, rights, bidCoins);
 				
 				//person data
 				int personId = result.getInt("prs_pk_person_id");
@@ -124,7 +125,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		CallableStatement statement = null;
 		
 		try{
-			String functionCall = "{? = call pkg_user_modification.f_register_user(?,?,?,?,?,?,?,?,?,?,?)}";
+			String functionCall = "{? = call pkg_user_modification.f_register_user(?,?,?,?,?,?,?,?,?,?,?,?)}";
 			statement = connection.prepareCall(functionCall);
 			
 			// ---  RETURN  ----- //
@@ -135,18 +136,20 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			statement.setString(2, user.getEmail());
 			statement.setString(3, user.getPassword());
 			statement.setString(4, user.getDisplayName());
+			statement.setInt(5, user.getBidCoins());
+
 			
 			// --- PRS_PERSONS ---- //
-			statement.setString(5, user.getPerson().getFirstName());
-			statement.setString(6, user.getPerson().getLastName());
-			statement.setInt(7, user.getPerson().getGender());
-			statement.setDate(8, DateConverter.dateToSQLDate(user.getPerson().getBirthdate()));
+			statement.setString(6, user.getPerson().getFirstName());
+			statement.setString(7, user.getPerson().getLastName());
+			statement.setInt(8, user.getPerson().getGender());
+			statement.setDate(9, DateConverter.dateToSQLDate(user.getPerson().getBirthdate()));
 			
 			// --- ADR_ADRESSES ---- //
-			statement.setString(9, user.getAddress().getPostalCode());
-			statement.setString(10, user.getAddress().getHouseNumber());
-			statement.setString(11, user.getAddress().getStreet());
-			statement.setString(12, user.getAddress().getCity());
+			statement.setString(10, user.getAddress().getPostalCode());
+			statement.setString(11, user.getAddress().getHouseNumber());
+			statement.setString(12, user.getAddress().getStreet());
+			statement.setString(13, user.getAddress().getCity());
 						
 			statement.executeQuery();
 			
