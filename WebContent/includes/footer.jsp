@@ -41,7 +41,7 @@
 		<script src="includes/touchspin.js" type="text/javascript" ></script>
    		<script>
 		    $("#amountSpin").TouchSpin({
-		        min: 0,
+		        min: 1,
 		        max: 10000,
 		        prefix: "<i class='fa fa-btc'></i>"
 		    });
@@ -49,7 +49,6 @@
 		    	$("#price").html("€ "+($("#amountSpin").val()/10).toFixed(2).toString().replace(".", ","));
 		    });
 		</script>
-   		
    		
 		<script src="bootstrap/js/base.js" type="text/javascript"></script>
 		
