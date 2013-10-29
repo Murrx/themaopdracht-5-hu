@@ -14,14 +14,14 @@ import com.th5.domain.model.Auction;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
 
-public class AuctionManager{
+public class AuctionListManager{
 
 	private List<Auction> auctionList;
 	private static List<Auction> allAuctions;
 	
 	private CRUD_Interface<Auction> auctionDatabaseCRUD;
 
-	public AuctionManager(){
+	public AuctionListManager(){
 		auctionList = new SortedArrayList<Auction>();
 		auctionDatabaseCRUD = new AuctionDatabaseCRUD();
 	}
