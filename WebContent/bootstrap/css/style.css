@@ -175,6 +175,12 @@ textarea {
 	width: 100%;
 }
 
+.auction:hover {
+	cursor: pointer;
+	border-color: #bbb;
+	box-shadow-color: grey;
+}
+
 .fullimage {
 	position: relative;
 	margin: 0;

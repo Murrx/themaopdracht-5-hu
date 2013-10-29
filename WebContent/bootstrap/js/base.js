@@ -16,5 +16,10 @@ $(function () {
 		weekStart: 1, 				//Start week on monday.
 		autoclose: true,			//Close datetimepicker after date+time is selected
 	});
+	
+	$('.auction').click(function(event) {
+		id = $(this).data('id');
+		window.location.href = 'viewAction.action?id=' + id;
+	});
 });
 
