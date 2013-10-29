@@ -37,13 +37,14 @@
    		<script src="datetimepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
    		
    		<!-- Number Spinner -->
+   		<!-- Source: http://www.virtuosoft.eu/code/bootstrap-touchspin/  -->
 		<script src="https://raw.github.com/istvan-ujjmeszaros/bootstrap-touchspin/master/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript" ></script>
    		<script>
 		    $("#amountSpin").TouchSpin({
 		        min: 0,
 		        max: 10000,
 		        maxboostedstep: 1000,
-		        prefix: '$'
+		        prefix: "<i class='fa fa-btc'></i>"
 		    });
 		</script>
    		
