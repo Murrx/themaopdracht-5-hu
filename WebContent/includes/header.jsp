@@ -17,93 +17,92 @@
 		<![endif]-->
 	</head>
 	
-	<body>
-		<div class="container">
-			<header class="row">
-				<div class="col-sm-3">
-					<!-- Logo -->
-					<span class="logo-part-one">Auctify</span><span class="logo-part-two">.com</span>
-					<button class="navbar-toggle pull-right" type="button">
-<!-- 						<span class="navbar-toggle-bar"></span>
-						<span class="navbar-toggle-bar"></span>
-						<span class="navbar-toggle-bar"></span>
-						<span class="navbar-toggle-bar"></span> -->
-						<span class="glyphicon glyphicon-user"></span>
-					</button>
-				</div>
-				<div class="col-sm-6">
-					<!-- Search -->
-					<form role="search">
-						<div class="form-group" id="search-bar">
-							<div id="floater"></div>
-							<div id="search-bar-content">
-								<input disabled type="search" class="form-control input-lg" placeholder="Search">
-							</div>
+	<body class="container">
+		<header class="row">
+			<div class="col-sm-3">
+				<!-- Logo -->
+				<span class="logo-part-one">Auctify</span><span class="logo-part-two">.com</span>
+				<button class="navbar-toggle pull-right" type="button">
+<!-- 				<span class="navbar-toggle-bar"></span>
+					<span class="navbar-toggle-bar"></span>
+					<span class="navbar-toggle-bar"></span>
+					<span class="navbar-toggle-bar"></span> -->
+					<span class="glyphicon glyphicon-user"></span>
+				</button>
+			</div>
+			<div class="col-sm-6">
+				<!-- Search -->
+				<form role="search">
+					<div class="form-group" id="search-bar">
+						<div id="floater"></div>
+						<div id="search-bar-content">
+							<input disabled type="search" class="form-control input-lg" placeholder="Search">
 						</div>
-					</form>
-				</div>
-				<div class="col-sm-3" id="login-form">
-					<!-- Login -->
-					<s:actionerror />
-					<s:if test="%{#session.user == null}">
-					<s:form action="/login" method="post">
-						<div class="row">
-							<div class="col-sm-7 col-sm-offset-1">
-								<div class="form-group">
-									<s:textfield name="login_email" key="label.email" cssClass="form-control input-sm" id="inputEmail1" placeholder="E-mail" />
-									<s:fielderror fieldName="login_email"/>
-								</div>
-								<div class="form-group">
-									<s:password name="login_password" key="label.password" cssClass="form-control input-sm" id="inputPassword1" placeholder="Password" />
-									<s:fielderror fieldName="login_password"/>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="form-group">
-									<button type="submit" class="btn btn-default btn-block">
-										Sign in
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-11 col-sm-offset-1">
-								<p><a href="<s:url action='registerForm' namespace='/' />">Register a new account</a></p>
-							</div>
-						</div>
-					</s:form>
-					</s:if>
-					<s:else>
-						<p><span class="glyphicon glyphicon-user"></span> <s:property value="#session.user.email" /></p>
-						<p><a href="<s:url action='logout' namespace='/member' />">Log out!</a></p>
-
-					</s:else>
-					
-				</div>
-			</header>
-			<main>
-			<div class="row">
-				<s:if test='filter'>
-				<div class="col-sm-2">
-					<!-- Filter -->
-					Filter
-				</div>					
-				</s:if>
-				<s:if test='filter && optional'>
-				<div class="col-sm-8">
-				</s:if>
-				<s:elseif test='filter || optional'>
-				<div class="col-sm-10">
-				</s:elseif>
-				<s:else>
-				<div class="col-sm-12">
-				</s:else>
-					<s:include value="menu.jsp" />
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-3" id="login-form">
+				<!-- Login -->
+				<s:actionerror />
+				<s:if test="%{#session.user == null}">
+				<s:form action="/login" method="post">
 					<div class="row">
-						<div class="col-sm-12">
-							<!-- Breadcrumbs -->
-							Home > <s:property value="title" />
+						<div class="col-sm-7 col-sm-offset-1">
+							<div class="form-group">
+								<s:textfield name="login_email" key="label.email" cssClass="form-control input-sm" id="inputEmail1" placeholder="E-mail" />
+								<s:fielderror fieldName="login_email"/>
+							</div>
+							<div class="form-group">
+								<s:password name="login_password" key="label.password" cssClass="form-control input-sm" id="inputPassword1" placeholder="Password" />
+								<s:fielderror fieldName="login_password"/>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<button type="submit" class="btn btn-default btn-block">
+									Sign in
+								</button>
+							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-12">
+						<div class="col-sm-11 col-sm-offset-1">
+							<p><a href="<s:url action='registerForm' namespace='/' />">Register a new account</a></p>
+						</div>
+					</div>
+				</s:form>
+				</s:if>
+				<s:else>
+					<p><span class="glyphicon glyphicon-user"></span> <s:property value="#session.user.email" /></p>
+					<p><a href="<s:url action='logout' namespace='/member' />">Log out!</a></p>
+
+				</s:else>
+				
+			</div>
+		</header>
+		<main>
+		<div class="row">
+			<s:if test='filter'>
+			<div class="col-sm-2">
+				<!-- Filter -->
+				Filter
+			</div>					
+			</s:if>
+			<s:if test='filter && optional'>
+			<div class="col-sm-8">
+			</s:if>
+			<s:elseif test='filter || optional'>
+			<div class="col-sm-10">
+			</s:elseif>
+			<s:else>
+			<div class="col-sm-12">
+			</s:else>
+				<s:include value="menu.jsp" />
+				<div class="row">
+					<div class="col-sm-12">
+						<!-- Breadcrumbs -->
+						Home > <s:property value="title" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">

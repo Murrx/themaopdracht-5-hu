@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>					
-						</div>
 					</div>
 				</div>
 			</div>
-			</main>		
-			<footer class="row">
-				<div class="col-sm-12">
-					<p>
-					Auctified by Robin, Mark, Dimiter, Joris and Martin.
-				
-					</p>
-				</div>
-			</footer>
 		</div>
+		</main>		
+		<footer class="row">
+			<div class="col-sm-12">
+				<p>
+				Auctified by Robin, Mark, Dimiter, Joris and Martin.
+			
+				</p>
+			</div>
+		</footer>
 		<!--  Linking to latest JQuery and Bootstrap CDN  -->
 		<script src="//code.jquery.com/jquery-latest.js" type="text/javascript"></script>		
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
