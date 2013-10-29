@@ -162,4 +162,8 @@ public class Auction implements Comparable<Auction> {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public String toString() {
+		return Integer.toString(auctionId);
+	}
 }

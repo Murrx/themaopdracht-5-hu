@@ -7,7 +7,7 @@
 								<li <s:if test='location == "auctions"'>class="active"</s:if>><a href="<s:url action='allAuctions' namespace="/"/>">Auctions</a></li>
 								<li <s:if test='location == "mass-auctions"'>class="active"</s:if>><a href="#">Mass Auctions</a></li>
 								<li <s:if test='location == "create-new-auction"'>class="active"</s:if>><a href="<s:url action='addAuctionForm' namespace="/member"/>">Create New Auction</a></li>
-								<li <s:if test='location == "add-bidcoins"'>class="active"</s:if>><a href="<s:url action='addBidCoins' namespace="/member"/>">Add BidCoins</a></li>
+								<li <s:if test='location == "buy-bidcoins"'>class="active"</s:if>><a href="<s:url action='buyBidCoinsForm' namespace="/member"/>">Buy <i class='fa fa-btc'></i>idCoins</a></li>
 							</ul>
 						</nav>
 					</div>

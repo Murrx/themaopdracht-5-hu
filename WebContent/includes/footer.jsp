@@ -40,6 +40,7 @@
 	   		<script src="bootstrap/js/datetimepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
    		</s:if>
    		
+<<<<<<< HEAD
    		<s:if test="spinner">
 	   		<!-- Number Spinner -->
 	   		<!-- Source: http://www.virtuosoft.eu/code/bootstrap-touchspin/  -->

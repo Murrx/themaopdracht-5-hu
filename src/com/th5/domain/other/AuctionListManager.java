@@ -28,7 +28,7 @@ public class AuctionListManager{
 		int auctionId = (Integer)id;
 		Auction auction = getAuctionById(auctionId);
 		if (auction == null){
-			throw new AuctifyException("auction not found"); 
+			throw new AuctifyException("auction with id " + id + "not found"); 
 		}
 		return auction;
 	}
@@ -67,9 +67,12 @@ public class AuctionListManager{
 	 * @return ArrayList<Auction> with all auctions.
 	 */
 	public static ArrayList<Auction> retrieveAllAuctions(){
-		ArrayList<Auction> auctions = new ArrayList<Auction>();
+		ArrayList<Auction> auctions = new SortedArrayList<Auction>();
 		try {
-			auctions = auctionDatabaseCRUD.retrieveAll();
+			List<Auction> tempList = auctionDatabaseCRUD.retrieveAll();
+			for (Auction auction : tempList){
+				auctions.add(auction);
+			}
 		} catch (AuctifyException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
