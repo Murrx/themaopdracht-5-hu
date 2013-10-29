@@ -164,6 +164,6 @@ public class Auction implements Comparable<Auction> {
 	}
 
 	public String toString() {
-		return auctionId + " " + user.getDisplayName();
+		return Integer.toString(auctionId);
 	}
 }
