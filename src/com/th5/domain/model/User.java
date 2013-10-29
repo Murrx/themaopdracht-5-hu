@@ -35,7 +35,7 @@ public class User implements Comparable<User>{
 	}
 	
 	public int createAuction(Auction auction) throws AuctifyException{
-		auction.setUser(this);
+		auction.setUserId(this.userId);
 		int auctionId = auctionManager.create(auction);
 		
 		return auctionId;
