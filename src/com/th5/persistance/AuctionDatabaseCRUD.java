@@ -12,6 +12,7 @@ import java.util.Calendar;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.Status;
+import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
 
@@ -223,6 +224,20 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 
 	@Override
 	public void delete(Auction object) throws AuctifyException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateObserver(Object obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setObservable(Observable obs) {
 		// TODO Auto-generated method stub
 		
 	}

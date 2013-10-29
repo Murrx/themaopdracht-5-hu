@@ -15,6 +15,7 @@ import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
 import com.th5.domain.other.UserListManager;
 import com.th5.persistance.AuctionDatabaseCRUD;
+import com.th5.persistance.UserDatabaseCRUD;
 
 public class AuctionService implements AuctionServiceInterface{
 
@@ -52,6 +53,7 @@ public class AuctionService implements AuctionServiceInterface{
 		if (user == null || !user.getPassword().equals(password)){
 			throw new AuctifyException("Username op password incorrect");	
 		}
+		user.register(new UserDatabaseCRUD());
 		return user;
 	}
 	
@@ -67,6 +69,28 @@ public class AuctionService implements AuctionServiceInterface{
 		user.setPerson(person);
 		
 		userList.create(user);
+	}
+	
+	@Override
+	public void update(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException{
+		//password = encryptPassword(password);
+		
+		User u = userList.retrieve(email);
+		
+		Person person = new Person(firstName, lastName, gender, birthdate);
+		Address address = new Address(postalCode, houseNumber, street, city);
+		
+		u.setEmail(email);
+		u.setPassword(password);
+		u.setDisplayName(displayName);
+		
+		u.setAddress(address);
+		u.setPerson(person);
+		
+		UserDatabaseCRUD udc = new UserDatabaseCRUD();
+		udc.update(u);
+		
+		//((AuctionServiceInterface) userList).update(email, password, displayName, firstName, lastName, gender, birthdate, postalCode, houseNumber, street, city);
 	}
 	
 	

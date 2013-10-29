@@ -6,6 +6,10 @@ $(function () {
 		format: 'dd-mm-yyyy',
 		viewMode: 2
 	});
+	$('#edit_birthdate').datepicker({
+		format: 'dd-mm-yyyy',
+		viewMode: 2
+	});
 	$('nav .active').click(function(event) {
 		event.preventDefault();
 	});

@@ -12,12 +12,16 @@ import com.th5.domain.model.Address;
 import com.th5.domain.model.Person;
 import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
+import com.th5.domain.observation.Observable;
+import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
 
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
-
+	
+	private User obsUser;
+	
 	/**Retrieve user from the database
 	 * @param email
 	 * @return a user object
@@ -76,6 +80,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				
 				user.setPerson(person);
 				user.setAddress(address);
+				this.obsUser = user;
 			}
 
 		}catch(SQLException e){
@@ -172,9 +177,54 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	}
 
 	@Override
-	public void update(User object) {
-		// TODO Auto-generated method stub
+	public void update(User object) throws AuctifyException {
+		Connection connection;
+		try {
+			connection = DataSourceService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
 		
+		PreparedStatement statement = null;
+		
+		try{
+			
+			statement = connection.prepareCall("{call pkg_user_modification.pr_update_user(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			
+			// --- USR_USERS ---- //
+			statement.setInt(1, object.getUserId());
+			statement.setString(2, object.getEmail());
+			statement.setString(3, object.getPassword());
+			statement.setString(4, object.getDisplayName());
+			statement.setInt(5, object.getBidCoins());
+			
+			// --- PRS_PERSONS ---- //
+			statement.setString(6, object.getPerson().getFirstName());
+			statement.setString(7, object.getPerson().getLastName());
+			statement.setInt(8, object.getPerson().getGender());
+			statement.setDate(9, DateConverter.dateToSQLDate(object.getPerson().getBirthdate()));
+			
+			// --- ADR_ADRESSES ---- //
+			statement.setString(10, object.getAddress().getPostalCode());
+			statement.setString(11, object.getAddress().getHouseNumber());
+			statement.setString(12, object.getAddress().getStreet());
+			statement.setString(13, object.getAddress().getCity());
+						
+			statement.executeQuery();
+
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new AuctifyException("failed to update user");
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	
@@ -231,6 +281,25 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 				e.printStackTrace();
 			}
 		}
+		
+	}
+
+	@Override
+	public void updateObserver(Object obj) {
+		// TODO Auto-generated method stub
+		try {
+			update((User) obj);
+		} catch (AuctifyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void setObservable(Observable obs) {
+		// TODO Auto-generated method stub
+		this.obsUser = (User) obs;
 		
 	}
 }

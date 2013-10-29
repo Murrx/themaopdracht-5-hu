@@ -79,6 +79,15 @@
 			<result>/jsp/welcome.jsp</result>
 		</action>
 		
+		<action name="editProfileForm">
+			<result>/jsp/members/editProfile.jsp</result>
+		</action>
+		
+		<action name="editProfile" class="com.th5.struts.actions.EditProfileAction">
+			<result name="success">/jsp/welcome.jsp</result>
+			<result name="input">/jsp/members/editProfile.jsp</result>
+		</action>
+		
 		<action name="addAuctionForm" class="com.th5.struts.actions.AddAuctionFormAction">
 			<result name="success">/jsp/members/addAuction.jsp</result>
 		</action>
