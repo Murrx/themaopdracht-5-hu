@@ -12,4 +12,6 @@
 	</s:iterator>
 </div>
 
-<s:include value="/includes/footer.jsp" />
+<s:push value="#{'progressTimers':true}">
+	<s:include value="/includes/footer.jsp" />
+</s:push>

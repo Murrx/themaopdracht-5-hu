@@ -1,3 +1,5 @@
+
+
 function GetCount(dateStart, dateEnd, iid){
 
 	dateNow = new Date();	//grab current date
@@ -44,7 +46,7 @@ function GetCount(dateStart, dateEnd, iid){
 		out += (mins<=9?'0':'')+mins +":";
 		out += (secs<=9?'0':'')+secs;
 		*/
-		document.getElementById(iid).innerHTML=out;
+		document.getElementById(iid).innerHTML = out;
 		
 		setTimeout(function(){GetCount(dateStart, dateEnd, iid);}, 1000);
 	}
@@ -63,9 +65,11 @@ function GetCount(dateStart, dateEnd, iid){
 function GetPercentage(dateStart, dateEnd, iid, barid){
 
 	dateNow = new Date();	//grab current date
-	percentage=0;
+	percentage = 0;
 	
-	document.getElementById(barid).style.width="100%";
+	$('barid').css('width', '100%');
+	
+	widthToSet = 100;
 
 	// if time is already past
 	if (dateEnd.getTime() < dateStart.getTime()){
@@ -83,7 +87,6 @@ function GetPercentage(dateStart, dateEnd, iid, barid){
 		percentage = Math.round(100*((dateNow.getTime()-dateStart.getTime())/(dateEnd.getTime()-dateStart.getTime())));
 		document.getElementById(barid).style.width=percentage+"%";
 	}
-	document.getElementById(iid).innerHTML=percentage;
+	document.getElementById(iid).innerHTML = percentage;
 	setTimeout(function(){GetPercentage(dateStart, dateEnd, iid, barid);}, 1000);
-
 }

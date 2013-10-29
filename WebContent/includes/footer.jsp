@@ -18,38 +18,43 @@
 		<script src="//code.jquery.com/jquery-latest.js" type="text/javascript"></script>		
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 		
-		<!-- Countdown + percentage scripts -->
-		<script src="includes/countdown.js" type="text/javascript"></script>	
-		<script type="text/javascript">
-			$(function(){
-				<s:iterator value="allAuctions" >
-					// Scripts for ID <s:property value='auctionId'/> - <s:property value='product.name'/>
-					startDateAuction<s:property value='auctionId'/> = new Date(<s:property value='startTimeYear'/>,<s:property value='startTimeMonth'/>,<s:property value='startTimeDate'/>,<s:property value='startTimeHours'/>,<s:property value='startTimeMinutes'/>);
-					endDateAuction<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>,<s:property value='endTimeHours'/>,<s:property value='endTimeMinutes'/>);			
-					GetCount(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "timer<s:property value='auctionId'/>");
-					GetPercentage(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "percent<s:property value='auctionId'/>", "pbar<s:property value='auctionId'/>");
-				</s:iterator>
-			});
-		</script>
+		<s:if test="progressTimers">
+			<!-- Countdown + percentage scripts -->
+			<script src="bootstrap/js/countdown.js" type="text/javascript"></script>	
+			<script type="text/javascript">
+				$(function(){
+					<s:iterator value="allAuctions" >
+						// Scripts for ID <s:property value='auctionId'/> - <s:property value='product.name'/>
+						startDateAuction<s:property value='auctionId'/> = new Date(<s:property value='startTimeYear'/>,<s:property value='startTimeMonth'/>,<s:property value='startTimeDate'/>,<s:property value='startTimeHours'/>,<s:property value='startTimeMinutes'/>);
+						endDateAuction<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>,<s:property value='endTimeHours'/>,<s:property value='endTimeMinutes'/>);			
+						GetCount(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "timer<s:property value='auctionId'/>");
+						GetPercentage(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "percent<s:property value='auctionId'/>", "pbar<s:property value='auctionId'/>");
+					</s:iterator>
+				});
+			</script>
+		</s:if>
 		
-		<!-- Date + DateTime picker scripts -->
-		<script src="datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
-   		<script src="datetimepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
+		<s:if test="dateTimePicker">
+			<!-- Date + DateTime picker scripts -->
+			<script src="bootstrap/js/datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+	   		<script src="bootstrap/js/datetimepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
+   		</s:if>
    		
-   		<!-- Number Spinner -->
-   		<!-- Source: http://www.virtuosoft.eu/code/bootstrap-touchspin/  -->
-		<script src="includes/touchspin.js" type="text/javascript" ></script>
-   		<script>
-		    $("#amountSpin").TouchSpin({
-		        min: 0,
-		        max: 10000,
-		        prefix: "<i class='fa fa-btc'></i>"
-		    });
-		    $("#amountSpin").change(function() {
-		    	$("#price").html("€ "+($("#amountSpin").val()/10).toFixed(2).toString().replace(".", ","));
-		    });
-		</script>
-   		
+   		<s:if test="spinner">
+	   		<!-- Number Spinner -->
+	   		<!-- Source: http://www.virtuosoft.eu/code/bootstrap-touchspin/  -->
+			<script src="bootstrap/js/touchspin.js" type="text/javascript" ></script>
+	   		<script>
+			    $("#amountSpin").TouchSpin({
+			        min: 0,
+			        max: 10000,
+			        prefix: "<i class='fa fa-btc'></i>"
+			    });
+			    $("#amountSpin").change(function() {
+			    	$("#price").html("€ "+($("#amountSpin").val()/10).toFixed(2).toString().replace(".", ","));
+			    });
+			</script>
+   		</s:if>
    		
 		<script src="bootstrap/js/base.js" type="text/javascript"></script>
 		

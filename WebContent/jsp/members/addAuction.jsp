@@ -4,7 +4,7 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 <!-- DatePicker -->
-	<link rel="stylesheet" href="/themaopdracht5/datetimepicker/bootstrap-datetimepicker.css" type="text/css" />
+	<link rel="stylesheet" href="bootstrap/js/datetimepicker/bootstrap-datetimepicker.css" type="text/css" />
 <!-- End DatePicker -->
 <div class="row">
 	<div class="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
@@ -63,5 +63,7 @@
 		</s:form>
 	</div>
 </div>
-<s:actionerror />	
-<s:include value="/includes/footer.jsp" />
+<s:actionerror />
+<s:push value="#{'dateTimePicker':true}">
+	<s:include value="/includes/footer.jsp" />
+</s:push>

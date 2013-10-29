@@ -7,7 +7,7 @@
 	  					<p><s:property value='product.description'/></p>
 	  					<p><span id="percent<s:property value='auctionId'/>">x</span>% complete</p>
 	  				</div>  			
-			    	<img src="images/upload/<s:property value='auctionId'/>.jpg"
+			    	<img src="http://smartlapus.com/garbage/<s:property value='auctionId'/>.jpg"
 			    		alt="<s:property value='product.name'/>"
 			    		class="img-responsive">
 			    				 

@@ -32,5 +32,7 @@
 		</s:form>
 	</div>
 </div>
-<s:actionerror />	
-<s:include value="/includes/footer.jsp" />
+<s:actionerror />
+<s:push value="#{'spinner':true}">	
+	<s:include value="/includes/footer.jsp" />
+</s:push>
