@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<base href="<%=request.getContextPath()%>/" />
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css">
 		<link rel="stylesheet" href="bootstrap/css/style.css">
 
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -27,7 +28,7 @@
 					<span class="navbar-toggle-bar"></span>
 					<span class="navbar-toggle-bar"></span>
 					<span class="navbar-toggle-bar"></span> -->
-					<span class="glyphicon glyphicon-user"></span>
+					<i class="fa fa-user"></i>
 				</button>
 			</div>
 			<div class="col-sm-6">
@@ -73,7 +74,26 @@
 				</s:form>
 				</s:if>
 				<s:else>
-					<p><span class="glyphicon glyphicon-user"></span> <s:property value="#session.user.email" /> - BidCoins:  <s:property value="#session.user.bidCoins" /></p>
+					<div>
+						<div class="user-box">
+							<div class="user-box-field">
+								<div class="user-box-icon">
+									<i class="fa fa-user"></i>
+								</div>
+								<div class="user-box-text">
+									<s:property value="#session.user.email" />
+								</div>
+							</div>
+							<div class="user-box-field">
+								<div class="user-box-icon">
+									<i class="fa fa-btc"></i>
+								</div>
+								<div class="user-box-text">
+									<s:property value="#session.user.bidCoins" />
+								</div>
+							</div>
+						</div>
+					</div>
 					<p><a href="<s:url action='logout' namespace='/member' />">Log out!</a></p>
 
 				</s:else>

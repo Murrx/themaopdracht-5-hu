@@ -41,7 +41,7 @@ main {
 	-ms-flex: 1;
 	flex: 1;
 	width: 100%;
-	-ms-flex-preferred-size: auto
+	-ms-flex-preferred-size: auto;
 }
 
 footer p{
@@ -57,8 +57,42 @@ footer {
 	min-width: 100%;
 }
 
-header {
-	
+.user-box {
+	width: 100%;
+}
+
+.user-box-field {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	-moz-box-orient: horizontal;
+	-moz-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+}
+
+.user-box-icon {
+	width: 25px;
+}
+
+.user-box-icon i {
+	font-size: 20px;
+}
+
+.user-box-text {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	-ms-flex-preferred-size: auto;
+	line-height: 20px;
 }
 
 /*				/BASE				*/
@@ -103,6 +137,10 @@ textarea {
 .navbar-toggle {
 	margin: 0px;
 	
+}
+
+.navbar-toggle i {
+	font-size: 20px;
 }
 
 .navbar-toggle-bar {
