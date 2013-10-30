@@ -13,6 +13,7 @@ import java.util.Calendar;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.Status;
+import com.th5.domain.model.User;
 
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
@@ -232,11 +233,45 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		
 	}
 
+	/**Only used for testing. Do not use.
+	 * @see com.th5.persistance.CRUD_Interface#delete(java.lang.Object)
+	 */@Deprecated
 	@Override
-	public void delete(Auction object) throws AuctifyException {
-		// TODO Auto-generated method stub
+	public void delete(Auction auction) throws AuctifyException {
+		Connection connection;
+		try {
+			connection = DataSourceService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		
+		PreparedStatement statement = null;
+		
+		try{
+			
+			statement = connection.prepareCall("{call pkg_auction.pr_delete_auction(?)}");
+			
+			// --- AUC_AUCTION ---- //
+			statement.setInt(1, auction.getAuctionId());
+									
+			statement.executeQuery();
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new AuctifyException("failed to delete auction");
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
+
 
 
 	@Override
