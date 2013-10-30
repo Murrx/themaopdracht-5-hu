@@ -14,9 +14,11 @@ import org.junit.Test;
 
 import com.th5.domain.model.Address;
 import com.th5.domain.model.validators.UserAddressValidator;
+import com.th5.domain.observation.Observable;
+import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 
-public class UserRegisterValidatorTest {
+public class UserRegisterValidatorTest implements Observer{
 
 	private static UserAddressValidator userAddressValidator;
 	private Address address = new Address("AaAa 20", "73", "steenweg", "Amsterdam");
@@ -28,6 +30,7 @@ public class UserRegisterValidatorTest {
 	
 	@Before
 	public void setup() throws AuctifyException {
+		address.register(this);
 		address.setCity("Amsterdam");
 		address.setHouseNumber("73");
 		address.setStreet("steenweg");
@@ -36,9 +39,13 @@ public class UserRegisterValidatorTest {
 	}
 
 	@Test
-	public void testValidCity() {
-		if (userAddressValidator.validate(address).size() > 0) {
-			fail();
+	public void testValidCity() throws AuctifyException {
+		try {
+			if (userAddressValidator.validate(address).size() > 0) {
+				fail();
+			}
+		} catch( AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
 		}
 	}
 	
@@ -125,6 +132,17 @@ public class UserRegisterValidatorTest {
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
 		}
+	}
+
+	@Override
+	public void updateObserver(Object obj) throws AuctifyException {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setObservable(Observable obs) {
+		// TODO Auto-generated method stub
+		this.address = (Address) obs;
 	}
 }
 	

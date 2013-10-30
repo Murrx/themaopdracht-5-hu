@@ -358,7 +358,8 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			}
 
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new AuctifyException (e.getMessage());
 		}finally{
 			try {
 				if(statement != null)

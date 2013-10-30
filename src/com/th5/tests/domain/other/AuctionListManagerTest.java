@@ -17,6 +17,7 @@ import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
+import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
 import com.th5.persistance.UserDatabaseCRUD;
 
@@ -31,6 +32,7 @@ public class AuctionListManagerTest {
 	public static void oneTimeSetupBeforeClass() throws AuctifyException {
 		am = new AuctionListManager();
 		uci = new UserDatabaseCRUD();
+		aci = new AuctionDatabaseCRUD();
 
 		user = new User("auctionMangerTest", "Auctionmaneger1",
 				"auctionManager", UserRights.USER);
@@ -50,7 +52,7 @@ public class AuctionListManagerTest {
 	}
 
 	@Test
-	public void testCreate() {
+	public void testCreate() throws AuctifyException {
 		Calendar eindTime = Calendar.getInstance();
 		eindTime.set(2013, 12, 30);
 		try {
@@ -59,6 +61,7 @@ public class AuctionListManagerTest {
 			aci.delete(new Auction(id));
 		} catch (AuctifyException e) {
 			fail(e.getMessage());
+			throw new AuctifyException(e.getMessage());
 		}
 	}
 
