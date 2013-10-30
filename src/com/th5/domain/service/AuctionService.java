@@ -19,6 +19,7 @@ import com.th5.persistance.UserDatabaseCRUD;
 
 public class AuctionService implements AuctionServiceInterface{
 
+	private UserDatabaseCRUD udbcrud;
 	private UserListManager userList;
 	//private AuctionManager auctionList;
 	
@@ -53,7 +54,7 @@ public class AuctionService implements AuctionServiceInterface{
 		if (user == null || !user.getPassword().equals(password)){
 			throw new AuctifyException("Username op password incorrect");	
 		}
-		user.register(new UserDatabaseCRUD());
+		user.register(udbcrud);
 		return user;
 	}
 	
@@ -87,8 +88,7 @@ public class AuctionService implements AuctionServiceInterface{
 		u.setAddress(address);
 		u.setPerson(person);
 		
-		UserDatabaseCRUD udc = new UserDatabaseCRUD();
-		udc.update(u);
+		udbcrud.update(u);
 		
 		//((AuctionServiceInterface) userList).update(email, password, displayName, firstName, lastName, gender, birthdate, postalCode, houseNumber, street, city);
 	}
