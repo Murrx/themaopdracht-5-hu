@@ -4,7 +4,7 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-<h1>All Auctions</h1>
+<h1>My Auctions</h1>
 
 <div class="row" id="allAuctions">
 	<s:iterator value="allAuctions"  >

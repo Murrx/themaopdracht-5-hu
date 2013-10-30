@@ -3,6 +3,10 @@ package com.th5.struts.actions;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
@@ -15,11 +19,13 @@ import com.th5.domain.model.validators.UserAddressValidator;
 import com.th5.domain.model.validators.UserPersonValidator;
 import com.th5.domain.model.validators.UserRegisterValidator;
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.other.EncryptPassword;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.struts.awareness.UserAware;
 
 @Conversion()
 @SuppressWarnings("serial")
-public class EditProfileAction extends ActionSupport {
+public class EditProfileAction extends ActionSupport implements UserAware, SessionAware {
 
 	private String  edit_email,
 					edit_password, 
@@ -37,12 +43,15 @@ public class EditProfileAction extends ActionSupport {
 	
 	private int 	edit_gender;
 	private Date	edit_birthdate;
+	
+	private User	user;
+	private SessionMap<String, Object> session;
 
 	@Override
 	public String execute() throws Exception {
 		try {
 			ServiceProvider.getService().update(edit_email,
-					edit_password, edit_displayName,
+					edit_new_password, edit_displayName,
 					edit_firstName, edit_lastName, edit_gender,
 					edit_birthdate, edit_postalCode,
 					edit_houseNumber, edit_street, edit_city);
@@ -120,38 +129,41 @@ public class EditProfileAction extends ActionSupport {
 		} else if ("".equals(edit_email.trim())) {
 			addFieldError("edit_email", "email is required");
 		}
-
-		/*
-		 * Temp. disabled password check!
-		 * 
-		 * if (edit_new_password != null) {
-			
-			if (edit_password == null) {
-				addFieldError("edit_password", "password is required");
-			}
-
-			if (edit_password2 == null) {
-				addFieldError("edit_password", "password is required");
-			} else if ("".equals(edit_password.trim())) {
-				addFieldError("edit_password", "retype password is required");
-			} else if (!edit_password.equals(edit_password2)) {
-				addFieldError("edit_password", "Passwords don't match");
-			}
-			
+		
+		this.user = (User) session.get("user");
+		
+		if (!this.user.getPassword().equals(EncryptPassword.encryptPassword(edit_password))) {
+			addFieldError("edit_password", "Current password is incorrect");
 		}
+
+		if (!edit_new_password.equals("") || !edit_password2.equals("")) {
+			
+			if (edit_new_password.equals("")) {
+				addFieldError("edit_new_password", "2 password are required to change your password");
+			} else if ("".equals(edit_new_password.trim()) && edit_password2 != null) {
+				addFieldError("edit_new_password", "Cannot be empty");
+			} else if (edit_password2.equals("")) {
+				addFieldError("edit_password2", "2 password are required to change your password");
+			} else if ("".equals(edit_password2.trim()) && edit_new_password != null) {
+				addFieldError("edit_password2", "Cannot be empty");
+			} else if (!edit_new_password.equals(edit_password2)) {
+				addFieldError("edit_password2", "Passwords don't match");
+			} 
+		} 
 		
 		
 		if (!hasFieldErrors()) {
-		*/	User user = new User(edit_email, edit_password,
+			
+			User user = new User(edit_email, edit_password,
 					edit_displayName, null);
-			/*UserRegisterValidator urv = new UserRegisterValidator();
+			UserRegisterValidator urv = new UserRegisterValidator();
 			List<AttributeError> userAttributeErrorsList = urv.validate(user);
 			if (userAttributeErrorsList.size() > 0) {
 				for (AttributeError ate : userAttributeErrorsList) {
 					addFieldError("edit_" + ate.getAttribute(),
 							ate.getErrorMessage());
 				}
-			}*/
+			}
 			
 			Person person = new Person(edit_firstName, edit_lastName, edit_gender, edit_birthdate);
 			UserPersonValidator upv = new UserPersonValidator();
@@ -172,7 +184,7 @@ public class EditProfileAction extends ActionSupport {
 							ate.getErrorMessage());
 				}
 			}
-		//}
+		}
 	}
 
 	public String getEdit_email() {
@@ -191,6 +203,14 @@ public class EditProfileAction extends ActionSupport {
 		this.edit_password = registerPassword;
 	}
 
+	public String getEdit_new_password() {
+		return edit_new_password;
+	}
+
+	public void setEdit_new_password(String registerPassword) {
+		this.edit_new_password = registerPassword;
+	}
+	
 	public String getEdit_password2() {
 		return edit_password2;
 	}
@@ -273,5 +293,23 @@ public class EditProfileAction extends ActionSupport {
 
 	public void setEdit_city(String edit_city) {
 		this.edit_city = edit_city;
+	}
+
+	@Override
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public User getUser() {
+		return this.user;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = (SessionMap<String, Object>) session;
+	}
+	
+	public SessionMap<String, Object> getSession() {
+		return this.session;
 	}
 }

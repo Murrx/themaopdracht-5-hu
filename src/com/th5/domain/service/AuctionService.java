@@ -13,6 +13,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
+import com.th5.domain.other.EncryptPassword;
 import com.th5.domain.other.UserListManager;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.UserDatabaseCRUD;
@@ -42,23 +43,14 @@ public class AuctionService implements AuctionServiceInterface{
 	 * @return ArrayList<Auction> with all User auctions
 	 * @throws AuctifyException when no auctions found.
 	 */
-	@Override
 	public ArrayList<Auction> getAllUserAuctions(int userId) throws AuctifyException {
 		return userList.getUserFromUserListById(userId).getActionListManager().retrieveAllUserAuctions();
-	}
-	
-	/**Encrypts a password to sha512hex
-	 * @param password
-	 * @return the encrypted password
-	 */
-	private String encryptPassword (String password) {
-		return DigestUtils.sha512Hex( password );
 	}
 	
 	
 	@Override
 	public User login(String email, String password) throws AuctifyException {
-		password = encryptPassword(password);
+		password = EncryptPassword.encryptPassword(password);
 		User user = userList.retrieve(email);
 		if (user == null || !user.getPassword().equals(password)){
 			throw new AuctifyException("Username op password incorrect");	
@@ -69,7 +61,7 @@ public class AuctionService implements AuctionServiceInterface{
 	
 	@Override
 	public void register(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException{
-		password = encryptPassword(password);
+		password = EncryptPassword.encryptPassword(password);
 		
 		Person person = new Person(firstName, lastName, gender, birthdate);
 		Address address = new Address(postalCode, houseNumber, street, city);
@@ -83,7 +75,7 @@ public class AuctionService implements AuctionServiceInterface{
 	
 	@Override
 	public void update(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException{
-		//password = encryptPassword(password);
+		password = EncryptPassword.encryptPassword(password);
 		
 		User u = userList.retrieve(email);
 		
@@ -98,8 +90,6 @@ public class AuctionService implements AuctionServiceInterface{
 		u.setPerson(person);
 		
 		udbcrud.update(u);
-		
-		//((AuctionServiceInterface) userList).update(email, password, displayName, firstName, lastName, gender, birthdate, postalCode, houseNumber, street, city);
 	}
 	
 	public User getUserById(int id)throws AuctifyException{
