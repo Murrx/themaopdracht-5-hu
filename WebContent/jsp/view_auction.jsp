@@ -69,7 +69,7 @@
 		
 		<p>
 			display name:
-			<s:property value="auction.user.displayName" />
+			<s:property value="auction.owner.displayName" />
 		</p>
 
 	</div>

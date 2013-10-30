@@ -31,8 +31,7 @@ public class AddAuctionValidator implements ValidatorInterface<Auction> {
 	public void isValidCalendarTime(Calendar endTime, Calendar startTime) {
 
 		if (endTime == null) {
-			errorList
-					.add(new AttributeError("end_time", "end time is required"));
+			errorList.add(new AttributeError("end_time", "end time is required"));
 		}
 
 		if (startTime == null) {
@@ -46,9 +45,7 @@ public class AddAuctionValidator implements ValidatorInterface<Auction> {
 						"end time is before start time"));
 			}
 			if (!(daysBetween(startTime.getTime(), endTime.getTime()) >= 1)) {
-				errorList
-						.add(new AttributeError("end_time",
-								"end time has to be atleast 1 day after the start time"));
+				errorList.add(new AttributeError("end_time", "end time has to be atleast 1 day after the start time"));
 			}
 		}
 
@@ -57,8 +54,7 @@ public class AddAuctionValidator implements ValidatorInterface<Auction> {
 	public void isValidStartBid(int startBid) {
 		if (startBid < 0) {
 			errorList
-			.add(new AttributeError("price",
-					"price cannot be negative"));
+			.add(new AttributeError("price", "price cannot be negative"));
 		}
 	}
 
@@ -73,23 +69,19 @@ public class AddAuctionValidator implements ValidatorInterface<Auction> {
 
 	public void isValidDescription(String description) {
 		if (description == null) {
-			errorList.add(new AttributeError("description",
-					"description is required!"));
+			errorList.add(new AttributeError("description", "description is required!"));
 		}
 		else if ("".equals(description.trim())) {
-			errorList.add(new AttributeError("description",
-					"description is required!"));
+			errorList.add(new AttributeError("description", "description is required!"));
 		}
 	}
 	
 	public void isValidCategory(Category category) {
 		if (category == null) {
-			errorList.add(new AttributeError("category",
-					"category is required!"));
+			errorList.add(new AttributeError("category", "category is required!"));
 		}
 		else if ("".equals(category)) {
-			errorList.add(new AttributeError("category",
-					"category is required!"));
+			errorList.add(new AttributeError("category", "category is required!"));
 		}
 	}
 	

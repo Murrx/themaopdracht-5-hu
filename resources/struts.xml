@@ -7,22 +7,8 @@
 	<constant name="struts.custom.i18n.resources" value="global" />
 	<constant name="struts.devMode" value="true" />	
 	<constant name="struts.multipart.maxSize" value="10000000" />
-	
-	<!-- You can define packages directly in this file, but its probably best 
-		to modularize the configuration files with separate xml files for each package. 
-		Ulitmately its all the same because the include element, seen below, pulls 
-		the included configuration document directly in to the primary document. 
-		The only thing to consider is that a referenced element must have been declared 
-		above the referring element. -->
-
-	<!-- This is the menu action that will allow the reader to see the different 
-		samples actions from the different chapters in a menu format. We declare 
-		it here, in the root namespace, because its not really related to any of 
-		the specific examples or chapters, its just a kind of utility for the whole 
-		application. -->
+	<constant name="struts.multipart.saveDir" value="/tmp" />
 		
-		
-	
 	<package name="visitor" namespace="/" extends="struts-default">
 		<action name="welcome">
 			<result>/jsp/welcome.jsp</result>
