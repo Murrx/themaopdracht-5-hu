@@ -55,7 +55,6 @@ public class AuctionListManager{
 	private static Auction getAuctionById(int auctionId){
 		Auction auction = null;
 		int index = Collections.binarySearch(allAuctions, new Auction(auctionId));
-		System.out.println("AutcionListManager.getAuctionById::\n" + allAuctions);
 		if ( index >= 0){
 			auction = allAuctions.get(index);
 		}
