@@ -9,6 +9,8 @@
 								<li <s:if test='location == "create-new-auction"'>class="active"</s:if>><a href="<s:url action='addAuctionForm' namespace="/member"/>">Create New Auction</a></li>
 								<li <s:if test='location == "buy-bidcoins"'>class="active"</s:if>><a href="<s:url action='buyBidCoinsForm' namespace="/member"/>">Buy BidCoins</a></li>
 								<li <s:if test='location == "edit-profile"'>class="active"</s:if>><a href="<s:url action='editProfileForm' namespace="/member"/>">Edit profile</a></li>
+								<li <s:if test='location == "my-auctions"'>class="active"</s:if>><a href="<s:url action='ViewAllUserAuctionForm' namespace="/member"/>">My auctions</a></li>
+							
 							</ul>
 						</nav>
 					</div>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
+import com.th5.domain.other.AuctifyException;
 
 public class Address implements Observable {
 	
@@ -31,7 +32,7 @@ public class Address implements Observable {
 		return postalCode;
 	}
 
-	public void setPostalCode(String postalCode) {
+	public void setPostalCode(String postalCode) throws AuctifyException {
 		this.postalCode = postalCode;
 		this.changed = true;
 		notifyObservers();
@@ -41,7 +42,7 @@ public class Address implements Observable {
 		return houseNumber;
 	}
 
-	public void setHouseNumber(String houseNumber) {
+	public void setHouseNumber(String houseNumber) throws AuctifyException {
 		this.houseNumber = houseNumber;
 		this.changed = true;
 		notifyObservers();
@@ -51,7 +52,7 @@ public class Address implements Observable {
 		return street;
 	}
 
-	public void setStreet(String street) {
+	public void setStreet(String street) throws AuctifyException {
 		this.street = street;
 		this.changed = true;
 		notifyObservers();
@@ -61,7 +62,7 @@ public class Address implements Observable {
 		return city;
 	}
 
-	public void setCity(String city) {
+	public void setCity(String city) throws AuctifyException {
 		this.city = city;
 		this.changed = true;
 		notifyObservers();
@@ -82,7 +83,7 @@ public class Address implements Observable {
 		
 	}
 	@Override
-	public void notifyObservers() {
+	public void notifyObservers() throws AuctifyException {
 		// TODO Auto-generated method stub
 		List<Observer> observersLocal = null;
 		//synchronization is used to make sure any observer registered after message is received is not notified

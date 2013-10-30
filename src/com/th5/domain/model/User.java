@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import sun.security.action.GetBooleanAction;
+
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
@@ -26,10 +28,15 @@ public class User implements Comparable<User>, Observable{
 	private List<Observer> observers;
     private final Object MUTEX= new Object();
     private boolean changed;
+    
+    public User(int userId) {
+    	this.userId = userId;
+    }
 	
 	public User(String email){
 		this.email = email;
 		this.auctionManager = new AuctionListManager();
+		this.auctionManager.setUser(this);
 		this.bidCoins = 0;
 		this.observers = new ArrayList<Observer>();
 	}
@@ -171,6 +178,9 @@ public class User implements Comparable<User>, Observable{
 		}
 	}
 	
+	public AuctionListManager getActionListManager() {
+		return auctionManager;
+	}
 	/**
 	 * Decrements the users' BidCoins by a certain amount.
 	 * 
