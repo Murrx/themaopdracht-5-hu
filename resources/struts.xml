@@ -93,6 +93,11 @@
 			<result name="input">/jsp/members/addAuction.jsp</result>
 		</action>
 		
+		<action name="placeBidAction" class="com.th5.struts.actions.PlaceBidAction">
+			<result name="success">/jsp/view_auction.jsp</result>
+			
+		</action>
+		
 	</package>
 
 </struts>

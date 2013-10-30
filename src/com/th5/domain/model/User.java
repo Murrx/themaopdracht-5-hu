@@ -271,7 +271,10 @@ public class User implements Comparable<User>, Observable{
 			Auction auction = AuctionListManager.getAuctionById(auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
 			bids.add(bid);
+			System.out.println("USER DOMAIN :: Auction: " + auction);
+			System.out.println("USER DOMAIN :: Bid" + bid);
 			auction.addBid(bid);
+			
 						
 		}
 		else{

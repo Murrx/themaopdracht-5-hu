@@ -102,16 +102,17 @@
 										<div class="panel-body fullimage">
 
 											Place Bid (<i class='fa fa-btc'></i> 5)
+											
+											 <a href=" <s:url action="placeBidAction.action" namespace="/member" /> ">Place new bid!</a>
+											
 										</div>
 									</div>
 								</div>
 						<br /><br /><br />
-						<!--  BID HISTORY -->
-							01-01-2013: <i class='fa fa-btc'></i> 1, admin <br />
-							01-01-2013: <i class='fa fa-btc'></i> 2, admin<br />
-							01-01-2013: <i class='fa fa-btc'></i> 5, admin<br />
-							01-01-2013: <i class='fa fa-btc'></i> 10, admin<br />
-							01-01-2013: <i class='fa fa-btc'></i> 14, admin<br />
+						
+						
+						
+					
 							
 	
 
@@ -120,7 +121,15 @@
 						</div>
 					</div>
 
-
+Bid History <br />
+						
+						<s:iterator value="auction.bids">
+							
+							<s:property value="bidAmount" />
+							<s:property value="user.displayName"  /><br />
+							
+						
+						</s:iterator>
 
 
 

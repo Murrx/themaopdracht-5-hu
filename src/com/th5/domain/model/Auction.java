@@ -17,6 +17,10 @@ public class Auction implements Comparable<Auction> {
 	
 	private List<Bid> bids;
 	
+	public List<Bid> getBids() {
+		return bids;
+	}
+
 	private Product product;
 	private Category category;
 	private Status status;

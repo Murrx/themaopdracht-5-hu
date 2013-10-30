@@ -24,6 +24,7 @@ public class UserAddBidTest {
 		
 		Auction auction = AuctionListManager.getAuctionById(183);
 		
+	
 		
 		} catch(AuctifyException e){
 			e.printStackTrace();
