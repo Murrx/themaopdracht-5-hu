@@ -57,7 +57,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-12">
-					<s:submit method="execute" align="center" cssClass="btn btn-default" value="submit"   />
+					<s:submit align="center" cssClass="btn btn-default" value="submit" />
 				</div>
 			</div>
 		</s:form>

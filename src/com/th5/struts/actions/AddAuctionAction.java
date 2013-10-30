@@ -44,10 +44,7 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 	
 	@Override
 	public String execute() throws Exception {
-
-		System.out.println("executing createAuction");
 		Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
-
 		int auctionId = user.createAuction(auction);
 
 		FTPClient ftp = new FTPClient();
@@ -75,7 +72,6 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 	
 	public void validate() {
 		Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
-		System.out.println(auction);
 		AddAuctionValidator aav = new AddAuctionValidator();
 		List<AttributeError> auctionAttributeErrorsList = aav.validate(auction);
 		if (auctionAttributeErrorsList.size() > 0) {
