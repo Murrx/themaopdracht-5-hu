@@ -32,6 +32,22 @@ public interface AuctionServiceInterface {
 	 * @param city
 	 * @throws AuctifyException when registration fails
 	 */
+	public void update(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException;
+	
+	/** Register a new user with the given parameters
+	 * @param email
+	 * @param password
+	 * @param displayName
+	 * @param firstName
+	 * @param lastName
+	 * @param gender
+	 * @param birthdate
+	 * @param postalCode
+	 * @param houseNumber
+	 * @param street
+	 * @param city
+	 * @throws AuctifyException when registration fails
+	 */
 	public void register(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException;
 	
 	/** Retrieve all auctions on Auctify

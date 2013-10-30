@@ -2,9 +2,10 @@ package com.th5.persistance;
 
 import java.util.ArrayList;
 
+import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 
-public interface CRUD_Interface<T>{
+public interface CRUD_Interface<T> extends Observer{
 	
 	   
 	   public T retrieve(Object identifier) throws AuctifyException;

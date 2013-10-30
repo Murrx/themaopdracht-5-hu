@@ -13,7 +13,8 @@ import java.util.Calendar;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.Status;
-import com.th5.domain.model.User;
+
+import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
 import com.th5.domain.service.ServiceProvider;
@@ -50,16 +51,17 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				int startBid = result.getInt("auc_start_bid");
 				String categoryString = result.getString("auc_fk_category");
 				
+				int userId = result.getInt("auc_fk_user_id");
+				
 				//product data
 				int productId = result.getInt("prd_pk_product_id");
 				String productName = result.getString("prd_name");
 				String productDescription = result.getString("prd_description");
-				int userId = result.getInt("auc_fk_user_id");
 				// auction
 				
-				User owner = ServiceProvider.getService().getUser(userId);
-				
-				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, owner);
+
+				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, userId);
+
 				auction.setStartTime(aucStartTime);
 				auction.setStatus(Status.fromInteger(aucStatusId));
 				auction.getProduct().setProductId(productId);
@@ -139,11 +141,10 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				String productName = result.getString("prd_name");
 				String productDescription = result.getString("prd_description");
 				// auction
-				
-				User owner = ServiceProvider.getService().getUser(userId);				
+						
 				// auction 
 				
-				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, owner);
+				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, userId);
 				auction.setStartTime(aucStartTime);
 				auction.setStatus(Status.fromInteger(aucStatusId));
 				auction.getProduct().setProductId(productId);
@@ -231,6 +232,20 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 
 	@Override
 	public void delete(Auction object) throws AuctifyException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void updateObserver(Object obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setObservable(Observable obs) {
 		// TODO Auto-generated method stub
 		
 	}

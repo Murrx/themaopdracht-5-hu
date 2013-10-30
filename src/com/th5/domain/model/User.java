@@ -1,10 +1,15 @@
 package com.th5.domain.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.th5.domain.observation.Observable;
+import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
 
 
-public class User implements Comparable<User>{
+public class User implements Comparable<User>, Observable{
 
 	private int 	userId,
 					bidCoins;
@@ -16,17 +21,21 @@ public class User implements Comparable<User>{
 	private Address	address;
 	private UserRights rights;
 	private AuctionListManager auctionManager;
+	private List<Observer> observers;
+    private final Object MUTEX= new Object();
+    private boolean changed;
 	
 	public User(String email){
 		this.email = email;
+		this.auctionManager = new AuctionListManager();
+		this.bidCoins = 0;
+		this.observers = new ArrayList<Observer>();
 	}
 	public User(String email,String password, String displayName, UserRights rights){
 		this(email);
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
-		this.auctionManager = new AuctionListManager();
-		this.bidCoins = 0;
 	}
 	public User(int userId, String email, String password, String displayName, UserRights rights, int bidCoins){
 		this(email, password, displayName, rights);
@@ -37,7 +46,6 @@ public class User implements Comparable<User>{
 	public int createAuction(Auction auction) throws AuctifyException{
 		auction.setOwner(this);
 		int auctionId = auctionManager.create(auction);
-		
 		return auctionId;
 	}
 
@@ -46,6 +54,8 @@ public class User implements Comparable<User>{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+		this.changed = true;
+		notifyObservers();
 	}
 
 	public String getEmail() {
@@ -53,6 +63,8 @@ public class User implements Comparable<User>{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+		this.changed = true;
+		notifyObservers();
 	}
 	
 	public Person getPerson() {
@@ -60,12 +72,16 @@ public class User implements Comparable<User>{
 	}
 	public void setPerson(Person person) {
 		this.person = person;
+		this.changed = true;
+		notifyObservers();
 	}
 	public Address getAddress() {
 		return address;
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+		this.changed = true;
+		notifyObservers();
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -90,6 +106,8 @@ public class User implements Comparable<User>{
 	
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+		this.changed = true;
+		notifyObservers();
 	}
 	public UserRights getRights(){
 		return rights;
@@ -121,6 +139,8 @@ public class User implements Comparable<User>{
 	 */
 	public void addBidCoins (int amount) {
 		this.bidCoins += amount;
+		this.changed = true;
+		notifyObservers();
 	}
 	
 	/**
@@ -132,5 +152,43 @@ public class User implements Comparable<User>{
 	 */
 	public void takeBidCoins (int amount) {
 		this.bidCoins -= amount;
+		this.changed = true;
+		notifyObservers();
+	}
+	
+	@Override
+	public void register(Observer obs) {
+		System.out.println("Register obs");
+
+		if(obs == null) throw new NullPointerException("Observer is Null");
+		if(!observers.contains(obs)) observers.add(obs);
+	}
+	@Override
+	public void unregister(Observer obs) {
+		// TODO Auto-generated method stub
+        observers.remove(obs);
+		
+	}
+	@Override
+	public void notifyObservers() {
+		System.out.println("NotifyObservers");
+		// TODO Auto-generated method stub
+		List<Observer> observersLocal = null;
+		//synchronization is used to make sure any observer registered after message is received is not notified
+		synchronized (MUTEX) {
+			if (!changed)
+				return;
+			observersLocal = new ArrayList<>(this.observers);
+			this.changed=false;
+		}
+		for (Observer obs : observersLocal) {
+			obs.updateObserver(this);
+		}
+		
+	}
+	@Override
+	public Object getUpdate(Observer obs) {
+		// TODO Auto-generated method stub
+		return (User) this;
 	}
 }

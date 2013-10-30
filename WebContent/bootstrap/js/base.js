@@ -11,6 +11,12 @@ $(function () {
 			viewMode: 2
 		});
 	}
+	if($('#edit_birthdate').length != 0) {
+		$('#edit_birthdate').datetimepicker({
+			format: 'dd-mm-yyyy',
+			viewMode: 2
+		});
+	}
 	if($('#auction_end_time').length != 0) {
 		$("#auction_end_time").datetimepicker({
 			format: 'dd-mm-yyyy hh:ii',	//Date time format
