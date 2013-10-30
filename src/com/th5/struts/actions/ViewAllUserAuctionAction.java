@@ -18,18 +18,11 @@ public class ViewAllUserAuctionAction extends ActionSupport implements UserAware
 	@Override
 	public String execute() throws Exception {
 		try {
-			System.out.println("actionklasse vieuwalleuserauction binnen! ");
 			allUserAuctions = user.getActionListManager().getAuctionList();
 		} catch (Exception e) {
-			System.out.println("All Auctions Action ERROR - " +e.getMessage());
 			return ActionSupport.ERROR;
 		}
 		return ActionSupport.SUCCESS;
-	}
-
-	@Override
-	public void validate() {
-		//TODO : validate auctions
 	}
 	
 	public ArrayList<Auction> getAllUserAuctions() {
