@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import sun.security.action.GetBooleanAction;
+
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
@@ -26,10 +28,15 @@ public class User implements Comparable<User>, Observable{
 	private List<Observer> observers;
     private final Object MUTEX= new Object();
     private boolean changed;
+    
+    public User(int userId) {
+    	this.userId = userId;
+    }
 	
 	public User(String email){
 		this.email = email;
 		this.auctionManager = new AuctionListManager();
+		this.auctionManager.setUser(this);
 		this.bidCoins = 0;
 		this.observers = new ArrayList<Observer>();
 	}
@@ -55,11 +62,14 @@ public class User implements Comparable<User>, Observable{
 		return password;
 	}
 	public void setPassword(String password) throws AuctifyException {
+		String oldPass = this.password;
 		try {
 			this.password = password;
 			this.changed = true;
 			notifyObservers();
 		} catch (AuctifyException e) {
+			this.password = oldPass;
+			this.changed = false;
 			throw new AuctifyException(e.getMessage());
 		}
 	}
@@ -68,11 +78,14 @@ public class User implements Comparable<User>, Observable{
 		return email;
 	}
 	public void setEmail(String email) throws AuctifyException {
+		String oldEmail = this.email;
 		try {
 			this.email = email;
 			this.changed = true;
 			notifyObservers();
 		} catch (AuctifyException e) {
+			this.email = oldEmail;
+			this.changed = false;
 			throw new AuctifyException(e.getMessage());
 		}
 	}
@@ -81,11 +94,14 @@ public class User implements Comparable<User>, Observable{
 		return person;
 	}
 	public void setPerson(Person person) throws AuctifyException {
+		Person oldPerson = this.person;
 		try {
 			this.person = person;
 			this.changed = true;
 			notifyObservers();
 		} catch (AuctifyException e) {
+			this.person = oldPerson;
+			this.changed = false;
 			throw new AuctifyException(e.getMessage());
 		}
 	}
@@ -93,11 +109,14 @@ public class User implements Comparable<User>, Observable{
 		return address;
 	}
 	public void setAddress(Address address) throws AuctifyException {
+		Address oldAddress = this.address;
 		try {
 			this.address = address;
 			this.changed = true;
 			notifyObservers();
 		} catch (AuctifyException e) {
+			this.address = oldAddress;
+			this.changed = false;
 			throw new AuctifyException(e.getMessage());
 		}
 	}
@@ -123,11 +142,14 @@ public class User implements Comparable<User>, Observable{
 	}
 	
 	public void setDisplayName(String displayName) throws AuctifyException {
+		String oldDisplayName = this.displayName;
 		try {
 			this.displayName = displayName;
 			this.changed = true;
 			notifyObservers();
 		} catch (AuctifyException e) {
+			this.displayName = oldDisplayName;
+			this.changed = false;
 			throw new AuctifyException(e.getMessage());
 		}
 	}
@@ -160,17 +182,21 @@ public class User implements Comparable<User>, Observable{
 	 * @see #takeBidCoins
 	 */
 	public void addBidCoins (int amount) throws AuctifyException {
+		int oldBidCoins = this.bidCoins;
 		try {
 			this.bidCoins += amount;
 			this.changed = true;
 			notifyObservers();
 		} catch (AuctifyException e) {
-			this.bidCoins -= amount;
+			this.bidCoins = oldBidCoins;
 			this.changed = false;
 			throw new AuctifyException(e.getMessage());
 		}
 	}
 	
+	public AuctionListManager getActionListManager() {
+		return auctionManager;
+	}
 	/**
 	 * Decrements the users' BidCoins by a certain amount.
 	 * 
@@ -180,12 +206,13 @@ public class User implements Comparable<User>, Observable{
 	 * @see #addBidCoins
 	 */
 	public void takeBidCoins (int amount) throws AuctifyException {
+		int oldBidCoins = this.bidCoins;
 		try {
 			this.bidCoins -= amount;
 			this.changed = true;
 			notifyObservers();
 		} catch (AuctifyException e) {
-			this.bidCoins += amount;
+			this.bidCoins = oldBidCoins;
 			this.changed = false;
 			throw new AuctifyException(e.getMessage());
 		}
@@ -221,7 +248,6 @@ public class User implements Comparable<User>, Observable{
 			} catch (AuctifyException e) {
 				throw new AuctifyException(e.getMessage());
 			}
-			
 		}
 		
 	}

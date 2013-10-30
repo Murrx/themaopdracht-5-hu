@@ -15,7 +15,7 @@ public class ViewAuctionAction extends ActionSupport{
 	@Override
 	public String execute() throws Exception {
 
-		owner = ServiceProvider.getService().getUser(id);
+		owner = ServiceProvider.getService().getUserById(auction.getOwner().getUserId());
 		return ActionSupport.SUCCESS;
 	}
 	

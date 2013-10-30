@@ -11,24 +11,49 @@ import java.util.Collections;
 import java.util.List;
 
 import com.th5.domain.model.Auction;
+import com.th5.domain.model.User;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
 
-public class AuctionListManager{
+public class AuctionListManager {
 	private static CRUD_Interface<Auction> auctionDatabaseCRUD = new AuctionDatabaseCRUD();
 	private static List<Auction> allAuctions = retrieveAllAuctions();
-
+	private boolean isAuctionListComplete = false;
+	private User user;
 	private List<Auction> auctionList;
 
-	public AuctionListManager(){
+	public AuctionListManager() {
 		auctionList = new SortedArrayList<Auction>();
 	}
 
-	public static Auction retrieve(Object id) throws AuctifyException{
-		int auctionId = (Integer)id;
+	public ArrayList<Auction> getAuctionList() {
+		if (!isAuctionListComplete) {
+			return retrieveAllUserAuctions();
+		}
+		return (ArrayList<Auction>) auctionList;
+	}
+
+	public ArrayList<Auction> retrieveAllUserAuctions() {
+		if (allAuctions.size() > 0) {
+			for (Auction a : allAuctions) {
+				if (a.getOwner().getUserId() == user.getUserId()) {
+					auctionList.add(a);
+				}
+			}
+			if (auctionList.size() > 0) {
+				isAuctionListComplete = true;
+			}
+			return (ArrayList<Auction>) auctionList;
+		} else {
+			return (ArrayList<Auction>) auctionList;
+		}
+	}
+
+	public static Auction retrieve(Object id) throws AuctifyException {
+		int auctionId = (Integer) id;
 		Auction auction = getAuctionById(auctionId);
-		if (auction == null){
-			throw new AuctifyException("auction with id " + id + "not found"); 
+		if (auction == null) {
+			throw new AuctifyException("auction with id " + id + "not found");
 		}
 		return auction;
 	}
@@ -49,10 +74,11 @@ public class AuctionListManager{
 
 	/**
 	 * Attempt to get a auction from allAuctions
+	 * 
 	 * @param auctionId
 	 * @return the auction. returns null when auction is not found
 	 */
-	private static Auction getAuctionById(int auctionId){
+	private static Auction getAuctionById(int auctionId) {
 		Auction auction = null;
 		int index = Collections.binarySearch(allAuctions, new Auction(auctionId));
 		if ( index >= 0){
@@ -63,13 +89,14 @@ public class AuctionListManager{
 
 	/**
 	 * Returns all auctions from auctionList
+	 * 
 	 * @return ArrayList<Auction> with all auctions.
 	 */
-	public static ArrayList<Auction> retrieveAllAuctions(){
+	public static ArrayList<Auction> retrieveAllAuctions() {
 		ArrayList<Auction> auctions = new SortedArrayList<Auction>();
 		try {
 			List<Auction> tempList = auctionDatabaseCRUD.retrieveAll();
-			for (Auction auction : tempList){
+			for (Auction auction : tempList) {
 				auctions.add(auction);
 			}
 		} catch (AuctifyException e) {
@@ -78,5 +105,8 @@ public class AuctionListManager{
 		}
 		return auctions;
 	}
-}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+}

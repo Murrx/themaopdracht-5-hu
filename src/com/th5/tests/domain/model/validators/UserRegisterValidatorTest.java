@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import com.th5.domain.model.Address;
 import com.th5.domain.model.validators.UserAddressValidator;
+import com.th5.domain.other.AuctifyException;
 
 public class UserRegisterValidatorTest {
 
@@ -26,7 +27,7 @@ public class UserRegisterValidatorTest {
 	}
 	
 	@Before
-	public void setup() {
+	public void setup() throws AuctifyException {
 		address.setCity("Amsterdam");
 		address.setHouseNumber("73");
 		address.setStreet("steenweg");
@@ -42,7 +43,7 @@ public class UserRegisterValidatorTest {
 	}
 	
 	@Test
-	public void testInValidCity() {
+	public void testInValidCity() throws AuctifyException {
 		address.setCity("!Amsterdam");
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
@@ -50,7 +51,7 @@ public class UserRegisterValidatorTest {
 	}
 	
 	@Test
-	public void testNullCity() {
+	public void testNullCity() throws AuctifyException {
 		address.setCity(null);
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
@@ -65,7 +66,7 @@ public class UserRegisterValidatorTest {
 	}
 	
 	@Test
-	public void testInValidHouseNumber() {
+	public void testInValidHouseNumber() throws AuctifyException {
 		address.setHouseNumber("!abc %ra");
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
@@ -73,7 +74,7 @@ public class UserRegisterValidatorTest {
 	}
 	
 	@Test
-	public void testNullHouseNumber() {
+	public void testNullHouseNumber() throws AuctifyException {
 		address.setHouseNumber(null);
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
@@ -88,7 +89,7 @@ public class UserRegisterValidatorTest {
 	}
 	
 	@Test
-	public void testInValidStreet() {
+	public void testInValidStreet() throws AuctifyException {
 		address.setStreet("AABCDEFGH123456");
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
@@ -96,7 +97,7 @@ public class UserRegisterValidatorTest {
 	}
 	
 	@Test
-	public void testNullStreet() {
+	public void testNullStreet() throws AuctifyException {
 		address.setStreet(null);
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
@@ -111,7 +112,7 @@ public class UserRegisterValidatorTest {
 	}
 	
 	@Test
-	public void testInValidPostalCode() {
+	public void testInValidPostalCode() throws AuctifyException {
 		address.setStreet("AABCDEFGH123456");
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
@@ -119,7 +120,7 @@ public class UserRegisterValidatorTest {
 	}
 	
 	@Test
-	public void testNullPostalCode() {
+	public void testNullPostalCode() throws AuctifyException {
 		address.setPostalCode(null);
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();

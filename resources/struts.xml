@@ -60,6 +60,11 @@
 			<result name="success">/jsp/welcome.jsp</result>
 		</action>
 		
+		<action name="ViewAllUserAuctionForm" class="com.th5.struts.actions.ViewAllUserAuctionAction">
+			<result name="success">/jsp/members/myAuctions.jsp</result>
+			<result name="error">/jsp/members/myAuctions.jsp</result>
+		</action>
+		
 		<action name="buyBidCoinsForm">
 			<result>/jsp/members/addBidCoins.jsp</result>
 		</action>

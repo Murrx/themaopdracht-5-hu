@@ -111,6 +111,20 @@ public class UserListManager{
 		}
 		return user;
 	}
+	
+	/**
+	 * Attempt to get a user from userList by idd
+	 * @param userId
+	 * @return the user. returns null when user is not found
+	 */
+	public User getUserFromUserListById(int userId){
+		User user = null;
+		int index = Collections.binarySearch(userList, new User(userId));
+		if ( index >= 0){
+			user = userList.get(index);
+		}
+		return user;
+	}
 
 	/**
 	 * check if a given email is available to use
