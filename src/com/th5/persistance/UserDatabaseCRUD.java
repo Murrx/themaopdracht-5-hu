@@ -302,4 +302,74 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		this.obsUser = (User) obs;
 		
 	}
+	
+	public User retrieveById(int id) throws AuctifyException {
+		Connection connection;
+		try {
+			connection = DataSourceService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		
+		PreparedStatement statement = null;
+		User user = null;
+		Address address = null;
+		Person person = null;
+
+		try{
+			statement = connection.prepareStatement(
+					"SELECT * FROM usr_users, prs_persons, adr_addresses WHERE usr_pk_user_id = ? AND usr_fk_person_id = prs_pk_person_id AND prs_fk_address_id = adr_pk_address_id");
+			statement.setInt(1, id);
+			ResultSet result = statement.executeQuery();
+
+			while(result.next()){
+				
+				//user data
+				String username = result.getString("usr_email");
+				String password = result.getString("usr_password");
+				String displayName = result.getString("usr_display_name");
+				int userId = result.getInt("usr_pk_user_id");
+				UserRights rights = UserRights.fromInteger(result.getInt("usr_fk_right_id"));
+				int bidCoins = result.getInt("usr_bidcoins");
+
+				user = new User(userId, username, password, displayName, rights, bidCoins);
+				
+				//person data
+				int personId = result.getInt("prs_pk_person_id");
+				String firstName = result.getString("prs_first_name");
+				String lastName = result.getString("prs_last_name");
+				int gender = result.getInt("prs_gender");
+				java.util.Date birthdate = result.getDate("prs_birthdate");
+				
+				person = new Person(personId,firstName, lastName, gender, birthdate);
+				
+				//address data
+				int addressId = result.getInt("adr_pk_address_id");
+				String postalCode = result.getString("adr_postal_code");
+				String houseNumber = result.getString("adr_pk_address_id");
+				String street = result.getString("adr_street");
+				String city = result.getString("adr_city");
+				
+				address = new Address(addressId,postalCode, houseNumber, street, city);
+				
+				user.setPerson(person);
+				user.setAddress(address);
+				this.obsUser = user;
+			}
+
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if (user == null) throw new AuctifyException("user not found");
+		return user;
+	}
 }

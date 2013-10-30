@@ -2,6 +2,11 @@ package com.th5.domain.model;
 
 import java.util.Calendar;
 
+import com.th5.domain.other.AuctifyException;
+import com.th5.domain.service.AuctionService;
+import com.th5.domain.service.AuctionServiceInterface;
+import com.th5.domain.service.ServiceProvider;
+
 public class Auction implements Comparable<Auction> {
 
 	private int auctionId;
@@ -13,6 +18,7 @@ public class Auction implements Comparable<Auction> {
 	private Category category;
 	private Status status;
 	private int userId;
+	private User user;
 	
 	public Auction(int auctionId) {
 		this.auctionId = auctionId;
@@ -166,5 +172,24 @@ public class Auction implements Comparable<Auction> {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public User getUser() {
+		if (user == null){
+			try {
+				setUserFromUserList();
+			} catch (AuctifyException e) {
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	private void setUserFromUserList() throws AuctifyException{
+		AuctionService service = (AuctionService) ServiceProvider.getService();
+		this.user = service.getUserById(userId);
 	}
 }
