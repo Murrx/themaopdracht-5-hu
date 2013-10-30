@@ -80,16 +80,8 @@ public class AuctionListManager {
 	 */
 	private static Auction getAuctionById(int auctionId) {
 		Auction auction = null;
-<<<<<<< Updated upstream
 		int index = Collections.binarySearch(allAuctions, new Auction(auctionId));
 		if ( index >= 0){
-=======
-		int index = Collections.binarySearch(allAuctions,
-				new Auction(auctionId));
-		System.out.println("AutcionListManager.getAuctionById::\n"
-				+ allAuctions);
-		if (index >= 0) {
->>>>>>> Stashed changes
 			auction = allAuctions.get(index);
 		}
 		return auction;
