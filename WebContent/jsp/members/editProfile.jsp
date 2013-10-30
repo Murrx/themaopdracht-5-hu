@@ -4,7 +4,7 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 		<!-- DatePicker -->
-		<link rel="stylesheet" href="/themaopdracht5/datepicker/css/datepicker.css" type="text/css" />
+		<link rel="stylesheet" href="bootstrap/js/datepicker/css/datepicker.css" type="text/css" />
    		<!-- End DatePicker -->
 <div class="row">
 	<div class="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
@@ -16,9 +16,10 @@
 				<label for="edit_password" class="col-sm-3 control-label">Current password</label>
 				<div class="col-sm-9">
 					<s:fielderror fieldName="edit_password" />
-					<s:textfield name="edit_password" id="edit_password" size="20" placeholder="Password" value="%{#session.user.password}" cssClass="form-control" />
+					<s:password name="edit_password" id="edit_password" size="20" placeholder="Password" cssClass="form-control" />
 				</div>
 			</div>
+			<p class="col-sm-offset-3 col-sm-9">Leave new password fields blank to keep your current password.</p>
 			<div class="form-group">
 				<label for="edit_new_password" class="col-sm-3 control-label">New password</label>
 				<div class="col-sm-9">
