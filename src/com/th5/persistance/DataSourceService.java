@@ -28,8 +28,8 @@ public class DataSourceService {
 		
 		return ds.getConnection();
 	} catch (SQLException e) {
-		e.printStackTrace();
-		System.out.println("Connection Failed! Check output console");
+		//e.printStackTrace();
+		System.out.println("Failed to connect to the database: "+e.getMessage());
 		throw e;
 	}
     

@@ -41,7 +41,7 @@ public class AuctionListManager{
 			auctionList.add(auction);
 			allAuctions.add(auction);
 		} catch (AuctifyException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new AuctifyException(e.getMessage());
 		}
 		return newAuctionId;
@@ -75,7 +75,7 @@ public class AuctionListManager{
 			}
 		} catch (AuctifyException e) {
 			System.out.println(e.getMessage());
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return auctions;
 	}

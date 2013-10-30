@@ -19,7 +19,7 @@ import com.th5.persistance.UserDatabaseCRUD;
 
 public class AuctionService implements AuctionServiceInterface{
 
-	private UserDatabaseCRUD udbcrud;
+	private UserDatabaseCRUD udbcrud = new UserDatabaseCRUD();
 	private UserListManager userList;
 	//private AuctionManager auctionList;
 	

@@ -46,7 +46,7 @@
 			<script src="bootstrap/js/touchspin.js" type="text/javascript" ></script>
 	   		<script>
 			    $("#amountSpin").TouchSpin({
-			        min: 0,
+			        min: 1,
 			        max: 10000,
 			        prefix: "<i class='fa fa-btc'></i>"
 			    });

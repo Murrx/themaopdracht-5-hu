@@ -84,7 +84,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			}
 
 		}catch(SQLException e){
-			e.printStackTrace();
+			throw new AuctifyException("failed to retrieve user");
 		}finally{
 			try {
 				if(statement != null)
@@ -162,8 +162,8 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			return userId;
 			
 		}catch(SQLException e){
-			e.printStackTrace();
-			throw new AuctifyException("failed to add user");
+			//e.printStackTrace();
+			throw new AuctifyException("failed to create user");
 		}finally{
 			try {
 				if(statement != null)
@@ -181,7 +181,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 		Connection connection;
 		try {
 			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
+		} catch (SQLException e) {
 			throw new AuctifyException("failed to connect to database");
 		}
 		
@@ -213,8 +213,8 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			statement.executeQuery();
 
 		}catch(SQLException e){
-			e.printStackTrace();
-			throw new AuctifyException("failed to update user");
+			//e.printStackTrace();
+			throw new AuctifyException(e.getMessage());
 		}finally{
 			try {
 				if(statement != null)
@@ -285,13 +285,14 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	}
 
 	@Override
-	public void updateObserver(Object obj) {
+	public void updateObserver(Object obj) throws AuctifyException {
 		// TODO Auto-generated method stub
 		try {
 			update((User) obj);
 		} catch (AuctifyException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new AuctifyException(e.getMessage());
 		}
 		
 	}
@@ -300,6 +301,5 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	public void setObservable(Observable obs) {
 		// TODO Auto-generated method stub
 		this.obsUser = (User) obs;
-		
 	}
 }

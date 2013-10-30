@@ -67,7 +67,8 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			}
 
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new AuctifyException("failed to retrieve auction");
 		}finally{
 			try {
 				if(statement != null)
@@ -149,7 +150,8 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			}
 
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new AuctifyException("failed to Retrieve All Users");
 		}finally{
 			try {
 				if(statement != null)
@@ -205,7 +207,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			return auctionId;
 			
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new AuctifyException("failed to add auction");
 		}finally{
 			try {

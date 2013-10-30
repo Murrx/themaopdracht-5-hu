@@ -5,9 +5,13 @@
 </s:push>
 <div class="row">
 	<div class="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
-		<h2>Buy <i class='fa fa-btc'></i>itCoins</h2>
+		<h2>Buy <i class='fa fa-btc'></i>idCoins</h2>
 		<p>Please buy as many BidCoins as possible! Give us your money! Actual buying is not yet implemented.</p>
 		<hr />
+		
+		<s:if test="%{exception.message !=''}">
+		    <div class="alert alert-danger"><s:property value="%{exception.message}"/></div>
+		</s:if>
 		<s:form action="/member/buyBidCoins" cssClass="form-horizontal" method="post" namespace="/" enctype="multipart/form-data">
  			<div class="form-group">
 				<label for="amount" class="col-sm-3 control-label">Amount</label>

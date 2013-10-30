@@ -78,8 +78,10 @@
 			<result>/jsp/members/addBidCoins.jsp</result>
 		</action>
 		
-		<action name="buyBidCoins" class="com.th5.struts.actions.BuyBidCoinsAction">
+		<action name="buyBidCoins" class="com.th5.struts.actions.BuyBidCoinsAction" method="execute">
+			<exception-mapping exception="com.th5.domain.other.AuctifyException" result="error" />
 			<result>/jsp/welcome.jsp</result>
+			<result name="error">/jsp/members/addBidCoins.jsp</result>
 		</action>
 		
 		<action name="editProfileForm">

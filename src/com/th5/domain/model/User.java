@@ -1,5 +1,6 @@
 package com.th5.domain.model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
+import com.th5.persistance.DataSourceService;
 
 
 public class User implements Comparable<User>, Observable{
@@ -52,36 +54,52 @@ public class User implements Comparable<User>, Observable{
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-		this.changed = true;
-		notifyObservers();
+	public void setPassword(String password) throws AuctifyException {
+		try {
+			this.password = password;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-		this.changed = true;
-		notifyObservers();
+	public void setEmail(String email) throws AuctifyException {
+		try {
+			this.email = email;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 	
 	public Person getPerson() {
 		return person;
 	}
-	public void setPerson(Person person) {
-		this.person = person;
-		this.changed = true;
-		notifyObservers();
+	public void setPerson(Person person) throws AuctifyException {
+		try {
+			this.person = person;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 	public Address getAddress() {
 		return address;
 	}
-	public void setAddress(Address address) {
-		this.address = address;
-		this.changed = true;
-		notifyObservers();
+	public void setAddress(Address address) throws AuctifyException {
+		try {
+			this.address = address;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -104,10 +122,14 @@ public class User implements Comparable<User>, Observable{
 		return displayName;
 	}
 	
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-		this.changed = true;
-		notifyObservers();
+	public void setDisplayName(String displayName) throws AuctifyException {
+		try {
+			this.displayName = displayName;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 	public UserRights getRights(){
 		return rights;
@@ -137,23 +159,36 @@ public class User implements Comparable<User>, Observable{
 	 * @see #getBidCoins
 	 * @see #takeBidCoins
 	 */
-	public void addBidCoins (int amount) {
-		this.bidCoins += amount;
-		this.changed = true;
-		notifyObservers();
+	public void addBidCoins (int amount) throws AuctifyException {
+		try {
+			this.bidCoins += amount;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			this.bidCoins -= amount;
+			this.changed = false;
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 	
 	/**
 	 * Decrements the users' BidCoins by a certain amount.
 	 * 
 	 * @param amount Number of BidCoins to decrement with
+	 * @throws AuctifyException 
 	 * @see #getBidCoins
 	 * @see #addBidCoins
 	 */
-	public void takeBidCoins (int amount) {
-		this.bidCoins -= amount;
-		this.changed = true;
-		notifyObservers();
+	public void takeBidCoins (int amount) throws AuctifyException {
+		try {
+			this.bidCoins -= amount;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			this.bidCoins += amount;
+			this.changed = false;
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 	
 	@Override
@@ -170,8 +205,7 @@ public class User implements Comparable<User>, Observable{
 		
 	}
 	@Override
-	public void notifyObservers() {
-		System.out.println("NotifyObservers");
+	public void notifyObservers() throws AuctifyException{
 		// TODO Auto-generated method stub
 		List<Observer> observersLocal = null;
 		//synchronization is used to make sure any observer registered after message is received is not notified
@@ -182,13 +216,17 @@ public class User implements Comparable<User>, Observable{
 			this.changed=false;
 		}
 		for (Observer obs : observersLocal) {
-			obs.updateObserver(this);
+			try {
+				obs.updateObserver(this);
+			} catch (AuctifyException e) {
+				throw new AuctifyException(e.getMessage());
+			}
+			
 		}
 		
 	}
 	@Override
 	public Object getUpdate(Observer obs) {
-		// TODO Auto-generated method stub
 		return (User) this;
 	}
 }

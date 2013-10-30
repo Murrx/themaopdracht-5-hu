@@ -8,6 +8,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
+import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.struts.awareness.UserAware;
 
@@ -34,9 +35,15 @@ public class BuyBidCoinsAction extends ActionSupport implements UserAware, Sessi
 	 * 
 	 * @return <code>success</code> if the login is succesful, <br>
 	 *         <code>error</code> if the login information is wrong.
+	 * @throws AuctifyException 
 	 */
-	public String execute() {
-		user.addBidCoins(amount);
+	public String execute() throws AuctifyException {
+		try {
+			user.addBidCoins(amount);
+		} catch (AuctifyException e) {
+			// TODO Auto-generated catch block
+			throw new AuctifyException(e.getMessage());
+		}
 		return ActionSupport.SUCCESS;
 	}
 
