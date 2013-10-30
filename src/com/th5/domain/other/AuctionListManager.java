@@ -43,10 +43,8 @@ public class AuctionListManager {
 			if (auctionList.size() > 0) {
 				isAuctionListComplete = true;
 			}
-			return (ArrayList<Auction>) auctionList;
-		} else {
-			return (ArrayList<Auction>) auctionList;
 		}
+		return (ArrayList<Auction>) auctionList;
 	}
 
 	public static Auction retrieve(Object id) throws AuctifyException {

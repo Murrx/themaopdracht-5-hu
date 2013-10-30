@@ -4,19 +4,23 @@ import java.util.ArrayList;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
+import com.th5.domain.model.User;
+import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.struts.awareness.UserAware;
 
-public class ViewAllUserAuctionAction extends ActionSupport{
+public class ViewAllUserAuctionAction extends ActionSupport implements UserAware {
 	
 	private ArrayList<Auction> allUserAuctions;
-	private int userId;
+	private User user;
 
 	@Override
 	public String execute() throws Exception {
 		try {
-			allUserAuctions = ServiceProvider.getService().getAllUserAuctions(userId);
-		} catch (AuctifyException e) {
+			System.out.println("actionklasse vieuwalleuserauction binnen! ");
+			allUserAuctions = user.getActionListManager().getAuctionList();
+		} catch (Exception e) {
 			System.out.println("All Auctions Action ERROR - " +e.getMessage());
 			return ActionSupport.ERROR;
 		}
@@ -36,11 +40,13 @@ public class ViewAllUserAuctionAction extends ActionSupport{
 		this.allUserAuctions = al;
 	}
 	
-	public int getUserId() {
-		return this.userId;
+	public User getUser() {
+		return user;
 	}
-	
-	public void setUserId(int userId){
-		this.userId = userId;
+
+	@Override
+	public void setUser(User user) {
+		this.user = user;
+		
 	}
 }
