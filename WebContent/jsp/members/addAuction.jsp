@@ -15,14 +15,14 @@
 				<label for="auction_name" class="col-sm-3 control-label">Name</label>
 				<div class="col-sm-9">
 					<s:fielderror fieldName="auction_name" />
-					<s:textfield name="auction_name" key="auction.name" size="20" placeholder="Name" cssClass="form-control" />
+					<s:textfield name="auction_name" size="20" placeholder="Name" cssClass="form-control" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="auction_description" class="col-sm-3 control-label">Description</label>
 				<div class="col-sm-9">
 					<s:fielderror fieldName="auction_description" />
-					<s:textarea name="auction_description" key="auction.description" placeholder="Description" cssClass="form-control" />
+					<s:textarea name="auction_description" placeholder="Description" cssClass="form-control" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -45,7 +45,7 @@
 				<label for="auction_price" class="col-sm-3 control-label">Price</label>
 				<div class="col-sm-9">
 					<s:fielderror fieldName="auction_price" />
-					<s:textfield name="auction_price" key="auction.price" size="20" placeholder="Price" cssClass="form-control" />
+					<s:textfield name="auction_price" size="20" placeholder="Price" cssClass="form-control" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -57,7 +57,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-12">
-					<s:submit method="execute" key="label.submit" align="center" cssClass="btn btn-default" value="submit"   />
+					<s:submit method="execute" align="center" cssClass="btn btn-default" value="submit"   />
 				</div>
 			</div>
 		</s:form>

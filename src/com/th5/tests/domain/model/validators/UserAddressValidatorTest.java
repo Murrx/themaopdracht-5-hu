@@ -29,9 +29,13 @@ public class UserAddressValidatorTest {
 	
 	@Before
 	public void setup() throws AuctifyException {
-		user.setEmail("test@test.nl");
-		user.setPassword("Testtest1");
-		user.setDisplayName("test");
+		try{
+			user.setEmail("test@test.nl");
+			user.setPassword("Testtest1");
+			user.setDisplayName("test");
+		} catch(AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 		userValidator.clearArray();	
 	}
 
@@ -44,7 +48,12 @@ public class UserAddressValidatorTest {
 	
 	@Test
 	public void testInValidEmailAdres() throws AuctifyException {
-		user.setEmail("a@.nl");
+		try {
+			user.setEmail("a@.nl");
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
+
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
 		}
@@ -52,7 +61,11 @@ public class UserAddressValidatorTest {
 	
 	@Test
 	public void testNullEmailAdres() throws AuctifyException {
-		user.setEmail(null);
+		try {
+			user.setEmail(null);
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
 		}
@@ -67,7 +80,11 @@ public class UserAddressValidatorTest {
 	
 	@Test
 	public void testInValidPassword() throws AuctifyException {
-		user.setPassword("a bla 2!");
+		try {
+			user.setPassword("a bla 2!");
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
 		}
@@ -75,7 +92,11 @@ public class UserAddressValidatorTest {
 	
 	@Test
 	public void testNullPassword() throws AuctifyException {
-		user.setPassword(null);
+		try {
+			user.setPassword(null);
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
 		}
@@ -90,7 +111,11 @@ public class UserAddressValidatorTest {
 	
 	@Test
 	public void testInValidDisplayName() throws AuctifyException {
-		user.setDisplayName("a");
+		try {
+			user.setDisplayName("a");
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
 		}
@@ -98,7 +123,11 @@ public class UserAddressValidatorTest {
 	
 	@Test
 	public void testNullDisplayName() throws AuctifyException {
-		user.setDisplayName(null);
+		try {
+			user.setDisplayName(null);
+		} catch (AuctifyException e) {
+			throw new AuctifyException(e.getMessage());
+		}
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
 		}

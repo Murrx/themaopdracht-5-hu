@@ -55,5 +55,13 @@ public interface AuctionServiceInterface {
 	 */
 	public ArrayList<Auction> getAllAuctions() throws AuctifyException;	
 	
+<<<<<<< Updated upstream
 	public User getUser(int id);
+=======
+	/** Retrieve all User auctions on Auctify
+	 * @throws AuctifyException 
+	 */
+	public ArrayList<Auction> getAllUserAuctions(int userId) throws AuctifyException;	
+
+>>>>>>> Stashed changes
 }
