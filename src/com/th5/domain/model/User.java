@@ -10,6 +10,7 @@ import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
+import com.th5.domain.other.SortedArrayList;
 import com.th5.persistance.DataSourceService;
 
 
@@ -20,6 +21,8 @@ public class User implements Comparable<User>, Observable{
 	private String 	email,
 					password, 
 					displayName;
+	
+	private List<Bid>	bids;
 	
 	private Person 	person;
 	private Address	address;
@@ -40,12 +43,15 @@ public class User implements Comparable<User>, Observable{
 		this.bidCoins = 0;
 		this.observers = new ArrayList<Observer>();
 	}
+	
 	public User(String email,String password, String displayName, UserRights rights){
 		this(email);
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
+		this.bids = new SortedArrayList<Bid>();
 	}
+	
 	public User(int userId, String email, String password, String displayName, UserRights rights, int bidCoins){
 		this(email, password, displayName, rights);
 		this.userId = userId;
@@ -61,6 +67,7 @@ public class User implements Comparable<User>, Observable{
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) throws AuctifyException {
 		String oldPass = this.password;
 		try {
@@ -77,6 +84,7 @@ public class User implements Comparable<User>, Observable{
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) throws AuctifyException {
 		String oldEmail = this.email;
 		try {
@@ -220,7 +228,7 @@ public class User implements Comparable<User>, Observable{
 	
 	@Override
 	public void register(Observer obs) {
-		System.out.println("Register obs");
+		System.out.println(" DOMAIN - MODEL - USER :: Register obs");
 
 		if(obs == null) throw new NullPointerException("Observer is Null");
 		if(!observers.contains(obs)) observers.add(obs);
@@ -255,4 +263,20 @@ public class User implements Comparable<User>, Observable{
 	public Object getUpdate(Observer obs) {
 		return (User) this;
 	}
+	
+	
+	public void bidOnAuction(int auctionId, int bidAmount) throws AuctifyException{
+		if (this.bidCoins >= bidAmount){
+			
+			Auction auction = AuctionListManager.getAuctionById(auctionId);
+			Bid bid = new Bid(this, auction, bidAmount);
+			bids.add(bid);
+			auction.addBid(bid);
+						
+		}
+		else{
+			throw new AuctifyException("Not enough bidcoins available");
+		}
+	}
+	
 }

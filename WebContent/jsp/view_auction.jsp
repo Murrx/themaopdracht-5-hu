@@ -11,7 +11,7 @@
 		<!-- AUCTION IMAGE PANEL -->
 
 		<div class="row" id="oneAuction">
-			<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="col-xs-12 col-sm-6 col-md-7">
 				<div class="panel panel-default"
 					data-id="<s:property value='auction.auctionId'/>">
 					<div class="panel-body fullimage">
@@ -43,40 +43,90 @@
 			</div>
 		</div>
 
-		<!-- AUCTION INFO PANEL -->
 
-		<p>
-			start bid:
-			<s:property value="auction.startBid" />
-		</p>
-		<br />
-
-		<p>
-			description:
-			<s:property value="auction.product.description" />
-		</p>
-		<br />
-		<p>
-			status:
-			<s:property value="auction.status" />
-		</p>
-		<p>
-			category:
-			<s:property value="auction.category" />
-		</p>
-		<p>
-			user id:
-			<s:property value="auction.userId" />
-		</p>
-		
-		<p>
-			display name:
-			<s:property value="auction.owner.displayName" />
-		</p>
 
 	</div>
 </div>
 
-<s:push value="#{'progressTimersOneAuction':true}">
-	<s:include value="/includes/footer.jsp" />
-</s:push>
+
+		<div class="row" id="oneAuction">
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-body fullimage">
+						<p>
+							start bid:
+							<s:property value="auction.startBid" />
+						</p>
+						<br />
+
+						<p>
+							description:
+							<s:property value="auction.product.description" />
+						</p>
+						<br />
+						<p>
+							status:
+							<s:property value="auction.status" />
+						</p>
+						<p>
+							category:
+							<s:property value="auction.category" />
+						</p>
+						<p>
+							user id:
+							<s:property value="auction.owner.userId" />
+						</p>
+
+						<p>
+							display name:
+							<s:property value="auction.owner.displayName" />
+						</p>
+
+					</div>
+				</div>
+			</div>
+
+			<!-- AUCTION BID PANEL -->
+
+			<div class="row" id="oneAuction">
+				<div class="col-xs-6 col-sm-4 col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-body fullimage">
+
+
+							<!-- BID BUTTON -->
+							<div class="row" id="oneAuction">
+								<div
+									class="col-md-offset-1 col-sm-offset-1 col-xs-9 col-sm-9 col-md-9">
+									<div class="panel panel-default">
+										<div class="panel-body fullimage">
+
+											Place Bid (<i class='fa fa-btc'></i> 5)
+										</div>
+									</div>
+								</div>
+						<br /><br /><br />
+						<!--  BID HISTORY -->
+							01-01-2013: <i class='fa fa-btc'></i> 1, admin <br />
+							01-01-2013: <i class='fa fa-btc'></i> 2, admin<br />
+							01-01-2013: <i class='fa fa-btc'></i> 5, admin<br />
+							01-01-2013: <i class='fa fa-btc'></i> 10, admin<br />
+							01-01-2013: <i class='fa fa-btc'></i> 14, admin<br />
+							
+	
+
+
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+				</div>
+			</div>
+
+			<s:push value="#{'progressTimersOneAuction':true}">
+				<s:include value="/includes/footer.jsp" />
+			</s:push>
