@@ -4,7 +4,7 @@
 	  			<div class="panel-body fullimage">
 	  				<div class="auction-title-box text-center">
 	  					<h3><s:property value='product.name'/></h3>
-	  					<p><s:property value='product.description'/></p>
+	  					
 	  					<p><span id="percent<s:property value='auctionId'/>">x</span>% complete</p>
 	  				</div>  			
 			    	<img src="http://smartlapus.com/garbage/<s:property value='auctionId'/>.jpg"

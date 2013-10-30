@@ -8,6 +8,7 @@
 
 		<h2>Auction info!</h2>
 
+		<!-- AUCTION IMAGE PANEL -->
 
 		<div class="row" id="oneAuction">
 			<div class="col-xs-12 col-sm-6 col-md-4">
@@ -42,6 +43,7 @@
 			</div>
 		</div>
 
+		<!-- AUCTION INFO PANEL -->
 
 		<p>
 			start bid:
