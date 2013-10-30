@@ -48,6 +48,8 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				int startBid = result.getInt("auc_start_bid");
 				String categoryString = result.getString("auc_fk_category");
 				
+				int userId = result.getInt("auc_fk_user_id");
+				
 				//product data
 				int productId = result.getInt("prd_pk_product_id");
 				String productName = result.getString("prd_name");
@@ -55,7 +57,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				
 				// auction 
 				
-				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID);
+				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID,userId);
 				auction.setStartTime(aucStartTime);
 				auction.setStatus(Status.fromInteger(aucStatusId));
 				auction.getProduct().setProductId(productId);
