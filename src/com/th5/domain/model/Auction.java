@@ -1,10 +1,11 @@
 package com.th5.domain.model;
 
 import java.util.Calendar;
+import java.util.List;
 
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.other.SortedArrayList;
 import com.th5.domain.service.AuctionService;
-import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
 
 public class Auction implements Comparable<Auction> {
@@ -14,6 +15,12 @@ public class Auction implements Comparable<Auction> {
 	private Calendar endTime;
 	private int startBid;
 	
+	private List<Bid> bids;
+	
+	public List<Bid> getBids() {
+		return bids;
+	}
+
 	private Product product;
 	private Category category;
 	private Status status;
@@ -33,12 +40,18 @@ public class Auction implements Comparable<Auction> {
 		this.category = category;
 		this.status = Status.ACTIVE;
 		this.product = new Product(productName, productDescripion);
+		
+		this.bids = new SortedArrayList<Bid>();
 	}
 	
 	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion , int auctionId, int userId) {
 		this( endTime, startBid, category, productName, productDescripion);
 		this.auctionId = auctionId;
 		this.userId = userId;
+	}
+	
+	public void addBid(Bid bid){
+		bids.add(bid);
 	}
 	
 	public void setProduct(Product product) {

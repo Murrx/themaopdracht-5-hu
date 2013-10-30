@@ -76,7 +76,7 @@ public class AuctionListManager {
 	 * @param auctionId
 	 * @return the auction. returns null when auction is not found
 	 */
-	private static Auction getAuctionById(int auctionId) {
+	public static Auction getAuctionById(int auctionId) {
 		Auction auction = null;
 		int index = Collections.binarySearch(allAuctions, new Auction(auctionId));
 		if ( index >= 0){

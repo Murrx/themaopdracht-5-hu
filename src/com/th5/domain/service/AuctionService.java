@@ -43,7 +43,6 @@ public class AuctionService implements AuctionServiceInterface{
 	 * @return ArrayList<Auction> with all User auctions
 	 * @throws AuctifyException when no auctions found.
 	 */
-	@Override
 	public ArrayList<Auction> getAllUserAuctions(int userId) throws AuctifyException {
 		return userList.getUserFromUserListById(userId).getActionListManager().retrieveAllUserAuctions();
 	}
