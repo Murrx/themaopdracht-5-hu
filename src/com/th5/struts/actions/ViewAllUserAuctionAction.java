@@ -19,6 +19,7 @@ public class ViewAllUserAuctionAction extends ActionSupport implements UserAware
 	public String execute() throws Exception {
 		try {
 			allAuctions = user.getActionListManager().getAuctionList();
+			System.out.println(allAuctions);
 		} catch (Exception e) {
 			return ActionSupport.ERROR;
 		}

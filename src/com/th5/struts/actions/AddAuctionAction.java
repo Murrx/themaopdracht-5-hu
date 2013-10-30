@@ -48,7 +48,6 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 		int auctionId = user.createAuction(auction);
 
 		FTPClient ftp = new FTPClient();
-		ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
 		int reply;
 		ftp.connect("ftp.smartlapus.com");
 		reply = ftp.getReplyCode();
