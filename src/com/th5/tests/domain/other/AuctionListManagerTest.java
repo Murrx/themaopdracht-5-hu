@@ -50,7 +50,7 @@ public class AuctionListManagerTest {
 	}
 
 	@Test
-	public void testCreate() {
+	public void testCreate() throws AuctifyException {
 		Calendar eindTime = Calendar.getInstance();
 		eindTime.set(2013, 12, 30);
 		try {
@@ -59,6 +59,7 @@ public class AuctionListManagerTest {
 			aci.delete(new Auction(id));
 		} catch (AuctifyException e) {
 			fail(e.getMessage());
+			throw new AuctifyException(e.getMessage());
 		}
 	}
 
