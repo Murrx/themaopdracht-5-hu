@@ -5,6 +5,11 @@
 </s:push>
 
 		<h2>Auction info!</h2>
+		<div class="flexbox">
+			<div class="view-auction-image">
+				<img src="" />
+			</div>
+		</div>
 		<p>id: <s:property value="auction.auctionId" /></p>
 		<p>start time: <s:property value="auction.startTime.toString()" /></p>
 		<p>end time: <s:property value="auction.endTime.toString()" /></p>
@@ -16,4 +21,5 @@
 		<p>status: <s:property value="auction.status" /></p>
 		<p>category: <s:property value="auction.category" /></p>
 		<p>user id: <s:property value="auction.userId" /></p>
+		<p>username: <s:property value="owner.displayName" /></p>
 <s:include value="/includes/footer.jsp" />

@@ -69,5 +69,8 @@ public class AuctionService implements AuctionServiceInterface{
 		userList.create(user);
 	}
 	
+	public User getUser(int id) {
+		return userList.getUserFromUserList(id);
+	}
 	
 }

@@ -21,7 +21,7 @@ import com.th5.domain.model.validators.AddAuctionValidator;
 public class AddAuctionValidatorTest {
 
 	private static AddAuctionValidator addAuctionValidator;
-	private Auction auction = new Auction(null, 0, Category.BOOKS, "How to make a junit test", "de test", 1); 
+	private Auction auction = new Auction(null, 0, Category.BOOKS, "How to make a junit test", "de test", 1, null); 
 		
 	@BeforeClass
 	public static void oneTimeSetupBeforeClass(){

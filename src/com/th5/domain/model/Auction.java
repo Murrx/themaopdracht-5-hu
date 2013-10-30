@@ -12,7 +12,7 @@ public class Auction implements Comparable<Auction> {
 	private Product product;
 	private Category category;
 	private Status status;
-	private int userId;
+	private User owner;
 	
 	public Auction(int auctionId) {
 		this.auctionId = auctionId;
@@ -28,10 +28,10 @@ public class Auction implements Comparable<Auction> {
 		this.product = new Product(productName, productDescripion);
 	}
 	
-	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion , int auctionId, int userId) {
+	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion , int auctionId, User owner) {
 		this( endTime, startBid, category, productName, productDescripion);
 		this.auctionId = auctionId;
-		this.userId = userId;
+		this.owner = owner;
 	}
 	
 	public void setProduct(Product product) {
@@ -160,11 +160,11 @@ public class Auction implements Comparable<Auction> {
 		return Integer.toString(auctionId);
 	}
 
-	public int getUserId() {
-		return userId;
+	public User getOwner() {
+		return owner;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 }

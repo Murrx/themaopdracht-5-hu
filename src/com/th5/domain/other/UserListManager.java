@@ -2,6 +2,7 @@ package com.th5.domain.other;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import com.th5.domain.model.User;
@@ -75,6 +76,23 @@ public class UserListManager{
 		int index = Collections.binarySearch(userList, new User(email));
 		if ( index >= 0){
 			user = userList.get(index);
+		}
+		return user;
+	}	
+	
+	/**
+	 * Attempt to get a user from userList by id
+	 * @param id
+	 * @return the user. returns null when user is not found
+	 */
+	public User getUserFromUserList(int id){
+		User user = null;
+		Iterator<User> it = userList.iterator();
+		while(it.hasNext()) {
+			User itUser = it.next();
+			if(itUser.getUserId() == id) {
+				user = itUser;
+			}
 		}
 		return user;
 	}

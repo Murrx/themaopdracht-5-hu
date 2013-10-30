@@ -38,5 +38,6 @@ public interface AuctionServiceInterface {
 	 * @throws AuctifyException 
 	 */
 	public ArrayList<Auction> getAllAuctions() throws AuctifyException;	
-
+	
+	public User getUser(int id);
 }

@@ -28,7 +28,7 @@ import com.th5.domain.model.validators.AttributeError;
 import com.th5.struts.awareness.UserAware;
 
 @SuppressWarnings("serial")
-public class AddAuctionAction extends ActionSupport implements UserAware, SessionAware, ServletContextAware{
+public class AddAuctionAction extends ActionSupport implements UserAware {
 	
 	private String 				auction_name,
 								auction_description; 
@@ -37,15 +37,13 @@ public class AddAuctionAction extends ActionSupport implements UserAware, Sessio
 	private Calendar			auction_end_time;
 	private User 				user;
 	
-	private Map<String, Object>	session;
 	private Category[] 			categories = Category.values();
 	private File 				fileUpload;
+	private String 				fileUploadContentType;
 	private String 				fileUploadFileName;
-	private ServletContext 		context;
 	
 	@Override
 	public String execute() throws Exception {
-		user = (User) session.get("user");
 		
 		Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
 
@@ -137,13 +135,6 @@ public class AddAuctionAction extends ActionSupport implements UserAware, Sessio
 		this.user = user;
 	}
 
-	public Map<String, Object> getSession() {
-		return session;
-	}
-
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-	}
 
 	public Category[] getCategories() {
 		return categories;
@@ -153,25 +144,26 @@ public class AddAuctionAction extends ActionSupport implements UserAware, Sessio
 		this.categories = categories;
 	}
 
+	public String getFileUploadContentType() {
+		return fileUploadContentType;
+	}
+
+	public void setFileUploadContentType(String fileUploadContentType) {
+		this.fileUploadContentType = fileUploadContentType;
+	}
+
+	public String getFileUploadFileName() {
+		return fileUploadFileName;
+	}
+
+	public void setFileUploadFileName(String fileUploadFileName) {
+		this.fileUploadFileName = fileUploadFileName;
+	}
+
 	public File getFileUpload() {
 		return fileUpload;
 	}
 
 	public void setFileUpload(File fileUpload) {
 		this.fileUpload = fileUpload;
-	}
-
-	public String getFileFileUploadName() {
-		return fileUploadFileName;
-	}
-
-	public void setFileUploadFileName(String fileUploadName) {
-		this.fileUploadFileName = fileUploadName;
-	}
-
-	@Override
-	public void setServletContext(ServletContext context) {
-		this.context = context;  
-		
-	}
-}
+	}}
