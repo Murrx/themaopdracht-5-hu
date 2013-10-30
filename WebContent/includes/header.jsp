@@ -121,7 +121,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<!-- Breadcrumbs -->
-						Home > <s:property value="title" />
+						Home > <s:property value="title" /> <s:property value="category" /> 
 					</div>
 				</div>
 				<div class="row">
