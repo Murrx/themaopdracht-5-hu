@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
+import com.th5.domain.other.AuctifyException;
 
 public class Address implements Observable {
 	
@@ -31,40 +32,68 @@ public class Address implements Observable {
 		return postalCode;
 	}
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-		this.changed = true;
-		notifyObservers();
+	public void setPostalCode(String postalCode) throws AuctifyException {
+		String oldPostalCode = this.postalCode;
+		try {
+			this.postalCode = postalCode;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			this.postalCode = oldPostalCode;
+			this.changed = false;
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 
 	public String getHouseNumber() {
 		return houseNumber;
 	}
 
-	public void setHouseNumber(String houseNumber) {
-		this.houseNumber = houseNumber;
-		this.changed = true;
-		notifyObservers();
+	public void setHouseNumber(String houseNumber) throws AuctifyException {
+		String oldHouseNumber = this.houseNumber;
+		try {
+			this.houseNumber = houseNumber;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			this.houseNumber = oldHouseNumber;
+			this.changed = false;
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 
 	public String getStreet() {
 		return street;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
-		this.changed = true;
-		notifyObservers();
+	public void setStreet(String street) throws AuctifyException {
+		String oldStreet = this.street;
+		try{
+			this.street = street;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			this.street = oldStreet;
+			this.changed = false;
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 
 	public String getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-		this.changed = true;
-		notifyObservers();
+	public void setCity(String city) throws AuctifyException {
+		String oldCity = this.city;
+		try	{
+			this.city = city;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			this.city = oldCity;
+			this.changed=false;
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 	
 	
@@ -82,7 +111,7 @@ public class Address implements Observable {
 		
 	}
 	@Override
-	public void notifyObservers() {
+	public void notifyObservers() throws AuctifyException {
 		// TODO Auto-generated method stub
 		List<Observer> observersLocal = null;
 		//synchronization is used to make sure any observer registered after message is received is not notified
@@ -93,16 +122,17 @@ public class Address implements Observable {
 			this.changed=false;
 		}
 	for (Observer obs : observersLocal) {
-			obs.updateObserver(this);
+			try {
+				obs.updateObserver(this);
+			} catch (AuctifyException e) {
+				// TODO Auto-generated catch block
+				throw new AuctifyException(e.getMessage());
+			}
 		}
-		
 	}
 	@Override
 	public Object getUpdate(Observer obs) {
 		// TODO Auto-generated method stub
 		return (Address) this;
 	}
-
 }
-
-

@@ -46,7 +46,7 @@ public class AuctionListManagerTest {
 		Calendar eindTime = Calendar.getInstance();
 		eindTime.set(2013, 12, 30);
 		auction = new Auction(eindTime, 10, Category.CARS, "auto", "beep beep");
-		auction.setUser(user);
+		auction.setOwner(user);
 	}
 
 	@Test

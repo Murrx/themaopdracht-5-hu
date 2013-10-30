@@ -15,6 +15,7 @@ import org.junit.Test;
 import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.model.validators.UserRegisterValidator;
+import com.th5.domain.other.AuctifyException;
 
 public class UserAddressValidatorTest {
 
@@ -27,7 +28,7 @@ public class UserAddressValidatorTest {
 	}
 	
 	@Before
-	public void setup() {
+	public void setup() throws AuctifyException {
 		user.setEmail("test@test.nl");
 		user.setPassword("Testtest1");
 		user.setDisplayName("test");
@@ -42,7 +43,7 @@ public class UserAddressValidatorTest {
 	}
 	
 	@Test
-	public void testInValidEmailAdres() {
+	public void testInValidEmailAdres() throws AuctifyException {
 		user.setEmail("a@.nl");
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
@@ -50,7 +51,7 @@ public class UserAddressValidatorTest {
 	}
 	
 	@Test
-	public void testNullEmailAdres() {
+	public void testNullEmailAdres() throws AuctifyException {
 		user.setEmail(null);
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
@@ -65,7 +66,7 @@ public class UserAddressValidatorTest {
 	}
 	
 	@Test
-	public void testInValidPassword() {
+	public void testInValidPassword() throws AuctifyException {
 		user.setPassword("a bla 2!");
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
@@ -73,7 +74,7 @@ public class UserAddressValidatorTest {
 	}
 	
 	@Test
-	public void testNullPassword() {
+	public void testNullPassword() throws AuctifyException {
 		user.setPassword(null);
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
@@ -88,7 +89,7 @@ public class UserAddressValidatorTest {
 	}
 	
 	@Test
-	public void testInValidDisplayName() {
+	public void testInValidDisplayName() throws AuctifyException {
 		user.setDisplayName("a");
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
@@ -96,7 +97,7 @@ public class UserAddressValidatorTest {
 	}
 	
 	@Test
-	public void testNullDisplayName() {
+	public void testNullDisplayName() throws AuctifyException {
 		user.setDisplayName(null);
 		if (!(userValidator.validate(user).size() > 0)) {
 			fail();
