@@ -12,25 +12,25 @@ import com.th5.struts.awareness.UserAware;
 
 public class ViewAllUserAuctionAction extends ActionSupport implements UserAware {
 	
-	private ArrayList<Auction> allUserAuctions;
+	private ArrayList<Auction> allAuctions;
 	private User user;
 
 	@Override
 	public String execute() throws Exception {
 		try {
-			allUserAuctions = user.getActionListManager().getAuctionList();
+			allAuctions = user.getActionListManager().getAuctionList();
 		} catch (Exception e) {
 			return ActionSupport.ERROR;
 		}
 		return ActionSupport.SUCCESS;
 	}
 	
-	public ArrayList<Auction> getAllUserAuctions() {
-		return this.allUserAuctions;
+	public ArrayList<Auction> getAllAuctions() {
+		return this.allAuctions;
 	}
 	
-	public void setAllUserAuctions(ArrayList<Auction> al) {
-		this.allUserAuctions = al;
+	public void setAllAuctions(ArrayList<Auction> al) {
+		this.allAuctions = al;
 	}
 	
 	public User getUser() {

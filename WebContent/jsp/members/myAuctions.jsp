@@ -7,7 +7,7 @@
 <h1>All Auctions</h1>
 
 <div class="row" id="allAuctions">
-	<s:iterator value="allUserAuctions"  >
+	<s:iterator value="allAuctions"  >
 		<s:include value="/includes/auctionBox.jsp" />
 	</s:iterator>
 </div>
