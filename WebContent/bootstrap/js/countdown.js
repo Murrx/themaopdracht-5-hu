@@ -1,5 +1,3 @@
-
-
 function GetCount(dateStart, dateEnd, iid){
 
 	dateNow = new Date();	//grab current date
@@ -48,7 +46,20 @@ function GetCount(dateStart, dateEnd, iid){
 		*/
 		document.getElementById(iid).innerHTML = out;
 		
-		setTimeout(function(){GetCount(dateStart, dateEnd, iid);}, 1000);
+		(function() {
+			  var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+			                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+			  window.requestAnimationFrame = requestAnimationFrame;
+			})();
+
+			function step() {
+			  GetCount(dateStart, dateEnd, iid);
+			}
+
+			requestAnimationFrame(step);
+		
+		//requestAnimationFrame(GetCount(dateStart, dateEnd, iid));
+		//setTimeout(function(){GetCount(dateStart, dateEnd, iid);}, 1000);
 	}
 }
 
@@ -91,5 +102,20 @@ function GetPercentage(dateStart, dateEnd, iid, barid){
 		document.getElementById(barid).style.width=percentage+"%";
 	}
 	document.getElementById(iid).innerHTML = percentage;
-	setTimeout(function(){GetPercentage(dateStart, dateEnd, iid, barid);}, 1000);
+	
+	(function() {
+		  var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+		                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+		  window.requestAnimationFrame = requestAnimationFrame;
+		})();
+
+		function step() {
+			GetPercentage(dateStart, dateEnd, iid, barid);
+		}
+
+		requestAnimationFrame(step);
+		
+	//requestAnimationFrame(GetPercentage(dateStart, dateEnd, iid, barid));
+
+	//setTimeout(function(){GetPercentage(dateStart, dateEnd, iid, barid);}, 1000);
 }
