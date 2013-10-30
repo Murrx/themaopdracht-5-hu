@@ -127,6 +127,19 @@ CREATE TABLE PRD_PRODUCTS (
 );
 
 
+CREATE TABLE BID_BIDS (
+		BID_PK_BID_ID NUMBER(8),
+		BID_FK_AUCTION_ID NUMBER(8),
+		BID_FK_USER_ID NUMBER(8),
+		BID_TIMESTAMP TIMESTAMP NOT NULL,
+		BID_AMOUNT NUMBER (8) NOT NULL,
+		
+		
+		CONSTRAINT BID_PK_BID_ID 
+			PRIMARY KEY (BID_PK_BID_ID))	;					-- PK of Bids		
+);
+
+
 
 /* --- FOREIGN KEYS CONSTRAINTS --- */
 		 
@@ -140,11 +153,25 @@ foreign key (USR_FK_PERSON_ID)
 references PRS_PERSONS(PRS_PK_PERSON_ID) 
 deferrable initially deferred;
 
+
+
 ALTER TABLE PRS_PERSONS
 add constraint FK_PRS_ADDRESS_ID
 foreign key (PRS_FK_ADDRESS_ID) 
 references ADR_ADDRESSES(ADR_PK_ADDRESS_ID) 
 deferrable initially deferred;
+
+
+
+ALTER TABLE BID_BIDS
+add constraint FK_AUCTION_ID
+foreign key (BID_FK_AUCTION_ID) 
+references AUC_AUCTIONS(AUC_PK_AUCTION_ID) 
+
+ALTER TABLE BID_BIDS
+add constraint FK_USER_ID
+foreign key (BID_FK_USER_ID) 
+references USR_USERS(USR_PK_USER_ID) 
 
 /* --- COMMENTS ON TABLES --- */
 
@@ -169,6 +196,12 @@ CREATE SEQUENCE seq_adr_pk_address_id
 	NOMAXVALUE;
 	
 CREATE SEQUENCE seq_auc_pk_auction_id
+	start with 1
+	increment by 1
+	NOMAXVALUE;
+	
+	
+CREATE SEQUENCE seq_bid_pk_bid_id
 	start with 1
 	increment by 1
 	NOMAXVALUE;
@@ -209,6 +242,15 @@ CREATE TRIGGER tr_pk_auctions
 	BEGIN
 		SELECT seq_auc_pk_auction_id.nextval 
 		INTO :new.AUC_PK_AUCTION_ID
+		FROM dual;
+	END;
+	
+CREATE TRIGGER tr_pk_bids
+	BEFORE INSERT ON BID_BIDS
+	FOR EACH ROW
+	BEGIN
+		SELECT seq_bid_pk_bid_id.nextval 
+		INTO :new.BID_PK_BID_ID
 		FROM dual;
 	END;
 	
