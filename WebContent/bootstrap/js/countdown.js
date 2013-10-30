@@ -67,20 +67,23 @@ function GetPercentage(dateStart, dateEnd, iid, barid){
 	dateNow = new Date();	//grab current date
 	percentage = 0;
 	
-	$('barid').css('width', '100%');
+	$('#'+barid).css('width', '100%');
 	
 	widthToSet = 100;
 
 	// if time is already past
 	if (dateEnd.getTime() < dateStart.getTime()){
 		percentage = "ERROR";
-		document.getElementById(barid).className += " progress-bar-warning";
+		$('#'+barid).addClass('progress-bar-warning');
+		//document.getElementById(barid).className += " progress-bar-warning";
 	} else if (dateStart.getTime() > dateNow.getTime()) {
 		percentage=0;
-		document.getElementById(barid).className += " progress-bar-success";
+		$('#'+barid).addClass('progress-bar-success');
+		//document.getElementById(barid).className += " progress-bar-success";
 	} else if (dateEnd.getTime() < dateNow.getTime()){
 		percentage=100;
-		document.getElementById(barid).className += " progress-bar-danger";
+		$('#'+barid).addClass('progress-bar-danger');
+		//document.getElementById(barid).className += " progress-bar-danger";
 	}
 	// else date is still good
 	else{

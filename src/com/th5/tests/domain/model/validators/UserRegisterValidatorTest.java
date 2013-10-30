@@ -30,7 +30,6 @@ public class UserRegisterValidatorTest implements Observer{
 	
 	@Before
 	public void setup() throws AuctifyException {
-		address.register(this);
 		address.setCity("Amsterdam");
 		address.setHouseNumber("73");
 		address.setStreet("steenweg");
@@ -40,12 +39,8 @@ public class UserRegisterValidatorTest implements Observer{
 
 	@Test
 	public void testValidCity() throws AuctifyException {
-		try {
-			if (userAddressValidator.validate(address).size() > 0) {
-				fail();
-			}
-		} catch( AuctifyException e) {
-			throw new AuctifyException(e.getMessage());
+		if (userAddressValidator.validate(address).size() > 0) {
+			fail();
 		}
 	}
 	
