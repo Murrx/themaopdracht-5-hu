@@ -66,6 +66,11 @@
 			user id:
 			<s:property value="auction.userId" />
 		</p>
+		
+		<p>
+			display name:
+			<s:property value="auction.user.displayName" />
+		</p>
 
 	</div>
 </div>
