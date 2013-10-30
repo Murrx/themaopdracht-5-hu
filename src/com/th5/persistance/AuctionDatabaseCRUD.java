@@ -9,12 +9,15 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.Status;
+
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
+import com.th5.domain.service.ServiceProvider;
 
 public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 
@@ -54,10 +57,11 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				int productId = result.getInt("prd_pk_product_id");
 				String productName = result.getString("prd_name");
 				String productDescription = result.getString("prd_description");
+				// auction
 				
-				// auction 
-				
-				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID,userId);
+
+				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, userId);
+
 				auction.setStartTime(aucStartTime);
 				auction.setStatus(Status.fromInteger(aucStatusId));
 				auction.getProduct().setProductId(productId);
@@ -137,7 +141,8 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				int productId = result.getInt("prd_pk_product_id");
 				String productName = result.getString("prd_name");
 				String productDescription = result.getString("prd_description");
-				
+				// auction
+						
 				// auction 
 				
 				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, userId);
@@ -195,7 +200,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			statement.setTimestamp(3, new java.sql.Timestamp(auction.getEndTime().getTimeInMillis()));
 			//statement.setDate(3, DateConverter.calendarToSQLDate(auction.getEndTime()));
 			statement.setString(4, auction.getCategory().name());
-			statement.setInt(5, auction.getUserId());
+			statement.setInt(5, auction.getOwner().getUserId());
 			statement.setInt(6, auction.getStartBid());
 			
 			statement.setString(7, auction.getProduct().getName());

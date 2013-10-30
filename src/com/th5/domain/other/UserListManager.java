@@ -2,6 +2,7 @@ package com.th5.domain.other;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import com.th5.domain.model.User;
@@ -12,7 +13,7 @@ import com.th5.persistance.UserDatabaseCRUD;
 public class UserListManager{
 
 	private List<User> userList;
-	private CRUD_Interface<User> userDatabaseCRUD;
+	private UserDatabaseCRUD userDatabaseCRUD;
 
 	public UserListManager(){
 		userList = new SortedArrayList<User>();
@@ -32,19 +33,19 @@ public class UserListManager{
 		if (!emailAvailable(user.getEmail())){
 			throw new AuctifyException("Email adress is already in use");
 		}
-		
+
 		int userId = -1;
-		
+
 		try {
-		userId = userDatabaseCRUD.create(user);
-		user.setUserId(userId);
-		userList.add(user);
+			userId = userDatabaseCRUD.create(user);
+			user.setUserId(userId);
+			userList.add(user);
 		} catch (AuctifyException ae) {
 			throw new AuctifyException(ae.getMessage());
 		}
 		return userId;
 	}
-	
+
 	/**
 	 * Attempt to retrieve user
 	 * First attempt to retrieve user from userlist
@@ -64,7 +65,22 @@ public class UserListManager{
 		}
 		return user;
 	}
-	
+
+	/**
+	 * Attempt to retrieve user by userId
+	 * First attempt to retrieve user from userlist
+	 * If that fails it attempts to retrieve use from database
+	 * 
+	 * @param id of the user to retrieve
+	 * @return the retrieved user
+	 * @throws AuctifyException when the user is not found
+	 */
+	public User retrieveById(int id) throws AuctifyException{
+		//TODO: Check if the user is already in the userList, before querying the db
+		User user = userDatabaseCRUD.retrieveById(id);
+		if (user == null) throw new AuctifyException("user not found");
+		return user;
+	}
 	/**
 	 * Attempt to get a user from userList
 	 * @param email
@@ -75,6 +91,23 @@ public class UserListManager{
 		int index = Collections.binarySearch(userList, new User(email));
 		if ( index >= 0){
 			user = userList.get(index);
+		}
+		return user;
+	}	
+	
+	/**
+	 * Attempt to get a user from userList by id
+	 * @param id
+	 * @return the user. returns null when user is not found
+	 */
+	public User getUserFromUserList(int id){
+		User user = null;
+		Iterator<User> it = userList.iterator();
+		while(it.hasNext()) {
+			User itUser = it.next();
+			if(itUser.getUserId() == id) {
+				user = itUser;
+			}
 		}
 		return user;
 	}

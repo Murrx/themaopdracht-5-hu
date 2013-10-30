@@ -93,5 +93,16 @@ public class AuctionService implements AuctionServiceInterface{
 		//((AuctionServiceInterface) userList).update(email, password, displayName, firstName, lastName, gender, birthdate, postalCode, houseNumber, street, city);
 	}
 	
+	public User getUserById(int id)throws AuctifyException{
+		User user = userList.retrieveById(id);
+		return user;
+	}
+
+
+	@Override
+	public User getUser(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

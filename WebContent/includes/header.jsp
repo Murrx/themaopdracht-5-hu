@@ -46,15 +46,15 @@
 				<!-- Login -->
 				<s:actionerror />
 				<s:if test="%{#session.user == null}">
-				<s:form action="/login" method="post">
+				<s:form action="login" namespace="/" method="post">
 					<div class="row">
 						<div class="col-sm-7 col-sm-offset-1">
 							<div class="form-group">
-								<s:textfield name="login_email" key="label.email" cssClass="form-control input-sm" id="inputEmail1" placeholder="E-mail" />
+								<s:textfield name="login_email" cssClass="form-control input-sm" id="inputEmail1" placeholder="E-mail" />
 								<s:fielderror fieldName="login_email"/>
 							</div>
 							<div class="form-group">
-								<s:password name="login_password" key="label.password" cssClass="form-control input-sm" id="inputPassword1" placeholder="Password" />
+								<s:password name="login_password" cssClass="form-control input-sm" id="inputPassword1" placeholder="Password" />
 								<s:fielderror fieldName="login_password"/>
 							</div>
 						</div>

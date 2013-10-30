@@ -2,15 +2,20 @@ package com.th5.struts.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
+import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
+import com.th5.domain.service.ServiceProvider;
 
 public class ViewAuctionAction extends ActionSupport{
 	int id;
 	Auction auction;
+	User owner;
 	
 	@Override
 	public String execute() throws Exception {
+
+		owner = ServiceProvider.getService().getUser(id);
 		return ActionSupport.SUCCESS;
 	}
 	
@@ -29,5 +34,9 @@ public class ViewAuctionAction extends ActionSupport{
 	}
 	public Auction getAuction(){
 		return auction;
+	}
+	
+	public User getOwner() {
+		return owner;
 	}
 }

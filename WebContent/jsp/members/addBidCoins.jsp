@@ -8,11 +8,10 @@
 		<h2>Buy <i class='fa fa-btc'></i>idCoins</h2>
 		<p>Please buy as many BidCoins as possible! Give us your money! Actual buying is not yet implemented.</p>
 		<hr />
-		
 		<s:if test="%{exception.message !=''}">
 		    <div class="alert alert-danger"><s:property value="%{exception.message}"/></div>
 		</s:if>
-		<s:form action="/member/buyBidCoins" cssClass="form-horizontal" method="post" namespace="/" enctype="multipart/form-data">
+		<s:form action="buyBidCoins" namespace="/member" cssClass="form-horizontal" method="post" enctype="multipart/form-data">
  			<div class="form-group">
 				<label for="amount" class="col-sm-3 control-label">Amount</label>
 				<div class="col-sm-9">
@@ -30,7 +29,7 @@
 			<hr />
 			<div class="form-group">
 				<div class="col-sm-12">
-					<s:submit method="execute" key="label.submit" align="center" cssClass="btn btn-default" value="Buy BidCoins" />
+					<s:submit align="center" cssClass="btn btn-default" value="Buy BidCoins" />
 				</div>
 			</div>
 		</s:form>

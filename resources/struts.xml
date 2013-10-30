@@ -6,7 +6,7 @@
 <struts>
 	<constant name="struts.custom.i18n.resources" value="global" />
 	<constant name="struts.devMode" value="true" />	
-	
+	<constant name="struts.multipart.maxSize" value="10000000" />
 	
 	<!-- You can define packages directly in this file, but its probably best 
 		to modularize the configuration files with separate xml files for each package. 
@@ -98,38 +98,18 @@
 		</action>
 		
 		<action name="addAuction" class="com.th5.struts.actions.AddAuctionAction">
+			<interceptor-ref name="i18n" />
+			<interceptor-ref name="fileUpload">
+       			<param name="allowedTypes">image/jpeg,image/jpg</param>
+       			<param name="maximumSize">15728640</param>
+  			</interceptor-ref>
+  			<interceptor-ref name="validation" />
+			<interceptor-ref name="workflow" />
+
 			<result name="success">/jsp/members/addAuctionResult.jsp</result>
 			<result name="input">/jsp/members/addAuction.jsp</result>
 		</action>
-				
-		<action name="fileUploadAction" class="com.th5.struts.others.FileUploadAction" method="display">
-			<result name="none">/jsp/members/addAuction.jsp</result>
-		</action>
-		
-		<action name="resultAction" class="com.th5.struts.others.FileUploadAction">
-			<interceptor-ref name="exception"/>
-            <interceptor-ref name="i18n"/>
-            <interceptor-ref name="fileUpload">
-       			<param name="allowedTypes">image/jpeg,image/jpg</param>
-       			<param name="maximumSize">5242880</param>
-  			</interceptor-ref> 
-            <interceptor-ref name="params">
-                <param name="excludeParams">dojo\..*,^struts\..*</param>
-            </interceptor-ref>
-            <interceptor-ref name="validation">
-                <param name="excludeMethods">input,back,cancel,browse</param>
-            </interceptor-ref>
-            <interceptor-ref name="workflow">
-                <param name="excludeMethods">input,back,cancel,browse</param>
-            </interceptor-ref>
-    
-			<result name="success" type="chain">addAuction</result>
-			<result name="input">/jsp/members/addAuction.jsp</result>
-			
-		</action>
 		
 	</package>
-
-	<!--include file="manning/chapterTwo/chapterTwo.xml"/-->
 
 </struts>

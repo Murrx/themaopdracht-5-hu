@@ -46,7 +46,7 @@ public class User implements Comparable<User>, Observable{
 	}
 	
 	public int createAuction(Auction auction) throws AuctifyException{
-		auction.setUserId(this.userId);
+		auction.setOwner(this);
 		int auctionId = auctionManager.create(auction);
 		return auctionId;
 	}
