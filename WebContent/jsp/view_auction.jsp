@@ -101,7 +101,7 @@
 									<div class="panel panel-default">
 										<div class="panel-body fullimage">
 
-											Place Bid (<i class='fa fa-btc'></i> 5)
+											Place Bid <s:property value="nextBidAmount" /> (<i class='fa fa-btc'></i> 5)
 											
 											<s:url action="placeBidAction.action" namespace="/member" var="urlTag" >
     											<s:param name="auctionId"><s:property value="%{#parameters.id}" /></s:param>

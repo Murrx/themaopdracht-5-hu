@@ -11,11 +11,13 @@ public class ViewAuctionAction extends ActionSupport{
 	int id;
 	Auction auction;
 	User owner;
+	int nextBidAmount;
 	
 	@Override
 	public String execute() throws Exception {
 
 		owner = ServiceProvider.getService().getUserById(auction.getOwner().getUserId());
+		nextBidAmount = auction.calculateNextBidAmount();
 		return ActionSupport.SUCCESS;
 	}
 	
@@ -39,4 +41,9 @@ public class ViewAuctionAction extends ActionSupport{
 	public User getOwner() {
 		return owner;
 	}
+
+	public int getNextBidAmount() {
+		return nextBidAmount;
+	}
+	
 }
