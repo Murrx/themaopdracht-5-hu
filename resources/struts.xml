@@ -17,9 +17,9 @@
 			<result>/jsp/register.jsp</result>
 		</action>		
 		<action name="login" class="com.th5.struts.actions.LoginAction">
-			<result name="success">/jsp/welcome.jsp</result>
-			<result name="error">/jsp/welcome.jsp</result>
-			<result name="input">/jsp/welcome.jsp</result>
+			<result name="success" type="redirect">${previousPage}</result>
+			<result name="error" type="redirect">${previousPage}</result>
+			<result name="input" type="redirect">${previousPage}</result>
 		</action>
 		<action name="register" class="com.th5.struts.actions.RegisterAction">
 			<result name="success">/jsp/registerSuccess.jsp</result>
@@ -34,6 +34,9 @@
 		</action>
 		<action name="viewAction" class="com.th5.struts.actions.ViewAuctionAction">
 			<result name="success">/jsp/view_auction.jsp</result>
+		</action>
+		<action name="notLoggedIn">
+			<result name="success">/jsp/notLoggedIn.jsp</result>
 		</action>
 	</package>
 	
@@ -51,8 +54,9 @@
 		<default-interceptor-ref name="MemberStack" />	
 		
 		<global-results>
-			<result name="login" type="redirect">
-				/jsp/notLoggedIn.jsp
+			<result name="login" type="redirectAction">
+				<param name="actionName">notLoggedIn</param>
+				<param name="namespace">/</param>
 			</result>
 		</global-results>
 		

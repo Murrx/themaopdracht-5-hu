@@ -2,6 +2,9 @@ package com.th5.struts.actions;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -21,7 +24,7 @@ import com.th5.domain.service.ServiceProvider;
  */
 @SuppressWarnings("serial")
 public class LoginAction extends ActionSupport implements SessionAware {
-
+	private String previousPage;
 	private String login_email;
 	private String login_password;
 	private SessionMap<String, Object> userSession;
@@ -49,7 +52,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	 */
 	@Override
 	public void validate() {
-
+		HttpServletRequest request = ServletActionContext.getRequest();
+		previousPage = request.getHeader("referer");
+		System.out.println(previousPage);
 		if (login_email == null) {
 			addFieldError("login_email", "email is required");
 		} else if ("".equals(login_email.trim())) {
@@ -123,5 +128,13 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.userSession = (SessionMap<String, Object>) session;
+	}
+
+	public String getPreviousPage() {
+		return previousPage;
+	}
+
+	public void setPreviousPage(String previousPage) {
+		this.previousPage = previousPage;
 	}
 }
