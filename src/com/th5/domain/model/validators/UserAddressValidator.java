@@ -16,6 +16,7 @@ public class UserAddressValidator implements ValidatorInterface<Address>{
 	private List<AttributeError> errorList = new ArrayList<AttributeError>();
 	private static String POSTALCODE_PATTERN = "[a-zA-Z0-9-\\s]{3,10}";
 	private static String CITY_PATTERN = "[a-zA-Z-\\s]{3,30}";
+	private static String STREET_PATTERN = "[a-zA-Z0-9-\\s]{3,30}";
 	private static String HOUSENUMBER_PATTERN = "[a-zA-Z0-9-\\s]{1,6}";
 
 	@Override
@@ -51,7 +52,7 @@ public class UserAddressValidator implements ValidatorInterface<Address>{
 					"street is required"));
 		} else {
 
-			if (!street.matches(CITY_PATTERN)) {
+			if (!street.matches(STREET_PATTERN)) {
 				errorList.add(new AttributeError("street",
 						"Invalid street"));
 			}
