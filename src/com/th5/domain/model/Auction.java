@@ -54,6 +54,26 @@ public class Auction implements Comparable<Auction> {
 		bids.add(bid);
 	}
 	
+	private int getHighestBidAmount(){
+		int highestBid = 0;
+		if (!bids.isEmpty()){
+			highestBid = bids.get(bids.size()-1).getBidAmount();
+		}
+		return highestBid;
+	}
+	
+	public int calculateNextBidAmount(){
+		int highestBidAmount = getHighestBidAmount();
+		int nextBidAmount;
+		
+		if (highestBidAmount == 0){
+			nextBidAmount = startBid;
+		}else{
+			nextBidAmount = highestBidAmount + 5; //TODO Create an algorithm to increase bid amount.
+		}
+		return nextBidAmount;
+	}
+	
 	public void setProduct(Product product) {
 		this.product = product;
 	}
