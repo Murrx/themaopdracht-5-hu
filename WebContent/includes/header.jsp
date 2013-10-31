@@ -64,7 +64,7 @@
 								</button>
 							</div>
 							<div class="form-group">
-								<a href="<s:url action='registerForm' namespace='/' />" class="btn btn-default btn-block input-sm">
+								<a href="<s:url action='registerForm' namespace='/' />">
 									Register
 								</a>
 							</div>
@@ -121,21 +121,7 @@
 		</header>
 		<main>
 		<div class="row">
-			<s:if test='filter'>
-			<div class="col-sm-2">
-				<!-- Filter -->
-				Filter
-			</div>					
-			</s:if>
-			<s:if test='filter && optional'>
-			<div class="col-sm-8">
-			</s:if>
-			<s:elseif test='filter || optional'>
-			<div class="col-sm-10">
-			</s:elseif>
-			<s:else>
 			<div class="col-sm-12">
-			</s:else>
 				<s:include value="menu.jsp" />
 				<div class="row">
 					<div class="col-sm-12">
