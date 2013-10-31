@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.other.BidListManager;
 import com.th5.domain.other.SortedArrayList;
 import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
@@ -15,11 +16,7 @@ public class Auction implements Comparable<Auction> {
 	private Calendar endTime;
 	private int startBid;
 
-	private List<Bid> bids;
-
-	public List<Bid> getBids() {
-		return bids;
-	}
+	private BidListManager bids;
 
 	private Product product;
 	private Category category;
@@ -41,7 +38,7 @@ public class Auction implements Comparable<Auction> {
 		this.status = Status.ACTIVE;
 		this.product = new Product(productName, productDescripion);
 
-		this.bids = new SortedArrayList<Bid>();
+		this.bids = new BidListManager();
 	}
 
 	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion, int auctionId, int userId) {
@@ -252,5 +249,9 @@ public class Auction implements Comparable<Auction> {
 	private void setOwnerFromUserList() throws AuctifyException {
 		AuctionService service = (AuctionService) ServiceProvider.getService();
 		this.owner = service.getUserById(userId);
+	}
+	
+	public BidListManager getBids(){
+		return bids;
 	}
 }
