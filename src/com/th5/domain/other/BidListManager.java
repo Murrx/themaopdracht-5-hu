@@ -27,4 +27,8 @@ public class BidListManager {
 		return bids.get(index);
 	}
 	
+	public List<Bid> getBids(){
+		return bids;
+	}
+	
 }

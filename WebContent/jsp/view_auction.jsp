@@ -119,7 +119,7 @@
 			</s:a>
 			<br /> <br /> Bid History <br />
 
-			<s:iterator value="auction.bids">
+			<s:iterator value="auction.bids.bids">
 
 				<s:property value="bidAmount" />
 				<s:property value="user.displayName" />
