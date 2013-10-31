@@ -159,12 +159,13 @@ footer {
 	flex: 1;
 	-ms-flex-preferred-size: auto;
 	line-height: 20px;
+	text-align: right;
+	padding-right: 15px;
 }
 
 .icon-stack i:first-child {
 	position: absolute;
 	top: 25px;
-	right: 15px;
 	font-size: 40px;
 	color: grey;
 }

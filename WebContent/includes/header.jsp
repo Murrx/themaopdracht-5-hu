@@ -44,7 +44,6 @@
 			</div>
 			<div class="col-sm-3" id="login-form">
 				<!-- Login -->
-				<s:actionerror />
 				<s:if test="%{#session.user == null}">
 				<s:form action="login" namespace="/" method="post">
 					<div class="row">
@@ -76,25 +75,6 @@
 				<s:else>
 					<div>
 						<div class="user-box">
-							<div class="user-box-info">
-								<div class="user-box-field">
-									<div class="user-box-icon">
-										<i class="fa fa-user"></i>
-									</div>
-									<div class="user-box-text">
-										<s:property value="#session.user.email" />
-									</div>
-								</div>
-								<div class="user-box-field">
-									<div class="user-box-icon">
-										<i class="fa fa-btc"></i>
-									</div>
-									<div class="user-box-text">
-										<s:property value="#session.user.bidCoins" />
-										<a href="<s:url action='buyBidCoinsForm' namespace='/member'/>"><i class="fa fa-plus-square"></i></a>
-									</div>
-								</div>
-							</div>
 							<div class="user-box-edit">
 								<a href="<s:url action='editProfileForm' namespace='/member'/>"><i class="fa fa-cog"></i></a>
 							</div>
@@ -106,10 +86,35 @@
 									</span>
 								</a>
 							</div>
+							<div class="user-box-info">
+								<div class="user-box-field">
+									<div class="user-box-text">
+										<s:property value="#session.user.email" />
+									</div>
+									<div class="user-box-icon">
+										<i class="fa fa-user"></i>
+									</div>
+								</div>
+								<div class="user-box-field">
+									<div class="user-box-text">
+										<a href="<s:url action='buyBidCoinsForm' namespace='/member'/>"><i class="fa fa-plus-square"></i></a>
+										<s:property value="#session.user.bidCoins" />
+									</div>
+									<div class="user-box-icon">
+										<i class="fa fa-btc"></i>
+									</div>
+								</div>
+								<div class="user-box-field">
+									<div class="user-box-text">
+										<a href="<s:url action='logout' namespace='/member' />">Log out!</a>
+									</div>
+									<div class="user-box-icon">
+										<i class="fa fa-sign-out"></i>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<p><a href="<s:url action='logout' namespace='/member' />">Log out!</a></p>
-
 				</s:else>
 				
 			</div>

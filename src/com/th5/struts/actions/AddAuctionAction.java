@@ -62,7 +62,7 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 		ftp.enterLocalPassiveMode();
 
 		BufferedImage originalImage = ImageIO.read(fileUpload);
-		int requiredHeight = 126;
+		int requiredHeight = 252;
 		int newWidth = originalImage.getWidth() / (originalImage.getHeight() / requiredHeight);
 		int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
 		
