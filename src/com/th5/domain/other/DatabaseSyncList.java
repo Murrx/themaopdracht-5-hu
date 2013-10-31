@@ -1,8 +1,6 @@
 package com.th5.domain.other;
 
-import java.util.List;
-
-import com.th5.domain.model.Bid;
+import com.th5.domain.model.Auction;
 
 public interface DatabaseSyncList<T> {
 	public void add(T t) throws AuctifyException;
@@ -10,4 +8,5 @@ public interface DatabaseSyncList<T> {
 	public int size();
 	public T get(int index);
 	public void synchronise();
+	int indexOf(T t);
 }

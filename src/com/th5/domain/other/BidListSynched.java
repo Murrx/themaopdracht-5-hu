@@ -1,5 +1,6 @@
 package com.th5.domain.other;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.th5.domain.model.Auction;
@@ -52,5 +53,15 @@ public class BidListSynched implements DatabaseSyncList<Bid>{
 			System.out.println("BidListManager.syncList::Failed to synchronise lists");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public int indexOf(Bid bid) {
+		if (!inSync)synchronise();
+		int index = Collections.binarySearch(bids, bid);
+		if ( index > 0){
+			index = -1;
+		}
+		return index;
 	}
 }
