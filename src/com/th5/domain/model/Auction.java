@@ -13,7 +13,7 @@ public class Auction implements Comparable<Auction> {
 	private Calendar startTime;
 	private Calendar endTime;
 	private int startBid;
-	
+
 
 	private BidListSynched bids;
 
@@ -96,8 +96,8 @@ public class Auction implements Comparable<Auction> {
 		if (highestBidAmount == 0) {
 			nextBidAmount = startBid;
 		} else {
-//			nextBidAmount = highestBidAmount % 100 * 5; // TODO Create an algorithm to
-													// increase bid amount.
+			//			nextBidAmount = highestBidAmount % 100 * 5; // TODO Create an algorithm to
+			// increase bid amount.
 			nextBidAmount = highestBidAmount +=5;
 		}
 		return nextBidAmount;
@@ -250,8 +250,20 @@ public class Auction implements Comparable<Auction> {
 		AuctionService service = (AuctionService) ServiceProvider.getService();
 		this.owner = service.getUserById(userId);
 	}
-	
+
 	public BidListSynched getBids(){
 		return bids;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		boolean equals = true;
+		equals = other instanceof Auction;
+		if(equals){
+			Auction otherAuction = (Auction) other;
+			equals = equals && this.auctionId == otherAuction.auctionId;
+		}
+		return equals;
+		
 	}
 }
