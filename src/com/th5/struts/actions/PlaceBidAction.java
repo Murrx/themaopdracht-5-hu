@@ -32,6 +32,7 @@ public class PlaceBidAction extends ActionSupport implements UserAware, SessionA
 		user.bidOnAuction(auctionId, bidAmount);
 		} catch (AuctifyException AE){
 			addActionError(AE.getMessage());
+			return ActionSupport.ERROR;
 		}
 		return ActionSupport.SUCCESS;
 	}
