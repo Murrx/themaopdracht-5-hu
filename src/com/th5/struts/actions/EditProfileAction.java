@@ -51,7 +51,7 @@ public class EditProfileAction extends ActionSupport implements UserAware, Sessi
 	public String execute() throws Exception {
 		try {
 			ServiceProvider.getService().update(edit_email,
-					edit_new_password, edit_displayName,
+					edit_password, edit_displayName,
 					edit_firstName, edit_lastName, edit_gender,
 					edit_birthdate, edit_postalCode,
 					edit_houseNumber, edit_street, edit_city);
@@ -148,7 +148,10 @@ public class EditProfileAction extends ActionSupport implements UserAware, Sessi
 				addFieldError("edit_password2", "Cannot be empty");
 			} else if (!edit_new_password.equals(edit_password2)) {
 				addFieldError("edit_password2", "Passwords don't match");
-			} 
+			} else {
+				edit_password = edit_new_password;
+				//this.session.invalidate();
+			}
 		} 
 		
 		
