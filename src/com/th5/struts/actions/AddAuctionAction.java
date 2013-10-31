@@ -1,11 +1,19 @@
 package com.th5.struts.actions;
 
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -52,7 +60,26 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 		ftp.login("garbage@smartlapus.com", "garbageiscool");
 		ftp.setFileType(FTP.BINARY_FILE_TYPE);
 		ftp.enterLocalPassiveMode();
-		InputStream input = new FileInputStream(fileUpload);
+
+		BufferedImage originalImage = ImageIO.read(fileUpload);
+		int requiredHeight = 126;
+		int newWidth = originalImage.getWidth() / (originalImage.getHeight() / requiredHeight);
+		int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+		
+		BufferedImage resizedImage = new BufferedImage(newWidth, requiredHeight, type);
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(originalImage, 0, 0, newWidth, requiredHeight, null);
+		g.dispose();
+		g.setComposite(AlphaComposite.Src);
+		 
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		ImageIO.write(resizedImage, "jpg", os);
+
+		InputStream input = new ByteArrayInputStream(os.toByteArray());
 		try {
 			ftp.storeFile(auctionId + ".jpg", input);
 			ftp.logout();

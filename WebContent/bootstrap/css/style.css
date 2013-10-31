@@ -14,6 +14,14 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
+a:hover {
+	color: purple !important;
+}
+
+a {
+	color: purple;
+}
+
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('../fonts/glyphicons-halflings-regular.eot');
@@ -127,7 +135,7 @@ footer {
 	width: 54px;
 	padding: 4px;
 	margin: -4px;
-	padding-left: 10px;
+	padding-left: 7px;
 }
 
 .user-box-mine:hover {
@@ -155,9 +163,9 @@ footer {
 
 .icon-stack i:first-child {
 	position: absolute;
-	top: 15px;
-	right: 18px;
-	font-size: 50px;
+	top: 25px;
+	right: 15px;
+	font-size: 40px;
 	color: grey;
 }
 
@@ -199,7 +207,7 @@ footer {
 .logo-part-two {
 	margin-top: 15px;
 	display: inline-block;
-	color: #486591;
+	color: purple;
 	font-size: 20px;
 	font-weight: bold;
 	
