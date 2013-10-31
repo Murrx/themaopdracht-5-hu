@@ -39,15 +39,6 @@ public class AuctionService implements AuctionServiceInterface{
 		return adc.retrieveAll();
 	}
 	
-	/**Gets all User auctions
-	 * @return ArrayList<Auction> with all User auctions
-	 * @throws AuctifyException when no auctions found.
-	 */
-	public ArrayList<Auction> getAllUserAuctions(int userId) throws AuctifyException {
-		return userList.getUserFromUserListById(userId).getActionListManager().retrieveAllUserAuctions();
-	}
-	
-	
 	@Override
 	public User login(String email, String password) throws AuctifyException {
 		password = EncryptPassword.encryptPassword(password);
