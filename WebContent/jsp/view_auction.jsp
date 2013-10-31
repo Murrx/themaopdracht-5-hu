@@ -36,13 +36,18 @@
 			<div class="col-sm-12 col-md-12 col-lg-6">
 				<!-- BEGIN AUTHOR PANEL -->
 
-				<div class="panel panel-default">
 
-					<p>
-						display name:
-						<s:property value="auction.owner.displayName" />
-					</p>
-				</div>
+
+				
+					<em> Auction information: </em><br />
+					Owner: <s:property value="auction.owner.displayName" /> <br />
+					Highest Bid:  <s:property value="highestBid.bidAmount" /> <br />
+					Highest Bidder:  <s:property value="highestBid.user.displayName" /> <br />
+					End date: <s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /><br />
+					Category: <s:property value="auction.category" /> <br />
+					
+				
+
 			</div>
 			<!-- END AUTHOR PANEL -->
 
@@ -151,6 +156,6 @@
 
 
 
-<s:push value="#{'progressTimersOneAuction':true}">
-	<s:include value="/includes/footer.jsp" />
-</s:push>
+	<s:push value="#{'progressTimersOneAuction':true}">
+		<s:include value="/includes/footer.jsp" />
+	</s:push>

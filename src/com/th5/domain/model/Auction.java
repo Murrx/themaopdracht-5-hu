@@ -15,6 +15,7 @@ public class Auction implements Comparable<Auction> {
 	private Calendar startTime;
 	private Calendar endTime;
 	private int startBid;
+	
 
 	private BidListManager bids;
 
@@ -73,7 +74,7 @@ public class Auction implements Comparable<Auction> {
 
 	}
 
-	private Bid getHighestBid() {
+	public Bid getHighestBid() {
 		Bid highestBid = null;
 
 		if (!bids.isEmpty()) {
@@ -82,7 +83,7 @@ public class Auction implements Comparable<Auction> {
 		return highestBid;
 	}
 
-	private int getHighestBidAmount() {
+	public int getHighestBidAmount() {
 		int highestBidAmount = 0;
 		if (!bids.isEmpty()) {
 			highestBidAmount = bids.get(bids.size() - 1).getBidAmount();
