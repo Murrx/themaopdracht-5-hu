@@ -7,8 +7,6 @@
 
 
 
-<div class="row">
-	<!-- Container -->
 	<h2>
 		<s:property value='auction.product.name' />
 	</h2>
@@ -23,7 +21,7 @@
 				<!-- AUCTION IMAGE PANEL -->
 				<div class="panel panel-default" data-id="<s:property value='auction.auctionId'/>">
 					<div class="panel-body individualAuctionImage">
-		
+
 						<img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive">
 
 					</div>
@@ -59,11 +57,6 @@
 
 
 		</div>
-
-
-
-
-
 
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
@@ -150,7 +143,7 @@
 
 
 
-</div>
+
 
 
 
