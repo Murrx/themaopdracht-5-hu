@@ -24,6 +24,14 @@ public class Bid implements Comparable<Bid> {
 
 	}
 
+	public void refundBidCoins() throws AuctifyException {
+		user.addBidCoins(bidAmount);
+	}
+	
+	public void takeBidCoins() throws AuctifyException {
+		user.takeBidCoins(bidAmount);
+	}
+
 	public int getBid_Id() {
 		return bid_Id;
 	}
