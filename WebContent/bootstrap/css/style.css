@@ -15,7 +15,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 a:hover {
-	color: purple !important;
+	color: purple;
 }
 
 a {
@@ -112,6 +112,15 @@ footer {
 	-ms-flex-preferred-size: auto;
 }
 
+.buyBidCoinsButton:hover i {
+	color: white;
+	background-color: purple;
+	display: inline-block;
+	height: 12px;
+	line-height: 12px;
+	border-radius: 4px;
+}
+
 .user-box-edit {
 	border-radius: 5px;
 	display: block;
@@ -120,6 +129,7 @@ footer {
 	margin: -4px;
 	margin-right: 10px;
 	padding-left: 5px;
+	height: 58px;
 }
 
 .user-box-edit:hover {
@@ -127,6 +137,9 @@ footer {
 }
 .user-box-edit i {
 	font-size: 50px;
+}
+.user-box-edit:hover i {
+	color: white;
 }
 
 .user-box-mine {
@@ -136,12 +149,15 @@ footer {
 	padding: 4px;
 	margin: -4px;
 	padding-left: 7px;
+	height: 58px;
 }
 
 .user-box-mine:hover {
 	background-color: lightgray;
 }
-
+.user-box-mine:hover i {
+	color: white;
+}
 
 .user-box-icon {
 	width: 25px;
@@ -214,9 +230,6 @@ footer {
 	
 }
 
-button[type="submit"] {
-	height: 75px;
-}
 
 textarea {
 	resize: vertical;
@@ -305,6 +318,11 @@ textarea {
 }
 
 @media (max-width: 767px) {
+	.user-box {
+		margin-top: 0px;
+		margin-bottom: 10px;
+	}
+	
 	.logo-part-one {
 		margin-top: 0px;
 		margin-left: 0px;

@@ -59,15 +59,15 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<button type="submit" class="btn btn-default btn-block">
+								<button type="submit" class="btn btn-default btn-block input-sm">
 									Sign in
 								</button>
 							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-11 col-sm-offset-1">
-							<p><a href="<s:url action='registerForm' namespace='/' />">Register a new account</a></p>
+							<div class="form-group">
+								<a href="<s:url action='registerForm' namespace='/' />" class="btn btn-default btn-block input-sm">
+									Register
+								</a>
+							</div>
 						</div>
 					</div>
 				</s:form>
@@ -97,8 +97,8 @@
 								</div>
 								<div class="user-box-field">
 									<div class="user-box-text">
-										<a href="<s:url action='buyBidCoinsForm' namespace='/member'/>"><i class="fa fa-plus-square"></i></a>
 										<s:property value="#session.user.bidCoins" />
+										<a class="buyBidCoinsButton" href="<s:url action='buyBidCoinsForm' namespace='/member'/>"><i class="fa fa-plus-square"></i></a>
 									</div>
 									<div class="user-box-icon">
 										<i class="fa fa-btc"></i>
