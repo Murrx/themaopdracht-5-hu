@@ -1,17 +1,16 @@
 /*				BASE				*/
-
 * {
-	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif ;
+	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 }
 
 html {
 	height: 100%;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 a:hover {
@@ -28,9 +27,14 @@ a {
 }
 
 @font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+	font-family: 'Glyphicons Halflings';
+	src: url('../fonts/glyphicons-halflings-regular.eot');
+	src: url('../fonts/glyphicons-halflings-regular.eot?#iefix')
+		format('embedded-opentype'),
+		url('../fonts/glyphicons-halflings-regular.woff') format('woff'),
+		url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+		url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular')
+		format('svg');
 }
 /* FLEXBOX IS THE SHIIT: http://philipwalton.github.io/solved-by-flexbox/ */
 .container {
@@ -63,10 +67,11 @@ main {
 	-ms-flex-preferred-size: auto;
 }
 
-footer p{
+footer p {
 	margin-bottom: 0;
 	color: #777;
 }
+
 footer {
 	text-align: center;
 	padding: 10px 0;
@@ -74,6 +79,32 @@ footer {
 	border-top: 1px solid #e5e5e5;
 	background-color: #f5f5f5;
 	min-width: 100%;
+}
+
+.liBlack{
+	color: black;
+}
+
+ul{
+	color: purple;
+}
+
+
+.headerPurple{
+	color: purple;	
+}
+
+.tutImage {
+	margin-right: 15px;
+	margin-top: 0px;
+	float: left;
+	position: relative;
+	font-size: 30px;
+	color: purple;
+}
+
+.tutText {
+	font-size: 14px;
 }
 
 .user-box {
@@ -140,9 +171,11 @@ footer {
 .user-box-edit:hover {
 	background-color: lightgray;
 }
+
 .user-box-edit i {
 	font-size: 50px;
 }
+
 .user-box-edit:hover i {
 	color: white;
 }
@@ -160,6 +193,7 @@ footer {
 .user-box-mine:hover {
 	background-color: lightgray;
 }
+
 .user-box-mine:hover i {
 	color: white;
 }
@@ -196,8 +230,6 @@ footer {
 }
 
 /*				/BASE				*/
-
-
 #floater {
 	float: left;
 	height: 50%;
@@ -232,9 +264,7 @@ footer {
 	color: purple;
 	font-size: 20px;
 	font-weight: bold;
-	
 }
-
 
 textarea {
 	resize: vertical;
@@ -242,7 +272,6 @@ textarea {
 
 .navbar-toggle {
 	margin: 0px;
-	
 }
 
 .navbar-toggle i {
@@ -266,22 +295,20 @@ textarea {
 .auction-title-box {
 	position: absolute;
 	background: white;
-	opacity:0.8;
-	filter:alpha(opacity=80);
+	opacity: 0.8;
+	filter: alpha(opacity =   80);
 	width: 100%;
 }
 
 .auction:hover {
 	cursor: pointer;
 	border-color: #bbb;
-	-webkit-box-shadow:  0px 1px 5px 2px rgba(0, 0, 0, 0.0470588);
-	box-shadow:  0px 1px 5px 2px rgba(0, 0, 0, 0.0470588);
+	-webkit-box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.0470588);
+	box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.0470588);
 }
 
 .individualAuctionImage {
 	height: 150px;
-
-	
 }
 
 .individualAuctionImage img {
@@ -292,10 +319,8 @@ textarea {
 	max-height: 100%;
 	max-width: 100%;
 	margin: auto 0;
-    z-index: 0;
-    border-radius: 3px;
-	
-	
+	z-index: 0;
+	border-radius: 3px;
 }
 
 .fullimage {
@@ -303,7 +328,7 @@ textarea {
 	margin: 0;
 	overflow: hidden;
 	padding: 0;
-/*	background-image: url('../../images/auction-hammer.jpg'); */
+	/*	background-image: url('../../images/auction-hammer.jpg'); */
 	background-size: cover;
 }
 
@@ -319,48 +344,44 @@ textarea {
 	transform: translate(-50%, 0);
 	-webkit-transform: translate(-50%, 0);
 	max-height: 100%;
-    z-index: 0;
-    border-radius: 3px;
+	z-index: 0;
+	border-radius: 3px;
 }
 
 .progress {
-    position: relative;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+	position: relative;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .progress-bar {
-    z-index: 1;
-    position: absolute;
+	z-index: 1;
+	position: absolute;
 }
 
 .progress .progress-bar-label {
-    position: relative;
-    z-index: 2;
-    color: white;
-    text-shadow: 1px 1px 3px black;
+	position: relative;
+	z-index: 2;
+	color: white;
+	text-shadow: 1px 1px 3px black;
 }
 
-@media (max-width: 767px) {
+@media ( max-width : 767px) {
 	.user-box {
 		margin-top: 0px;
 		margin-bottom: 10px;
 	}
-	
 	.logo-part-one {
 		margin-top: 0px;
 		margin-left: 0px;
 	}
-	
 	.logo-part-two {
 		margin-top: 0px;
-		
 	}
 	button[type="submit"] {
 		height: 34px;
 	}
-	
 	#login-form {
 		position: absolute;
 		background-color: white;
@@ -370,61 +391,53 @@ textarea {
 		display: none;
 		border-bottom: 1px solid lightgray;
 	}
-	
 	#search-bar {
 		border-bottom: 1px solid lightgray;
 	}
-	
 	nav li {
 		position: absolute !important;
 		background-color: white;
 		z-index: 1;
 		width: 100%;
 	}
-	
 	nav li.active {
 		z-index: 5;
 	}
-	
 	nav ul {
 		height: 43px;
 		position: relative;
 	}
-	
 	nav {
 		height: 43px;
 		overflow: hidden;
 	}
-	
 	nav:hover {
 		height: auto;
 	}
-	
 	nav:hover li {
 		position: relative !important;
 	}
-	
 	nav:hover ul {
 		height: auto;
 	}
-	
 	label {
 		display: none;
 	}
 }
 
-@media (min-width: 768px) {
+@media ( min-width : 768px) {
 	#login-form {
 		display: block !important;
 	}
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media ( min-width : 768px) and (max-width: 991px) {
 	#allAuctions.row>div:nth-child(2n+1) {
 		clear: both;
 	}
 }
-@media (min-width: 992px) {
+
+@media ( min-width : 992px) {
 	#allAuctions.row>div:nth-child(3n+1) {
 		clear: both;
 	}
