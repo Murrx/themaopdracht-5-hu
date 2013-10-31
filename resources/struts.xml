@@ -54,10 +54,7 @@
 		<default-interceptor-ref name="MemberStack" />	
 		
 		<global-results>
-			<result name="login" type="redirectAction">
-				<param name="actionName">notLoggedIn</param>
-				<param name="namespace">/</param>
-			</result>
+			<result name="login">/jsp/notLoggedIn.jsp</result>
 		</global-results>
 		
 		<action name="logout" class="com.th5.struts.actions.LogoutAction">
