@@ -8,6 +8,7 @@ import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
 import com.th5.domain.other.SortedArrayList;
+import com.th5.persistance.BidDatabaseCRUD;
 
 
 public class User implements Comparable<User>, Observable{
@@ -267,12 +268,13 @@ public class User implements Comparable<User>, Observable{
 			Auction auction = AuctionListManager.getAuctionById(auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
 			
-			
+			new BidDatabaseCRUD().create(bid);
 			bids.add(bid);
+			auction.addBid(bid);
 			System.out.println("USER DOMAIN :: Auction: " + auction);
 			System.out.println("USER DOMAIN :: Bid" + bid);
 			
-			auction.addBid(bid);
+			
 			
 						
 		}
