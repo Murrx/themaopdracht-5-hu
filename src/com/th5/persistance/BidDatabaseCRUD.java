@@ -17,6 +17,7 @@ import com.th5.domain.model.Status;
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
+import com.th5.domain.other.SortedArrayList;
 
 public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 
@@ -117,9 +118,8 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 	}
 
 	@Override
-	public ArrayList<Bid> search(String search) throws AuctifyException {
-		// TODO Auto-generated method stub
-		return null;
+	public SortedArrayList<Bid> search(String search) throws AuctifyException {
+		return new SortedArrayList<>();
 	}
 
 	@Override
