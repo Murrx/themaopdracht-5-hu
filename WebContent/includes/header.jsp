@@ -76,21 +76,35 @@
 				<s:else>
 					<div>
 						<div class="user-box">
-							<div class="user-box-field">
-								<div class="user-box-icon">
-									<i class="fa fa-user"></i>
+							<div class="user-box-info">
+								<div class="user-box-field">
+									<div class="user-box-icon">
+										<i class="fa fa-user"></i>
+									</div>
+									<div class="user-box-text">
+										<s:property value="#session.user.email" />
+									</div>
 								</div>
-								<div class="user-box-text">
-									<s:property value="#session.user.email" />
+								<div class="user-box-field">
+									<div class="user-box-icon">
+										<i class="fa fa-btc"></i>
+									</div>
+									<div class="user-box-text">
+										<s:property value="#session.user.bidCoins" />
+										<a href="<s:url action='buyBidCoinsForm' namespace='/member'/>"><i class="fa fa-plus-square"></i></a>
+									</div>
 								</div>
 							</div>
-							<div class="user-box-field">
-								<div class="user-box-icon">
-									<i class="fa fa-btc"></i>
-								</div>
-								<div class="user-box-text">
-									<s:property value="#session.user.bidCoins" />
-								</div>
+							<div class="user-box-edit">
+								<a href="<s:url action='editProfileForm' namespace='/member'/>"><i class="fa fa-cog"></i></a>
+							</div>
+							<div class="user-box-mine">
+								<a href="<s:url action='ViewAllUserAuctionForm' namespace='/member'/>">
+									<span class="icon-stack">
+										<i class="fa fa-gavel"></i>
+										<i class="fa fa-user"></i>
+									</span>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -121,9 +135,9 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<!-- Breadcrumbs -->
-						<a href="<s:url action='welcome' namespace='/' />">Home</a> 
+						<a href="<s:url action='welcome' namespace='/' /> ">Home</a> 
 						<s:if test="%{parent != null}">
-							> <a href="<s:url action='%{parent}' namespace='/'/>"><s:property value="parentName" /></a>
+							> <a href="<s:url action='%{parent}' namespace='/'/> "><s:property value="parentName" /></a>
 						</s:if>
 						> <s:property value="title" /> <s:property value="category" /> 
 					</div>

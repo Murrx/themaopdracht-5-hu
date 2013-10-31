@@ -64,10 +64,7 @@ footer {
 }
 
 .user-box {
-	width: 100%;
-}
-
-.user-box-field {
+	margin-top: 15px;
 	width: 100%;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -82,6 +79,61 @@ footer {
 	-ms-flex-direction: row;
 	flex-direction: row;
 }
+
+.user-box-field {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	-moz-box-orient: horizontal;
+	-moz-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+}
+
+.user-box-info {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	-ms-flex-preferred-size: auto;
+}
+
+.user-box-edit {
+	border-radius: 5px;
+	display: block;
+	width: 54px;
+	padding: 4px;
+	margin: -4px;
+	margin-right: 10px;
+	padding-left: 5px;
+}
+
+.user-box-edit:hover {
+	background-color: lightgray;
+}
+.user-box-edit i {
+	font-size: 50px;
+}
+
+.user-box-mine {
+	border-radius: 5px;
+	display: block;
+	width: 54px;
+	padding: 4px;
+	margin: -4px;
+	padding-left: 10px;
+}
+
+.user-box-mine:hover {
+	background-color: lightgray;
+}
+
 
 .user-box-icon {
 	width: 25px;
@@ -99,6 +151,18 @@ footer {
 	flex: 1;
 	-ms-flex-preferred-size: auto;
 	line-height: 20px;
+}
+
+.icon-stack i:first-child {
+	position: absolute;
+	top: 15px;
+	right: 18px;
+	font-size: 50px;
+	color: grey;
+}
+
+.icon-stack i:last-child {
+	font-size: 50px;
 }
 
 /*				/BASE				*/
@@ -124,12 +188,17 @@ footer {
 }
 
 .logo-part-one {
+	margin-top: 15px;
+	margin-left: 25px;
+	display: inline-block;
 	color: #838383;
 	font-size: 30px;
 	font-weight: bold;
 }
 
 .logo-part-two {
+	margin-top: 15px;
+	display: inline-block;
 	color: #486591;
 	font-size: 20px;
 	font-weight: bold;

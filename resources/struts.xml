@@ -35,9 +35,6 @@
 		<action name="viewAction" class="com.th5.struts.actions.ViewAuctionAction">
 			<result name="success">/jsp/view_auction.jsp</result>
 		</action>
-		<action name="notLoggedIn">
-			<result name="success">/jsp/notLoggedIn.jsp</result>
-		</action>
 	</package>
 	
 	<package name="member" namespace="/member" extends="struts-default">
@@ -58,7 +55,10 @@
 		</global-results>
 		
 		<action name="logout" class="com.th5.struts.actions.LogoutAction">
-			<result name="success">/jsp/welcome.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">welcome</param>
+				<param name="namespace">/</param>
+			</result>
 		</action>
 		
 		<action name="ViewAllUserAuctionForm" class="com.th5.struts.actions.ViewAllUserAuctionAction">
