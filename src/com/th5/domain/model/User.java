@@ -19,7 +19,7 @@ public class User implements Comparable<User>, Observable{
 					password, 
 					displayName;
 	
-	private List<Bid>	bids;
+	private List<Auction> relevantAuctions;
 	
 	private Person 	person;
 	private Address	address;
@@ -46,7 +46,7 @@ public class User implements Comparable<User>, Observable{
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
-		this.bids = new SortedArrayList<Bid>();
+		this.relevantAuctions = new SortedArrayList<Auction>();
 	}
 	
 	public User(int userId, String email, String password, String displayName, UserRights rights, int bidCoins){
@@ -269,14 +269,12 @@ public class User implements Comparable<User>, Observable{
 			Bid bid = new Bid(this, auction, bidAmount);
 			
 			new BidDatabaseCRUD().create(bid);
-			bids.add(bid);
+			if (!relevantAuctions.contains(bid.getAuction())){
+				relevantAuctions.add(bid.getAuction());
+			}
 			auction.addBid(bid);
 			System.out.println("USER DOMAIN :: Auction: " + auction);
-			System.out.println("USER DOMAIN :: Bid" + bid);
-			
-			
-			
-						
+			System.out.println("USER DOMAIN :: Bid" + bid);			
 		}
 		else{
 			throw new AuctifyException("Not enough bidcoins available");
