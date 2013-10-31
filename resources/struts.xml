@@ -106,6 +106,8 @@
     	        <param name="id">${auctionId}</param>
 			</result>		
 			
+			<result name ="error">/jsp/errorPage.jsp</result>
+			
 		</action>
 		
 	</package>

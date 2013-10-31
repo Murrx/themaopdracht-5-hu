@@ -57,9 +57,12 @@ public class Auction implements Comparable<Auction> {
 
 		Bid highestBid = getHighestBid();
 		
+		if(bid.getUser().getUserId() == this.owner.getUserId()){
+			throw new AuctifyException("You are not allowed to place bids on your own auctions.");			
+		}
+		
 		if (highestBid != null && highestBid.getUser().getUserId() == bid.getUser().getUserId()){
-			throw new AuctifyException(
-					"You are already the highest bidder.");
+			throw new AuctifyException("You are already the highest bidder.");
 		}
 
 		if (bid.getBidAmount() == this.calculateNextBidAmount()) {
