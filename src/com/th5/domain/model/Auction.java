@@ -1,11 +1,9 @@
 package com.th5.domain.model;
 
 import java.util.Calendar;
-import java.util.List;
 
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.BidListManager;
-import com.th5.domain.other.SortedArrayList;
 import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
 
@@ -39,7 +37,7 @@ public class Auction implements Comparable<Auction> {
 		this.status = Status.ACTIVE;
 		this.product = new Product(productName, productDescripion);
 
-		this.bids = new BidListManager();
+		this.bids = new BidListManager(this);
 	}
 
 	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion, int auctionId, int userId) {
