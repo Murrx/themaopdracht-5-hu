@@ -6,9 +6,9 @@
 
 
 
-	<h2>
-		<s:property value='auction.product.name' />
-	</h2>
+<h2>
+	<s:property value='auction.product.name' />
+</h2>
 
 <div class="row">
 	<!-- Container -->
