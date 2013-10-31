@@ -18,7 +18,7 @@ import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 
-public class UserRegisterValidatorTest implements Observer{
+public class UserRegisterValidatorTest{
 
 	private static UserAddressValidator userAddressValidator;
 	private Address address = new Address("AaAa 20", "73", "steenweg", "Amsterdam");
@@ -127,17 +127,6 @@ public class UserRegisterValidatorTest implements Observer{
 		if (!(userAddressValidator.validate(address).size() > 0)) {
 			fail();
 		}
-	}
-
-	@Override
-	public void updateObserver(Object obj) throws AuctifyException {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setObservable(Observable obs) {
-		// TODO Auto-generated method stub
-		this.address = (Address) obs;
 	}
 }
 	

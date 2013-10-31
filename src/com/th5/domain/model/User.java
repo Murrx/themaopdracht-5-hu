@@ -1,17 +1,13 @@
 package com.th5.domain.model;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import sun.security.action.GetBooleanAction;
 
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
 import com.th5.domain.other.SortedArrayList;
-import com.th5.persistance.DataSourceService;
 
 
 public class User implements Comparable<User>, Observable{

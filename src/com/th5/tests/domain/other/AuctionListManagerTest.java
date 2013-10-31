@@ -2,6 +2,7 @@ package com.th5.tests.domain.other;
 
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.junit.AfterClass;
@@ -22,54 +23,64 @@ import com.th5.persistance.CRUD_Interface;
 import com.th5.persistance.UserDatabaseCRUD;
 
 public class AuctionListManagerTest {
-	static AuctionListManager am;
-	static CRUD_Interface<User> uci;
-	static CRUD_Interface<Auction> aci;
-	private Auction auction;
-	private static User user;
-
+	
+	private static CRUD_Interface<User> uci = new UserDatabaseCRUD();
+	private static CRUD_Interface<Auction> aci = new AuctionDatabaseCRUD();
+	private static Auction auction;
+	private static User user = new User("auctionMangerTest", "Auctionmaneger1",
+			"auctionManager", UserRights.USER);
+	private static AuctionListManager am = user.getActionListManager();
 	@BeforeClass
 	public static void oneTimeSetupBeforeClass() throws AuctifyException {
-		am = new AuctionListManager();
-		uci = new UserDatabaseCRUD();
-		aci = new AuctionDatabaseCRUD();
-
-		user = new User("auctionMangerTest", "Auctionmaneger1",
-				"auctionManager", UserRights.USER);
 		Calendar birthdate = Calendar.getInstance();
 		birthdate.set(1990, 10, 10);
 		user.setPerson(new Person("aaaa", "aaaaa", 1, birthdate.getTime()));
 		user.setAddress(new Address("3333 HD", "73", "amsterdam", "amsterdam"));
 		uci.create(user);
-	}
-
-	@Before
-	public void setup() {
+		am.setUser(user);
 		Calendar eindTime = Calendar.getInstance();
-		eindTime.set(2013, 12, 30);
+		eindTime.set(2099, 12, 30);
 		auction = new Auction(eindTime, 10, Category.CARS, "auto", "beep beep");
 		auction.setOwner(user);
 	}
 
+	@SuppressWarnings("deprecation")
+	@Before
+	public void setup() {
+		am.clearAuctionList();
+	}
+	
+	@Test
+	public void testRetrieveAllUserAuctions() throws AuctifyException {
+		int id = -1;
+		id = am.create(auction);
+		aci.delete(new Auction(id));
+		int id2 = -1;
+		id2 = am.create(auction);
+		aci.delete(new Auction(id2));
+		
+		ArrayList<Auction> auctionList = am.getAuctionList();
+		
+		if (!(auctionList.size() == 2)) {
+			System.out.println("a " + auctionList.size());
+			fail("auctionList does not contain 2 auctions");
+		}
+	}
+
 	@Test
 	public void testCreate() throws AuctifyException {
-		Calendar eindTime = Calendar.getInstance();
-		eindTime.set(2013, 12, 30);
 		try {
 			int id = -1;
 			id = am.create(auction);
 			aci.delete(new Auction(id));
 		} catch (AuctifyException e) {
 			fail(e.getMessage());
-			throw new AuctifyException(e.getMessage());
 		}
 	}
 
 	@Test
 	public void testRetrieve() {
 		try {
-			Calendar eindTime = Calendar.getInstance();
-			eindTime.set(2013, 11, 30);
 			int id = -1;
 			id = am.create(auction);
 			aci.delete(new Auction(id));
@@ -81,8 +92,6 @@ public class AuctionListManagerTest {
 	@Test
 	public void testDelete() {
 		try {
-			Calendar eindTime = Calendar.getInstance();
-			eindTime.set(2013, 11, 30);
 			int id = -1;
 			id = am.create(auction);
 			aci.delete(new Auction(id));

@@ -25,19 +25,30 @@ public class AuctionListManager {
 	public AuctionListManager() {
 		auctionList = new SortedArrayList<Auction>();
 	}
-
+	
+	/**
+	 * Returns a arraylist of all auctions from the user 
+	 * @return user's auction list. returns null when auction is not found
+	 */
 	public ArrayList<Auction> getAuctionList() {
 		if (!isAuctionListComplete) {
 			return retrieveAllUserAuctions();
 		}
 		return (ArrayList<Auction>) auctionList;
 	}
-
+	
+	/**
+	 * Attempt to get all users auctions from allAuctions
+	 * 
+	 * @return all user auctions. returns an empty array when no auctions are found
+	 */
 	public ArrayList<Auction> retrieveAllUserAuctions() {
 		if (allAuctions.size() > 0) {
 			for (Auction a : allAuctions) {
 				if (a.getOwner().getUserId() == user.getUserId()) {
+					if (!auctionList.contains(a)) {
 					auctionList.add(a);
+					}
 				}
 			}
 			if (auctionList.size() > 0) {
@@ -46,7 +57,13 @@ public class AuctionListManager {
 		}
 		return (ArrayList<Auction>) auctionList;
 	}
-
+	
+	/**
+	 * Attempt to retrieve a auction from allAuctions list
+	 * 
+	 * @param auctionId
+	 * @return the auction. returns a auctifyException when auction is not found
+	 */
 	public static Auction retrieve(Object id) throws AuctifyException {
 		int auctionId = (Integer) id;
 		Auction auction = getAuctionById(auctionId);
@@ -56,6 +73,12 @@ public class AuctionListManager {
 		return auction;
 	}
 
+	/**
+	 * Attempts to create a auction
+	 * 
+	 * @param auction
+	 * @return the auction id. returns a auctifyException when auction could not be created
+	 */
 	public int create(Auction auction) throws AuctifyException {
 		int newAuctionId = -1;
 		try {
@@ -106,5 +129,13 @@ public class AuctionListManager {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	/**Only used for testing. Do not use.*/
+	@Deprecated
+	public void clearAuctionList() {
+		auctionList.clear();
+		allAuctions.clear();
+		isAuctionListComplete = false;
 	}
 }
