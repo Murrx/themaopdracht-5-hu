@@ -150,6 +150,7 @@ public class EditProfileAction extends ActionSupport implements UserAware, Sessi
 				addFieldError("edit_password2", "Passwords don't match");
 			} else {
 				edit_password = edit_new_password;
+				//this.session.invalidate();
 			}
 		} 
 		
