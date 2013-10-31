@@ -103,7 +103,10 @@
 
 											Place Bid (<i class='fa fa-btc'></i> 5)
 											
-											 <a href=" <s:url action="placeBidAction.action" namespace="/member" /> ">Place new bid!</a>
+											<s:url action="placeBidAction.action" namespace="/member" var="urlTag" >
+    											<s:param name="auctionId"><s:property value="%{#parameters.id}" /></s:param>
+											</s:url>
+											<s:a href="%{urlTag}">Place new bid!</s:a>
 											
 										</div>
 									</div>

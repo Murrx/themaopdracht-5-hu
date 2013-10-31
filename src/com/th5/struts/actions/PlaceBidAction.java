@@ -12,7 +12,7 @@ public class PlaceBidAction extends ActionSupport implements UserAware, SessionA
 
 	private User user;
 	private Map session;
-	private int auctionId = 183; // NEEDS TO BE REMOVED LATER
+	private int auctionId;
 	private int bidAmount = 20; // NEEDS TO BE REMOVED LATER
 	
 	@Override
