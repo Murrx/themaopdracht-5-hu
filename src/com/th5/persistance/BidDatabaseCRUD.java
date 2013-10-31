@@ -6,14 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
-import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
-import com.th5.domain.model.Category;
-import com.th5.domain.model.Status;
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
@@ -118,8 +114,47 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 	}
 
 	@Override
-	public SortedArrayList<Bid> search(String search) throws AuctifyException {
-		return new SortedArrayList<>();
+	public List<Bid> search(String auctionId) throws AuctifyException {
+		Connection connection;
+		try {
+			connection = DataSourceService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		List<Bid> bidList = new SortedArrayList<>();
+		PreparedStatement statement = null;
+
+		try{
+			statement = connection.prepareStatement("SELECT * FROM BID_BIDS WHERE BID_FK_AUCTION_ID = ?");
+			
+			statement.setInt(1, Integer.parseInt(auctionId));
+			
+			ResultSet results = statement.executeQuery();
+			
+			while(results.next()){
+				Bid bid = new Bid(
+						results.getInt("BID_PK_BID_ID"), 
+						results.getInt("BID_FK_USER_ID"), 
+						results.getInt("BID_FK_AUCTION_ID"), 
+						DateConverter.SQLDateToCalendar(results.getDate("BID_TIMESTAMP")), 
+						results.getInt("BID_AMOUNT"));
+				
+				bidList.add(bid);
+			}
+			
+		}catch(SQLException e){
+			throw new AuctifyException("failed to bid on auction");
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return bidList;
 	}
 
 	@Override
