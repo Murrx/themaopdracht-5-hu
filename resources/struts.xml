@@ -89,7 +89,11 @@
 		</action>
 		
 		<action name="addAuction" class="com.th5.struts.actions.AddAuctionAction">
-			<result name="success">/jsp/members/addAuctionResult.jsp</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">viewAction</param>
+    	        <param name="namespace">/</param>
+    	        <param name="id">${auctionId}</param>
+			</result>
 			<result name="input">/jsp/members/addAuction.jsp</result>
 		</action>
 		

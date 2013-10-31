@@ -36,6 +36,7 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 	private int					auction_price;
 	private Calendar			auction_end_time;
 	private User 				user;
+	private int					auctionId;
 	
 	private Category[] 			categories = Category.values();
 	private File 				fileUpload;
@@ -45,7 +46,7 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 	@Override
 	public String execute() throws Exception {
 		Auction auction = new Auction(auction_end_time, auction_price, auction_category, auction_name, auction_description);
-		int auctionId = user.createAuction(auction);
+		auctionId = user.createAuction(auction);
 
 		FTPClient ftp = new FTPClient();
 		int reply;
@@ -66,7 +67,7 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 		} catch(IOException e) {
 			System.out.println("NOOOOOOOO");
 		}
-		return ActionSupport.SUCCESS;
+		return "redirect";
 	}
 	
 	public void validate() {
@@ -80,6 +81,15 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 			}
 		}
 	}
+	
+	public int getAuctionId() {
+		return auctionId;
+	}
+	
+	public void setAuctionId(int auctionId) {
+		this.auctionId = auctionId;
+	}
+	
 	public String getAuction_name() {
 		return auction_name;
 	}
