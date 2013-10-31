@@ -5,7 +5,9 @@ import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
+import com.th5.domain.other.AuctionListManager;
 import com.th5.struts.awareness.UserAware;
 
 public class PlaceBidAction extends ActionSupport implements UserAware, SessionAware {
@@ -13,7 +15,6 @@ public class PlaceBidAction extends ActionSupport implements UserAware, SessionA
 	private User user;
 	private Map session;
 	private int auctionId;
-	private int bidAmount = 20; // NEEDS TO BE REMOVED LATER
 	
 	@Override
 	public void setUser(User user) {
@@ -23,6 +24,8 @@ public class PlaceBidAction extends ActionSupport implements UserAware, SessionA
 	@Override
 	public String execute() throws Exception {
 		user = (User) session.get("user");
+		Auction auction = AuctionListManager.getAuctionById(auctionId);
+		int bidAmount = auction.calculateNextBidAmount();
 		
 		user.bidOnAuction(auctionId, bidAmount);
 		return ActionSupport.SUCCESS;
@@ -41,15 +44,7 @@ public class PlaceBidAction extends ActionSupport implements UserAware, SessionA
 		return auctionId;
 	}
 
-	public int getBidAmount() {
-		return bidAmount;
-	}
-
 	public void setAuctionId(int auctionId) {
 		this.auctionId = auctionId;
-	}
-
-	public void setBidAmount(int bidAmount) {
-		this.bidAmount = bidAmount;
 	}
 }
