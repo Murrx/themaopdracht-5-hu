@@ -7,13 +7,13 @@ import com.th5.domain.model.Bid;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
 
-public class BidListManager {
+public class BidListSynched implements DatabaseSyncList<Bid>{
 	private List<Bid> bids;
 	private CRUD_Interface<Bid> dbCRUD;
 	private Auction auction;
 	private boolean inSync = false;
 	
-	public BidListManager(Auction auction) {
+	public BidListSynched(Auction auction) {
 		this.auction = auction;
 		bids = new SortedArrayList<Bid>();
 		dbCRUD = new BidDatabaseCRUD();
@@ -25,26 +25,26 @@ public class BidListManager {
 	}
 	
 	public boolean isEmpty(){
-		if (!inSync)syncList();
+		if (!inSync)synchronise();
 		return bids.isEmpty();
 	}
 	
 	public int size(){
-		if (!inSync)syncList();
+		if (!inSync)synchronise();
 		return bids.size();
 	}
 	
 	public Bid get(int index){
-		if (!inSync)syncList();
+		if (!inSync)synchronise();
 		return bids.get(index);
 	}
 	
 	public List<Bid> getBids(){
-		if (!inSync)syncList();
+		if (!inSync)synchronise();
 		return bids;
 	}
 	
-	public void syncList(){
+	public void synchronise(){
 		try {
 			bids = dbCRUD.search(Integer.toString(auction.getAuctionId()));
 			inSync = true;
@@ -53,5 +53,4 @@ public class BidListManager {
 			e.printStackTrace();
 		}
 	}
-	
 }

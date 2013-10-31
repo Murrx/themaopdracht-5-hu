@@ -3,7 +3,7 @@ package com.th5.domain.model;
 import java.util.Calendar;
 
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.other.BidListManager;
+import com.th5.domain.other.BidListSynched;
 import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
 
@@ -15,7 +15,7 @@ public class Auction implements Comparable<Auction> {
 	private int startBid;
 	
 
-	private BidListManager bids;
+	private BidListSynched bids;
 
 	private Product product;
 	private Category category;
@@ -37,7 +37,7 @@ public class Auction implements Comparable<Auction> {
 		this.status = Status.ACTIVE;
 		this.product = new Product(productName, productDescripion);
 
-		this.bids = new BidListManager(this);
+		this.bids = new BidListSynched(this);
 	}
 
 	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion, int auctionId, int userId) {
@@ -251,7 +251,7 @@ public class Auction implements Comparable<Auction> {
 		this.owner = service.getUserById(userId);
 	}
 	
-	public BidListManager getBids(){
+	public BidListSynched getBids(){
 		return bids;
 	}
 }
