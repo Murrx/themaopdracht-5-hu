@@ -96,8 +96,9 @@ public class Auction implements Comparable<Auction> {
 		if (highestBidAmount == 0) {
 			nextBidAmount = startBid;
 		} else {
-			nextBidAmount = highestBidAmount % 100 * 5; // TODO Create an algorithm to
+//			nextBidAmount = highestBidAmount % 100 * 5; // TODO Create an algorithm to
 													// increase bid amount.
+			nextBidAmount = highestBidAmount +=5;
 		}
 		return nextBidAmount;
 	}
