@@ -89,7 +89,7 @@
 							<div class="user-box-info">
 								<div class="user-box-field">
 									<div class="user-box-text">
-										<s:property value="#session.user.email" />
+										<s:property value="#session.user.displayName" />
 									</div>
 									<div class="user-box-icon">
 										<i class="fa fa-user"></i>
