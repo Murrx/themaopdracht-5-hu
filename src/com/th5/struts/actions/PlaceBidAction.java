@@ -7,6 +7,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
+import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.AuctionListManager;
 import com.th5.struts.awareness.UserAware;
 
@@ -27,7 +28,11 @@ public class PlaceBidAction extends ActionSupport implements UserAware, SessionA
 		Auction auction = AuctionListManager.getAuctionById(auctionId);
 		int bidAmount = auction.calculateNextBidAmount();
 		
+		try{
 		user.bidOnAuction(auctionId, bidAmount);
+		} catch (AuctifyException AE){
+			addActionError(AE.getMessage());
+		}
 		return ActionSupport.SUCCESS;
 	}
 

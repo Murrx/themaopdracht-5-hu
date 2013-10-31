@@ -53,17 +53,27 @@ public class Auction implements Comparable<Auction> {
 		this.userId = userId;
 	}
 
-	public void addBid(Bid bid) throws AuctifyException {
+	public synchronized void addBid(Bid bid) throws AuctifyException {
 
 		Bid highestBid = getHighestBid();
-
-		if (highestBid != null) {
-			highestBid.refundBidCoins();
+		
+		if (highestBid != null && highestBid.getUser().getUserId() == bid.getUser().getUserId()){
+			throw new AuctifyException(
+					"You are already the highest bidder.");
 		}
 
-		bid.takeBidCoins();
+		if (bid.getBidAmount() == this.calculateNextBidAmount()) {
+			if (highestBid != null) {
+				highestBid.refundBidCoins();
+			}
 
-		bids.add(bid);
+			bid.takeBidCoins();
+
+			bids.add(bid);
+		} else {
+			throw new AuctifyException(
+					"Bid has to be higher than current bid. Please refresh your page and try again! NOOOOOO");
+		}
 
 	}
 

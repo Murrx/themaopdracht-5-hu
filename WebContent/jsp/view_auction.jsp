@@ -108,6 +108,10 @@
 											</s:url>
 											<s:a href="%{urlTag}">Place new bid!</s:a>
 											
+											<s:actionerror />
+											<s:actionmessage/>
+											
+											
 										</div>
 									</div>
 								</div>
