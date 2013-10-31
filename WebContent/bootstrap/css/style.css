@@ -189,7 +189,7 @@ footer {
 
 .logo-part-one {
 	margin-top: 15px;
-	margin-left: 25px;
+	margin-left: 0px;
 	display: inline-block;
 	color: #838383;
 	font-size: 30px;
@@ -296,6 +296,15 @@ textarea {
 }
 
 @media (max-width: 767px) {
+	.logo-part-one {
+		margin-top: 0px;
+		margin-left: 0px;
+	}
+	
+	.logo-part-two {
+		margin-top: 0px;
+		
+	}
 	button[type="submit"] {
 		height: 34px;
 	}
