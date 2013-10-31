@@ -121,7 +121,11 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<!-- Breadcrumbs -->
-						Home > <s:property value="title" /> <s:property value="category" /> 
+						<a href="<s:url action='welcome' namespace='/' />">Home</a> 
+						<s:if test="%{parent != null}">
+							> <a href="<s:url action='%{parent}' namespace='/'/>"><s:property value="parentName" /></a>
+						</s:if>
+						> <s:property value="title" /> <s:property value="category" /> 
 					</div>
 				</div>
 				<div class="row">
