@@ -32,8 +32,7 @@ public class Auction implements Comparable<Auction> {
 		this.auctionId = auctionId;
 	}
 
-	public Auction(Calendar endTime, int startBid, Category category,
-			String productName, String productDescripion) {
+	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion) {
 		this.startTime = Calendar.getInstance();
 		this.endTime = endTime;
 		this.startBid = startBid;
@@ -45,9 +44,7 @@ public class Auction implements Comparable<Auction> {
 		this.bids = new SortedArrayList<Bid>();
 	}
 
-	public Auction(Calendar endTime, int startBid, Category category,
-			String productName, String productDescripion, int auctionId,
-			int userId) {
+	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion, int auctionId, int userId) {
 		this(endTime, startBid, category, productName, productDescripion);
 		this.auctionId = auctionId;
 		this.userId = userId;
@@ -56,12 +53,12 @@ public class Auction implements Comparable<Auction> {
 	public synchronized void addBid(Bid bid) throws AuctifyException {
 
 		Bid highestBid = getHighestBid();
-		
-		if(bid.getUser().getUserId() == this.owner.getUserId()){
-			throw new AuctifyException("You are not allowed to place bids on your own auctions.");			
+
+		if (bid.getUser().getUserId() == this.owner.getUserId()) {
+			throw new AuctifyException("You are not allowed to place bids on your own auctions.");
 		}
-		
-		if (highestBid != null && highestBid.getUser().getUserId() == bid.getUser().getUserId()){
+
+		if (highestBid != null && highestBid.getUser().getUserId() == bid.getUser().getUserId()) {
 			throw new AuctifyException("You are already the highest bidder.");
 		}
 
@@ -74,8 +71,7 @@ public class Auction implements Comparable<Auction> {
 
 			bids.add(bid);
 		} else {
-			throw new AuctifyException(
-					"Bid has to be higher than current bid. Please refresh your page and try again! NOOOOOO");
+			throw new AuctifyException("Bid has to be higher than current bid. Please refresh your page and try again! NOOOOOO");
 		}
 
 	}
@@ -146,8 +142,7 @@ public class Auction implements Comparable<Auction> {
 		Long start = startTime.getTimeInMillis();
 		Long end = endTime.getTimeInMillis();
 		Long now = Calendar.getInstance().getTimeInMillis();
-		double procent = (now.doubleValue() - start.doubleValue())
-				/ (end.doubleValue() - start.doubleValue());
+		double procent = (now.doubleValue() - start.doubleValue()) / (end.doubleValue() - start.doubleValue());
 		if (procent < 0) {
 			procent = 0;
 		}
