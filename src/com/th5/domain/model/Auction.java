@@ -14,9 +14,9 @@ public class Auction implements Comparable<Auction> {
 	private Calendar startTime;
 	private Calendar endTime;
 	private int startBid;
-	
+
 	private List<Bid> bids;
-	
+
 	public List<Bid> getBids() {
 		return bids;
 	}
@@ -27,76 +27,100 @@ public class Auction implements Comparable<Auction> {
 
 	private int userId;
 	private User owner;
-	
+
 	public Auction(int auctionId) {
 		this.auctionId = auctionId;
 	}
-	
-	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion ) {
+
+	public Auction(Calendar endTime, int startBid, Category category,
+			String productName, String productDescripion) {
 		this.startTime = Calendar.getInstance();
 		this.endTime = endTime;
 		this.startBid = startBid;
-		
+
 		this.category = category;
 		this.status = Status.ACTIVE;
 		this.product = new Product(productName, productDescripion);
-		
+
 		this.bids = new SortedArrayList<Bid>();
 	}
-	
-	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion , int auctionId, int userId) {
-		this( endTime, startBid, category, productName, productDescripion);
+
+	public Auction(Calendar endTime, int startBid, Category category,
+			String productName, String productDescripion, int auctionId,
+			int userId) {
+		this(endTime, startBid, category, productName, productDescripion);
 		this.auctionId = auctionId;
 		this.userId = userId;
 	}
-	
-	public void addBid(Bid bid){
+
+	public void addBid(Bid bid) throws AuctifyException {
+
+		Bid highestBid = getHighestBid();
+
+		if (highestBid != null) {
+			highestBid.refundBidCoins();
+		}
+
+		bid.takeBidCoins();
+
 		bids.add(bid);
+
 	}
-	
-	private int getHighestBidAmount(){
-		int highestBid = 0;
-		if (!bids.isEmpty()){
-			highestBid = bids.get(bids.size()-1).getBidAmount();
+
+	private Bid getHighestBid() {
+		Bid highestBid = null;
+
+		if (!bids.isEmpty()) {
+			highestBid = bids.get(bids.size() - 1);
 		}
 		return highestBid;
 	}
-	
-	public int calculateNextBidAmount(){
+
+	private int getHighestBidAmount() {
+		int highestBidAmount = 0;
+		if (!bids.isEmpty()) {
+			highestBidAmount = bids.get(bids.size() - 1).getBidAmount();
+		}
+		return highestBidAmount;
+	}
+
+	public int calculateNextBidAmount() {
 		int highestBidAmount = getHighestBidAmount();
 		int nextBidAmount;
-		
-		if (highestBidAmount == 0){
+
+		if (highestBidAmount == 0) {
 			nextBidAmount = startBid;
-		}else{
-			nextBidAmount = highestBidAmount + 5; //TODO Create an algorithm to increase bid amount.
+		} else {
+			nextBidAmount = highestBidAmount + 5; // TODO Create an algorithm to
+													// increase bid amount.
 		}
 		return nextBidAmount;
 	}
-	
+
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 	public Calendar getStartTime() {
 		return startTime;
 	}
-	
+
 	public int getStartTimeYear() {
 		return startTime.get(Calendar.YEAR);
 	}
-	
+
 	public int getStartTimeMonth() {
 		return startTime.get(Calendar.MONTH);
 	}
-	
+
 	public int getStartTimeDate() {
 		return startTime.get(Calendar.DATE);
 	}
-	
+
 	public int getStartTimeHours() {
 		return startTime.get(Calendar.HOUR_OF_DAY);
 	}
-	
+
 	public int getStartTimeMinutes() {
 		return startTime.get(Calendar.MINUTE);
 	}
@@ -104,19 +128,20 @@ public class Auction implements Comparable<Auction> {
 	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
 	}
-	
+
 	public int getPercentage() {
 		Long start = startTime.getTimeInMillis();
 		Long end = endTime.getTimeInMillis();
 		Long now = Calendar.getInstance().getTimeInMillis();
-		double procent = (now.doubleValue()-start.doubleValue())/(end.doubleValue()-start.doubleValue());
+		double procent = (now.doubleValue() - start.doubleValue())
+				/ (end.doubleValue() - start.doubleValue());
 		if (procent < 0) {
 			procent = 0;
 		}
 		if (procent > 1) {
 			procent = 1;
 		}
-		return (int) (100*procent);
+		return (int) (100 * procent);
 	}
 
 	public Calendar getEndTime() {
@@ -126,23 +151,23 @@ public class Auction implements Comparable<Auction> {
 	public int getEndTimeYear() {
 		return endTime.get(Calendar.YEAR);
 	}
-	
+
 	public int getEndTimeMonth() {
 		return endTime.get(Calendar.MONTH);
 	}
-	
+
 	public int getEndTimeDate() {
 		return endTime.get(Calendar.DATE);
 	}
-	
+
 	public int getEndTimeHours() {
 		return endTime.get(Calendar.HOUR_OF_DAY);
 	}
-	
+
 	public int getEndTimeMinutes() {
 		return endTime.get(Calendar.MINUTE);
 	}
-	
+
 	public void setEndTime(Calendar endTime) {
 		this.endTime = endTime;
 	}
@@ -154,7 +179,7 @@ public class Auction implements Comparable<Auction> {
 	public void setAuctionId(int auctionId) {
 		this.auctionId = auctionId;
 	}
-		
+
 	public int getStartBid() {
 		return startBid;
 	}
@@ -182,16 +207,14 @@ public class Auction implements Comparable<Auction> {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+
 	@Override
 	public int compareTo(Auction o) {
 		if (auctionId > o.auctionId) {
 			return 1;
-		}
-		else if (auctionId < o.auctionId) {
+		} else if (auctionId < o.auctionId) {
 			return -1;
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}
@@ -202,13 +225,13 @@ public class Auction implements Comparable<Auction> {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
-		if(this.userId == 0) {
+		if (this.userId == 0) {
 			this.userId = owner.getUserId();
 		}
 	}
 
 	public User getOwner() {
-		if (owner == null){
+		if (owner == null) {
 			try {
 				setOwnerFromUserList();
 			} catch (AuctifyException e) {
@@ -217,8 +240,8 @@ public class Auction implements Comparable<Auction> {
 		}
 		return owner;
 	}
-	
-	private void setOwnerFromUserList() throws AuctifyException{
+
+	private void setOwnerFromUserList() throws AuctifyException {
 		AuctionService service = (AuctionService) ServiceProvider.getService();
 		this.owner = service.getUserById(userId);
 	}

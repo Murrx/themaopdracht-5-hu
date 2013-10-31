@@ -264,7 +264,7 @@ public class User implements Comparable<User>, Observable{
 		return (User) this;
 	}
 	
-	
+	// TODO Write javadocs for this class
 	public void bidOnAuction(int auctionId, int bidAmount) throws AuctifyException{
 		if (this.bidCoins >= bidAmount){
 			
