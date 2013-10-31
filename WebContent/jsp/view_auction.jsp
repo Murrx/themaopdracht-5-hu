@@ -6,12 +6,12 @@
 
 
 
-
-<div class="row">
-	<!-- Container -->
 	<h2>
 		<s:property value='auction.product.name' />
 	</h2>
+
+<div class="row">
+	<!-- Container -->
 
 	<div class="col-sm-12 col-md-8 col-lg-8">
 		<!-- leftContainer -->

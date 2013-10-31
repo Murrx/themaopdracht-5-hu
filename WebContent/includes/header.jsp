@@ -49,7 +49,7 @@
 					<div class="row">
 						<div class="col-sm-7 col-sm-offset-1">
 							<div class="form-group">
-								<s:textfield name="login_email" cssClass="form-control input-sm" id="inputEmail1" placeholder="E-mail" />
+								<s:textfield name="login_email" type="email" cssClass="form-control input-sm" id="inputEmail1" placeholder="E-mail" />
 								<s:fielderror fieldName="login_email"/>
 							</div>
 							<div class="form-group">
