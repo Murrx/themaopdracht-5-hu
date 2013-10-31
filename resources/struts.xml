@@ -98,7 +98,12 @@
 		</action>
 		
 		<action name="placeBidAction" class="com.th5.struts.actions.PlaceBidAction">
-			<result name="success">/jsp/view_auction.jsp</result>
+			
+			<result name="success" type="redirectAction">
+				<param name="actionName">viewAction</param>
+    	        <param name="namespace">/</param>
+    	        <param name="id">${auctionId}</param>
+			</result>		
 			
 		</action>
 		

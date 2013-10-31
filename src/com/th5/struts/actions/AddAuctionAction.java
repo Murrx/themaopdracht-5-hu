@@ -65,7 +65,7 @@ public class AddAuctionAction extends ActionSupport implements UserAware {
 			ftp.logout();
 			ftp.disconnect();
 		} catch(IOException e) {
-			System.out.println("NOOOOOOOO");
+			System.out.println("STRUTS ACTIONS AddAuctionAction :: NOOOOOOOO");
 		}
 		return "redirect";
 	}
