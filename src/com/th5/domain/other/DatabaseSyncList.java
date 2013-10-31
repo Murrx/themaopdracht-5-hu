@@ -9,6 +9,5 @@ public interface DatabaseSyncList<T> {
 	public boolean isEmpty();
 	public int size();
 	public T get(int index);
-	public List<T> getBids();
 	public void synchronise();
 }
