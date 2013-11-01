@@ -28,7 +28,7 @@ public class Bid implements Comparable<Bid> {
 		this.auction = auction;
 		this.bidAmount = bidAmount;
 		this.timestamp = Calendar.getInstance();
-		this.bid_Id = new BidDatabaseCRUD().generateId();
+		this.bid_Id = BidDatabaseCRUD.generateId();
 
 	}
 

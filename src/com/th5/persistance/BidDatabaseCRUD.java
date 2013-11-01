@@ -18,7 +18,7 @@ import com.th5.domain.other.SortedArrayList;
 public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 
 
-	public int generateId() throws AuctifyException {
+	public static int generateId() throws AuctifyException {
 
 		int bid_Id;
 		Connection connection;
