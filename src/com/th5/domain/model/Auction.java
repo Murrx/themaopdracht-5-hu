@@ -226,8 +226,6 @@ public class Auction implements Comparable<Auction> {
 
 	@Override
 	public int compareTo(Auction o) {
-		System.out.println("Auction.compareTo()::"+o.auctionId);
-		System.out.println("Auction.compareTo()::"+this.auctionId);
 		if (auctionId > o.auctionId) {
 			return 1;
 		} else if (auctionId < o.auctionId) {

@@ -342,18 +342,18 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				Calendar bidTimeStamp = DateConverter.SQLDateToCalendar(result
 						.getDate("bid_timestamp"));
 				int bidAmount = result.getInt("bid_amount");
-				System.out.println("userId2 = " + userId);
+				
 				bid.setBid_Id(bidId);
 				bid.setBidAmount(bidAmount);
 				bid.setTimestamp(bidTimeStamp);
 				bid.setUser(service.getUserById(userId));
 
 				Auction auction = service.getAuctionById(auctionId);
-				System.out.println("AuctionDatabaseCRUD:" + service.getAuctionById(auctionId));
+				
 				bid.setAuction(auction);
 
 				user.getRelevantAuctions().add(auction);
-				System.out.println("AuctionDatabaseCRUD: einde while loop auc id: " + auctionId);
+				
 			}
 
 		} catch (SQLException e) {

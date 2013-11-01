@@ -26,7 +26,6 @@ public class BidAuctionListSynced implements DatabaseSyncedList<Auction> {
 
 	@Override
 	public void add(Auction auction) {
-		System.out.println("BidAuctionListSynced.add" + auction.getAuctionId());
 		if (!bidAuctions.contains(auction)) {
 		bidAuctions.add(auction);
 		}
