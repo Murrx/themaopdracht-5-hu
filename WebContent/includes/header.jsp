@@ -31,7 +31,7 @@
 					<i class="fa fa-user"></i>
 				</button>
 			</div>
-			<div class="col-sm-6">
+			<div class="col-sm-5">
 				<!-- Search -->
 				<form role="search">
 					<div class="form-group" id="search-bar">
@@ -42,7 +42,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-sm-3" id="login-form">
+			<div class="col-sm-4" id="login-form">
 				<!-- Login -->
 				<s:if test="%{#session.user == null}">
 				<s:form action="login" namespace="/" method="post">
