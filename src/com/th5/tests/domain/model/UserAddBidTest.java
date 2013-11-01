@@ -8,7 +8,7 @@ import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.other.AuctionListManager;
+import com.th5.domain.other.AuctionListSynched;
 
 public class UserAddBidTest {
 
@@ -22,7 +22,7 @@ public class UserAddBidTest {
 		try{
 		u.bidOnAuction(183, 20);
 		
-		Auction auction = AuctionListManager.getAuctionById(183);
+		Auction auction = AuctionListSynched.getAuctionById(183);
 		
 	
 		

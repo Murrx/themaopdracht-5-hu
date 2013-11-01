@@ -1,22 +1,22 @@
 package com.th5.struts.actions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
-import com.th5.domain.service.ServiceProvider;
 import com.th5.struts.awareness.UserAware;
 
 public class ViewAllUserAuctionAction extends ActionSupport implements UserAware {
 	
-	private ArrayList<Auction> allAuctions;
+	private List<Auction> allAuctions;
 	private User user;
 
 	@Override
 	public String execute() throws Exception {
 		try {
-			allAuctions = user.getActionListManager().getAuctionList();
+			allAuctions = user.getActionManager().getAuctions();
 			System.out.println(allAuctions);
 		} catch (Exception e) {
 			return ActionSupport.ERROR;
@@ -24,7 +24,7 @@ public class ViewAllUserAuctionAction extends ActionSupport implements UserAware
 		return ActionSupport.SUCCESS;
 	}
 	
-	public ArrayList<Auction> getAllAuctions() {
+	public List<Auction> getAllAuctions() {
 		return this.allAuctions;
 	}
 	

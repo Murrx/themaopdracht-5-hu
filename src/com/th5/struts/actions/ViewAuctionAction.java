@@ -5,7 +5,7 @@ import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.other.AuctionListManager;
+import com.th5.domain.other.AuctionListSynched;
 import com.th5.domain.service.ServiceProvider;
 
 public class ViewAuctionAction extends ActionSupport{
@@ -16,7 +16,6 @@ public class ViewAuctionAction extends ActionSupport{
 	Bid highestBid;
 	
 	int endTimeDay, endTimeMonth, endTimeYear;
-	
 	
 	@Override
 	public String execute() throws Exception {
@@ -30,38 +29,28 @@ public class ViewAuctionAction extends ActionSupport{
 		nextBidAmount = auction.calculateNextBidAmount();
 		return ActionSupport.SUCCESS;
 	}
-	
-	
 
 	@Override
 	public void validate() {
 		try {
-			auction = AuctionListManager.retrieve(id);
+			auction = AuctionListSynched.retrieve(id);
 		} catch (AuctifyException e) {
 			e.printStackTrace();
 			addActionError("Invallid auction Id");
 		}
 	}
-	
-	
-	
+
 	public int getEndTimeMonth() {
 		return endTimeMonth;
 	}
-
-
 
 	public int getEndTimeYear() {
 		return endTimeYear;
 	}
 
-
-
 	public int getEndTimeDay() {
 		return endTimeDay;
 	}
-
-
 
 	public Bid getHighestBid() {
 		return highestBid;
@@ -80,6 +69,5 @@ public class ViewAuctionAction extends ActionSupport{
 
 	public int getNextBidAmount() {
 		return nextBidAmount;
-	}
-	
+	}	
 }

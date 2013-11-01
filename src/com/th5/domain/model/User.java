@@ -6,9 +6,8 @@ import java.util.List;
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.other.AuctionListManager;
+import com.th5.domain.other.AuctionListSynched;
 import com.th5.domain.other.SortedArrayList;
-import com.th5.persistance.BidDatabaseCRUD;
 
 
 public class User implements Comparable<User>, Observable{
@@ -24,7 +23,7 @@ public class User implements Comparable<User>, Observable{
 	private Person 	person;
 	private Address	address;
 	private UserRights rights;
-	private AuctionListManager auctionManager;
+	private AuctionListSynched auctionManager;
 	private List<Observer> observers;
     private final Object MUTEX= new Object();
     private boolean changed;
@@ -35,8 +34,7 @@ public class User implements Comparable<User>, Observable{
 	
 	public User(String email){
 		this.email = email;
-		this.auctionManager = new AuctionListManager();
-		this.auctionManager.setUser(this);
+		this.auctionManager = new AuctionListSynched(this);
 		this.bidCoins = 0;
 		this.observers = new ArrayList<Observer>();
 	}
@@ -199,7 +197,7 @@ public class User implements Comparable<User>, Observable{
 		}
 	}
 	
-	public AuctionListManager getActionListManager() {
+	public AuctionListSynched getActionManager() {
 		return auctionManager;
 	}
 	/**
@@ -265,7 +263,7 @@ public class User implements Comparable<User>, Observable{
 	public void bidOnAuction(int auctionId, int bidAmount) throws AuctifyException{
 		if (this.bidCoins >= bidAmount){
 			
-			Auction auction = AuctionListManager.getAuctionById(auctionId);
+			Auction auction = AuctionListSynched.getAuctionById(auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
 			
 			if (!relevantAuctions.contains(bid.getAuction())){

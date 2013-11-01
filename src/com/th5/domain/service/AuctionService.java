@@ -7,12 +7,8 @@ import com.th5.domain.model.Address;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Person;
 import com.th5.domain.model.User;
-
-import org.apache.commons.codec.digest.DigestUtils;
-
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.other.AuctionListManager;
 import com.th5.domain.other.EncryptPassword;
 import com.th5.domain.other.UserListManager;
 import com.th5.persistance.AuctionDatabaseCRUD;
