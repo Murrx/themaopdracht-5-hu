@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 		<div class="col-xs-12 col-sm-6 col-md-4">
-			<button type="button" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span></button>
+			<a href="http://www.apple.com/nl/ipad" type="button" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span></a>
 			<div class="auction panel panel-default" data-id="<s:property value='auctionId'/>">
 	  			<div class="panel-body fullimage">
 	  				<div class="auction-title-box text-center">
