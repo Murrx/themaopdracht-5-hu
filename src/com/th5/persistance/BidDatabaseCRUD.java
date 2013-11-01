@@ -17,10 +17,10 @@ import com.th5.domain.other.SortedArrayList;
 
 public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 
-	private int bid_Id;
 
 	public int generateId() throws AuctifyException {
 
+		int bid_Id;
 		Connection connection;
 		try {
 			connection = DataSourceService.getConnection();
