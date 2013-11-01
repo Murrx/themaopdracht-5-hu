@@ -74,6 +74,18 @@ public class Bid implements Comparable<Bid> {
 	public Calendar getTimestamp() {
 		return timestamp;
 	}
+	
+	public int getDay(){
+		return timestamp.get(Calendar.DATE);
+	}
+	
+	public int getMonth(){
+		return timestamp.get(Calendar.MONTH)+1;
+	}
+	
+	public int getYear(){
+		return timestamp.get(Calendar.YEAR);
+	}
 
 	public int getBidAmount() {
 		return bidAmount;

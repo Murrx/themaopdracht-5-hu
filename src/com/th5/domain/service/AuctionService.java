@@ -119,7 +119,7 @@ public class AuctionService implements AuctionServiceInterface {
 	}
 
 	public List<Auction> getPopularAuctions() {
-		List<Auction> popularAuctions = (allAuctions).subList(allAuctions.size() - 3, allAuctions.size());
+		List<Auction> popularAuctions = (allAuctions).subList(0, 3);
 		return popularAuctions;
 	}
 

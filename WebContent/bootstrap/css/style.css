@@ -94,6 +94,25 @@ ul{
 	color: purple;	
 }
 
+/* By Martin */
+
+.listUser{
+	padding: 10px;
+	
+}
+
+.listBid{
+	
+}
+
+.listDate{
+	
+}
+
+.listName{
+	
+}
+
 .tutImage {
 	margin-right: 15px;
 	margin-top: 0px;
@@ -106,6 +125,8 @@ ul{
 .tutText {
 	font-size: 14px;
 }
+
+/* ------------ */
 
 .user-box {
 	margin-top: 15px;
