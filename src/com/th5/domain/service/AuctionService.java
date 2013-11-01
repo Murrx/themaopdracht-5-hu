@@ -1,7 +1,7 @@
 package com.th5.domain.service;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.th5.domain.model.Address;
 import com.th5.domain.model.Auction;
@@ -10,31 +10,27 @@ import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.EncryptPassword;
+import com.th5.domain.util.AuctionListSynced;
 import com.th5.domain.util.UserListManager;
-import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.UserDatabaseCRUD;
 
 public class AuctionService implements AuctionServiceInterface{
 
 	private UserDatabaseCRUD udbcrud = new UserDatabaseCRUD();
 	private UserListManager userList;
+	private List<Auction> allAuctions;
+	
 	//private AuctionManager auctionList;
 	
 	public AuctionService(){
 		userList = new UserListManager();
-		//auctionList = new AuctionManager();
+		allAuctions = AuctionListSynced.retrieveAllAuctions();
 	}
-	
-	
-	/**Gets all auctions
-	 * @return ArrayList<Auction> with all auctions
-	 * @throws AuctifyException when no auctions found.
-	 */
-	public ArrayList<Auction> getAllAuctions() throws AuctifyException {
-		AuctionDatabaseCRUD adc = new AuctionDatabaseCRUD();
-		return adc.retrieveAll();
+
+	public List<Auction> getAllAuctions() {
+		return allAuctions;
 	}
-	
+
 	@Override
 	public User login(String email, String password) throws AuctifyException {
 		password = EncryptPassword.encryptPassword(password);
