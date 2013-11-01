@@ -3,7 +3,7 @@ package com.th5.domain.model;
 import java.util.Locale;
 
 public enum Category {
-	ELECTRONICS("Electronics"), BOOKS("Books"), CARS("Cars");
+	ELECTRONICS("Electronics"), BOOKS("Books"), CARS("Cars"), OTHERS("Others");
 	private String name;
 
 	Category(String name) {
