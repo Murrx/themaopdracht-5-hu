@@ -81,5 +81,9 @@ public class Bid implements Comparable<Bid> {
 		return this.timestamp.compareTo(bid.timestamp);
 
 	}
+	
+	public String toString(){
+		return Integer.toString(this.bid_Id);
+	}
 
 }
