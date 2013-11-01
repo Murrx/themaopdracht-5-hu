@@ -25,7 +25,7 @@ public class User implements Comparable<User>, Observable{
 	private Person 	person;
 	private Address	address;
 	private UserRights rights;
-	private AuctionListSynced auctionManager;
+	private AuctionListSynced usersAuctions;
 	private List<Observer> observers;
     private final Object MUTEX= new Object();
     private boolean changed;
@@ -36,7 +36,7 @@ public class User implements Comparable<User>, Observable{
 	
 	public User(String email){
 		this.email = email;
-		this.auctionManager = new AuctionListSynced(this);
+		this.usersAuctions = new AuctionListSynced(this);
 		this.bidCoins = 0;
 		this.observers = new ArrayList<Observer>();
 	}
@@ -58,7 +58,7 @@ public class User implements Comparable<User>, Observable{
 	public int createAuction(Auction auction) throws AuctifyException{
 		auction.setOwner(this);
 		auction.setAuctionId(AuctionDatabaseCRUD.generateId());		
-		auctionManager.add(auction);
+		usersAuctions.add(auction);
 		return auction.getAuctionId();
 	}
 
@@ -201,7 +201,7 @@ public class User implements Comparable<User>, Observable{
 	}
 	
 	public AuctionListSynced getActionManager() {
-		return auctionManager;
+		return usersAuctions;
 	}
 	/**
 	 * Decrements the users' BidCoins by a certain amount.
