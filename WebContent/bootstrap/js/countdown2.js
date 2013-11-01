@@ -37,7 +37,7 @@ function getMessage(bidID) {
 	if (dateEnd.getTime() < dateStart.getTime()){
 		message = "This auction is corrupt.";
 	} else if (dateStart.getTime() > dateNow.getTime()) {
-		message = "This auction has yet to start.";
+		message = "This auction will start soon!";
 	} else if (dateEnd.getTime() < dateNow.getTime()){
 		message = "This auction has ended.";
 	}
@@ -90,17 +90,20 @@ function updateGUI(bidID) {
 		if (dateEnd.getTime() < dateStart.getTime()){
 			$('#pbar'+bidID).css('width', '100%');
 			$('#pbar'+bidID).addClass('progress-bar-warning');
+			$('#pbar'+bidID).parent().removeClass('progress-striped active');
 		} else if (dateStart.getTime() > dateNow.getTime()) {
 			$('#pbar'+bidID).css('width', '100%');
 			$('#pbar'+bidID).addClass('progress-bar-success');
 		} else if (dateEnd.getTime() < dateNow.getTime()){
 			$('#pbar'+bidID).css('width', '100%');
 			$('#pbar'+bidID).addClass('progress-bar-danger');
+			$('#pbar'+bidID).parent().removeClass('progress-striped active');
+		} else {
+			$('#pbar'+bidID).css('width', getPercentage(bidID)+'%');
 		}
-		
+
 		$('#timer'+bidID).html(getMessage(bidID));
 		$('#percent'+bidID).html(getPercentage(bidID));
-		$('#pbar'+bidID).css('width', getPercentage(bidID)+'%');
 
 }
 
