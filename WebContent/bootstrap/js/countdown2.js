@@ -99,6 +99,7 @@ function updateGUI(bidID) {
 			$('#pbar'+bidID).addClass('progress-bar-danger');
 			$('#pbar'+bidID).parent().removeClass('progress-striped active');
 		} else {
+			$('#pbar'+bidID).removeClass('progress-bar-success');
 			$('#pbar'+bidID).css('width', getPercentage(bidID)+'%');
 		}
 
