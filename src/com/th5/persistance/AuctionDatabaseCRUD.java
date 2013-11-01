@@ -26,13 +26,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	public static int generateId() throws AuctifyException {
 
 		int auctionId;
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
-
+		Connection connection = DataSourceService.getConnection();
 		CallableStatement statement = null;
 
 		try {
@@ -59,12 +53,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	@Override
 	public Auction retrieve(Object actId) throws AuctifyException {
 		int auctionId = (Integer)actId;
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 		
 		PreparedStatement statement = null;
 		Auction auction = null;
@@ -126,12 +115,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	 */
 	@Override
 	public ArrayList<Auction> retrieveAll() throws AuctifyException {
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 		ArrayList<Auction> allAuctions = null;
 		PreparedStatement statement = null;
 		Auction auction = null;
@@ -196,13 +180,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	@Override
 	public int create(Auction auction) throws AuctifyException {
 		
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
-		
+		Connection connection = DataSourceService.getConnection();
 		CallableStatement statement = null;
 		
 		try{
@@ -243,12 +221,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	 */
 	@Override
 	public void delete(int auctionId) throws AuctifyException {
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 		PreparedStatement statement = null;
 		try{
 			statement = connection.prepareCall("{call pkg_auction.pr_delete_auction(?)}");		
@@ -274,12 +247,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	
 	public void retieveAllBidAuctions(User user) throws AuctifyException {
 
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 
 		PreparedStatement statement = null;
 		AuctionServiceInterface service = ServiceProvider.getService();

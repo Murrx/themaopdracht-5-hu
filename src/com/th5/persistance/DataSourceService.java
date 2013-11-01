@@ -1,17 +1,16 @@
 package com.th5.persistance;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.naming.NamingException;
-
 import oracle.jdbc.pool.OracleDataSource;
+
+import com.th5.domain.other.AuctifyException;
 
 public class DataSourceService {
 
-	public static Connection getConnection() throws SQLException{
+	public static Connection getConnection() throws AuctifyException{
 
 		OracleDataSource ds = null;
 		try {
@@ -28,9 +27,9 @@ public class DataSourceService {
 
 			return ds.getConnection();
 		} catch (SQLException e) {
-			//e.printStackTrace();
 			System.out.println("Failed to connect to the database: "+e.getMessage());
-			throw e;
+			e.printStackTrace();
+			throw new AuctifyException("failed to connect to database");
 		}
 	}
 	public static void closeConnection(Connection connection, Statement statement){

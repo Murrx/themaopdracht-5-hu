@@ -29,12 +29,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	@Override
 	public User retrieve(Object em) throws AuctifyException {
 		String email = (String)em;
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 
 		PreparedStatement statement = null;
 		User user = null;
@@ -110,12 +105,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	@Override
 	public int create(User user) throws AuctifyException {
 
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 
 		CallableStatement statement = null;
 
@@ -161,12 +151,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 
 	@Override
 	public void update(User object) throws AuctifyException {
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 
 		PreparedStatement statement = null;
 
@@ -209,14 +194,8 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	 */@Deprecated
 	 @Override
 	 public void delete(int userId) throws AuctifyException {
-		 Connection connection;
+		 Connection connection = DataSourceService.getConnection();
 		 User user = ServiceProvider.getService().getUserById(userId);
-		 try {
-			 connection = DataSourceService.getConnection();
-		 } catch (SQLException e1) {
-			 throw new AuctifyException("failed to connect to database");
-		 }
-
 		 PreparedStatement statement = null;
 
 		 try{
@@ -269,12 +248,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	 }
 
 	 public User retrieveById(int id) throws AuctifyException {
-		 Connection connection;
-		 try {
-			 connection = DataSourceService.getConnection();
-		 } catch (SQLException e1) {
-			 throw new AuctifyException("failed to connect to database");
-		 }
+		 Connection connection = DataSourceService.getConnection();
 
 		 PreparedStatement statement = null;
 		 User user = null;
@@ -326,6 +300,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 			 throw new AuctifyException (e.getMessage());
 		 }finally{
 			 DataSourceService.closeConnection(connection, statement);
+			 
 		 }
 		 if (user == null) throw new AuctifyException("user not found");
 		 return user;

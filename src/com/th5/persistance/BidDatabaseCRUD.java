@@ -23,12 +23,7 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 	public static int generateId() throws AuctifyException {
 
 		int bid_Id;
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 
 		CallableStatement statement = null;
 
@@ -54,12 +49,7 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 
 	@Override
 	public int create(Bid bid) throws AuctifyException {
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 		PreparedStatement statement = null;
 
 		try{
@@ -84,12 +74,7 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 
 	@Override
 	public List<Bid> search(String auctionId) throws AuctifyException {
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 		List<Bid> bidList = new SortedArrayList<>();
 		PreparedStatement statement = null;
 
@@ -121,12 +106,7 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 	
 	public static List<Bid> getLatestBids() throws AuctifyException {
 		
-		Connection connection;
-		try {
-			connection = DataSourceService.getConnection();
-		} catch (SQLException e1) {
-			throw new AuctifyException("failed to connect to database");
-		}
+		Connection connection = DataSourceService.getConnection();
 		List<Bid> bidList = new SortedArrayList<>();
 		PreparedStatement statement = null;
 		
