@@ -112,5 +112,26 @@
 		</action>
 		
 	</package>
+	
+	<package name="moderator" namespace="/moderator" extends="struts-default">
+		<interceptors>
+			<interceptor name="authenticationInterceptor"
+				class="com.th5.struts.interceptors.AuthenticationInterceptor" />
+			<interceptor name="moderatorInterceptor"
+				class="com.th5.struts.interceptors.ModeratorInterceptor" />
+			
+			<interceptor-stack name="ModeratorStack">
+				<interceptor-ref name="authenticationInterceptor" />
+				<interceptor-ref name="moderatorInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+	
+		<default-interceptor-ref name="ModeratorStack" />	
+		
+		<global-results>
+			<result name="login">/jsp/notModerator.jsp</result>
+		</global-results>
+	</package>
 
 </struts>

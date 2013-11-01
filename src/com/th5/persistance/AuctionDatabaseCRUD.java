@@ -349,7 +349,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				bid.setUser(service.getUserById(userId));
 
 				Auction auction = service.getAuctionById(auctionId);
-
+				System.out.println("AuctionDatabaseCRUD:" + service.getAuctionById(auctionId));
 				bid.setAuction(auction);
 
 				user.getRelevantAuctions().add(auction);
