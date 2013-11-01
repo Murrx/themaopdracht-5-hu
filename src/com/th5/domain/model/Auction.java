@@ -9,13 +9,12 @@ import com.th5.domain.util.BidListSynced;
 
 public class Auction implements Comparable<Auction> {
 
+	private BidListSynced bids;
+	
 	private int auctionId;
 	private Calendar startTime;
 	private Calendar endTime;
 	private int startBid;
-
-
-	private BidListSynced bids;
 
 	private Product product;
 	private Category category;
@@ -46,14 +45,26 @@ public class Auction implements Comparable<Auction> {
 		this.userId = userId;
 	}
 
+	private void refreshStatus(){
+		if(status == Status.ACTIVE){
+			if(Calendar.getInstance().getTimeInMillis() > endTime.getTimeInMillis()){
+				this.status = Status.EXPIRED;
+			}
+		}
+	}
+	
 	public synchronized void addBid(Bid bid) throws AuctifyException {
 
-		Bid highestBid = getHighestBid();
-
+		refreshStatus();
+		if(this.status == Status.EXPIRED){
+			throw new AuctifyException("The auction has expired");
+		}
+		
 		if (bid.getUser().getUserId() == this.owner.getUserId()) {
 			throw new AuctifyException("You are not allowed to place bids on your own auctions.");
 		}
-
+		
+		Bid highestBid = getHighestBid();
 		if (highestBid != null && highestBid.getUser().getUserId() == bid.getUser().getUserId()) {
 			throw new AuctifyException("You are already the highest bidder.");
 		}

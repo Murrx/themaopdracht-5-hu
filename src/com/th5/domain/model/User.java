@@ -21,11 +21,11 @@ public class User implements Comparable<User>, Observable{
 					displayName;
 	
 	private List<Auction> relevantAuctions;
+	private AuctionListSynced usersAuctions;
 	
 	private Person 	person;
 	private Address	address;
 	private UserRights rights;
-	private AuctionListSynced usersAuctions;
 	private List<Observer> observers;
     private final Object MUTEX= new Object();
     private boolean changed;
