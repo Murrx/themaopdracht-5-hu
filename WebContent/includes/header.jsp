@@ -22,7 +22,7 @@
 		<header class="row">
 			<div class="col-sm-3">
 				<!-- Logo -->
-				<span class="logo-part-one">Auctify</span><span class="logo-part-two">.com</span>
+				<a href=".action"><span class="logo-part-one">Auctify</span><span class="logo-part-two">.com</span></a>
 				<button class="navbar-toggle pull-right" type="button">
 <!-- 				<span class="navbar-toggle-bar"></span>
 					<span class="navbar-toggle-bar"></span>
