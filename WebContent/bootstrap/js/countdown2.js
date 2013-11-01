@@ -64,17 +64,16 @@ function getMessage(bidID) {
 		if (days > 1) {
 			message = days+" days";
 		} else if (days != 0) {
-			message = days+" day and "+hours+" hours";
-		} else if (hours > 1) {
-			message = hours+" hours and "+mins+" minutes";
-		} else if (hours != 0) {
-			message = hours+" hour and "+mins+" minutes";
-		} else if (mins > 1) {
-			message = mins+" minutes and "+secs+" seconds";
-		} else if (mins != 0) {
-			message = mins+" minute and "+secs+" seconds";
+			message = days+" day and "+hours+" hour";
+			if(hours!=1) message+="s";
+		} else if (hours >= 1) {
+			message = hours+" hour"; if(hours!=1) message+="s";
+			message += " and "+mins+" minute"; if(mins!=1) message+="s";
+		} else if (mins >= 1) {
+			message = mins+" minute"; if(mins!=1) message+="s";
+			message += " and "+secs+" second"; if(secs!=1) message+="s";
 		} else {
-			message = secs+" seconds";
+			message = secs+" second"; if(secs!=1) message+="s";
 		}
 		message += " left";
 	}
