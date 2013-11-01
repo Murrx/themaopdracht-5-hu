@@ -6,14 +6,17 @@ import java.util.List;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.service.AuctionService;
+import com.th5.domain.service.AuctionServiceInterface;
+import com.th5.domain.service.ServiceProvider;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
 
 public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 
 	private static CRUD_Interface<Auction> dbCRUD = new AuctionDatabaseCRUD();
-	private static List<Auction> allAuctions = retrieveAllAuctions();
 	private List<Auction> auctions;
+	private AuctionServiceInterface service = ServiceProvider.getService();
 
 	private User user;
 
@@ -28,7 +31,7 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 	@Override
 	public void add(Auction auction) throws AuctifyException {
 		dbCRUD.create(auction);
-		allAuctions.add(auction);
+		service.getAllAuctions().add(auction);
 		auctions.add(auction);
 	}
 
@@ -54,7 +57,7 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 	public int indexOf(Auction auction) {
 		if (!inSync)synchronise();
 	
-		int index = Collections.binarySearch(allAuctions, new Auction(auction.getAuctionId()));
+		int index = Collections.binarySearch(service.getAllAuctions(), new Auction(auction.getAuctionId()));
 		if ( index > 0){
 			index = -1;
 		}
@@ -63,7 +66,7 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 
 	@Override
 	public void synchronise() { //TODO: Currently loops through allAuctions list. Might want to write a db query for some more efficiency.
-		for (Auction auction : allAuctions){
+		for (Auction auction : service.getAllAuctions()){
 			if(auction.getOwner().getUserId() == user.getUserId()){
 				auctions.add(auction);
 			}
@@ -105,9 +108,9 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 	//TODO:needs to be removed
 	public static Auction getAuctionById(int auctionId) {
 		Auction auction = null;
-		int index = Collections.binarySearch(allAuctions, new Auction(auctionId));
+		int index = Collections.binarySearch(AuctionService.allAuctions, new Auction(auctionId));
 		if ( index >= 0){
-			auction = allAuctions.get(index);
+			auction = AuctionService.allAuctions.get(index);
 		}
 		return auction;
 	}

@@ -18,7 +18,7 @@ public class AuctionService implements AuctionServiceInterface{
 
 	private UserDatabaseCRUD udbcrud = new UserDatabaseCRUD();
 	private UserListManager userList;
-	private List<Auction> allAuctions;
+	public static List<Auction> allAuctions; //TODO: Needs to be made private and non-static
 	
 	//private AuctionManager auctionList;
 	
