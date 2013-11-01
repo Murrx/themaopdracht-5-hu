@@ -4,7 +4,12 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-
+<!-- Css BugFix Modal Displacement OS X -->
+<style type="text/css">
+.modal-open, .modal-open .navbar-fixed-top {
+margin-right: auto !important;
+}
+</style>
 
 <h2>
 	<s:property value='auction.product.name' />
@@ -24,12 +29,13 @@
 				<div class="panel panel-default" data-id="<s:property value='auction.auctionId'/>">
 					<div class="panel-body individualAuctionImage">
 
-						<img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive">
+						<a data-toggle="modal" data-target="#imgModal"><img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive"></a>
 
 					</div>
+					
+					
 				</div>
 				<!-- END AUCTION IMAGE PANEL  -->
-
 
 			</div>
 			<!-- ImageColumn -->
@@ -145,17 +151,17 @@
 
 	</div>
 
-
-
-
-
-
-
-
-
-
-
-
+	<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="imgModalLabel"><s:property value='auction.product.name'/></h4>
+				</div>
+				<img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive">
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<s:push value="#{'progressTimersOneAuction':true}">
 		<s:include value="/includes/footer.jsp" />
 	</s:push>
