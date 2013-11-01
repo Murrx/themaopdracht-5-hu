@@ -48,16 +48,8 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 			// e.printStackTrace();
 			throw new AuctifyException("failed to generate new bid ID");
 		} finally {
-			try {
-				if (statement != null)
-					statement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
-
 	}
 
 	@Override
@@ -85,34 +77,9 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 		}catch(SQLException e){
 			throw new AuctifyException("failed to bid on auction");
 		}finally{
-			try {
-				if(statement != null)
-					statement.close();
-				if(connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
 		return 0;
-	}
-	
-	@Override
-	public void updateObserver(Object obj) throws AuctifyException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setObservable(Observable obs) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Bid retrieve(Object identifier) throws AuctifyException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -147,14 +114,7 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 		}catch(SQLException e){
 			throw new AuctifyException("failed to bid on auction");
 		}finally{
-			try {
-				if(statement != null)
-					statement.close();
-				if(connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
 		return bidList;
 	}
@@ -169,8 +129,6 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 		}
 		List<Bid> bidList = new SortedArrayList<>();
 		PreparedStatement statement = null;
-
-	
 		
 		try{
 			Statement statementx = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
@@ -192,37 +150,34 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 			e.printStackTrace();
 			throw new AuctifyException("failed to get latest bids");
 		}finally{
-			try {
-				if(statement != null)
-					statement.close();
-				if(connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
 		return bidList;
-		
-	
 	}
-	
-	
-
 	@Override
 	public ArrayList<Bid> retrieveAll() throws AuctifyException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public void update(Bid object) throws AuctifyException {
 		// TODO Auto-generated method stub
-
 	}
-
 	@Override
 	public void delete(int bidId) throws AuctifyException {
 		// TODO Auto-generated method stub
 	}
-
+	@Override
+	public void updateObserver(Object obj) throws AuctifyException {
+		// TODO Auto-generated method stub
+	}
+	@Override
+	public void setObservable(Observable obs) {
+		// TODO Auto-generated method stub
+	}
+	@Override
+	public Bid retrieve(Object identifier) throws AuctifyException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -48,17 +48,10 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			return auctionId;
 
 		} catch (SQLException e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 			throw new AuctifyException("failed to generate new Auction ID");
 		} finally {
-			try {
-				if (statement != null)
-					statement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
 
 	}
@@ -107,23 +100,13 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				auction.setStartTime(aucStartTime);
 				auction.setStatus(Status.fromInteger(aucStatusId));
 				auction.getProduct().setProductId(productId);
-				
-				return auction;
-				
 			}
 
 		}catch(SQLException e){
-			//e.printStackTrace();
+			e.printStackTrace();
 			throw new AuctifyException("failed to retrieve auction");
 		}finally{
-			try {
-				if(statement != null)
-					statement.close();
-				if(connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
 		if (auction == null) throw new AuctifyException("auction not found");
 		return auction;
@@ -200,16 +183,8 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			//e.printStackTrace();
 			throw new AuctifyException("failed to Retrieve All Users");
 		}finally{
-			try {
-				if(statement != null)
-					statement.close();
-				if(connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
-		if (allAuctions == null) throw new AuctifyException("no auctions found in auctiondbcrud");
 		return allAuctions;
 	}
 
@@ -253,14 +228,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			e.printStackTrace();
 			throw new AuctifyException("failed to add auction");
 		}finally{
-			try {
-				if(statement != null)
-					statement.close();
-				if(connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
 	}
 
@@ -291,14 +259,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			e.printStackTrace();
 			throw new AuctifyException("failed to delete auction");
 		}finally{
-			try {
-				if(statement != null)
-					statement.close();
-				if(connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
 	}
 	@Override
@@ -357,17 +318,10 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			}
 
 		} catch (SQLException e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 			throw new AuctifyException("failed to retrieve auction");
 		} finally {
-			try {
-				if (statement != null)
-					statement.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DataSourceService.closeConnection(connection, statement);
 		}
 
 	}
