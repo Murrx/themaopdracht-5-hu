@@ -1,8 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 		<div class="col-xs-12 col-sm-6 col-md-4">
-			
-			<s:property value='%{#session.user.rights.rightsValue >= 128}'/>
 			<s:if test="%{#session.user.rights.rightsValue >= 128}">
 				<div class="modpanel">
 					<s:url action="delete_auction.action" namespace="moderator" var="urlTag" >
