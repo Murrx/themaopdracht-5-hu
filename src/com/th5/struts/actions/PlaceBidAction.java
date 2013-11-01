@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.AuctionListSynced;
 import com.th5.struts.awareness.UserAware;
 
@@ -25,7 +26,8 @@ public class PlaceBidAction extends ActionSupport implements UserAware, SessionA
 	@Override
 	public String execute() throws Exception {
 		user = (User) session.get("user");
-		Auction auction = AuctionListSynced.getAuctionById(auctionId);
+		
+		Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
 		int bidAmount = auction.calculateNextBidAmount();
 		
 		try{

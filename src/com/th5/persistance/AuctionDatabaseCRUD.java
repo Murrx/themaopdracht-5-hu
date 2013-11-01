@@ -13,12 +13,9 @@ import java.util.Calendar;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.Status;
-import com.th5.domain.model.User;
-
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
-import com.th5.domain.service.ServiceProvider;
 
 public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 

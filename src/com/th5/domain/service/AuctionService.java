@@ -1,5 +1,6 @@
 package com.th5.domain.service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,9 @@ import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.EncryptPassword;
-import com.th5.domain.util.AuctionListSynced;
+import com.th5.domain.util.SortedArrayList;
 import com.th5.domain.util.UserListManager;
+import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.UserDatabaseCRUD;
 
 public class AuctionService implements AuctionServiceInterface{
@@ -24,7 +26,38 @@ public class AuctionService implements AuctionServiceInterface{
 	
 	public AuctionService(){
 		userList = new UserListManager();
-		allAuctions = AuctionListSynced.retrieveAllAuctions();
+		allAuctions = retrieveAllAuctions();
+	}
+	
+	/**Retrieve all auctions from database
+	 * @return List<Auction> with all auctions
+	 */
+	private List<Auction> retrieveAllAuctions() {
+		List<Auction> auctions = new SortedArrayList<Auction>();
+		try {
+			AuctionDatabaseCRUD dbCRUD = new AuctionDatabaseCRUD();
+			List<Auction> tempList = dbCRUD.retrieveAll();
+			for (Auction auction : tempList) {
+				auctions.add(auction);
+			}
+		} catch (AuctifyException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return auctions;
+	}
+	
+	/**Attempt to get an auction from allAuctions
+	 * @param auctionId
+	 * @return the auction. returns null when auction is not found
+	 */
+	public Auction getAuctionById(int auctionId) {
+		Auction auction = null;
+		int index = Collections.binarySearch(allAuctions, new Auction(auctionId));
+		if ( index >= 0){
+			auction = allAuctions.get(index);
+		}
+		return auction;
 	}
 
 	public List<Auction> getAllAuctions() {

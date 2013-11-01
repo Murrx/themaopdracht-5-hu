@@ -43,7 +43,7 @@ public class Bid implements Comparable<Bid> {
 	public Bid(int bidId, int userId, int auctionId, Calendar timestamp, int bidAmount) throws AuctifyException{
 		this.bid_Id = bidId;
 		this.user = ServiceProvider.getService().getUserById(userId);
-		this.auction = AuctionListSynced.getAuctionById(auctionId);
+		this.auction = ServiceProvider.getService().getAuctionById(auctionId);
 		this.timestamp = timestamp;
 		this.bidAmount = bidAmount;
 	}

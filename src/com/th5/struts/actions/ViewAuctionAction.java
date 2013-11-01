@@ -32,10 +32,8 @@ public class ViewAuctionAction extends ActionSupport{
 
 	@Override
 	public void validate() {
-		try {
-			auction = AuctionListSynced.retrieve(id);
-		} catch (AuctifyException e) {
-			e.printStackTrace();
+		auction = ServiceProvider.getService().getAuctionById(id);
+		if(auction == null){
 			addActionError("Invallid auction Id");
 		}
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.AuctionListSynced;
 import com.th5.domain.util.SortedArrayList;
 import com.th5.persistance.AuctionDatabaseCRUD;
@@ -265,7 +266,7 @@ public class User implements Comparable<User>, Observable{
 	public void bidOnAuction(int auctionId, int bidAmount) throws AuctifyException{
 		if (this.bidCoins >= bidAmount){
 			
-			Auction auction = AuctionListSynced.getAuctionById(auctionId);
+			Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
 			
 			if (!relevantAuctions.contains(bid.getAuction())){

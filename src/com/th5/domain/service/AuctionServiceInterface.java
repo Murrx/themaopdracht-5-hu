@@ -60,5 +60,6 @@ public interface AuctionServiceInterface {
 	 */	
 
 	public User getUserById(int userId) throws AuctifyException;
+	public Auction getAuctionById(int auctionId);
 
 }
