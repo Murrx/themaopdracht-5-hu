@@ -4,9 +4,7 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-<!-- Preparing for "random" auctions -->
-
-
+<!-- Preparing for "popular" auctions -->
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12">
 		<div class="col-xs-12 col-sm-12 col-md-12">
@@ -14,52 +12,23 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12">
-				<div class="col-xs-12 col-sm-6 col-md-4">
-					<div class="panel panel-default" data-id="<s:property value='auction.auctionId'/>">
-						<div class="panel-body individualAuctionImage">
-							<img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive">
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-4">
-					<div class="panel panel-default" data-id="<s:property value='auction.auctionId'/>">
-						<div class="panel-body individualAuctionImage">
-							<img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive">
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-4">
-					<div class="panel panel-default" data-id="<s:property value='auction.auctionId'/>">
-						<div class="panel-body individualAuctionImage">
-							<img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive">
-						</div>
-					</div>
-				</div>
+				<s:iterator value="popularAuctions">
+					<s:include value="/includes/auctionBox.jsp" />
+				</s:iterator>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- Preparing for 5 most recent bids -->
+<!-- Preparing 2 latest auctions -->
 
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-			<h3 class="headerPurple">Newest auction:</h3>
-			<div class="col-xs-12 col-sm-6 col-md-6">
-				<div class="panel panel-default" data-id="<s:property value='auction.auctionId'/>">
-					<div class="panel-body individualAuctionImage">
-						<img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive">
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-md-6">
-				<div class="panel panel-default" data-id="<s:property value='auction.auctionId'/>">
-					<div class="panel-body individualAuctionImage">
-						<img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive">
-					</div>
-				</div>
-			</div>
+			<h3 class="headerPurple">Newest auctions:</h3>
+			<s:iterator value="latestAuctions">
+				<s:include value="/includes/auctionBoxLatest.jsp" />
+			</s:iterator>
 		</div>
 
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -68,11 +37,10 @@
 			<!-- Example -->
 
 			<div class="list-group">
-				<a href="#" class="list-group-item">Admin -  <i class='fa fa-btc'></i> 50 <em>31-10-2013</em> - Supper lekker broodje</a>
-				<a href="#" class="list-group-item">Admin -  <i class='fa fa-btc'></i> 50 <em>31-10-2013</em> - Supper lekker broodje</a>
-				<a href="#" class="list-group-item">Admin -  <i class='fa fa-btc'></i> 50 <em>31-10-2013</em> - Supper lekker broodje</a>
-				<a href="#" class="list-group-item">Admin -  <i class='fa fa-btc'></i> 50 <em>31-10-2013</em> - Supper lekker broodje</a>
-				
+
+				<s:iterator value="latestBids">
+					<s:include value="/includes/listBid.jsp" />
+				</s:iterator>
 			</div>
 
 
@@ -126,5 +94,6 @@
 	</div>
 </div>
 
-
-<s:include value="/includes/footer.jsp" />
+<s:push value="#{'progressTimersPopularAuctions':true, 'progressTimersLatestAuctions':true}">
+	<s:include value="/includes/footer.jsp" />
+</s:push>

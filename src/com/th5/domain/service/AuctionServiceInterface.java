@@ -61,5 +61,8 @@ public interface AuctionServiceInterface {
 
 	public User getUserById(int userId) throws AuctifyException;
 	public Auction getAuctionById(int auctionId);
+	
+	public List<Auction> getPopularAuctions();
+	public List<Auction> getLatestAuctions();
 
 }

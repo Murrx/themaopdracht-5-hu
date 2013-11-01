@@ -10,8 +10,9 @@
 	<constant name="struts.multipart.saveDir" value="/tmp" />
 		
 	<package name="visitor" namespace="/" extends="struts-default">
-		<action name="welcome">
+		<action name="" class="com.th5.struts.actions.WelcomeAction">
 			<result>/jsp/welcome.jsp</result>
+			<result name="error">/jsp/errorPage.jsp</result>
 		</action>
 		<action name="registerPage">
 			<result>/jsp/register.jsp</result>

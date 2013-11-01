@@ -43,6 +43,38 @@
 			</script>
 		</s:if>
 		
+		<s:if test="progressTimersPopularAuctions">
+			<!-- Countdown + percentage scripts -->
+			<script src="bootstrap/js/countdown.js" type="text/javascript"></script>	
+			<script type="text/javascript">
+				$(function(){
+					<s:iterator value="popularAuctions" >
+						// Scripts for ID <s:property value='auctionId'/> - <s:property value='product.name'/>
+						startDateAuction<s:property value='auctionId'/> = new Date(<s:property value='startTimeYear'/>,<s:property value='startTimeMonth'/>,<s:property value='startTimeDate'/>,<s:property value='startTimeHours'/>,<s:property value='startTimeMinutes'/>);
+						endDateAuction<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>,<s:property value='endTimeHours'/>,<s:property value='endTimeMinutes'/>);			
+						GetCount(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "timer<s:property value='auctionId'/>");
+						GetPercentage(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "percent<s:property value='auctionId'/>", "pbar<s:property value='auctionId'/>");
+					</s:iterator>
+				});
+			</script>
+		</s:if>
+		
+		<s:if test="progressTimersLatestAuctions">
+			<!-- Countdown + percentage scripts -->
+			<script src="bootstrap/js/countdown.js" type="text/javascript"></script>	
+			<script type="text/javascript">
+				$(function(){
+					<s:iterator value="latestAuctions" >
+						// Scripts for ID <s:property value='auctionId'/> - <s:property value='product.name'/>
+						startDateAuction<s:property value='auctionId'/> = new Date(<s:property value='startTimeYear'/>,<s:property value='startTimeMonth'/>,<s:property value='startTimeDate'/>,<s:property value='startTimeHours'/>,<s:property value='startTimeMinutes'/>);
+						endDateAuction<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>,<s:property value='endTimeHours'/>,<s:property value='endTimeMinutes'/>);			
+						GetCount(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "timerLatest<s:property value='auctionId'/>");
+						GetPercentage(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "percentLatest<s:property value='auctionId'/>", "pbarLatest<s:property value='auctionId'/>");
+					</s:iterator>
+				});
+			</script>
+		</s:if>
+		
 		<s:if test="progressTimersOneAuction">
 			<!-- Countdown + percentage scripts -->
 			<script src="bootstrap/js/countdown2.js" type="text/javascript"></script>	
@@ -60,6 +92,8 @@
 				requestAnimationFrame(update);
 			</script>
 		</s:if>
+		
+		
 		
 		<s:if test="dateTimePicker">
 			<!-- Date + DateTime picker scripts -->

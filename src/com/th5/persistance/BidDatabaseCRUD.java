@@ -5,10 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Bid;
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
@@ -156,6 +158,55 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 		}
 		return bidList;
 	}
+	
+	public static List<Bid> getLatestBids() throws AuctifyException {
+		
+		Connection connection;
+		try {
+			connection = DataSourceService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+		List<Bid> bidList = new SortedArrayList<>();
+		PreparedStatement statement = null;
+
+	
+		
+		try{
+			Statement statementx = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			ResultSet results = statementx.executeQuery("SELECT * FROM (SELECT * FROM BID_BIDS ORDER BY BID_PK_BID_ID DESC) WHERE ROWNUM <7");
+			
+			results.afterLast();
+						
+			while(results.previous()){
+				Bid bid = new Bid(
+						results.getInt("BID_PK_BID_ID"), 
+						results.getInt("BID_FK_USER_ID"), 
+						results.getInt("BID_FK_AUCTION_ID"), 
+						DateConverter.SQLDateToCalendar(results.getDate("BID_TIMESTAMP")), 
+						results.getInt("BID_AMOUNT"));
+					bidList.add(bid);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new AuctifyException("failed to get latest bids");
+		}finally{
+			try {
+				if(statement != null)
+					statement.close();
+				if(connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return bidList;
+		
+	
+	}
+	
+	
 
 	@Override
 	public ArrayList<Bid> retrieveAll() throws AuctifyException {
