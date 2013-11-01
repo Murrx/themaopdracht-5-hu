@@ -22,6 +22,46 @@ import com.th5.domain.service.ServiceProvider;
 
 public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 
+	public static int generateId() throws AuctifyException {
+
+		int auctionId;
+		Connection connection;
+		try {
+			connection = DataSourceService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+
+		CallableStatement statement = null;
+
+		try {
+			String functionCall = "{? = call seq_auc_pk_auction_id.nextval }";
+			statement = connection.prepareCall(functionCall);
+
+			// --- RETURN ----- //
+			statement.registerOutParameter(1, Types.NUMERIC);
+			statement.executeQuery();
+
+			auctionId = statement.getInt(1);
+			
+			return auctionId;
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new AuctifyException("failed to generate new bid ID");
+		} finally {
+			try {
+				if (statement != null)
+					statement.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+	
 	@Override
 	public Auction retrieve(Object actId) throws AuctifyException {
 		int auctionId = (Integer)actId;
