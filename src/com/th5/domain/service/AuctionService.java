@@ -119,12 +119,20 @@ public class AuctionService implements AuctionServiceInterface {
 	}
 
 	public List<Auction> getPopularAuctions() {
-		List<Auction> popularAuctions = (allAuctions).subList(0, 3);
+		int amountToReturn = 4;
+		if(allAuctions.size() < amountToReturn){
+			return allAuctions;
+		}
+		List<Auction> popularAuctions = (allAuctions).subList(0, amountToReturn-1);
 		return popularAuctions;
 	}
 
 	public List<Auction> getLatestAuctions() {
-		List<Auction> latestAuctions = (allAuctions).subList(allAuctions.size() - 4, allAuctions.size());
+		int amountToReturn = 4;
+		if(allAuctions.size() < amountToReturn){
+			return allAuctions;
+		}
+		List<Auction> latestAuctions = (allAuctions).subList(allAuctions.size() - amountToReturn, allAuctions.size());
 		return latestAuctions;
 	}
 	
