@@ -22,6 +22,7 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 
 	public AuctionListSynced(User user){
 		this.user = user;
+		this.auctions = new SortedArrayList<Auction>();
 	}
 
 	@Override
@@ -110,7 +111,6 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 		}
 		return auction;
 	}
-
 	
 	/**
 	 * Attempt to retrieve a auction from allAuctions list
@@ -127,20 +127,4 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 		}
 		return auction;
 	}
-
-	//TODO:needs to be removed
-	public int create(Auction auction) throws AuctifyException {
-		int newAuctionId = -1;
-		try {
-			newAuctionId = dbCRUD.create(auction);
-			auction.setAuctionId(newAuctionId);
-			auctions.add(auction);
-			allAuctions.add(auction);
-		} catch (AuctifyException e) {
-			//e.printStackTrace();
-			throw new AuctifyException(e.getMessage());
-		}
-		return newAuctionId;
-	}
-
 }

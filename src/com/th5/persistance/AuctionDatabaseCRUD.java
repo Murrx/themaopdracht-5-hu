@@ -230,13 +230,11 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		CallableStatement statement = null;
 		
 		try{
-			String functionCall = "{? = call pkg_auction.f_create_auction(?,?,?,?,?,?,?)}";
+			String functionCall = "{call pkg_auction.p_create_auction(?,?,?,?,?,?,?,?)}";
 			statement = connection.prepareCall(functionCall);
 			
-			// ---  RETURN  ----- //
-			statement.registerOutParameter(1, Types.NUMERIC);
-			
 			// --- AUC_AUCTIONS ---- //
+			statement.setInt(1, auction.getAuctionId());
 			statement.setTimestamp(2, new java.sql.Timestamp(auction.getStartTime().getTimeInMillis()));
 			statement.setTimestamp(3, new java.sql.Timestamp(auction.getEndTime().getTimeInMillis()));
 			//statement.setDate(3, DateConverter.calendarToSQLDate(auction.getEndTime()));
@@ -248,12 +246,10 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			statement.setString(8, auction.getProduct().getDescription());
 			
 			statement.executeQuery();
-			
-			int auctionId = statement.getInt(1);
-			return auctionId;
+			return 0;
 			
 		}catch(SQLException e){
-			//e.printStackTrace();
+			e.printStackTrace();
 			throw new AuctifyException("failed to add auction");
 		}finally{
 			try {

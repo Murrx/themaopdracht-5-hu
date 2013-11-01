@@ -8,6 +8,7 @@ import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.util.AuctionListSynced;
 import com.th5.domain.util.SortedArrayList;
+import com.th5.persistance.AuctionDatabaseCRUD;
 
 
 public class User implements Comparable<User>, Observable{
@@ -55,8 +56,9 @@ public class User implements Comparable<User>, Observable{
 	
 	public int createAuction(Auction auction) throws AuctifyException{
 		auction.setOwner(this);
-		int auctionId = auctionManager.create(auction);
-		return auctionId;
+		auction.setAuctionId(AuctionDatabaseCRUD.generateId());		
+		auctionManager.add(auction);
+		return auction.getAuctionId();
 	}
 
 	public String getPassword() {
