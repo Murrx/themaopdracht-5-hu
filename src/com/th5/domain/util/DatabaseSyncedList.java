@@ -1,6 +1,5 @@
 package com.th5.domain.util;
 
-import com.th5.domain.model.Auction;
 import com.th5.domain.other.AuctifyException;
 
 public interface DatabaseSyncedList<T> {
@@ -10,5 +9,5 @@ public interface DatabaseSyncedList<T> {
 	public T get(int index);
 	public void synchronise();
 	public int indexOf(T t);
-	public void remove(int index);
+	public void remove(T t);
 }

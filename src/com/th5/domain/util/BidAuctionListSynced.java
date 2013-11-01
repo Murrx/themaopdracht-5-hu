@@ -77,7 +77,7 @@ public class BidAuctionListSynced implements DatabaseSyncedList<Auction> {
 	}
 
 	@Override
-	public void remove(int index) {
+	public void remove(Auction t) {
 		// TODO Auto-generated method stub
 		
 	}

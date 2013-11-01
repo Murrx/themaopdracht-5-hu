@@ -6,8 +6,6 @@ import java.util.List;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.service.AuctionService;
-import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
@@ -79,13 +77,14 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 		return auctions;
 	}
 	
-	public void remove(int index){
-		try {
-			dbCRUD.delete(index);
-			auctions.remove(index);
-			allAuctions.remove(index);
-		} catch (AuctifyException e) {
+	public void remove (Auction auction){
+		try{
+			dbCRUD.delete(auction.getAuctionId());
+			auctions.remove(auction);
+			allAuctions.remove(auction);
+		}catch(AuctifyException e){
 			e.printStackTrace();
 		}
+		
 	}
 }

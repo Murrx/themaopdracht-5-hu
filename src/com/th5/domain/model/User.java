@@ -18,32 +18,32 @@ import com.th5.persistance.AuctionDatabaseCRUD;
 public class User implements Comparable<User>, Observable{
 
 	private int 	userId,
-					bidCoins;
+	bidCoins;
 	private String 	email,
-					password, 
-					displayName;
-	
+	password, 
+	displayName;
+
 	private BidAuctionListSynced relevantAuctions;
 	private AuctionListSynced usersAuctions;
-	
+
 	private Person 	person;
 	private Address	address;
 	private UserRights rights;
 	private List<Observer> observers;
-    private final Object MUTEX= new Object();
-    private boolean changed;
-    
-    public User(int userId) {
-    	this.userId = userId;
-    }
-	
+	private final Object MUTEX= new Object();
+	private boolean changed;
+
+	public User(int userId) {
+		this.userId = userId;
+	}
+
 	public User(String email){
 		this.email = email;
 		this.usersAuctions = new AuctionListSynced(this);
 		this.bidCoins = 0;
 		this.observers = new ArrayList<Observer>();
 	}
-	
+
 	public User(String email,String password, String displayName, UserRights rights){
 		this(email);
 		this.password = password;
@@ -51,13 +51,13 @@ public class User implements Comparable<User>, Observable{
 		this.rights = rights;
 		this.relevantAuctions = new BidAuctionListSynced(this);
 	}
-	
+
 	public User(int userId, String email, String password, String displayName, UserRights rights, int bidCoins){
 		this(email, password, displayName, rights);
 		this.userId = userId;
 		this.bidCoins = bidCoins;
 	}
-	
+
 	public int createAuction(Auction auction) throws AuctifyException{
 		auction.setOwner(this);
 		auction.setAuctionId(AuctionDatabaseCRUD.generateId());		
@@ -68,7 +68,7 @@ public class User implements Comparable<User>, Observable{
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) throws AuctifyException {
 		String oldPass = this.password;
 		try {
@@ -85,7 +85,7 @@ public class User implements Comparable<User>, Observable{
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) throws AuctifyException {
 		String oldEmail = this.email;
 		try {
@@ -98,7 +98,7 @@ public class User implements Comparable<User>, Observable{
 			throw new AuctifyException(e.getMessage());
 		}
 	}
-	
+
 	public Person getPerson() {
 		return person;
 	}
@@ -149,7 +149,7 @@ public class User implements Comparable<User>, Observable{
 	public String getDisplayName(){
 		return displayName;
 	}
-	
+
 	public void setDisplayName(String displayName) throws AuctifyException {
 		String oldDisplayName = this.displayName;
 		try {
@@ -171,8 +171,8 @@ public class User implements Comparable<User>, Observable{
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	
-	
+
+
 	/**
 	 * Returns the users' BidcCoins
 	 * 
@@ -182,7 +182,7 @@ public class User implements Comparable<User>, Observable{
 	public int getBidCoins() {
 		return this.bidCoins;
 	}
-	
+
 	/**
 	 * Increments the users' BidCoins by a certain amount.
 	 * 
@@ -202,7 +202,7 @@ public class User implements Comparable<User>, Observable{
 			throw new AuctifyException(e.getMessage());
 		}
 	}
-	
+
 	public AuctionListSynced getUsersAuctions() {
 		return usersAuctions;
 	}
@@ -226,7 +226,7 @@ public class User implements Comparable<User>, Observable{
 			throw new AuctifyException(e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public void register(Observer obs) {
 		System.out.println(" DOMAIN - MODEL - USER :: Register obs");
@@ -237,8 +237,8 @@ public class User implements Comparable<User>, Observable{
 	@Override
 	public void unregister(Observer obs) {
 		// TODO Auto-generated method stub
-        observers.remove(obs);
-		
+		observers.remove(obs);
+
 	}
 	@Override
 	public void notifyObservers() throws AuctifyException{
@@ -258,20 +258,20 @@ public class User implements Comparable<User>, Observable{
 				throw new AuctifyException(e.getMessage());
 			}
 		}
-		
+
 	}
 	@Override
 	public Object getUpdate(Observer obs) {
 		return (User) this;
 	}
-	
+
 	// TODO Write javadocs for this class
 	public void bidOnAuction(int auctionId, int bidAmount) throws AuctifyException{
 		if (this.bidCoins >= bidAmount){
-			
+
 			Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
-			
+
 			if (!relevantAuctions.getBidAuctions()
 					.contains(bid.getAuction())){
 				relevantAuctions.add(bid.getAuction());
@@ -284,9 +284,13 @@ public class User implements Comparable<User>, Observable{
 			throw new AuctifyException("Not enough bidcoins available");
 		}
 	}
-	
+
 	public BidAuctionListSynced getRelevantAuctions() {
 		return relevantAuctions;
 	}
-	
+
+	public void removeAuction(Auction auction){
+
+		usersAuctions.remove(auction);
+	}
 }

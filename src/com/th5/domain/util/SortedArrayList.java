@@ -3,8 +3,6 @@ package com.th5.domain.util;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.th5.domain.model.User;
-
 public class SortedArrayList<T extends Comparable<T>> extends ArrayList<T>{
 	
 	public boolean add(T user) {

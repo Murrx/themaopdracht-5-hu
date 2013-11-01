@@ -126,12 +126,18 @@
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
-	
 		<default-interceptor-ref name="ModeratorStack" />	
 		
 		<global-results>
 			<result name="login">/jsp/notModerator.jsp</result>
 		</global-results>
+		
+		<action name="delete_auction" class="com.th5.struts.actions.DeleteAuctionAction">
+			<result name="success" type="redirectAction">
+				<param name="actionName">${previousPage}</param>
+    	        <param name="namespace">/</param>
+			</result>
+		</action>
 	</package>
 
 </struts>
