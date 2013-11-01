@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Bid;
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
@@ -59,9 +59,9 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 			statement.setInt(1, bid.getBid_Id());
 			statement.setInt(2, bid.getAuction().getAuctionId());
 			statement.setInt(3, bid.getUser().getUserId());
-			statement.setDate(4, DateConverter.calendarToSQLDate(bid.getTimestamp()));
+			statement.setTimestamp(4, new Timestamp(bid.getTimestamp().getTimeInMillis()));
 			statement.setInt(5, bid.getBidAmount());
-			
+	
 			statement.executeQuery();
 			
 		}catch(SQLException e){
