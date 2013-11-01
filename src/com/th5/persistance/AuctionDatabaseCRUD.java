@@ -11,11 +11,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.th5.domain.model.Auction;
+import com.th5.domain.model.Bid;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.Status;
+import com.th5.domain.model.User;
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
+import com.th5.domain.service.AuctionServiceInterface;
+import com.th5.domain.service.ServiceProvider;
 
 public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 
@@ -305,5 +309,66 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	@Override
 	public void setObservable(Observable obs) {
 		// TODO Auto-generated method stu		
+	}
+	
+	public void retieveAllBidAuctions(User user) throws AuctifyException {
+
+		Connection connection;
+		try {
+			connection = DataSourceService.getConnection();
+		} catch (SQLException e1) {
+			throw new AuctifyException("failed to connect to database");
+		}
+
+		PreparedStatement statement = null;
+		AuctionServiceInterface service = ServiceProvider.getService();
+
+		try {
+
+			statement = connection
+					.prepareStatement("SELECT * FROM bid_bids WHERE bid_fk_user_id = ?");
+			statement.setInt(1, user.getUserId());
+			ResultSet result = statement.executeQuery();
+
+			while (result.next()) {
+
+				Bid bid = new Bid();
+				// Bid data
+
+				int bidId = result.getInt("bid_pk_bid_id");
+				int auctionId = result.getInt("bid_fk_auction_id");
+				int userId = result.getInt("bid_fk_user_id");
+
+				Calendar bidTimeStamp = DateConverter.SQLDateToCalendar(result
+						.getDate("bid_timestamp"));
+				int bidAmount = result.getInt("bid_amount");
+				System.out.println("userId2 = " + userId);
+				bid.setBid_Id(bidId);
+				bid.setBidAmount(bidAmount);
+				bid.setTimestamp(bidTimeStamp);
+				bid.setUser(service.getUserById(userId));
+
+				Auction auction = service.getAuctionById(auctionId);
+
+				bid.setAuction(auction);
+
+				user.getRelevantAuctions().add(auction);
+				System.out.println("AuctionDatabaseCRUD: einde while loop auc id: " + auctionId);
+			}
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new AuctifyException("failed to retrieve auction");
+		} finally {
+			try {
+				if (statement != null)
+					statement.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

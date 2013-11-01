@@ -21,18 +21,18 @@ public class ViewAllUserAuctionAction extends ActionSupport implements UserAware
 		try {
 			System.out.println("user: " + user.getDisplayName());
 			System.out.println("vieuw all user auctions");
-			allAuctions = user.getUsersAuction().getAuctions();
+			allAuctions = user.getUsersAuctions().getAuctions();
 			System.out.println("size: all auctions " + allAuctions.size());
 			
-			if (user.getBidAuctions() != null) {
+			if (user.getRelevantAuctions().getBidAuctions() != null) {
 				System.out.println("user.getrelavantauctions != null!");
-				System.out.println("relevant auctions size: " + user.getBidAuctions().getBidAuctions().size());
-			for (Auction auc : user.getBidAuctions().getBidAuctions()) {
+				System.out.println("relevant auctions size: " + user.getRelevantAuctions().getBidAuctions().size());
+			for (Auction auc : user.getRelevantAuctions().getBidAuctions()) {
 				System.out.println("auc : " + auc.getAuctionId());
-				for (Bid bia : auc.getBidList().getBids()) {
+				for (Bid bia : auc.getBids().getBids()) {
 					System.out.println("bia : = " + bia.getBid_Id() + ", " + bia.getBidAmount());
 				}
-				for (Bid bid : auc.getBidList().getBids()) {
+				for (Bid bid : auc.getBids().getBids()) {
 					System.out.println("bid = " + bid.getBid_Id());
 					allBids.add(bid);
 				}

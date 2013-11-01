@@ -75,4 +75,10 @@ public class BidAuctionListSynced implements DatabaseSyncedList<Auction> {
 		if (!inSync)synchronise();
 		return bidAuctions;
 	}
+
+	@Override
+	public void remove(int index) {
+		// TODO Auto-generated method stub
+		
+	}
 }

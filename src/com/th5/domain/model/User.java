@@ -3,11 +3,14 @@ package com.th5.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import sun.security.action.GetBooleanAction;
+
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.AuctionListSynced;
+import com.th5.domain.util.BidAuctionListSynced;
 import com.th5.domain.util.SortedArrayList;
 import com.th5.persistance.AuctionDatabaseCRUD;
 
@@ -20,7 +23,7 @@ public class User implements Comparable<User>, Observable{
 					password, 
 					displayName;
 	
-	private List<Auction> relevantAuctions;
+	private BidAuctionListSynced relevantAuctions;
 	private AuctionListSynced usersAuctions;
 	
 	private Person 	person;
@@ -46,7 +49,7 @@ public class User implements Comparable<User>, Observable{
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
-		this.relevantAuctions = new SortedArrayList<Auction>();
+		this.relevantAuctions = new BidAuctionListSynced(this);
 	}
 	
 	public User(int userId, String email, String password, String displayName, UserRights rights, int bidCoins){
@@ -200,7 +203,7 @@ public class User implements Comparable<User>, Observable{
 		}
 	}
 	
-	public AuctionListSynced getActionManager() {
+	public AuctionListSynced getUsersAuctions() {
 		return usersAuctions;
 	}
 	/**
@@ -269,7 +272,8 @@ public class User implements Comparable<User>, Observable{
 			Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
 			
-			if (!relevantAuctions.contains(bid.getAuction())){
+			if (!relevantAuctions.getBidAuctions()
+					.contains(bid.getAuction())){
 				relevantAuctions.add(bid.getAuction());
 			}
 			auction.addBid(bid);
@@ -279,6 +283,10 @@ public class User implements Comparable<User>, Observable{
 		else{
 			throw new AuctifyException("Not enough bidcoins available");
 		}
+	}
+	
+	public BidAuctionListSynced getRelevantAuctions() {
+		return relevantAuctions;
 	}
 	
 }
