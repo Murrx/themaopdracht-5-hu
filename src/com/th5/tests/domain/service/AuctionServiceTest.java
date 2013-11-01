@@ -64,7 +64,7 @@ public class AuctionServiceTest {
 		if (user == null)fail("failed to retrieve user"); 
 		
 		try {
-			crud.delete(user);
+			crud.delete(user.getUserId());
 		} catch (AuctifyException e) {
 			fail("failed to delete user");
 		}

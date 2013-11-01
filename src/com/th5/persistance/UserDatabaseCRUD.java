@@ -16,6 +16,7 @@ import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
+import com.th5.domain.service.ServiceProvider;
 
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>{
@@ -232,8 +233,9 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	 * @see com.th5.persistance.CRUD_Interface#delete(java.lang.Object)
 	 */@Deprecated
 	@Override
-	public void delete(User user) throws AuctifyException {
+	public void delete(int userId) throws AuctifyException {
 		Connection connection;
+		User user = ServiceProvider.getService().getUserById(userId);
 		try {
 			connection = DataSourceService.getConnection();
 		} catch (SQLException e1) {

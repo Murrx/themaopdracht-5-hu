@@ -9,5 +9,6 @@ public interface DatabaseSyncedList<T> {
 	public int size();
 	public T get(int index);
 	public void synchronise();
-	int indexOf(T t);
+	public int indexOf(T t);
+	public void remove(int index);
 }

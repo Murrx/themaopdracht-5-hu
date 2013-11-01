@@ -266,27 +266,21 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		
 	}
 
-	/**Only used for testing. Do not use.
+	/**Delete user from database. Use with care.
 	 * @see com.th5.persistance.CRUD_Interface#delete(java.lang.Object)
-	 */@Deprecated
+	 */
 	@Override
-	public void delete(Auction auction) throws AuctifyException {
+	public void delete(int auctionId) throws AuctifyException {
 		Connection connection;
 		try {
 			connection = DataSourceService.getConnection();
 		} catch (SQLException e1) {
 			throw new AuctifyException("failed to connect to database");
 		}
-		
 		PreparedStatement statement = null;
-		
 		try{
-			
-			statement = connection.prepareCall("{call pkg_auction.pr_delete_auction(?)}");
-			
-			// --- AUC_AUCTION ---- //
-			statement.setInt(1, auction.getAuctionId());
-									
+			statement = connection.prepareCall("{call pkg_auction.pr_delete_auction(?)}");		
+			statement.setInt(1, auctionId);
 			statement.executeQuery();
 			
 		}catch(SQLException e){
@@ -302,22 +296,14 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				e.printStackTrace();
 			}
 		}
-		
 	}
-
-
-
 	@Override
 	public void updateObserver(Object obj) {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 	@Override
 	public void setObservable(Observable obs) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stu		
 	}
-
 }

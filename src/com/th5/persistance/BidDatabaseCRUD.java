@@ -221,9 +221,8 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 	}
 
 	@Override
-	public void delete(Bid object) throws AuctifyException {
+	public void delete(int bidId) throws AuctifyException {
 		// TODO Auto-generated method stub
-
 	}
 
 }

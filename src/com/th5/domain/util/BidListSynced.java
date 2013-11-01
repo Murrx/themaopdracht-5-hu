@@ -65,4 +65,10 @@ public class BidListSynced implements DatabaseSyncedList<Bid>{
 		}
 		return index;
 	}
+
+	@Override
+	@Deprecated
+	public void remove(int index) {
+		// TODO Auto-generated method stub
+	}
 }

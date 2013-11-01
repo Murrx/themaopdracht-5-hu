@@ -16,7 +16,7 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 
 	private static CRUD_Interface<Auction> dbCRUD = new AuctionDatabaseCRUD();
 	private List<Auction> auctions;
-	private AuctionServiceInterface service = ServiceProvider.getService();
+	private List<Auction> allAuctions = ServiceProvider.getService().getAllAuctions();
 
 	private User user;
 
@@ -31,7 +31,7 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 	@Override
 	public void add(Auction auction) throws AuctifyException {
 		dbCRUD.create(auction);
-		service.getAllAuctions().add(auction);
+		allAuctions.add(auction);
 		auctions.add(auction);
 	}
 
@@ -57,7 +57,7 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 	public int indexOf(Auction auction) {
 		if (!inSync)synchronise();
 	
-		int index = Collections.binarySearch(service.getAllAuctions(), new Auction(auction.getAuctionId()));
+		int index = Collections.binarySearch(allAuctions, new Auction(auction.getAuctionId()));
 		if ( index > 0){
 			index = -1;
 		}
@@ -66,7 +66,7 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 
 	@Override
 	public void synchronise() { //TODO: Currently loops through allAuctions list. Might want to write a db query for some more efficiency.
-		for (Auction auction : service.getAllAuctions()){
+		for (Auction auction : allAuctions){
 			if(auction.getOwner().getUserId() == user.getUserId()){
 				auctions.add(auction);
 			}
@@ -77,5 +77,15 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 	public List<Auction> getAuctions() {
 		if (!inSync)synchronise();
 		return auctions;
+	}
+	
+	public void remove(int index){
+		try {
+			dbCRUD.delete(index);
+			auctions.remove(index);
+			allAuctions.remove(index);
+		} catch (AuctifyException e) {
+			e.printStackTrace();
+		}
 	}
 }
