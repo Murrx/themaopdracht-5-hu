@@ -1,19 +1,20 @@
-package com.th5.domain.other;
+package com.th5.domain.util;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
+import com.th5.domain.other.AuctifyException;
 import com.th5.persistance.CRUD_Interface;
 import com.th5.persistance.UserDatabaseCRUD;
 
-public class UserMapSynched implements DatabaseSyncMap<User> {
+public class UserMapSynced implements DatabaseSyncedMap<User> {
 	private Map<String,User> users;
 	private CRUD_Interface<User> dbCRUD;
 	private boolean inSync = false;
 	
-	public UserMapSynched(Auction auction) {
+	public UserMapSynced(Auction auction) {
 		users = new HashMap<String,User>();
 		dbCRUD = new UserDatabaseCRUD();
 	}

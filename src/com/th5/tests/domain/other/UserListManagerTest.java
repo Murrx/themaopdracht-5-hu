@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.other.UserListManager;
+import com.th5.domain.util.UserListManager;
 
 public class UserListManagerTest {
 	static UserListManager ulm;

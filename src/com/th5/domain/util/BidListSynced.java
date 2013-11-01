@@ -1,20 +1,21 @@
-package com.th5.domain.other;
+package com.th5.domain.util;
 
 import java.util.Collections;
 import java.util.List;
 
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
+import com.th5.domain.other.AuctifyException;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
 
-public class BidListSynched implements DatabaseSyncList<Bid>{
+public class BidListSynced implements DatabaseSyncedList<Bid>{
 	private List<Bid> bids;
 	private CRUD_Interface<Bid> dbCRUD;
 	private Auction auction;
 	private boolean inSync = false;
 	
-	public BidListSynched(Auction auction) {
+	public BidListSynced(Auction auction) {
 		this.auction = auction;
 		bids = new SortedArrayList<Bid>();
 		dbCRUD = new BidDatabaseCRUD();

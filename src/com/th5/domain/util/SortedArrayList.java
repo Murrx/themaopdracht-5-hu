@@ -1,4 +1,4 @@
-package com.th5.domain.other;
+package com.th5.domain.util;
 
 import java.util.ArrayList;
 import java.util.Collections;

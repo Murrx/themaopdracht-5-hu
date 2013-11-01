@@ -10,7 +10,7 @@ import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.EncryptPassword;
-import com.th5.domain.other.UserListManager;
+import com.th5.domain.util.UserListManager;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.UserDatabaseCRUD;
 

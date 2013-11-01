@@ -1,8 +1,9 @@
-package com.th5.domain.other;
+package com.th5.domain.util;
 
 import com.th5.domain.model.Auction;
+import com.th5.domain.other.AuctifyException;
 
-public interface DatabaseSyncList<T> {
+public interface DatabaseSyncedList<T> {
 	public void add(T t) throws AuctifyException;
 	public boolean isEmpty();
 	public int size();

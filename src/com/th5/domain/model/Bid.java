@@ -3,8 +3,8 @@ package com.th5.domain.model;
 import java.util.Calendar;
 
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.other.AuctionListSynched;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.domain.util.AuctionListSynced;
 import com.th5.persistance.BidDatabaseCRUD;
 
 public class Bid implements Comparable<Bid> {
@@ -43,7 +43,7 @@ public class Bid implements Comparable<Bid> {
 	public Bid(int bidId, int userId, int auctionId, Calendar timestamp, int bidAmount) throws AuctifyException{
 		this.bid_Id = bidId;
 		this.user = ServiceProvider.getService().getUserById(userId);
-		this.auction = AuctionListSynched.getAuctionById(auctionId);
+		this.auction = AuctionListSynced.getAuctionById(auctionId);
 		this.timestamp = timestamp;
 		this.bidAmount = bidAmount;
 	}

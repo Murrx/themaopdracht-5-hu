@@ -1,14 +1,15 @@
-package com.th5.domain.other;
+package com.th5.domain.util;
 
 import java.util.Collections;
 import java.util.List;
 
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
+import com.th5.domain.other.AuctifyException;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
 
-public class AuctionListSynched implements DatabaseSyncList<Auction> {
+public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 
 	private static CRUD_Interface<Auction> dbCRUD = new AuctionDatabaseCRUD();
 	private static List<Auction> allAuctions = retrieveAllAuctions();
@@ -19,7 +20,7 @@ public class AuctionListSynched implements DatabaseSyncList<Auction> {
 
 	private boolean inSync = false;
 
-	public AuctionListSynched(User user){
+	public AuctionListSynced(User user){
 		this.user = user;
 	}
 
@@ -79,6 +80,7 @@ public class AuctionListSynched implements DatabaseSyncList<Auction> {
 	 * 
 	 * @return List<Auction> with all auctions
 	 */
+	//TODO:Needs to be moved
 	public static List<Auction> retrieveAllAuctions() {
 		List<Auction> auctions = new SortedArrayList<Auction>();
 		try {

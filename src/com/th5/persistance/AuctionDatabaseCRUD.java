@@ -48,7 +48,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 
 		} catch (SQLException e) {
 			// e.printStackTrace();
-			throw new AuctifyException("failed to generate new bid ID");
+			throw new AuctifyException("failed to generate new Auction ID");
 		} finally {
 			try {
 				if (statement != null)

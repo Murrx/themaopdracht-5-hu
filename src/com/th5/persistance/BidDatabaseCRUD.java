@@ -13,7 +13,7 @@ import com.th5.domain.model.Bid;
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
-import com.th5.domain.other.SortedArrayList;
+import com.th5.domain.util.SortedArrayList;
 
 public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 

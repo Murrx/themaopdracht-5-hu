@@ -1,8 +1,8 @@
-package com.th5.domain.other;
+package com.th5.domain.util;
 
-import java.util.List;
+import com.th5.domain.other.AuctifyException;
 
-public interface DatabaseSyncMap<T> {
+public interface DatabaseSyncedMap<T> {
 	public void add(T t) throws AuctifyException;
 	public boolean isEmpty();
 	public int size();

@@ -5,8 +5,8 @@ import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.other.AuctionListSynched;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.domain.util.AuctionListSynced;
 
 public class ViewAuctionAction extends ActionSupport{
 	int id;
@@ -33,7 +33,7 @@ public class ViewAuctionAction extends ActionSupport{
 	@Override
 	public void validate() {
 		try {
-			auction = AuctionListSynched.retrieve(id);
+			auction = AuctionListSynced.retrieve(id);
 		} catch (AuctifyException e) {
 			e.printStackTrace();
 			addActionError("Invallid auction Id");

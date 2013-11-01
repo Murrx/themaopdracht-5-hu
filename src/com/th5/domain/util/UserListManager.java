@@ -1,4 +1,4 @@
-package com.th5.domain.other;
+package com.th5.domain.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.th5.domain.model.User;
+import com.th5.domain.other.AuctifyException;
 import com.th5.persistance.CRUD_Interface;
 import com.th5.persistance.UserDatabaseCRUD;
 
