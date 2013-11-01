@@ -48,6 +48,9 @@ public class Bid implements Comparable<Bid> {
 		this.bidAmount = bidAmount;
 	}
 	
+	public Bid() {
+	}
+	
 	public void refundBidCoins() throws AuctifyException {
 		user.addBidCoins(bidAmount);
 	}
@@ -74,6 +77,26 @@ public class Bid implements Comparable<Bid> {
 
 	public int getBidAmount() {
 		return bidAmount;
+	}
+	
+	public void setBid_Id(int bid_Id) {
+		this.bid_Id = bid_Id;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setAuction(Auction auction) {
+		this.auction = auction;
+	}
+
+	public void setTimestamp(Calendar timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public void setBidAmount(int bidAmount) {
+		this.bidAmount = bidAmount;
 	}
 
 	@Override
