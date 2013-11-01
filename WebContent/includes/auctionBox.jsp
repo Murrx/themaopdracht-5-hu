@@ -1,5 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
 		<div class="col-xs-12 col-sm-6 col-md-4">
+			<button type="button" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span></button>
 			<div class="auction panel panel-default" data-id="<s:property value='auctionId'/>">
 	  			<div class="panel-body fullimage">
 	  				<div class="auction-title-box text-center">
