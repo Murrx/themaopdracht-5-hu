@@ -139,7 +139,9 @@ CREATE TABLE BID_BIDS (
 			PRIMARY KEY (BID_PK_BID_ID))	;					-- PK of Bids		
 );
 
-
+CREATE TABLE CAT_CATEGORIES (
+		STA_CATEGORY VARCHAR(32), 
+			PRIMARY KEY (STA_CATEGORY))	;			
 
 /* --- FOREIGN KEYS CONSTRAINTS --- */
 		 
@@ -173,6 +175,28 @@ add constraint FK_USER_ID
 foreign key (BID_FK_USER_ID) 
 references USR_USERS(USR_PK_USER_ID) 
 
+ALTER TABLE AUC_AUCTIONS 
+add constraint FK_AUC_USER_ID
+foreign key (AUC_FK_USER_ID) 
+references USR_USERS(USR_PK_USER_ID)
+deferrable initially deferred;
+
+ALTER TABLE AUC_AUCTIONS 
+add constraint FK_AUC_PRODUCT_ID
+foreign key (AUC_FK_PRODUCT_ID) 
+references PRD_PRODUCTS(PRD_PK_PRODUCT_ID)
+deferrable initially deferred;
+
+ALTER TABLE AUC_AUCTIONS 
+add constraint FK_AUC_STATUS_ID
+foreign key (AUC_FK_STATUS_ID) 
+references STA_STATUSES(STA_PK_STATUS_ID)
+deferrable initially deferred;
+
+ALTER TABLE AUC_AUCTIONS 
+add constraint FK_AUC_CATEGORY
+foreign key (AUC_FK_CATEGORY) 
+references CAT_CATEGORIES(CAT_CATEGORY);
 /* --- COMMENTS ON TABLES --- */
 
 COMMENT ON TABLE USR_USERS IS 'Contains information about a User Object';
