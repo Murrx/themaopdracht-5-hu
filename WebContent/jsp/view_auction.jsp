@@ -16,7 +16,7 @@ margin-right: auto !important;
 
 	<!-- Container -->
 
-	<div class="col-sm-12 col-md-8 col-lg-8">
+	<div class="col-sm-12 col-md-12 col-lg-8">
 		<!-- leftContainer -->
 
 		<div class="row">
@@ -96,7 +96,7 @@ margin-right: auto !important;
 
 	</div>
 
-	<div class="col-sm-12 col-md-8 col-lg-4 ">
+	<div class="col-sm-12 col-md-12 col-lg-4 ">
 		 <span class="headerPurple"><strong> Bid history: </strong></span><br /><br />
 
 			
