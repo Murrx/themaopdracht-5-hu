@@ -85,6 +85,17 @@ footer {
 
 /* By Martin */
 
+.imgLatest{
+	height: 100px;
+}
+
+.auctionLatest{
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	min-height: 100px;
+}
+
 .leftImportant{
 	font-weight: bold;
 }
@@ -106,7 +117,10 @@ footer {
 	color: purple;	
 }
 
-
+.noPaddingHeader{
+	margin: 0px;
+	padding: 0px;
+}
 
 .tutImage {
 	margin-right: 15px;

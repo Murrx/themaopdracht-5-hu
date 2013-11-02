@@ -123,7 +123,7 @@ public class AuctionService implements AuctionServiceInterface {
 		if(allAuctions.size() < amountToReturn){
 			return allAuctions;
 		}
-		List<Auction> popularAuctions = (allAuctions).subList(0, amountToReturn-1);
+		List<Auction> popularAuctions = (allAuctions).subList(0, amountToReturn);
 		return popularAuctions;
 	}
 

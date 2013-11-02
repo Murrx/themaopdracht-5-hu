@@ -8,7 +8,7 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12">
 		<div class="col-xs-12 col-sm-12 col-md-12">
-			<h3 class="headerPurple">Popular Auctions:</h3>
+			<h3 class="headerPurple">Popular auctions:</h3>
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12">
@@ -19,31 +19,41 @@
 		</div>
 	</div>
 </div>
+<hr >
 
 <!-- Preparing 2 latest auctions -->
 
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-			<h3 class="headerPurple">Newest auctions:</h3>
-			<s:iterator value="latestAuctions">
-				<s:include value="/includes/auctionBoxLatest.jsp" />
-			</s:iterator>
+			<div class="panel panel-default">
+				<div class="panel-heading ">
+					<h4 class="headerPurple noPaddingHeader">Recently added auctions:</h4>
+				</div>
+				<s:iterator value="latestAuctions">
+					<s:include value="/includes/auctionBoxLatest.jsp" />
+				</s:iterator>
+				
+			</div>
+
 		</div>
 
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-			<h3 class="headerPurple">Most recent bids:</h3>
+
 
 			<!-- Example -->
+			<div class="panel panel-default">
+				<div class="panel-heading ">
+					<h4 class="headerPurple noPaddingHeader">Recent bids:</h4>
+				</div>
+				<table class="table table-hover">
 
-			<div class="list-group">
+					<s:iterator value="latestBids">
+						<s:include value="/includes/listBid.jsp" />
+					</s:iterator>
 
-				<s:iterator value="latestBids">
-					<s:include value="/includes/listBid.jsp" />
-				</s:iterator>
+				</table>
 			</div>
-
-
 
 
 		</div>

@@ -1,6 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-		<div class="col-xs-12 col-sm-6 col-md-6">
-			<div class="auction panel panel-default" data-id="<s:property value='auctionId'/>">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			<div class="auction panel panel-default auctionLatest" data-id="<s:property value='auctionId'/>">
 	  			<div class="panel-body fullimage">
 	  				<div class="auction-title-box text-center">
 	  					<h3><s:property value='product.name'/></h3>
