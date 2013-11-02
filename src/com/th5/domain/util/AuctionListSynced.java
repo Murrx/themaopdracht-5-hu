@@ -10,7 +10,7 @@ import com.th5.domain.service.ServiceProvider;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
 
-public class AuctionListSynced implements DatabaseSyncedList<Auction> {
+public class AuctionListSynced{
 
 	private static CRUD_Interface<Auction> dbCRUD = new AuctionDatabaseCRUD();
 	private List<Auction> auctions;
@@ -26,32 +26,27 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 		this.auctions = new SortedArrayList<Auction>();
 	}
 
-	@Override
 	public void add(Auction auction) throws AuctifyException {
 		dbCRUD.create(auction);
 		allAuctions.add(auction);
 		auctions.add(auction);
 	}
 
-	@Override
 	public boolean isEmpty() {
 		if (!inSync)synchronise();
 		return auctions.isEmpty();
 	}
 
-	@Override
 	public int size() {
 		if (!inSync)synchronise();
 		return auctions.size();
 	}
 
-	@Override
 	public Auction get(int index) {
 		if (!inSync)synchronise();
 		return auctions.get(index);
 	}
 	
-	@Override
 	public int indexOf(Auction auction) {
 		if (!inSync)synchronise();
 	
@@ -62,7 +57,6 @@ public class AuctionListSynced implements DatabaseSyncedList<Auction> {
 		return index;
 	}
 
-	@Override
 	public void synchronise() { //TODO: Currently loops through allAuctions list. Might want to write a db query for some more efficiency.
 		for (Auction auction : allAuctions){
 			if(auction.getOwner().getUserId() == user.getUserId()){

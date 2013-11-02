@@ -103,7 +103,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	
 
 	@Override
-	public ArrayList<Auction> search(String search) throws AuctifyException {
+	public ArrayList<Auction> search(String search, String query) throws AuctifyException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -243,54 +243,5 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 	@Override
 	public void setObservable(Observable obs) {
 		// TODO Auto-generated method stu		
-	}
-	
-	public void retieveAllBidAuctions(User user) throws AuctifyException {
-
-		Connection connection = DataSourceService.getConnection();
-
-		PreparedStatement statement = null;
-		AuctionServiceInterface service = ServiceProvider.getService();
-
-		try {
-
-			statement = connection
-					.prepareStatement("SELECT * FROM bid_bids WHERE bid_fk_user_id = ?");
-			statement.setInt(1, user.getUserId());
-			ResultSet result = statement.executeQuery();
-
-			while (result.next()) {
-
-				Bid bid = new Bid();
-				// Bid data
-
-				int bidId = result.getInt("bid_pk_bid_id");
-				int auctionId = result.getInt("bid_fk_auction_id");
-				int userId = result.getInt("bid_fk_user_id");
-
-				Calendar bidTimeStamp = DateConverter.SQLDateToCalendar(result
-						.getDate("bid_timestamp"));
-				int bidAmount = result.getInt("bid_amount");
-				
-				bid.setBid_Id(bidId);
-				bid.setBidAmount(bidAmount);
-				bid.setTimestamp(bidTimeStamp);
-				bid.setUser(service.getUserById(userId));
-
-				Auction auction = service.getAuctionById(auctionId);
-				
-				bid.setAuction(auction);
-
-				user.getRelevantAuctions().add(auction);
-				
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new AuctifyException("failed to retrieve auction");
-		} finally {
-			DataSourceService.closeConnection(connection, statement);
-		}
-
 	}
 }

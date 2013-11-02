@@ -8,6 +8,7 @@ import com.th5.domain.model.Bid;
 import com.th5.domain.other.AuctifyException;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.CRUD_Interface;
+import com.th5.persistance.queries.Queries;
 
 public class BidListSynced implements DatabaseSyncedList<Bid>{
 	private List<Bid> bids;
@@ -48,7 +49,7 @@ public class BidListSynced implements DatabaseSyncedList<Bid>{
 	
 	public void synchronise(){
 		try {
-			bids = dbCRUD.search(Integer.toString(auction.getAuctionId()));
+			bids = dbCRUD.search(Integer.toString(auction.getAuctionId()), Queries.userGetAllBids);
 			inSync = true;
 		} catch (AuctifyException e) {
 			System.out.println("BidListManager.syncList::Failed to synchronise lists");
@@ -56,7 +57,6 @@ public class BidListSynced implements DatabaseSyncedList<Bid>{
 		}
 	}
 
-	@Override
 	public int indexOf(Bid bid) {
 		if (!inSync)synchronise();
 		int index = Collections.binarySearch(bids, bid);
@@ -66,7 +66,6 @@ public class BidListSynced implements DatabaseSyncedList<Bid>{
 		return index;
 	}
 
-	@Override
 	@Deprecated
 	public void remove(Bid bid) {
 		// TODO Auto-generated method stub

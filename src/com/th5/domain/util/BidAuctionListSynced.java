@@ -6,12 +6,13 @@ import java.util.List;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
-import com.th5.persistance.AuctionDatabaseCRUD;
+import com.th5.persistance.BidDatabaseCRUD;
+import com.th5.persistance.queries.Queries;
 
-public class BidAuctionListSynced implements DatabaseSyncedList<Auction> {
+public class BidAuctionListSynced{
 
 	private List<Auction> bidAuctions;
-	private AuctionDatabaseCRUD aDBC = new AuctionDatabaseCRUD();
+	private BidDatabaseCRUD dbCRUD = new BidDatabaseCRUD();
 
 	private User user;
 
@@ -24,32 +25,27 @@ public class BidAuctionListSynced implements DatabaseSyncedList<Auction> {
 
 	}
 
-	@Override
 	public void add(Auction auction) {
 		if (!bidAuctions.contains(auction)) {
 		bidAuctions.add(auction);
 		}
 	}
 
-	@Override
 	public boolean isEmpty() {
 		if (!inSync)synchronise();
 		return bidAuctions.isEmpty();
 	}
 
-	@Override
 	public int size() {
 		if (!inSync)synchronise();
 		return bidAuctions.size();
 	}
 
-	@Override
 	public Auction get(int index) {
 		if (!inSync)synchronise();
 		return bidAuctions.get(index);
 	}
 	
-	@Override
 	public int indexOf(Auction auction) {
 		if (!inSync)synchronise();
 	
@@ -60,11 +56,11 @@ public class BidAuctionListSynced implements DatabaseSyncedList<Auction> {
 		return index;
 	}
 
-	@Override
 	public void synchronise() { //TODO: Currently loops through allAuctions list. Might want to write a db query for some more efficiency.
 
 		try {
-			aDBC.retieveAllBidAuctions(user);
+//			aDBC.retieveAllBidAuctions(user);
+			dbCRUD.search(Integer.toString(user.getUserId()), Queries.userGetAllBids);
 		} catch (AuctifyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,7 +72,6 @@ public class BidAuctionListSynced implements DatabaseSyncedList<Auction> {
 		return bidAuctions;
 	}
 
-	@Override
 	public void remove(Auction t) {
 		// TODO Auto-generated method stub
 		

@@ -86,13 +86,13 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>{
 	}
 
 	@Override
-	public ArrayList search(String search) {
+	public ArrayList<User> search(String search, String query) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList retrieveAll() {
+	public ArrayList<User> retrieveAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

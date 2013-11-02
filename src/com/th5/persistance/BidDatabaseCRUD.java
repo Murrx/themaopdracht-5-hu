@@ -9,12 +9,17 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
+import com.th5.domain.model.User;
 import com.th5.domain.observation.Observable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
+import com.th5.domain.service.AuctionServiceInterface;
+import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.SortedArrayList;
 
 public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
@@ -73,15 +78,15 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 	}
 
 	@Override
-	public List<Bid> search(String auctionId) throws AuctifyException {
+	public List<Bid> search(String id, String query) throws AuctifyException {
 		Connection connection = DataSourceService.getConnection();
 		List<Bid> bidList = new SortedArrayList<>();
 		PreparedStatement statement = null;
 
 		try{
-			statement = connection.prepareStatement("SELECT * FROM BID_BIDS WHERE BID_FK_AUCTION_ID = ?");
-			
-			statement.setInt(1, Integer.parseInt(auctionId));
+//			statement = connection.prepareStatement("SELECT * FROM BID_BIDS WHERE BID_FK_AUCTION_ID = ?");
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, Integer.parseInt(id));
 			
 			ResultSet results = statement.executeQuery();
 			
