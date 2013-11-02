@@ -57,7 +57,7 @@
 		
 		<action name="logout" class="com.th5.struts.actions.LogoutAction">
 			<result name="success" type="redirectAction">
-				<param name="actionName">welcome</param>
+				<param name="actionName">""</param>
 				<param name="namespace">/</param>
 			</result>
 		</action>
