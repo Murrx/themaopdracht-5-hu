@@ -24,7 +24,7 @@ margin-right: auto !important;
 
 			<div class="col-sm-12 col-md-12 col-lg-6">
 				<!-- AUCTION IMAGE PANEL -->
-				<div class="panel panel-default" data-id="<s:property value='auction.auctionId'/>">
+				<div class="panel panel-default imgpreview" data-id="<s:property value='auction.auctionId'/>">
 					<div class="panel-body individualAuctionImage">
 
 						<a data-toggle="modal" data-target="#imgModal"><img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive"></a>
