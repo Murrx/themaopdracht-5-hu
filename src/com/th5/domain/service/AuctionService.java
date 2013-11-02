@@ -119,7 +119,7 @@ public class AuctionService implements AuctionServiceInterface {
 	}
 
 	public List<Auction> getPopularAuctions() {
-		int amountToReturn = 4;
+		int amountToReturn = 3;
 		if(allAuctions.size() < amountToReturn){
 			return allAuctions;
 		}
