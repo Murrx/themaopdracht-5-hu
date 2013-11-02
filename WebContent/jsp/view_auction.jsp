@@ -84,7 +84,7 @@ margin-right: auto !important;
 
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
-				<span class="headerPurple"><strong> Auction description: </strong></span><br /><br />
+				<span class="headerPurple"><strong> Product description: </strong></span><br /><br />
 					
 						<div class="well">	<s:property value="auction.product.description" /></div>
 						</div>
