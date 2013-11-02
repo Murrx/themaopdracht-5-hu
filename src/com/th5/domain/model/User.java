@@ -130,6 +130,7 @@ public class User implements Comparable<User>, Observable, Identifiable{
 		}
 	}
 	@Override
+	//TODO:Moet waarschijnlijk opnieuw uitgeschreven worden en vergelijken op id.
 	public boolean equals(Object obj) {
 		User otherUser = (User)obj;
 		boolean equals = true;

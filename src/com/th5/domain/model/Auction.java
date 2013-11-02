@@ -272,7 +272,7 @@ public class Auction implements Comparable<Auction>, Identifiable {
 		equals = other instanceof Auction;
 		if(equals){
 			Auction otherAuction = (Auction) other;
-			equals = equals && this.auctionId == otherAuction.auctionId;
+			equals = this.auctionId == otherAuction.auctionId;
 		}
 		return equals;
 		

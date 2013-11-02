@@ -125,5 +125,17 @@ public class Bid implements Comparable<Bid>, Identifiable {
 	public int getId() {
 		return bid_Id;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		boolean equals = true;
+		equals = other instanceof Bid;
+		if(equals){
+			Bid otherBid = (Bid) other;
+			equals = this.bid_Id == otherBid.bid_Id;
+		}
+		return equals;
+	}
+	
 
 }
