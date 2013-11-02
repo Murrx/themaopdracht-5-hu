@@ -81,37 +81,32 @@ footer {
 	min-width: 100%;
 }
 
-.liBlack{
-	color: black;
+
+
+/* By Martin */
+
+.leftImportant{
+	font-weight: bold;
+}
+.rightInfo{
+	position: absolute;
+	left: 110px;
 }
 
-ul{
+.table tr th{
 	color: purple;
 }
 
+.btnColor{
+	background-color: purple;
+	color: white;
+}
 
 .headerPurple{
 	color: purple;	
 }
 
-/* By Martin */
 
-.listUser{
-	padding: 10px;
-	
-}
-
-.listBid{
-	
-}
-
-.listDate{
-	
-}
-
-.listName{
-	
-}
 
 .tutImage {
 	margin-right: 15px;

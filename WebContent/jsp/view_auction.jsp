@@ -11,11 +11,9 @@ margin-right: auto !important;
 }
 </style>
 
-<h2>
-	<s:property value='auction.product.name' />
-</h2>
+ <h2><span class="headerPurple"><s:property value='auction.product.name' /></span></h2>
 
-<div class="row">
+
 	<!-- Container -->
 
 	<div class="col-sm-12 col-md-8 col-lg-8">
@@ -39,22 +37,34 @@ margin-right: auto !important;
 
 			</div>
 			<!-- ImageColumn -->
-			<div class="col-sm-12 col-md-12 col-lg-6">
+			<div class="col-sm-12 col-md-12 col-lg-3">
 				<!-- BEGIN AUTHOR PANEL -->
-
-
-
-				
-					<em> Auction information: </em><br />
-					Owner: <s:property value="auction.owner.displayName" /> <br />
-					Highest Bid:  <s:property value="highestBid.bidAmount" /> <br />
-					Highest Bidder:  <s:property value="highestBid.user.displayName" /> <br />
-					End date: <s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /><br />
-					Category: <s:property value="auction.category" /> <br />
 					
+					
+					
+					
+					<span class="headerPurple"><strong> Auction information: </strong></span><br /><br />
+					
+					
+  						<span class="leftImportant">Owner:</span> <span class="rightInfo"> <s:property value="auction.owner.displayName" /> </span> <br />
+  						<span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bid:</span><span class="rightInfo"> <s:property value="highestBid.bidAmount" /></span><br />  					
+  						<span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bidder:</span>	<span class="rightInfo">	<s:property value="highestBid.user.displayName" /></span><br />
+  						<span class="leftImportant"> End date:</span><span class="rightInfo">	<s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /></span><br />
+  						<span class="leftImportant"> Category: </span><span class="rightInfo">	<s:property value="auction.category" /></span>
+							</div><br />
+				<div class="col-sm-12 col-md-12 col-lg-3">
+			
+			<s:url action="placeBidAction.action" namespace="/member" var="urlTag">
+				<s:param name="auctionId">
+					<s:property value="%{#parameters.id}" />
+				</s:param>
+			</s:url>
+			<s:a href="%{urlTag}" cssClass="btn btn-default btnColor"> (<i class='fa fa-btc'></i><s:property value="nextBidAmount" />) Place new bid! 
 				
-
-			</div>
+			</s:a>
+			
+			
+			</div><br />
 			<!-- END AUTHOR PANEL -->
 
 		</div>
@@ -66,45 +76,18 @@ margin-right: auto !important;
 				<span class="progress-bar-label" id="timer<s:property value='auction.auctionId'/>"></span>
 
 			</div>
-
-
+			
+			
+			<br />
 
 		</div>
 
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-body fullimage">
-						<p>
-							start bid:
-							<s:property value="auction.startBid" />
-						</p>
-						<br />
-
-						<p>
-							description:
-							<s:property value="auction.product.description" />
-						</p>
-						<br />
-						<p>
-							status:
-							<s:property value="auction.status" />
-						</p>
-						<p>
-							category:
-							<s:property value="auction.category" />
-						</p>
-						<p>
-							user id:
-							<s:property value="auction.owner.userId" />
-						</p>
-
-
-
-					</div>
-				</div>
-
-			</div>
+				<span class="headerPurple"><strong> Auction description: </strong></span><br /><br />
+					
+						<div class="well">	<s:property value="auction.product.description" /></div>
+						</div>
 
 
 		</div>
@@ -113,42 +96,21 @@ margin-right: auto !important;
 
 	</div>
 
-	<div class="col-sm-12 col-md-4 col-lg-4 ">
+	<div class="col-sm-12 col-md-8 col-lg-4 ">
+		 <span class="headerPurple"><strong> Bid history: </strong></span><br /><br />
 
-
-		<div class="panel panel-default">
-
-
-
-			<s:url action="placeBidAction.action" namespace="/member" var="urlTag">
-				<s:param name="auctionId">
-					<s:property value="%{#parameters.id}" />
-				</s:param>
-			</s:url>
-			<s:a href="%{urlTag}" cssClass="btn btn-default">Place new bid! (<i class='fa fa-btc'></i>
-				<s:property value="nextBidAmount" />
-			</s:a>
-			<br /> <br /> Bid History <br />
-
+			
+			<table class="table table-striped">
+			<tr>
+				<th>bidCoins</th>
+ 				<th>Username</th>
+  				<th>Date:</th>
+  				
+  			</tr>
 			<s:iterator value="auction.bids.bids">
-
-				<s:property value="bidAmount" />
-				<s:property value="user.displayName" />
-				<br />
-
-
-			</s:iterator>
-
-			Example:
-
-			<ul>
-				<li>31-10-2013 :: Admin,</li>
-
-			</ul>
-		</div>
-
-
-
+					<s:include value="/includes/listBidAuction.jsp" />
+				</s:iterator>
+				</table>
 	</div>
 
 	<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel" aria-hidden="true">

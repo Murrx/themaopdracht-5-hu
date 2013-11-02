@@ -17,7 +17,7 @@
 		<s:property value="day" />/<s:property value="month" />/<s:property value="year" />
 	</span>
 	
-	<span class="listName">
+	<span class="listName pull-right">
 		<s:property value='auction.product.name' />
 	</span>
 	
