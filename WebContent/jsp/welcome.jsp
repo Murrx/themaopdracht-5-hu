@@ -19,7 +19,7 @@
 		</div>
 	</div>
 </div>
-<hr >
+<hr>
 
 <!-- Preparing 2 latest auctions -->
 
@@ -33,7 +33,7 @@
 				<s:iterator value="latestAuctions">
 					<s:include value="/includes/auctionBoxLatest.jsp" />
 				</s:iterator>
-				
+
 			</div>
 
 		</div>
@@ -46,13 +46,15 @@
 				<div class="panel-heading ">
 					<h4 class="headerPurple noPaddingHeader">Recent bids:</h4>
 				</div>
-				<table class="table table-hover">
 
-					<s:iterator value="latestBids">
-						<s:include value="/includes/listBid.jsp" />
-					</s:iterator>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<s:iterator value="latestBids">
+							<s:include value="/includes/listBid.jsp" />
+						</s:iterator>
 
-				</table>
+					</table>
+				</div>
 			</div>
 
 
