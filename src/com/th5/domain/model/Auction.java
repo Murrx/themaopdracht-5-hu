@@ -7,7 +7,7 @@ import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.BidListSynced;
 
-public class Auction implements Comparable<Auction> {
+public class Auction implements Comparable<Auction>, Identifiable {
 
 	private BidListSynced bids;
 	
@@ -276,5 +276,10 @@ public class Auction implements Comparable<Auction> {
 		}
 		return equals;
 		
+	}
+
+	@Override
+	public int getId() {
+		return auctionId;
 	}
 }

@@ -7,7 +7,7 @@ import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.AuctionListSynced;
 import com.th5.persistance.BidDatabaseCRUD;
 
-public class Bid implements Comparable<Bid> {
+public class Bid implements Comparable<Bid>, Identifiable {
 
 	private int bid_Id;
 	private User user;
@@ -119,6 +119,11 @@ public class Bid implements Comparable<Bid> {
 	
 	public String toString(){
 		return Integer.toString(this.bid_Id);
+	}
+
+	@Override
+	public int getId() {
+		return bid_Id;
 	}
 
 }

@@ -15,7 +15,7 @@ import com.th5.domain.util.SortedArrayList;
 import com.th5.persistance.AuctionDatabaseCRUD;
 
 
-public class User implements Comparable<User>, Observable{
+public class User implements Comparable<User>, Observable, Identifiable{
 
 	private int 	userId,
 	bidCoins;
@@ -292,5 +292,10 @@ public class User implements Comparable<User>, Observable{
 	public void removeAuction(Auction auction){
 
 		usersAuctions.remove(auction);
+	}
+
+	@Override
+	public int getId() {
+		return userId;
 	}
 }
