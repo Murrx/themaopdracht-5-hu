@@ -85,6 +85,11 @@ footer {
 
 /* By Martin */
 
+.imgModal{
+	margin: 0 auto;
+	padding: 5px;
+}
+
 .imgLatest{
 	height: 100px;
 }
