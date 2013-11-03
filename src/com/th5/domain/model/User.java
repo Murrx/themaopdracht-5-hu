@@ -12,7 +12,7 @@ import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
 
-public class User implements Comparable<User>, Observable, Identifiable{
+public class User implements Comparable<User>, Observable, Identifiable<String>{
 
 	private int 	userId, bidCoins;
 	private String 	email, password, displayName;
@@ -288,7 +288,7 @@ public class User implements Comparable<User>, Observable, Identifiable{
 	}
 
 	@Override
-	public int getId() {
-		return userId;
+	public String getIdentifier() {
+		return Integer.toString(userId);
 	}
 }

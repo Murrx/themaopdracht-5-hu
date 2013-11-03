@@ -10,7 +10,7 @@ import com.th5.domain.other.AuctifyException;
 import com.th5.persistance.CRUD_Interface;
 
 @SuppressWarnings("serial")
-public class SyncedList<E extends Comparable<E> & Identifiable> extends SortedArrayList<E> implements DatabaseSynced<E>{
+public class SyncedList<E extends Comparable<E> & Identifiable<String>> extends SortedArrayList<E> implements DatabaseSynced<E>{
 
 	private int ownerId;
 	private String syncQuery;
@@ -107,11 +107,11 @@ public class SyncedList<E extends Comparable<E> & Identifiable> extends SortedAr
 		if (!inSync)synchronize();
 		@SuppressWarnings("unchecked")
 		E identifiable = (E) object;
-		int idToRemove = identifiable.getId();
+		String idToRemove = identifiable.getIdentifier();
 		
 		try {
 			boolean result0 = false;
-			if (modifiesDatabase) dbCRUD.delete(idToRemove);
+			if (modifiesDatabase) dbCRUD.delete(Integer.parseInt(idToRemove));
 			if (hasSecondaryList) result0 = secondaryList.remove(object);
 			boolean result1 = super.remove(object);
 			System.out.println("SyncedList.remove:"+result0+result1);

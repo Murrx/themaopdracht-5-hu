@@ -6,7 +6,7 @@ import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.persistance.BidDatabaseCRUD;
 
-public class Bid implements Comparable<Bid>, Identifiable {
+public class Bid implements Comparable<Bid>, Identifiable<String> {
 
 	private int bid_Id;
 	private User user;
@@ -121,8 +121,8 @@ public class Bid implements Comparable<Bid>, Identifiable {
 	}
 
 	@Override
-	public int getId() {
-		return bid_Id;
+	public String getIdentifier() {
+		return Integer.toString(bid_Id);
 	}
 	
 	@Override

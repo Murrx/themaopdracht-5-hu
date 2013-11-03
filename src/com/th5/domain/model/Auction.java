@@ -9,7 +9,7 @@ import com.th5.domain.util.SyncedList;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
-public class Auction implements Comparable<Auction>, Identifiable {
+public class Auction implements Comparable<Auction>, Identifiable<String> {
 
 	private SyncedList<Bid> bids;
 	
@@ -281,7 +281,7 @@ public class Auction implements Comparable<Auction>, Identifiable {
 	}
 
 	@Override
-	public int getId() {
-		return auctionId;
+	public String getIdentifier() {
+		return Integer.toString(auctionId);
 	}
 }
