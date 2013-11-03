@@ -5,12 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import com.th5.domain.model.Identifiable;
 import com.th5.domain.other.AuctifyException;
 import com.th5.persistance.CRUD_Interface;
-import com.th5.domain.model.Identifiable;
 
 @SuppressWarnings("serial")
-public class SyncedList<E extends Comparable<E> & Identifiable> extends SortedArrayList<E> implements DatabaseSyncedList<E>{
+public class SyncedList<E extends Comparable<E> & Identifiable> extends SortedArrayList<E> implements DatabaseSynced<E>{
 
 	private int ownerId;
 	private String syncQuery;
@@ -101,7 +101,7 @@ public class SyncedList<E extends Comparable<E> & Identifiable> extends SortedAr
 		}
 		return true;
 	}
-
+	
 	@Override
 	public boolean remove(Object object) {
 		if (!inSync)synchronize();
