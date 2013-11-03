@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.AuctionListSynced;
 import com.th5.persistance.BidDatabaseCRUD;
 
 public class Bid implements Comparable<Bid>, Identifiable {
@@ -136,6 +135,4 @@ public class Bid implements Comparable<Bid>, Identifiable {
 		}
 		return equals;
 	}
-	
-
 }

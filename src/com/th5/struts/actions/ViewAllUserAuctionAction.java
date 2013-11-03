@@ -9,6 +9,7 @@ import com.th5.domain.model.Bid;
 import com.th5.domain.model.User;
 import com.th5.struts.awareness.UserAware;
 
+@SuppressWarnings("serial")
 public class ViewAllUserAuctionAction extends ActionSupport implements
 		UserAware {
 
@@ -20,15 +21,14 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 	public String execute() throws Exception {
 		try {
 
-			allAuctions = user.getUsersAuctions().getAuctions();
-
-			if (user.getRelevantAuctions().getBidAuctions() != null) {
-				for (Auction auc : user.getRelevantAuctions().getBidAuctions()) {
-					for (Bid bid : auc.getBids().getBids()) {
-						allBids.add(bid);
-					}
-				}
-			}
+			allAuctions = user.geMyAuctions();
+//			if (user.getRelevantAuctions() != null) {
+//				for (Auction auc : user.getRelevantAuctions()) {
+//					for (Bid bid : auc.getBids()) {
+//						allBids.add(bid);
+//					}
+//				}
+//			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

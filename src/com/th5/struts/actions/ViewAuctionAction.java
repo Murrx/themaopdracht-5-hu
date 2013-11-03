@@ -4,10 +4,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
 import com.th5.domain.model.User;
-import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.AuctionListSynced;
 
+@SuppressWarnings("serial")
 public class ViewAuctionAction extends ActionSupport{
 	int id;
 	Auction auction;

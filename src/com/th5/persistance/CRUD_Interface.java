@@ -1,6 +1,5 @@
 package com.th5.persistance;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.th5.domain.observation.Observer;

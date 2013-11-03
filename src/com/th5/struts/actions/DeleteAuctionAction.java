@@ -16,7 +16,6 @@ public class DeleteAuctionAction extends ActionSupport implements SessionAware{
 	@Override
 	public String execute() throws Exception {
 		Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
-		
 		auction.getOwner().removeAuction(auction);
 		
 		return ActionSupport.SUCCESS;

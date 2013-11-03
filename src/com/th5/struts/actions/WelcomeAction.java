@@ -8,7 +8,6 @@ import com.th5.domain.model.Bid;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.AuctionListSynced;
 import com.th5.persistance.BidDatabaseCRUD;
 
 /**
@@ -43,11 +42,7 @@ public class WelcomeAction extends ActionSupport {
 			AE.printStackTrace();
 			return ActionSupport.ERROR;
 		}
-		
-		
-
 		return ActionSupport.SUCCESS;
-
 	}
 
 	public List<Auction> getPopularAuctions() {
@@ -61,11 +56,4 @@ public class WelcomeAction extends ActionSupport {
 	public List<Bid> getLatestBids() {
 		return latestBids;
 	}
-	
-	
-
-	
-
-	
-
 }

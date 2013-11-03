@@ -9,9 +9,9 @@ import com.th5.domain.model.Auction;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.AuctionListSynced;
 import com.th5.struts.awareness.UserAware;
 
+@SuppressWarnings("serial")
 public class PlaceBidAction extends ActionSupport implements UserAware, SessionAware {
 
 	private User user;

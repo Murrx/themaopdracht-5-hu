@@ -5,11 +5,13 @@ import java.util.Calendar;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.BidListSynced;
+import com.th5.domain.util.SyncedList;
+import com.th5.persistance.BidDatabaseCRUD;
+import com.th5.persistance.queries.Queries;
 
 public class Auction implements Comparable<Auction>, Identifiable {
 
-	private BidListSynced bids;
+	private SyncedList<Bid> bids;
 	
 	private int auctionId;
 	private Calendar startTime;
@@ -35,14 +37,13 @@ public class Auction implements Comparable<Auction>, Identifiable {
 		this.category = category;
 		this.status = Status.ACTIVE;
 		this.product = new Product(productName, productDescripion);
-
-		this.bids = new BidListSynced(this);
 	}
 
 	public Auction(Calendar endTime, int startBid, Category category, String productName, String productDescripion, int auctionId, int userId) {
 		this(endTime, startBid, category, productName, productDescripion);
 		this.auctionId = auctionId;
 		this.userId = userId;
+		this.bids = new SyncedList<Bid>(auctionId, Queries.auctionGetAllBids, new BidDatabaseCRUD(), true);
 	}
 
 	private void refreshStatus(){
@@ -59,7 +60,7 @@ public class Auction implements Comparable<Auction>, Identifiable {
 		if(this.status == Status.EXPIRED){
 			throw new AuctifyException("The auction has expired");
 		}
-		
+		System.out.println("Auction.addBid()::BidId = " + bid.getUser() + " OwnerId = " + owner);
 		if (bid.getUser().getUserId() == this.owner.getUserId()) {
 			throw new AuctifyException("You are not allowed to place bids on your own auctions.");
 		}
@@ -194,6 +195,7 @@ public class Auction implements Comparable<Auction>, Identifiable {
 
 	public void setAuctionId(int auctionId) {
 		this.auctionId = auctionId;
+		if (bids == null) this.bids = new SyncedList<Bid>(auctionId, Queries.auctionGetAllBids, new BidDatabaseCRUD(), true);
 	}
 
 	public int getStartBid() {
@@ -262,7 +264,7 @@ public class Auction implements Comparable<Auction>, Identifiable {
 		this.owner = service.getUserById(userId);
 	}
 
-	public BidListSynced getBids(){
+	public SyncedList<Bid> getBids(){
 		return bids;
 	}
 

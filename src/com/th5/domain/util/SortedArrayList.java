@@ -12,5 +12,4 @@ public class SortedArrayList<T extends Comparable<T>> extends ArrayList<T>{
         super.add(index, type);
         return true;
     }
-
 }

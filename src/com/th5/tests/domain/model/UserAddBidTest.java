@@ -9,7 +9,6 @@ import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.AuctionListSynced;
 
 public class UserAddBidTest {
 

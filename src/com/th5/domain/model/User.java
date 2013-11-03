@@ -3,28 +3,22 @@ package com.th5.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import sun.security.action.GetBooleanAction;
-
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.AuctionListSynced;
-import com.th5.domain.util.BidAuctionListSynced;
-import com.th5.domain.util.SortedArrayList;
+import com.th5.domain.util.SyncedList;
 import com.th5.persistance.AuctionDatabaseCRUD;
+import com.th5.persistance.queries.Queries;
 
 
 public class User implements Comparable<User>, Observable, Identifiable{
 
-	private int 	userId,
-	bidCoins;
-	private String 	email,
-	password, 
-	displayName;
+	private int 	userId, bidCoins;
+	private String 	email, password, displayName;
 
-	private BidAuctionListSynced relevantAuctions;
-	private AuctionListSynced usersAuctions;
+	private SyncedList<Auction> relevantAuctions;
+	private SyncedList<Auction> myAuctions;
 
 	private Person 	person;
 	private Address	address;
@@ -39,7 +33,6 @@ public class User implements Comparable<User>, Observable, Identifiable{
 
 	public User(String email){
 		this.email = email;
-		this.usersAuctions = new AuctionListSynced(this);
 		this.bidCoins = 0;
 		this.observers = new ArrayList<Observer>();
 	}
@@ -49,19 +42,20 @@ public class User implements Comparable<User>, Observable, Identifiable{
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
-		this.relevantAuctions = new BidAuctionListSynced(this);
 	}
 
 	public User(int userId, String email, String password, String displayName, UserRights rights, int bidCoins){
 		this(email, password, displayName, rights);
 		this.userId = userId;
 		this.bidCoins = bidCoins;
+		this.myAuctions = new SyncedList<Auction>(userId, Queries.userGetAllAuctions, new AuctionDatabaseCRUD(), true, ServiceProvider.getService().getAllAuctions());
+		this.relevantAuctions = new SyncedList<Auction>(userId, Queries.userGetAllBids, new AuctionDatabaseCRUD(), false);
 	}
 
 	public int createAuction(Auction auction) throws AuctifyException{
 		auction.setOwner(this);
 		auction.setAuctionId(AuctionDatabaseCRUD.generateId());		
-		usersAuctions.add(auction);
+		myAuctions.add(auction);
 		return auction.getAuctionId();
 	}
 
@@ -204,8 +198,8 @@ public class User implements Comparable<User>, Observable, Identifiable{
 		}
 	}
 
-	public AuctionListSynced getUsersAuctions() {
-		return usersAuctions;
+	public SyncedList<Auction> geMyAuctions() {
+		return myAuctions;
 	}
 	/**
 	 * Decrements the users' BidCoins by a certain amount.
@@ -230,7 +224,6 @@ public class User implements Comparable<User>, Observable, Identifiable{
 
 	@Override
 	public void register(Observer obs) {
-		System.out.println(" DOMAIN - MODEL - USER :: Register obs");
 
 		if(obs == null) throw new NullPointerException("Observer is Null");
 		if(!observers.contains(obs)) observers.add(obs);
@@ -273,8 +266,7 @@ public class User implements Comparable<User>, Observable, Identifiable{
 			Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
 
-			if (!relevantAuctions.getBidAuctions()
-					.contains(bid.getAuction())){
+			if (!relevantAuctions.contains(bid.getAuction())){
 				relevantAuctions.add(bid.getAuction());
 			}
 			auction.addBid(bid);
@@ -286,13 +278,13 @@ public class User implements Comparable<User>, Observable, Identifiable{
 		}
 	}
 
-	public BidAuctionListSynced getRelevantAuctions() {
+	public SyncedList<Auction> getRelevantAuctions() {
 		return relevantAuctions;
 	}
 
 	public void removeAuction(Auction auction){
-
-		usersAuctions.remove(auction);
+		myAuctions.remove(auction);
+		relevantAuctions.remove(auction);
 	}
 
 	@Override

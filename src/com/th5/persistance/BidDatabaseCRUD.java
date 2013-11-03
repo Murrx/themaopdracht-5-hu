@@ -70,6 +70,7 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 			statement.executeQuery();
 			
 		}catch(SQLException e){
+			e.printStackTrace();
 			throw new AuctifyException("failed to bid on auction");
 		}finally{
 			DataSourceService.closeConnection(connection, statement);
@@ -80,29 +81,24 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 	@Override
 	public List<Bid> search(String id, String query) throws AuctifyException {
 		Connection connection = DataSourceService.getConnection();
-		List<Bid> bidList = new SortedArrayList<>();
+		List<Bid> bidList = new SortedArrayList<Bid>();
 		PreparedStatement statement = null;
-
+		
 		try{
-//			statement = connection.prepareStatement("SELECT * FROM BID_BIDS WHERE BID_FK_AUCTION_ID = ?");
 			statement = connection.prepareStatement(query);
 			statement.setInt(1, Integer.parseInt(id));
 			
 			ResultSet results = statement.executeQuery();
+			System.out.println("BidDatabaseCRUD.search()::" + query + " " + id);
 			
 			while(results.next()){
-				Bid bid = new Bid(
-						results.getInt("BID_PK_BID_ID"), 
-						results.getInt("BID_FK_USER_ID"), 
-						results.getInt("BID_FK_AUCTION_ID"), 
-						DateConverter.SQLDateToCalendar(results.getDate("BID_TIMESTAMP")), 
-						results.getInt("BID_AMOUNT"));
-				
+				Bid bid = ResultHandler.restoreBid(results);
 				bidList.add(bid);
 			}
 			
 		}catch(SQLException e){
-			throw new AuctifyException("failed to bid on auction");
+			e.printStackTrace();
+			throw new AuctifyException("Failed search");
 		}finally{
 			DataSourceService.closeConnection(connection, statement);
 		}
