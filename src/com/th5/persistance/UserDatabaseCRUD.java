@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.th5.domain.model.Address;
 import com.th5.domain.model.Person;
@@ -27,23 +28,20 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 	 * @throws AuctifyException when the user is not found or when the database connection fails 
 	 */
 	@Override
-	public User retrieve(Object em) throws AuctifyException {
-		String email = (String)em;
+	public List<User> retrieve(String identifier, String query) throws AuctifyException {
 		Connection connection = DataSourceService.getConnection();
-
+		List<User> userList = new ArrayList<User>();
 		PreparedStatement statement = null;
-		User user = null;
-		Address address = null;
-		Person person = null;
-
+		
 		try{
-			statement = connection.prepareStatement(
-					"SELECT * FROM usr_users, prs_persons, adr_addresses WHERE usr_email = ? AND usr_fk_person_id = prs_pk_person_id AND prs_fk_address_id = adr_pk_address_id");
-			statement.setString(1, email);
+			statement = connection.prepareStatement(query);
+			statement.setString(1, identifier);
 			ResultSet result = statement.executeQuery();
 
 			while(result.next()){
-
+				User user = null;
+				Address address = null;
+				Person person = null;
 				//user data
 				String username = result.getString("usr_email");
 				String password = result.getString("usr_password");
@@ -74,6 +72,8 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 
 				user.setPerson(person);
 				user.setAddress(address);
+				
+				userList.add(user);
 			}
 
 		}catch(SQLException e){
@@ -81,20 +81,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 		}finally{
 			DataSourceService.closeConnection(connection, statement);
 		}
-		if (user == null) throw new AuctifyException("user not found");
-		return user;
-	}
-
-	@Override
-	public ArrayList<User> search(String search, String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<User> retrieveAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return userList;
 	}
 
 	/**Add a user to the database

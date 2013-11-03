@@ -43,7 +43,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 		this(endTime, startBid, category, productName, productDescripion);
 		this.auctionId = auctionId;
 		this.userId = userId;
-		this.bids = new SyncedMap<String,Bid>(auctionId, Queries.auctionGetAllBids, new BidDatabaseCRUD(), true);
+		this.bids = new SyncedMap<String,Bid>(auctionId, Queries.selectBidsByAuctionId, new BidDatabaseCRUD(), true);
 	}
 
 	private void refreshStatus(){
@@ -195,7 +195,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 
 	public void setAuctionId(int auctionId) {
 		this.auctionId = auctionId;
-		if (bids == null) this.bids = new SyncedMap<String,Bid>(auctionId, Queries.auctionGetAllBids, new BidDatabaseCRUD(), true);
+		if (bids == null) this.bids = new SyncedMap<String,Bid>(auctionId, Queries.selectBidsByAuctionId, new BidDatabaseCRUD(), true);
 	}
 
 	public int getStartBid() {

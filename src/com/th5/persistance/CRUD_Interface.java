@@ -7,10 +7,7 @@ import com.th5.domain.other.AuctifyException;
 
 public interface CRUD_Interface<T>{
 	
-	   
-	   public T retrieve(Object identifier) throws AuctifyException;
-	   public List<T> search(String search, String query) throws AuctifyException;
-	   public List<T> retrieveAll() throws AuctifyException;
+	   public List<T> retrieve(String identifier, String query) throws AuctifyException;
 	   public int create(T object) throws AuctifyException;
 	   public void update(T object) throws AuctifyException;
 	   public void delete(int auctionId) throws AuctifyException;

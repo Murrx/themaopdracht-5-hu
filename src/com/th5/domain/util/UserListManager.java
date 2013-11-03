@@ -7,6 +7,7 @@ import java.util.List;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 import com.th5.persistance.UserDatabaseCRUD;
+import com.th5.persistance.queries.Queries;
 
 @SuppressWarnings("hiding")
 public class UserListManager{
@@ -58,7 +59,8 @@ public class UserListManager{
 		String email = (String)em;
 		User user = getUserFromUserList(email);
 		if (user == null){
-			user = userDatabaseCRUD.retrieve(email);
+			List<User> result = userDatabaseCRUD.retrieve(email,Queries.selectUserByEmail);
+			user = result.get(0);
 			if (user != null) userList.add(user);
 			else throw new AuctifyException("user not found");
 		}
@@ -129,13 +131,10 @@ public class UserListManager{
 	 * check if a given email is available to use
 	 * @param email
 	 * @return true if the email is available
+	 * @throws AuctifyException 
 	 */
-	private boolean emailAvailable(String email){
-		boolean emailAvailable = true;
-		try {
-			userDatabaseCRUD.retrieve(email);
-			emailAvailable = false;
-		} catch (AuctifyException e) {}
-		return emailAvailable;
+	private boolean emailAvailable(String email) throws AuctifyException{
+		List<User> result = userDatabaseCRUD.retrieve(email,Queries.selectUserByEmail);
+		return result.isEmpty();
 	}
 }

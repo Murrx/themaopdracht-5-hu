@@ -18,6 +18,7 @@ import com.th5.domain.other.EncryptPassword;
 import com.th5.domain.util.UserListManager;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.UserDatabaseCRUD;
+import com.th5.persistance.queries.Queries;
 
 public class AuctionService implements AuctionServiceInterface {
 
@@ -39,7 +40,7 @@ public class AuctionService implements AuctionServiceInterface {
 		TreeMap<String,Auction> auctions = new TreeMap<String,Auction>();
 		try {
 			AuctionDatabaseCRUD dbCRUD = new AuctionDatabaseCRUD();
-			List<Auction> tempList = dbCRUD.retrieveAll();
+			List<Auction> tempList = dbCRUD.retrieve(null, Queries.selectAllAuctionsOfUser);
 			for (Auction auction : tempList) {
 				auctions.put(auction.getIdentifier(),auction);
 			}

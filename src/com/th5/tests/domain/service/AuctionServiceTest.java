@@ -1,20 +1,19 @@
 package com.th5.tests.domain.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
-
-import oracle.sql.DATE;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.sun.net.httpserver.Authenticator.Success;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.persistance.UserDatabaseCRUD;
+import com.th5.persistance.queries.Queries;
 
 public class AuctionServiceTest {
 	
@@ -57,12 +56,13 @@ public class AuctionServiceTest {
 		User user = null;
 		
 		try {
-			user = crud.retrieve("testaccount2@auctify.com");
+			List<User> result = crud.retrieve("testaccount2@auctify.com", Queries.selectUserByEmail);
+			if (result.isEmpty())fail("failed to retrieve user"); 
+
 		} catch (AuctifyException e) {
 			fail("failed to retrieve user");
 		}
-		if (user == null)fail("failed to retrieve user"); 
-		
+				
 		try {
 			crud.delete(user.getUserId());
 		} catch (AuctifyException e) {

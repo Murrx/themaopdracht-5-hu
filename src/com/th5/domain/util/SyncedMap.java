@@ -142,7 +142,7 @@ public class SyncedMap<K, V extends Comparable<V> & Identifiable<K>> extends Has
 	public void synchronize() {
 		inSync = true;
 		try {
-			List<V> tempList = dbCRUD.search(Integer.toString(ownerId), syncQuery);
+			List<V> tempList = dbCRUD.retrieve(Integer.toString(ownerId), syncQuery);
 			for(V element : tempList){
 				super.put(element.getIdentifier(), element);
 				if(hasSecondaryMap)secondaryMap.put(element.getIdentifier(), element);
