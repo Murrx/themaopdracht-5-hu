@@ -1,5 +1,5 @@
 package com.th5.domain.util;
 
-public interface DatabaseSyncedList<T> {
+public interface DatabaseSynced<T> {
 	public void synchronize();
 }
