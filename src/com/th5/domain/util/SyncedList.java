@@ -86,10 +86,15 @@ public class SyncedList<E extends Comparable<E> & Identifiable> extends SortedAr
 
 	@Override
 	public boolean add(E e) {
+		if (!inSync)synchronize();
 		try {
-			if (modifiesDatabase) dbCRUD.create(e);
+			if (modifiesDatabase) {
+				dbCRUD.create(e);
+			}
 			super.add(e);
-			if(hasSecondaryList) secondaryList.add(e);
+			if(hasSecondaryList) {
+				secondaryList.add(e);
+			}
 		} catch (AuctifyException ex) {
 			ex.printStackTrace();
 			return false;
