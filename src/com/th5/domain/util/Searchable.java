@@ -1,4 +1,4 @@
-package com.th5.domain.model.utils;
+package com.th5.domain.util;
 
 import java.util.List;
 import java.util.Map;
