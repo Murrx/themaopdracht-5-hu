@@ -76,11 +76,11 @@ public class UserListManager{
 	 * @return the retrieved user
 	 * @throws AuctifyException when the user is not found
 	 */
-	public User retrieveById(int id) throws AuctifyException{
+	public User retrieveById(String identifier) throws AuctifyException{
 		//TODO: Check if the user is already in the userList, before querying the db
-		User user = userDatabaseCRUD.retrieveById(id);
-		if (user == null) throw new AuctifyException("user not found");
-		return user;
+		List<User> result = userDatabaseCRUD.retrieve(identifier, Queries.selectUserById);
+		if (result.isEmpty()) throw new AuctifyException("user not found");
+		return result.get(0);
 	}
 	/**
 	 * Attempt to get a user from userList

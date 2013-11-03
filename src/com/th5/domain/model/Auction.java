@@ -261,7 +261,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 
 	private void setOwnerFromUserList() throws AuctifyException {
 		AuctionService service = (AuctionService) ServiceProvider.getService();
-		this.owner = service.getUserById(userId);
+		this.owner = service.getUserById(getIdentifier());
 	}
 
 	public SyncedMap<String,Bid> getBids(){

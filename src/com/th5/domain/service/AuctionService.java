@@ -111,8 +111,8 @@ public class AuctionService implements AuctionServiceInterface {
 		udbcrud.update(u);
 	}
 
-	public User getUserById(int id) throws AuctifyException {
-		User user = userList.retrieveById(id);
+	public User getUserById(String identifier) throws AuctifyException {
+		User user = userList.retrieveById(identifier);
 		return user;
 	}
 

@@ -60,7 +60,7 @@ public interface AuctionServiceInterface {
 	 * @throws AuctifyException 
 	 */	
 
-	public User getUserById(int userId) throws AuctifyException;
+	public User getUserById(String userId) throws AuctifyException;
 	public Auction getAuctionById(int auctionId);
 	
 	public List<Auction> getPopularAuctions();

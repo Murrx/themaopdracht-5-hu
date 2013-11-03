@@ -24,7 +24,7 @@ public class ViewAuctionAction extends ActionSupport{
 		endTimeYear = auction.getEndTimeYear();
 		highestBid = auction.getHighestBid();
 		
-		owner = ServiceProvider.getService().getUserById(auction.getOwner().getUserId());
+		owner = ServiceProvider.getService().getUserById(auction.getOwner().getIdentifier());
 		nextBidAmount = auction.calculateNextBidAmount();
 		return ActionSupport.SUCCESS;
 	}
