@@ -85,7 +85,7 @@ public class SyncedMap<K, V extends Comparable<V> & Identifiable<K>> extends Has
 		if (!inSync)synchronize();
 		V removedObject = null;
 		try {
-			if (modifiesDatabase) dbCRUD.delete((int)key);
+			if (modifiesDatabase) dbCRUD.delete(Integer.parseInt((String)key));
 			if (hasSecondaryMap) secondaryMap.remove(key);
 			removedObject = super.remove(key);
 		} catch (AuctifyException e) {
@@ -132,9 +132,8 @@ public class SyncedMap<K, V extends Comparable<V> & Identifiable<K>> extends Has
 		return super.values();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Set entrySet() {
+	public Set<Entry<K,V>> entrySet() {
 		if(!inSync)synchronize();
 		return super.entrySet();
 	}
@@ -154,6 +153,15 @@ public class SyncedMap<K, V extends Comparable<V> & Identifiable<K>> extends Has
 		}
 	}
 	
+	public Entry<K,V> getMaxEntry(){
+		Entry<K,V> maxEntry = null;
+		for(Entry<K,V> entry : this.entrySet()) {
+		    if (maxEntry == null || Integer.parseInt((String)entry.getValue().getIdentifier()) > Integer.parseInt((String)maxEntry.getValue().getIdentifier())) {
+		        maxEntry = entry;
+		    }
+		}
+		return maxEntry;
+	}
 
 	@Override@Deprecated
 	public void clear() throws UnsupportedOperationException{throw new UnsupportedOperationException("This method is not supported by this class.");}

@@ -7,7 +7,7 @@ import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.SyncedList;
+import com.th5.domain.util.SyncedMap;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
@@ -17,8 +17,8 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 	private int 	userId, bidCoins;
 	private String 	email, password, displayName;
 
-	private SyncedList<Auction> relevantAuctions;
-	private SyncedList<Auction> myAuctions;
+	private SyncedMap<String,Auction> relevantAuctions;
+	private SyncedMap<String,Auction> myAuctions;
 
 	private Person 	person;
 	private Address	address;
@@ -48,14 +48,14 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 		this(email, password, displayName, rights);
 		this.userId = userId;
 		this.bidCoins = bidCoins;
-		this.myAuctions = new SyncedList<Auction>(userId, Queries.userGetAllAuctions, new AuctionDatabaseCRUD(), true, ServiceProvider.getService().getAllAuctions());
-		this.relevantAuctions = new SyncedList<Auction>(userId, Queries.userGetAllBids, new AuctionDatabaseCRUD(), false);
+		this.myAuctions = new SyncedMap<String,Auction>(userId, Queries.userGetAllAuctions, new AuctionDatabaseCRUD(), true, ServiceProvider.getService().getAllAuctions());
+		this.relevantAuctions = new SyncedMap<String,Auction>(userId, Queries.userGetAllBids, new AuctionDatabaseCRUD(), false);
 	}
 
 	public int createAuction(Auction auction) throws AuctifyException{
 		auction.setOwner(this);
 		auction.setAuctionId(AuctionDatabaseCRUD.generateId());		
-		myAuctions.add(auction);
+		myAuctions.put(auction.getIdentifier(),auction);
 		return auction.getAuctionId();
 	}
 
@@ -198,7 +198,7 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 		}
 	}
 
-	public SyncedList<Auction> geMyAuctions() {
+	public SyncedMap<String,Auction> geMyAuctions() {
 		return myAuctions;
 	}
 	/**
@@ -266,8 +266,8 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 			Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
 
-			if (!relevantAuctions.contains(bid.getAuction())){
-				relevantAuctions.add(bid.getAuction());
+			if (!relevantAuctions.containsKey(auction.getIdentifier())){
+				relevantAuctions.put(auction.getIdentifier(),auction);
 			}
 			auction.addBid(bid);
 			System.out.println("USER DOMAIN :: Auction: " + auction);
@@ -278,13 +278,13 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 		}
 	}
 
-	public SyncedList<Auction> getRelevantAuctions() {
+	public SyncedMap<String,Auction> getRelevantAuctions() {
 		return relevantAuctions;
 	}
 
 	public void removeAuction(Auction auction){
-		myAuctions.remove(auction);
-		relevantAuctions.remove(auction);
+		myAuctions.remove(auction.getIdentifier());
+		relevantAuctions.remove(auction.getIdentifier());
 	}
 
 	@Override

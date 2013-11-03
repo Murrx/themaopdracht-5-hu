@@ -1,6 +1,7 @@
 package com.th5.struts.actions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -13,11 +14,11 @@ import com.th5.domain.service.ServiceProvider;
 @SuppressWarnings("serial")
 public class AllAuctionsAction extends ActionSupport {
 
-	private List<Auction> allAuctions;
+	private Collection<Auction> allAuctions;
 
 	@Override
 	public String execute() throws Exception {
-		allAuctions = ServiceProvider.getService().getAllAuctions();
+		allAuctions = ServiceProvider.getService().getAllAuctions().values();
 		return ActionSupport.SUCCESS;
 	}
 
@@ -26,7 +27,7 @@ public class AllAuctionsAction extends ActionSupport {
 		//TODO : validate auctions
 	}
 	
-	public List<Auction> getAllAuctions() {
+	public Collection<Auction> getAllAuctions() {
 		return this.allAuctions;
 	}
 	

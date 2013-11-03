@@ -1,6 +1,6 @@
 package com.th5.struts.actions;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
@@ -22,16 +22,16 @@ import com.th5.persistance.BidDatabaseCRUD;
 @SuppressWarnings("serial")
 public class WelcomeAction extends ActionSupport {
 
-	private List<Auction> auctions;
-	private List<Auction> popularAuctions;
-	private List<Auction> latestAuctions;
-	private List<Bid> latestBids;
+	private Collection<Auction> auctions;
+	private Collection<Auction> popularAuctions;
+	private Collection<Auction> latestAuctions;
+	private Collection<Bid> latestBids;
 	
 	public String execute() {
 		
 		AuctionServiceInterface service = ServiceProvider.getService();
 
-		auctions = service.getAllAuctions();
+		auctions = service.getAllAuctions().values();
 		
 		popularAuctions = service.getPopularAuctions();
 		latestAuctions = service.getLatestAuctions();
@@ -45,15 +45,15 @@ public class WelcomeAction extends ActionSupport {
 		return ActionSupport.SUCCESS;
 	}
 
-	public List<Auction> getPopularAuctions() {
+	public Collection<Auction> getPopularAuctions() {
 		return popularAuctions;
 	}
 
-	public List<Auction> getLatestAuctions() {
+	public Collection<Auction> getLatestAuctions() {
 		return latestAuctions;
 	}
 
-	public List<Bid> getLatestBids() {
+	public Collection<Bid> getLatestBids() {
 		return latestBids;
 	}
 }

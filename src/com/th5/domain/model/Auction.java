@@ -5,13 +5,13 @@ import java.util.Calendar;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.SyncedList;
+import com.th5.domain.util.SyncedMap;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
 public class Auction implements Comparable<Auction>, Identifiable<String> {
 
-	private SyncedList<Bid> bids;
+	private SyncedMap<String,Bid> bids;
 	
 	private int auctionId;
 	private Calendar startTime;
@@ -43,7 +43,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 		this(endTime, startBid, category, productName, productDescripion);
 		this.auctionId = auctionId;
 		this.userId = userId;
-		this.bids = new SyncedList<Bid>(auctionId, Queries.auctionGetAllBids, new BidDatabaseCRUD(), true);
+		this.bids = new SyncedMap<String,Bid>(auctionId, Queries.auctionGetAllBids, new BidDatabaseCRUD(), true);
 	}
 
 	private void refreshStatus(){
@@ -77,7 +77,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 
 			bid.takeBidCoins();
 
-			bids.add(bid);
+			bids.put(bid.getIdentifier(),bid);
 		} else {
 			throw new AuctifyException("Bid has to be higher than current bid. Please refresh your page and try again! NOOOOOO");
 		}
@@ -88,7 +88,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 		Bid highestBid = null;
 
 		if (!bids.isEmpty()) {
-			highestBid = bids.get(bids.size() - 1);
+			highestBid = bids.getMaxEntry().getValue();
 		}
 		return highestBid;
 	}
@@ -96,7 +96,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 	public int getHighestBidAmount() {
 		int highestBidAmount = 0;
 		if (!bids.isEmpty()) {
-			highestBidAmount = bids.get(bids.size() - 1).getBidAmount();
+			highestBidAmount = bids.getMaxEntry().getValue().getBidAmount();
 		}
 		return highestBidAmount;
 	}
@@ -195,7 +195,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 
 	public void setAuctionId(int auctionId) {
 		this.auctionId = auctionId;
-		if (bids == null) this.bids = new SyncedList<Bid>(auctionId, Queries.auctionGetAllBids, new BidDatabaseCRUD(), true);
+		if (bids == null) this.bids = new SyncedMap<String,Bid>(auctionId, Queries.auctionGetAllBids, new BidDatabaseCRUD(), true);
 	}
 
 	public int getStartBid() {
@@ -264,7 +264,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 		this.owner = service.getUserById(userId);
 	}
 
-	public SyncedList<Bid> getBids(){
+	public SyncedMap<String,Bid> getBids(){
 		return bids;
 	}
 

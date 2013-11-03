@@ -107,7 +107,7 @@ margin-right: auto !important;
   				<th>Date:</th>
   				
   			</tr>
-			<s:iterator value="auction.bids">
+			<s:iterator value="auction.bids.values()">
 					<s:include value="/includes/listBidAuction.jsp" />
 				</s:iterator>
 				</table>
