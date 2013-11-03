@@ -5,7 +5,7 @@ import java.util.List;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 
-public interface CRUD_Interface<T> extends Observer{
+public interface CRUD_Interface<T>{
 	
 	   
 	   public T retrieve(Object identifier) throws AuctifyException;

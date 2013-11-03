@@ -24,7 +24,6 @@ import com.th5.domain.util.SortedArrayList;
 
 public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 
-
 	public static int generateId() throws AuctifyException {
 
 		int bid_Id;
@@ -146,14 +145,6 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid> {
 	}
 	@Override
 	public void delete(int bidId) throws AuctifyException {
-		// TODO Auto-generated method stub
-	}
-	@Override
-	public void updateObserver(Object obj) throws AuctifyException {
-		// TODO Auto-generated method stub
-	}
-	@Override
-	public void setObservable(Observable obs) {
 		// TODO Auto-generated method stub
 	}
 	@Override

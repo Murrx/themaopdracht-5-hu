@@ -19,7 +19,7 @@ import com.th5.domain.other.DateConverter;
 import com.th5.domain.service.ServiceProvider;
 
 @SuppressWarnings("hiding")
-public class UserDatabaseCRUD implements CRUD_Interface<User>{
+public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 
 	/**Retrieve user from the database
 	 * @param email

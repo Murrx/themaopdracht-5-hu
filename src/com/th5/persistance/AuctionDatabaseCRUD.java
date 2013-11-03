@@ -118,7 +118,6 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			statement.setInt(1, Integer.parseInt(search));
 
 			ResultSet result = statement.executeQuery();
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
 			while(result.next()){
 
@@ -289,14 +288,5 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		}finally{
 			DataSourceService.closeConnection(connection, statement);
 		}
-	}
-	@Override
-	public void updateObserver(Object obj) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setObservable(Observable obs) {
-		// TODO Auto-generated method stu		
 	}
 }
