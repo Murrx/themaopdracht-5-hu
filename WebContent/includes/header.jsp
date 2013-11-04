@@ -45,7 +45,7 @@
 			</div>
 			<div class="col-sm-4" id="login-form">
 				<!-- Login -->
-				<s:if test="%{#session.user == null}">
+				<s:if test="%{#session.user != null}">
 				<s:form action="login" namespace="/" method="post">
 					<div class="row">
 						<div class="col-sm-7 col-sm-offset-1">
@@ -76,10 +76,10 @@
 				<s:else>
 					<div>
 						<div class="user-box">
-							<div class="user-box-edit">
+							<div class="user-box-edit" title="Edit Profile">
 								<a href="<s:url action='editProfileForm' namespace='/member'/>"><i class="fa fa-cog"></i></a>
 							</div>
-							<div class="user-box-mine">
+							<div class="user-box-mine" title="View Own Auctions">
 								<a href="<s:url action='ViewAllUserAuctionForm' namespace='/member'/>">
 									<span class="icon-stack">
 										<i class="fa fa-gavel"></i>

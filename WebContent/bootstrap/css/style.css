@@ -481,6 +481,9 @@ textarea {
 	label {
 		display: none;
 	}
+	.icon-stack i:first-child {
+		top: 10px;
+	}
 }
 
 @media ( min-width : 768px) {

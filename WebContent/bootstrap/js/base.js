@@ -1,4 +1,7 @@
 $(function () {
+	if($(".user-box-mine, .user-box-edit").length != 0) {
+		$(".user-box-mine, .user-box-edit").tooltip({placement: "bottom", container: "body"});
+	}
 	$(".navbar-toggle").click(function() {
 		$("#login-form").toggle();
 	});
