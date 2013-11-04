@@ -1,5 +1,7 @@
 package com.th5.struts.actions;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -17,11 +19,17 @@ public class SearchAuctionsAction extends ActionSupport {
 	private String search;
 
 	@Override
-	public String execute() throws Exception {
-		Collection<Auction> auctions = ServiceProvider.getService().getAllAuctions().values();
-		Search<Auction> searchResult = new Search<Auction>(auctions, search);
-		allAuctions = searchResult.getResult();
-		
+	public String execute() {
+		try {
+			Collection<Auction> auctions = ServiceProvider.getService().getAllAuctions().values();
+			Search<Auction> searchResult = new Search<Auction>(auctions, search);
+			allAuctions = searchResult.getResult();
+		} catch(Exception e) {
+			StringWriter errors = new StringWriter();
+			e.printStackTrace(new PrintWriter(errors));
+			System.out.println(errors);
+		}
+ 		
 		return ActionSupport.SUCCESS;
 	}
 	

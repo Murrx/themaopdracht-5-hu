@@ -33,17 +33,17 @@ public class Search<E extends Searchable<E>> {
 	}
 	
 	public Collection<E> getResult() {
-		if(input != null && search != null) {
-			Iterator<E> li = result.iterator();
-			while(li.hasNext()) {
-				E obj = li.next();
-				if(obj.search(search)) {
-					result.add(obj);
+			if(input != null && search != null) {
+				System.out.println(input);
+				for(E obj : input) {
+					System.out.println(obj);
+					if(obj.search(search)) {
+						result.add(obj);
+					}
 				}
+				return result;
+			} else {
+				return null;
 			}
-			return result;
-		} else {
-			return null;
-		}
 	}
 }
