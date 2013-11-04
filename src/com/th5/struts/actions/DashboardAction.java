@@ -20,14 +20,14 @@ import com.th5.persistance.BidDatabaseCRUD;
  * @version 0.1 alpha
  */
 @SuppressWarnings("serial")
-public class WelcomeAction extends ActionSupport {
+public class DashboardAction extends ActionSupport {
 
 	private Collection<Auction> auctions;
 	private Collection<Auction> popularAuctions;
 	private Collection<Auction> latestAuctions;
 	private Collection<Bid> latestBids;
 	
-	public String execute() throws Exception {
+	public String execute() {
 		
 		AuctionServiceInterface service = ServiceProvider.getService();
 

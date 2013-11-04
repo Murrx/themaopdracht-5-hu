@@ -9,6 +9,8 @@ import com.th5.persistance.BidDatabaseCRUD;
 public class Bid implements Comparable<Bid>, Identifiable<String> {
 
 	private int bid_Id;
+	private int userId;
+	private int auctionId;
 	private User user;
 	private Auction auction;
 
@@ -24,6 +26,7 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 	 */
 	public Bid(User user, Auction auction, int bidAmount) throws AuctifyException {
 		this.user = user;
+		
 		this.auction = auction;
 		this.bidAmount = bidAmount;
 		this.timestamp = Calendar.getInstance();
@@ -41,10 +44,10 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 	 */
 	public Bid(int bidId, int userId, int auctionId, Calendar timestamp, int bidAmount) throws AuctifyException{
 		this.bid_Id = bidId;
-		this.user = ServiceProvider.getService().getUserById(Integer.toString(userId));
-		this.auction = ServiceProvider.getService().getAuctionById(auctionId);
+		this.auctionId = auctionId;
 		this.timestamp = timestamp;
 		this.bidAmount = bidAmount;
+		this.userId = userId;
 	}
 	
 	public Bid() {
@@ -63,10 +66,17 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 	}
 
 	public User getUser() {
+		if (user == null)
+			try {
+				user = ServiceProvider.getService().getUserById(Integer.toString(userId));
+			} catch (AuctifyException e) {
+				e.printStackTrace();
+			}
 		return user;
 	}
 
 	public Auction getAuction() {
+		if(auction == null) auction = ServiceProvider.getService().getAuctionById(auctionId);
 		return auction;
 	}
 
