@@ -198,7 +198,7 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 		}
 	}
 
-	public SyncedMap<String,Auction> geMyAuctions() {
+	public SyncedMap<String,Auction> getMyAuctions() {
 		return myAuctions;
 	}
 	/**
