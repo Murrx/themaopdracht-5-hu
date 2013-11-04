@@ -55,38 +55,6 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			statement = connection.prepareStatement(query);
 			if (identifier != null) statement.setInt(1, Integer.parseInt(identifier));
 			ResultSet result = statement.executeQuery();
-
-			while(result.next()){
-
-				Auction auction = null;
-				//auction data
-				Calendar aucStartTime = Calendar.getInstance();
-				Calendar aucEndTime = Calendar.getInstance();
-				aucStartTime.setTimeInMillis(result.getTimestamp("auc_start_time").getTime());
-				aucEndTime.setTimeInMillis(result.getTimestamp("auc_end_time").getTime());
-
-				int aucStatusId = result.getInt("auc_fk_status_id");
-				int auctionID = result.getInt("auc_pk_auction_id");
-
-				int startBid = result.getInt("auc_start_bid");
-				String categoryString = result.getString("auc_fk_category");
-
-				int userId = result.getInt("auc_fk_user_id");
-
-				//product data
-				int productId = result.getInt("prd_pk_product_id");
-				String productName = result.getString("prd_name");
-				String productDescription = result.getString("prd_description");
-				// auction
-
-				auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, userId);
-
-				auction.setStartTime(aucStartTime);
-				auction.setStatus(Status.fromInteger(aucStatusId));
-				auction.getProduct().setProductId(productId);
-				
-				auctionList.add(auction);
-			}
 			
 			return processResult(result);
 		}catch(SQLException e){
