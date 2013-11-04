@@ -34,39 +34,41 @@ public class AuctionServiceTest {
 		}
 	}
 	
-	@Test (expected = AuctifyException.class)
+	@Test (expected = IndexOutOfBoundsException.class)
 	public void loginTestUnexistingUser() throws AuctifyException{
 		User user = service.login("dakoika", "Apenbeestje1");
 	}
 	
 	@Test (expected = AuctifyException.class)
 	public void loginTestIncorrectPassword() throws AuctifyException{
-		User user = service.login("testaccount@auctify.com", "test");
+		User user = service.login("testaccount@auctify.com", "blabla");
 	}
 	
 	@Test
-	public void registerTest(){
-		try {
-			service.register("testaccount2@auctify.com", "Apenbeestje1", "Test Account", "Test voornaam", "Test achternaam", 1, new Date(0), "1111TT", "2", "Test", "Test");
-		} catch (AuctifyException e) {
-			fail("Failed to register user");
-		}
+	public void registerTest() throws AuctifyException{
+//		try {
+			service.register("testaccount3@auctify.com", "Apenbeestje1", "Test Account", "Test voornaam", "Test achternaam", 1, new Date(0), "1111TT", "2", "Test", "Test");
+//		} catch (AuctifyException e) {
+//			e.printStackTrace();
+//			fail("Failed to register user");
+//		}
 		UserDatabaseCRUD crud = new UserDatabaseCRUD();
 		
 		User user = null;
 		
 		try {
-			List<User> result = crud.retrieve("testaccount2@auctify.com", Queries.selectUserByEmail);
+			List<User> result = crud.retrieve("testaccount3@auctify.com", Queries.selectUserByEmail);
 			if (result.isEmpty())fail("failed to retrieve user"); 
+			user = result.get(0);
 
 		} catch (AuctifyException e) {
 			fail("failed to retrieve user");
 		}
 				
-		try {
+//		try {
 			crud.delete(user.getUserId());
-		} catch (AuctifyException e) {
-			fail("failed to delete user");
-		}
+//		} catch (AuctifyException e) {
+//			fail("failed to delete user");
+//		}
 	}
 }
