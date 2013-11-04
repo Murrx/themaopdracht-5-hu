@@ -12,14 +12,14 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12">
-				<s:if test="popularAuctions >= 3">
+				<s:if test="popularAuctions != null">
 					<s:iterator value="popularAuctions">
 						<s:include value="/includes/auctionBox.jsp" />
 					</s:iterator>
 				</s:if>
 				<s:else>
 					<div class="text-center">
-						<span>There are not enough popular auctions. <a href="<s:url action='addAuctionForm' namespace='/member'/>">Create one!</a></span>
+						<span>There are no popular auctions. <a href="<s:url action='addAuctionForm' namespace='/member'/>">Create one!</a></span>
 					</div>
 				</s:else>
 			</div>
@@ -38,7 +38,7 @@
 					<h4 class="headerPurple noPaddingHeader">Recently added auctions:</h4>
 				</div>
 				
-				<s:if test="latestAuctions != ''">
+				<s:if test="latestAuctions != null">
 					<s:iterator value="latestAuctions">
 						<s:include value="/includes/auctionBoxLatest.jsp" />
 					</s:iterator>
@@ -61,7 +61,7 @@
 					<h4 class="headerPurple noPaddingHeader">Recent bids:</h4>
 				</div>
 				
-				<s:if test="latestBids != ''">
+				<s:if test="latestBids != null">
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<s:iterator value="latestBids">
