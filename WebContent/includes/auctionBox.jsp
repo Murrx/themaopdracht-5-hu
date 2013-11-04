@@ -41,5 +41,6 @@
 						<a href="<s:property value="#urlTag" />" type="button" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span></a>
 					</div>
 				</s:if>	
+	  			
 			</div>
 		</div>
