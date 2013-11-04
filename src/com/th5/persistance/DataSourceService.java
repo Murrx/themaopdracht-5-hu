@@ -20,10 +20,10 @@ public class DataSourceService {
 			ds.setServerName("ondora01.hu.nl");
 			ds.setServiceName("cursus01.hu.nl");
 			ds.setNetworkProtocol("tcp");
-			ds.setDatabaseName("tho5_2013_2a_team5");
+			ds.setDatabaseName("stud1566357");
 			ds.setPortNumber(8521);
-			ds.setUser("tho5_2013_2a_team5");
-			ds.setPassword("team5iscool");
+			ds.setUser("stud1566357");
+			ds.setPassword("team5");
 
 			return ds.getConnection();
 		} catch (SQLException e) {
