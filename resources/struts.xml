@@ -145,6 +145,18 @@
 			<result name="login">/jsp/notModerator.jsp</result>
 		</global-results>
 		
+		<action name="block_auction" class="com.th5.struts.actions.BlockAuctionAction">
+			<result name="success" type="redirectAction">
+				<param name="actionName">${previousPage}</param>
+    	        <param name="namespace">/</param>
+			</result>
+		</action>
+		<action name="unblock_auction" class="com.th5.struts.actions.UnblockAuctionAction">
+			<result name="success" type="redirectAction">
+				<param name="actionName">${previousPage}</param>
+    	        <param name="namespace">/</param>
+			</result>
+		</action>
 		<action name="delete_auction" class="com.th5.struts.actions.DeleteAuctionAction">
 			<result name="success" type="redirectAction">
 				<param name="actionName">${previousPage}</param>

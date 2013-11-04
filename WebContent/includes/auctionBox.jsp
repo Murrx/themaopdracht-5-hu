@@ -19,26 +19,30 @@
 	  			</div>
 	  			<s:if test="%{#session.user.rights.rightsValue >= 128}">
 					<div class="panel-footer modpanel">
-					
-						<div class="btn-group">
-						  <button type="button" class="btn btn-danger">Action</button>
-						  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-						    <span class="caret"></span>
-						    <span class="sr-only">Toggle Dropdown</span>
-						  </button>
-						  <ul class="dropdown-menu" role="menu">
-						    <li><a href="#">Action</a></li>
-						    <li><a href="#">Another action</a></li>
-						    <li><a href="#">Something else here</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">Separated link</a></li>
-						  </ul>
-						</div>
-					
-						<s:url action="delete_auction.action" namespace="moderator" var="urlTag" >
+						<s:url action="delete_auction.action" namespace="moderator" var="urlTagDel" >
 	    					<s:param name="auctionId"><s:property value='auctionId'/></s:param>
 						</s:url>
-						<a href="<s:property value="#urlTag" />" type="button" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span></a>
+						<s:url action="block_auction.action" namespace="moderator" var="urlTagBlock" >
+	    					<s:param name="auctionId"><s:property value='auctionId'/></s:param>
+						</s:url>
+						<s:url action="unblock_auction.action" namespace="moderator" var="urlTagUnblock" >
+	    					<s:param name="auctionId"><s:property value='auctionId'/></s:param>
+						</s:url>
+						
+						<div class="btn-group">
+						  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+						    Admin tools <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						  	<s:if test="%{status.rightsValue != 0}">
+						    	<li><a href="<s:property value='#urlTagBlock'/>"><i class="fa fa-lock"></i> Block Auction</a></li>
+						    </s:if>
+						    <s:else>
+						    	<li><a href="<s:property value='#urlTagUnblock'/>"><i class="fa fa-unlock"></i> Unblock Auction</a></li>
+						    </s:else>
+						    <li><a href="<s:property value='#urlTagDel' />"><i class="fa fa-trash-o"></i> Delete Auction</a></li>
+						  </ul>
+						</div>
 					</div>
 				</s:if>	
 	  			
