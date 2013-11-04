@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Status;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.persistance.AuctionDatabaseCRUD;
 
 public class BlockAuctionAction extends ActionSupport implements SessionAware{
 
@@ -16,7 +17,12 @@ public class BlockAuctionAction extends ActionSupport implements SessionAware{
 	
 	@Override
 	public String execute() throws Exception {
+
 		Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
+		
+		auction.register(new AuctionDatabaseCRUD());
+		System.out.println("Registered obs BlockAuction");
+		
 		auction.setStatus(Status.BLOCKED);
 		
 		return ActionSupport.SUCCESS;
