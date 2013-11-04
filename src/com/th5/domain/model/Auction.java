@@ -62,10 +62,12 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		this.bids = new SyncedMap<String,Bid>(auctionId, Queries.selectBidsByAuctionId, new BidDatabaseCRUD(), true);
 	}
 
-	public Auction(Calendar startTime, Calendar endTime, int startBid, Category category, String productName, String productDescripion, int auctionId, int userId, Status status) {
+	public Auction(Calendar startTime, Calendar endTime, int startBid, Category category, int productId, String productName, String productDescripion, int auctionId, int userId, Status status) {
 		this(endTime, startBid, category, productName, productDescripion, auctionId, userId);
 		this.startTime = startTime;
 		this.status = status;
+		this.product.setProductId(productId);
+
 		
 	}
 	

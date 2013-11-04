@@ -21,7 +21,6 @@ public class UnblockAuctionAction extends ActionSupport implements SessionAware{
 		Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
 		
 		auction.register(new AuctionDatabaseCRUD());
-		System.out.println("Registered obs UnblockAuction");
 		
 		auction.setStatus(Status.ACTIVE);
 		

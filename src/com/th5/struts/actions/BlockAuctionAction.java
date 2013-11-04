@@ -20,7 +20,6 @@ public class BlockAuctionAction extends ActionSupport implements SessionAware{
 	public String execute() throws Exception {
 
 		Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
-		System.out.println("Registering new obs BlockAuction");
 
 		auction.register(adbcrud);
 		

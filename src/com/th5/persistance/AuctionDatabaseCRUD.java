@@ -174,11 +174,9 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>, Observer {
 			int productId = result.getInt("prd_pk_product_id");
 			String productName = result.getString("prd_name");
 			String productDescription = result.getString("prd_description");
+			
 			// auction
-
-			auction = new Auction(aucStartTime, aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, userId, Status.fromInteger(aucStatusId));
-
-			auction.getProduct().setProductId(productId);
+			auction = new Auction(aucStartTime, aucEndTime, startBid, Category.fromString(categoryString), productId, productName, productDescription, auctionID, userId, Status.fromInteger(aucStatusId));
 			
 			auctionList.add(auction);
 		}
