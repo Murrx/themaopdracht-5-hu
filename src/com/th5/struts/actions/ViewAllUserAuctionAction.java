@@ -22,7 +22,7 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 	public String execute() throws Exception {
 		try {
 
-			allAuctions = user.geMyAuctions().values();
+			allAuctions = user.getMyAuctions().values();
 //			if (user.getRelevantAuctions() != null) {
 //				for (Auction auc : user.getRelevantAuctions()) {
 //					for (Bid bid : auc.getBids()) {
