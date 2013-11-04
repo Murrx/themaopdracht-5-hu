@@ -18,7 +18,7 @@ public class UserListManagerTest {
 	public void testRetrieve() throws AuctifyException {
 		ulm.retrieve("testaccount@auctify.com");
 	}
-	@Test (expected = AuctifyException.class)
+	@Test (expected = IndexOutOfBoundsException.class)
 	public void testRetrieveEmailDontExcist() throws AuctifyException {
 		ulm.retrieve("testaccount@auctify.nl");
 	}

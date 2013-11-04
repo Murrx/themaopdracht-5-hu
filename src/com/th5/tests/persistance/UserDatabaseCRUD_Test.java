@@ -20,11 +20,11 @@ public class UserDatabaseCRUD_Test {
 		if(result.isEmpty())fail("failed to retrieve user");
 	}
 	
-	@Test (expected = AuctifyException.class)
+	@Test
 	public void testRetrieveInvallidUser() throws AuctifyException {
 		UserDatabaseCRUD crud = new UserDatabaseCRUD();
-		List<User> result = crud.retrieve("testaccount@auctify.com", Queries.selectUserByEmail);
-		if(!result.isEmpty())fail("failed to retrieve user");
+		List<User> result = crud.retrieve("testaccount@auctify.nl", Queries.selectUserByEmail);
+		if (!result.isEmpty())fail("Returned a user while this should not have happend");
 	}
 
 }

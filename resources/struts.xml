@@ -19,7 +19,6 @@
 	        <exception-mapping exception="java.lang.Throwable" result="Exception" />
 	    </global-exception-mappings>
 	     -->
-	    	
 		
 		<action name="" class="com.th5.struts.actions.WelcomeAction">
 			<result>/jsp/welcome.jsp</result>
