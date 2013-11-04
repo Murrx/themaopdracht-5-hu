@@ -60,9 +60,12 @@ public class UserListManager{
 		User user = getUserFromUserList(email);
 		if (user == null){
 			List<User> result = userDatabaseCRUD.retrieve(email,Queries.selectUserByEmail);
-			user = result.get(0);
-			if (user != null) userList.add(user);
-			else throw new AuctifyException("user not found");
+			try {
+				user = result.get(0);
+				userList.add(user);
+			} catch (IndexOutOfBoundsException e) {
+				throw new AuctifyException("user not found");
+			}
 		}
 		return user;
 	}
