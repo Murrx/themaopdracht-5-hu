@@ -134,9 +134,13 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		
 		while(result.next()){
 			Auction auction = null;
+			
 			//auction data
-			Calendar aucStartTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_start_time"));
-			Calendar aucEndTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_end_time"));
+			Calendar aucStartTime = Calendar.getInstance();
+			Calendar aucEndTime = Calendar.getInstance();
+			aucStartTime.setTimeInMillis(result.getTimestamp("auc_start_time").getTime());
+			aucEndTime.setTimeInMillis(result.getTimestamp("auc_end_time").getTime());
+
 			int aucStatusId = result.getInt("auc_fk_status_id");
 			int auctionID = result.getInt("auc_pk_auction_id");
 
