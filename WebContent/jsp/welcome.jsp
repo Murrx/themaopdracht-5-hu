@@ -61,7 +61,7 @@
 					<h4 class="headerPurple noPaddingHeader">Recent bids:</h4>
 				</div>
 				
-				<s:if test="latestBids != null">
+				<s:if test="latestBids > 0">
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<s:iterator value="latestBids">
