@@ -136,6 +136,10 @@ footer {
 	margin-bottom: 20px;
 }
 
+#searchBtn {
+	color: purple;
+}
+
 /* ------------ */
 
 .user-box {
