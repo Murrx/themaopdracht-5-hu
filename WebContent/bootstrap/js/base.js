@@ -39,6 +39,7 @@ $(function () {
 		$('#startDateRange').daterangepicker({
 			startDate: moment(),
 			endDate: moment(),
+			maxDate: moment(),
 			showDropdowns: true,
 			showWeekNumbers: true,
 			timePicker: false,
@@ -69,15 +70,18 @@ $(function () {
 			}
 		},
 			function(start, end) {
-				console.log("Callback has been called!");
-				$('#startDateRange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+				$('#startDateRange button').html('<i class="fa fa-calendar"></i>' + start.format('MMMM D, YYYY') + '<br /> -<br /> ' + end.format('MMMM D, YYYY'));
+				$('#startDateRange [name="startDateLow"]').val(start);
+				$('#startDateRange [name="startDateHigh"]').val(end);
 			}
 		);
+		$('#startDateRange button').html('<i class="fa fa-calendar"></i>' + moment().format('MMMM D, YYYY') + '<br /> -<br /> ' + moment().format('MMMM D, YYYY'));
 	}
 	if($('#endDateRange').length != 0) {
 		$('#endDateRange').daterangepicker({
 			startDate: moment(),
 			endDate: moment(),
+			minDate: moment(),
 			showDropdowns: true,
 			showWeekNumbers: true,
 			timePicker: false,
@@ -108,10 +112,24 @@ $(function () {
 			}
 		},
 			function(start, end) {
-				console.log("Callback has been called!");
-				$('#endDateRange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+				$('#endDateRange button').html('<i class="fa fa-calendar"></i>' + start.format('MMMM D, YYYY') + '<br /> -<br /> ' + end.format('MMMM D, YYYY'));
+				$('#endDateRange [name="endDateLow"]').val(start);
+				$('#endDateRange [name="endDateHigh"]').val(end);
 			}
 		);
+		$('#endDateRange button').html('<i class="fa fa-calendar"></i>' + moment().format('MMMM D, YYYY') + '<br /> -<br /> ' + moment().format('MMMM D, YYYY'));
+	}
+	if($('.slider').length != 0){
+		$('.slider').noUiSlider({
+			range: [0, 1000],
+			start: [250, 750],
+			handles: 2,
+			connect: true,
+			serialization: {
+				to: [ $('[name="priceRangeLow"]'), $('[name="priceRangeHigh"]') ],
+				resolution: 1
+			}
+		});
 	}
 });
 

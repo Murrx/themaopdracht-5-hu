@@ -21,6 +21,9 @@
 			<script type="text/javascript" src="bootstrap/js/dateRangePicker/moment.min.js"></script>
 			<script type="text/javascript" src="bootstrap/js/dateRangePicker/daterangepicker.js"></script>
 		</s:if>
+		<s:if test="rangePicker">
+			<script type="text/javascript" src="bootstrap/js/nouislider/jquery.nouislider.min.js"></script>
+		</s:if>
 		<s:if test="progressTimers">
 			<!-- Countdown + percentage scripts -->
 			<script src="bootstrap/js/countdown2.js" type="text/javascript"></script>

@@ -8,6 +8,7 @@ import java.util.Collection;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.th5.domain.model.Auction;
+import com.th5.domain.model.Category;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.Search;
 
@@ -16,6 +17,7 @@ import com.th5.domain.util.Search;
 public class SearchAuctionsAction extends ActionSupport {
 
 	private Collection<Auction> allAuctions;
+	private Category[] 			categories = Category.values();
 	private String search;
 
 	@Override
@@ -45,5 +47,13 @@ public class SearchAuctionsAction extends ActionSupport {
 	
 	public String getSearch() {
 		return search;
+	}
+	
+	public Category[] getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Category[] categories) {
+		this.categories = categories;
 	}
 }

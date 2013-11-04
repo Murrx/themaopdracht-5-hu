@@ -16,6 +16,6 @@
 	</s:iterator>
 </div>
 
-<s:push value="#{'progressTimers':true, 'dateRangePicker':true}">
+<s:push value="#{'progressTimers':true, 'dateRangePicker':true, 'rangePicker': true}">
 	<s:include value="/includes/footer.jsp" />
 </s:push>

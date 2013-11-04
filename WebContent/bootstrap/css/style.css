@@ -36,6 +36,36 @@ a, a:hover, h1, h2, h3, h4 {
 		url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular')
 		format('svg');
 }
+
+.date-range span {
+	text-align: center;
+	display: block;
+	width: 100%;
+}
+
+.date-range button {
+	line-height: 13px;
+}
+
+.date-range i {
+	position: absolute;
+	font-size: 25px;
+	bottom: 5px;
+	right: 20px;
+	opacity: 0.3;
+}
+
+.date-range:hover i {
+	color: purple;
+	cursor: pointer;
+}
+
+.price-range input {
+	width: 100%;
+	margin-top: 10px;
+	text-align: center;
+}
+
 /* FLEXBOX IS THE SHIIT: http://philipwalton.github.io/solved-by-flexbox/ */
 .container {
 	display: -webkit-box;
