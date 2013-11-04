@@ -35,5 +35,83 @@ $(function () {
 			window.location.href = 'viewAction.action?id=' + id;
 		});
 	}
+	if($('#startDateRange').length != 0) {
+		$('#startDateRange').daterangepicker({
+			startDate: moment(),
+			endDate: moment(),
+			showDropdowns: true,
+			showWeekNumbers: true,
+			timePicker: false,
+			timePickerIncrement: 1,
+			timePicker12Hour: true,
+			ranges: {
+				'Today': [moment(), moment()],
+				'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+				'Last 7 Days': [moment().subtract('days', 6), moment()],
+				'Last 30 Days': [moment().subtract('days', 29), moment()],
+				'This Month': [moment().startOf('month'), moment().endOf('month')],
+				'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+			},
+			opens: 'left', 
+			buttonClasses: ['btn btn-default'],
+			applyClass: 'btn-small btn-primary',
+			cancelClass: 'btn-small',
+			format: 'DD/MM/YYYY',
+			separator: ' to ',
+			locale: {
+				applyLabel: 'Submit',
+				fromLabel: 'From',
+				toLabel: 'To',
+				customRangeLabel: 'Custom Range',
+				daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+				monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+				firstDay: 1
+			}
+		},
+			function(start, end) {
+				console.log("Callback has been called!");
+				$('#startDateRange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+			}
+		);
+	}
+	if($('#endDateRange').length != 0) {
+		$('#endDateRange').daterangepicker({
+			startDate: moment(),
+			endDate: moment(),
+			showDropdowns: true,
+			showWeekNumbers: true,
+			timePicker: false,
+			timePickerIncrement: 1,
+			timePicker12Hour: true,
+			ranges: {
+				'Today': [moment(), moment()],
+				'Tomorrow': [moment().add('days', 1), moment().add('days', 1)],
+				'Next 7 Days': [moment().add('days', 6), moment()],
+				'Last 30 Days': [moment().add('days', 29), moment()],
+				'This Month': [moment().startOf('month'), moment().endOf('month')],
+				'Next Month': [moment().add('month', 1).startOf('month'), moment().add('month', 1).endOf('month')]
+			},
+			opens: 'left', 
+			buttonClasses: ['btn btn-default'],
+			applyClass: 'btn-small btn-primary',
+			cancelClass: 'btn-small',
+			format: 'DD/MM/YYYY',
+			separator: ' to ',
+			locale: {
+				applyLabel: 'Submit',
+				fromLabel: 'From',
+				toLabel: 'To',
+				customRangeLabel: 'Custom Range',
+				daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+				monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+				firstDay: 1
+			}
+		},
+			function(start, end) {
+				console.log("Callback has been called!");
+				$('#endDateRange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+			}
+		);
+	}
 });
 

@@ -9,8 +9,7 @@
 		<footer class="row">
 			<div class="col-sm-12">
 				<p>
-				Auctified by Robin, Mark, Dimiter, Joris and Martin.
-			
+					Auctified by Robin, Mark, Dimiter, Joris and Martin.
 				</p>
 			</div>
 		</footer>
@@ -18,6 +17,10 @@
 		<script src="//code.jquery.com/jquery-latest.js" type="text/javascript"></script>		
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 		
+		<s:if test="dateRangePicker">
+			<script type="text/javascript" src="bootstrap/js/dateRangePicker/moment.min.js"></script>
+			<script type="text/javascript" src="bootstrap/js/dateRangePicker/daterangepicker.js"></script>
+		</s:if>
 		<s:if test="progressTimers">
 			<!-- Countdown + percentage scripts -->
 			<script src="bootstrap/js/countdown2.js" type="text/javascript"></script>

@@ -4,18 +4,18 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-<h1>All Auctions</h1>
+<h1>Auctions</h1>
 
 <s:if test="%{search}">
 	<h2><s:property value="search" /></h2>
 </s:if>
 
 <div class="row" id="allAuctions">
-	<s:iterator value="allAuctions"  >
+	<s:iterator value="allAuctions">
 		<s:include value="/includes/auctionBox.jsp" />
 	</s:iterator>
 </div>
 
-<s:push value="#{'progressTimers':true}">
+<s:push value="#{'progressTimers':true, 'dateRangePicker':true}">
 	<s:include value="/includes/footer.jsp" />
 </s:push>

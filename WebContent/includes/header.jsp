@@ -135,4 +135,12 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12">
+					<s:if test="filter">
+						<div class="col-sm-3 col-md-2">
+							<s:include value="filter.jsp" />
+						</div>
+						<div class="col-sm-9 col-md-10">
+					</s:if>
+					<s:else>
+						<div class="col-sm-12">
+					</s:else>
