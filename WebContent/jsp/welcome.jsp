@@ -61,7 +61,7 @@
 					<h4 class="headerPurple noPaddingHeader">Recent bids:</h4>
 				</div>
 				
-				<!--<s:if test="latestBids > 0">-->
+				<s:if test="latestBids.size > 0">
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<s:iterator value="latestBids">
@@ -69,12 +69,12 @@
 							</s:iterator>
 						</table>
 					</div>
-				<!--</s:if>
+				</s:if>
 				<s:else>
 					<div class="panel-body text-center">
 						<span>There are no bids placed recently. <a href="<s:url action='allAuctions' />">Select an auction</a> and start bidding!</span>
 					</div>
-				</s:else>-->
+				</s:else>
 			</div>
 
 
