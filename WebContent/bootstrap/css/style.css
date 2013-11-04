@@ -391,11 +391,16 @@ textarea {
 	border-radius: 3px;
 }
 
-.progress {
+.progress, .singleProgress {
 	position: relative;
 	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.single {
+	margin-top: 20px;
+	width: 100%;
 }
 
 .progress-bar {
