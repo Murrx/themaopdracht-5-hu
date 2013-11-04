@@ -14,14 +14,15 @@ public class BlockAuctionAction extends ActionSupport implements SessionAware{
 
 	private int auctionId;
 	private Map<String, Object> session;
+	private AuctionDatabaseCRUD adbcrud = new AuctionDatabaseCRUD();
 	
 	@Override
 	public String execute() throws Exception {
 
 		Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
-		
-		auction.register(new AuctionDatabaseCRUD());
-		System.out.println("Registered obs BlockAuction");
+		System.out.println("Registering new obs BlockAuction");
+
+		auction.register(adbcrud);
 		
 		auction.setStatus(Status.BLOCKED);
 		

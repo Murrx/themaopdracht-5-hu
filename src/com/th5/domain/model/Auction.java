@@ -36,7 +36,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 	private int userId;
 	private User owner;
 	
-	private List<Observer> observers;
+	private List<Observer> observers = new ArrayList<Observer>();
 	private final Object MUTEX= new Object();
 	private boolean changed;
 	
@@ -62,6 +62,13 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		this.bids = new SyncedMap<String,Bid>(auctionId, Queries.selectBidsByAuctionId, new BidDatabaseCRUD(), true);
 	}
 
+	public Auction(Calendar startTime, Calendar endTime, int startBid, Category category, String productName, String productDescripion, int auctionId, int userId, Status status) {
+		this(endTime, startBid, category, productName, productDescripion, auctionId, userId);
+		this.startTime = startTime;
+		this.status = status;
+		
+	}
+	
 	private void refreshStatus() throws AuctifyException{
 		if(status == Status.ACTIVE){
 			if(Calendar.getInstance().getTimeInMillis() > endTime.getTimeInMillis()){
