@@ -30,10 +30,17 @@
 				<div class="panel-heading ">
 					<h4 class="headerPurple noPaddingHeader">Recently added auctions:</h4>
 				</div>
-				<s:iterator value="latestAuctions">
-					<s:include value="/includes/auctionBoxLatest.jsp" />
-				</s:iterator>
-
+				
+				<s:if test="latestAuctions != ''">
+					<s:iterator value="latestAuctions">
+						<s:include value="/includes/auctionBoxLatest.jsp" />
+					</s:iterator>
+				</s:if>
+				<s:else>
+					<div class="panel-body text-center">
+						<span>There are no new auctions. <a href="<s:url action='addAuctionForm' namespace='/member'/>">Create one!</a></span>
+					</div>
+				</s:else>
 			</div>
 
 		</div>
@@ -46,15 +53,21 @@
 				<div class="panel-heading ">
 					<h4 class="headerPurple noPaddingHeader">Recent bids:</h4>
 				</div>
-
-				<div class="table-responsive">
-					<table class="table table-hover">
-						<s:iterator value="latestBids">
-							<s:include value="/includes/listBid.jsp" />
-						</s:iterator>
-
-					</table>
-				</div>
+				
+				<s:if test="latestBids != ''">
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<s:iterator value="latestBids">
+								<s:include value="/includes/listBid.jsp" />
+							</s:iterator>
+						</table>
+					</div>
+				</s:if>
+				<s:else>
+					<div class="panel-body text-center">
+						<span>There are no bids placed recently. <a href="<s:url action='allAuctions' />">Select an auction</a> and start bidding!</span>
+					</div>
+				</s:else>
 			</div>
 
 
