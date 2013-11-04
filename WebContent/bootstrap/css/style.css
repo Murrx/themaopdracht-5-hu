@@ -17,6 +17,10 @@ a, a:hover, h1, h2, h3, h4 {
 	color: purple;
 }
 
+.list-group .active {
+	background-color: purple !important;
+}
+
 #login-form .form-group {
 	text-align: center;
 	line-height: 35px
@@ -192,7 +196,7 @@ footer {
 	border-radius: 4px;
 }
 
-.user-box-edit {
+.user-box-edit, .user-box-admin {
 	border-radius: 5px;
 	display: block;
 	width: 54px;
@@ -203,15 +207,25 @@ footer {
 	height: 58px;
 }
 
-.user-box-edit:hover {
+.user-box-edit:hover, .user-box-admin:hover {
 	background-color: lightgray;
 }
 
-.user-box-edit i {
+.user-box-edit i, .user-box-admin i {
 	font-size: 50px;
 }
 
-.user-box-edit:hover i {
+.user-box-admin i {
+	margin-left: 5px;
+	color: #d9534f;
+}
+
+.user-box-admin {
+margin-left: 10px;	
+	
+}
+
+.user-box-edit:hover i, .user-box-admin:hover i {
 	color: white;
 }
 
