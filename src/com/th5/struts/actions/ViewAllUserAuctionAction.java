@@ -16,20 +16,20 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 
 	private Collection<Auction> allAuctions;
 	private User user;
-	private List<Bid> allBids = new ArrayList<Bid>();
+	private Collection<Bid> allBids;
 
 	@Override
 	public String execute() throws Exception {
 		try {
 
 			allAuctions = user.getMyAuctions().values();
-//			if (user.getRelevantAuctions() != null) {
-//				for (Auction auc : user.getRelevantAuctions()) {
-//					for (Bid bid : auc.getBids()) {
-//						allBids.add(bid);
-//					}
-//				}
-//			}
+			
+			Collection<Auction> tempBidAuctions = user.getRelevantAuctions().values();
+			if (tempBidAuctions != null && tempBidAuctions.size() > 0) {
+				for (Auction auction : (Auction[])tempBidAuctions.toArray()) {
+					allBids.addAll((Collection<? extends Bid>) auction.getBids());
+				}
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,12 +43,8 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 		return this.allAuctions;
 	}
 
-	public List<Bid> getAllBids() {
+	public Collection<Bid> getAllBids() {
 		return this.allBids;
-	}
-
-	public void setAllAuctions(ArrayList<Auction> al) {
-		this.allAuctions = al;
 	}
 
 	public User getUser() {
