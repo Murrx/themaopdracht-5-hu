@@ -11,6 +11,8 @@ public class Queries {
 	
 	public static final String selectAllBids = "SELECT * FROM bid_bids";
 	
+	public static final String selectAllUsers = "SELECT * FROM usr_users ORDER BY USR_DISPLAY_NAME asc";
+	
 	//Queries used by BidDatabaseCrud::
 	public static final String generateBidId = "{? = call seq_bid_pk_bid_id.nextval }";
 	public static final String createBid = "INSERT INTO BID_BIDS(BID_PK_BID_ID, BID_FK_AUCTION_ID, BID_FK_USER_ID, BID_TIMESTAMP, BID_AMOUNT) VALUES (?,?,?,?,?)";

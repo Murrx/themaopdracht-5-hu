@@ -1,6 +1,7 @@
 package com.th5.domain.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,7 @@ public interface AuctionServiceInterface {
 	 */
 	public Map<String, Auction> getAllAuctions();
 	public Map<String, Bid> getAllBids();
+
 	
 	/** Retrieve all User auctions on Auctify
 	 * @throws AuctifyException 
@@ -66,5 +68,6 @@ public interface AuctionServiceInterface {
 	
 	public List<Auction> getPopularAuctions();
 	public List<Auction> getLatestAuctions();
+	public Map<String, User> retrieveAllUsers();
 
 }

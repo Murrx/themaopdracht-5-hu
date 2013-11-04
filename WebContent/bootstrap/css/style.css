@@ -115,6 +115,10 @@ footer {
 
 /* By Martin */
 
+.admin-menu{
+	margin-top: 22px;
+}
+
 .imgModal{
 	margin: 0 auto;
 	padding: 5px;

@@ -3,9 +3,12 @@ package com.th5.domain.model;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.th5.domain.observation.Observable;
+import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
@@ -17,7 +20,7 @@ import com.th5.domain.util.SyncedMap;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
-public class Auction implements Comparable<Auction>, Identifiable<String>, Searchable<Auction>, Filterable<Auction> {
+public class Auction implements Comparable<Auction>, Identifiable<String>, Searchable<Auction>, Filterable<Auction>, Observable {
 
 	private SyncedMap<String,Bid> bids;
 	
@@ -32,6 +35,11 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 
 	private int userId;
 	private User owner;
+	
+	private List<Observer> observers = new ArrayList<Observer>();
+	private final Object MUTEX= new Object();
+	private boolean changed;
+	
 
 	public Auction(int auctionId) {
 		this.auctionId = auctionId;
@@ -54,10 +62,23 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		this.bids = new SyncedMap<String,Bid>(auctionId, Queries.selectBidsByAuctionId, new BidDatabaseCRUD(), true);
 	}
 
-	private void refreshStatus(){
+	public Auction(Calendar startTime, Calendar endTime, int startBid, Category category, int productId, String productName, String productDescripion, int auctionId, int userId, Status status) {
+		this(endTime, startBid, category, productName, productDescripion, auctionId, userId);
+		this.startTime = startTime;
+		this.status = status;
+		this.product.setProductId(productId);
+
+		
+	}
+	
+	private void refreshStatus() throws AuctifyException{
 		if(status == Status.ACTIVE){
 			if(Calendar.getInstance().getTimeInMillis() > endTime.getTimeInMillis()){
-				this.status = Status.EXPIRED;
+				try{
+					this.setStatus(Status.EXPIRED);
+				} catch(AuctifyException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -218,8 +239,18 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		return status;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setStatus(Status status) throws AuctifyException {
+		Status oldStatus = this.status;
+		try {
+			this.status = status;
+			this.changed = true;
+			notifyObservers();
+		} catch (AuctifyException e) {
+			this.status = oldStatus;
+			this.changed = false;
+			throw new AuctifyException(e.getMessage());
+		}
+		
 	}
 
 	public Product getProduct() {
@@ -369,5 +400,41 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		}
 		
 		return valid;
+	}
+
+	@Override
+	public void register(Observer obs) throws NullPointerException {
+		if(obs == null) throw new NullPointerException("Observer is Null");
+		if(!observers.contains(obs)) observers.add(obs);
+	}
+	
+	@Override
+	public void unregister(Observer obs) {
+		observers.remove(obs);
+	}
+
+	@Override
+	public void notifyObservers() throws AuctifyException{
+		List<Observer> observersLocal = null;
+		//synchronization is used to make sure any observer registered after message is received is not notified
+		synchronized (MUTEX) {
+			if (!changed)
+				return;
+			observersLocal = new ArrayList<>(this.observers);
+			this.changed=false;
+		}
+		for (Observer obs : observersLocal) {
+			try {
+				obs.updateObserver(this);
+			} catch (AuctifyException e) {
+				throw new AuctifyException(e.getMessage());
+			}
+		}
+
+	}
+	
+	@Override
+	public Object getUpdate(Observer obs) {
+		return (Auction) this;
 	}
 }

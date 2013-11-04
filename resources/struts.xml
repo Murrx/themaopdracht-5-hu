@@ -163,7 +163,7 @@
 		</action>
 	</package>
 
-	<package name="administrator" namespace="/admin" extends="struts-default">
+	<package name="admin" namespace="/admin" extends="struts-default">
 		<interceptors>
 			<interceptor name="authenticationInterceptor"
 				class="com.th5.struts.interceptors.AuthenticationInterceptor" />
@@ -184,6 +184,10 @@
 		
 		<action name="ViewAdminPanel">
 			<result>/jsp/admins/dashboard.jsp</result>
+		</action>
+		
+			<action name="ViewMembersAction" class="com.th5.struts.actions.admin.ViewMembersAction">
+			<result>/jsp/admins/manageMembers.jsp</result>
 		</action>
 		
 	</package>

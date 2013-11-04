@@ -13,10 +13,13 @@ import java.util.List;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
 import com.th5.domain.model.Status;
+import com.th5.domain.model.User;
+import com.th5.domain.observation.Observable;
+import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
 
-public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
+public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>, Observer {
 
 	public static int generateId() throws AuctifyException {
 
@@ -104,8 +107,27 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 
 	@Override
 	public void update(Auction object) throws AuctifyException {
-		// TODO Auto-generated method stub
+		
+		Connection connection = DataSourceService.getConnection();
 
+		PreparedStatement statement = null;
+
+		try{
+
+			statement = connection.prepareCall("{call pkg_auction.pr_update_auction_status(?,?)}");
+
+			// --- Auction ID & Auction Rights ---- //
+			statement.setInt(1, object.getAuctionId());
+			statement.setInt(2, object.getStatus().getRightsValue());
+
+			statement.executeQuery();
+
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new AuctifyException(e.getMessage());
+		}finally{
+			DataSourceService.closeConnection(connection, statement);
+		}
 	}
 
 	/**Delete user from database. Use with care.
@@ -152,16 +174,31 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 			int productId = result.getInt("prd_pk_product_id");
 			String productName = result.getString("prd_name");
 			String productDescription = result.getString("prd_description");
+			
 			// auction
-
-			auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, userId);
-
-			auction.setStartTime(aucStartTime);
-			auction.setStatus(Status.fromInteger(aucStatusId));
-			auction.getProduct().setProductId(productId);
+			auction = new Auction(aucStartTime, aucEndTime, startBid, Category.fromString(categoryString), productId, productName, productDescription, auctionID, userId, Status.fromInteger(aucStatusId));
 			
 			auctionList.add(auction);
 		}
 		return auctionList;
+	}
+
+	 @Override
+	 public void updateObserver(Object obj) throws AuctifyException {
+		 // TODO Auto-generated method stub
+		 try {
+			 update((Auction) obj);
+		 } catch (AuctifyException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 throw new AuctifyException(e.getMessage());
+		 }
+
+	 }
+
+	@Override
+	public void setObservable(Observable obs) {
+		// TODO Auto-generated method stub
+		
 	}
 }

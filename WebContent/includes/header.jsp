@@ -141,7 +141,10 @@
 						<s:if test="%{parent != null}">
 							> <a href="<s:url action='%{parent}' namespace='/'/> "><s:property value="parentName" /></a>
 						</s:if>
-						> <s:property value="title" /> <s:property value="category" /> 
+						<s:if test="adminPanel">
+							> <a href="<s:url action='ViewAdminPanel' namespace='/admin'/> ">Admin Panel</a>
+						</s:if>
+						> <s:property value="title" />
 					</div>
 				</div>
 				<div class="row">

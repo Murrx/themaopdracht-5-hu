@@ -8,15 +8,21 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Status;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.persistance.AuctionDatabaseCRUD;
 
 public class BlockAuctionAction extends ActionSupport implements SessionAware{
 
 	private int auctionId;
 	private Map<String, Object> session;
+	private AuctionDatabaseCRUD adbcrud = new AuctionDatabaseCRUD();
 	
 	@Override
 	public String execute() throws Exception {
+
 		Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
+
+		auction.register(adbcrud);
+		
 		auction.setStatus(Status.BLOCKED);
 		
 		return ActionSupport.SUCCESS;
