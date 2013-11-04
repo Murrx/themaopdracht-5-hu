@@ -1,15 +1,25 @@
 package com.th5.domain.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.domain.util.CalendarRange;
+import com.th5.domain.util.Filterable;
+import com.th5.domain.util.IntegerRange;
+import com.th5.domain.util.Searchable;
 import com.th5.domain.util.SyncedMap;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
-public class Auction implements Comparable<Auction>, Identifiable<String> {
+public class Auction implements Comparable<Auction>, Identifiable<String>, Searchable<Auction>, Filterable<Auction> {
 
 	private SyncedMap<String,Bid> bids;
 	
@@ -283,5 +293,78 @@ public class Auction implements Comparable<Auction>, Identifiable<String> {
 	@Override
 	public String getIdentifier() {
 		return Integer.toString(auctionId);
+	}
+
+	@Override
+	public Boolean search(String search) {
+		if(product.getName().toLowerCase().contains(search.toLowerCase()) || 
+		   product.getDescription().toLowerCase().contains(search.toLowerCase())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Boolean filter(Map<String, Object> filter) {
+		Boolean valid = false;
+		Iterator<Entry<String, Object>> it = filter.entrySet().iterator();
+		while(it.hasNext()) {
+			Entry<String, Object> obj = it.next();
+			switch(obj.getKey()) {
+				case "owner":
+					if(obj.getValue().equals(new Integer(userId))) {
+						valid = true;
+					}
+				break;
+				case "price":
+					if(((IntegerRange)obj.getValue()).withinRange(new Integer(getHighestBidAmount()))) {
+						valid = true;
+					}
+				break;
+				case "startTime":
+					if(obj.getValue() instanceof CalendarRange) {
+						if(((CalendarRange)obj.getValue()).withinRange(startTime)) {
+							valid = true;
+						}
+					} else {
+						if(startTime.equals(obj.getValue())) {
+							valid = true;
+						}
+					}
+				break;
+				case "endTime":
+					if(obj.getValue() instanceof CalendarRange) {
+						if(((CalendarRange)obj.getValue()).withinRange(endTime)) {
+							valid = true;
+						}
+					} else {
+						if(endTime.equals(obj.getValue())) {
+							valid = true;
+						}
+					}
+				break;
+				case "category":
+					ArrayList<String> value = new ArrayList<String>();
+					if(obj.getValue() instanceof String) {
+						value.add((String)obj.getValue());
+					} else {
+						value = (ArrayList<String>)obj.getValue();
+					}
+					Iterator<String> catIt = value.iterator();
+					while(catIt.hasNext()) {
+						String category = catIt.next();
+						try {
+							Enum.valueOf(Category.class, category);
+							valid = true;
+						} catch(IllegalArgumentException e) {
+						}
+					}
+				break;
+			}
+		}
+		
+		return valid;
 	}
 }
