@@ -24,12 +24,14 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 
 			allAuctions = user.getMyAuctions().values();
 			
+			/* Has to be fixed!
+			 * 
 			Collection<Auction> tempBidAuctions = user.getRelevantAuctions().values();
 			if (tempBidAuctions != null && tempBidAuctions.size() > 0) {
 				for (Auction auction : (Auction[])tempBidAuctions.toArray()) {
 					allBids.addAll((Collection<? extends Bid>) auction.getBids());
 				}
-			}
+			}*/
 
 		} catch (Exception e) {
 			e.printStackTrace();
