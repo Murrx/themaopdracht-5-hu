@@ -1,11 +1,11 @@
 package com.th5.domain.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.th5.domain.model.Auction;
+import com.th5.domain.model.Bid;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 
@@ -55,6 +55,7 @@ public interface AuctionServiceInterface {
 	/** Retrieve all auctions on Auctify
 	 */
 	public Map<String, Auction> getAllAuctions();
+	public Map<String, Bid> getAllBids();
 	
 	/** Retrieve all User auctions on Auctify
 	 * @throws AuctifyException 
