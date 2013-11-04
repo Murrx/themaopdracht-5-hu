@@ -3,10 +3,8 @@ package com.th5.domain.model;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionService;

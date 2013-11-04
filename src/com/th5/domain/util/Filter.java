@@ -1,12 +1,12 @@
 package com.th5.domain.util;
 
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-public class Filter<E extends Filterable> {
-	private List<Filterable<E>> result = null;
-	private List<Filterable<E>> input = null;
+public class Filter<E extends Filterable<E>> {
+	private Collection<E> result = null;
+	private Collection<E> input = null;
 	private Map<String, Object> flags = null;
 	
 	public Filter() {
@@ -16,16 +16,16 @@ public class Filter<E extends Filterable> {
 		this.flags = flags;
 	}
 	
-	public Filter(List<Filterable<E>> input) {
+	public Filter(Collection<E> input) {
 		this.input = input;
 	}
 	
-	public Filter(List<Filterable<E>> input, Map<String, Object> flags) {
+	public Filter(Collection<E> input, Map<String, Object> flags) {
 		this.flags = flags;
 		this.input = input;
 	}
 	
-	public void setInput(List<Filterable<E>> input) {
+	public void setInput(Collection<E> input) {
 		this.input = input;
 	}
 	
@@ -33,11 +33,11 @@ public class Filter<E extends Filterable> {
 		this.flags = flags;
 	}
 	
-	public List<Filterable<E>> getResult() {
+	public Collection<E> getResult() {
 		if(input != null && flags != null) {
-			Iterator<Filterable<E>> li = result.iterator();
+			Iterator<E> li = result.iterator();
 			while(li.hasNext()) {
-				Filterable<E> obj = li.next();
+				E obj = li.next();
 				if(obj.filter(flags)) {
 					result.add(obj);
 				}

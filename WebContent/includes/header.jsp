@@ -33,14 +33,15 @@
 			</div>
 			<div class="col-sm-5">
 				<!-- Search -->
-				<form role="search">
+				<s:form action="searchAuctions" namespace="/" method="post" role="search">
 					<div class="form-group" id="search-bar">
 						<div id="floater"></div>
 						<div id="search-bar-content">
-							<input type="search" class="form-control input-lg" placeholder="Search">
+							<s:textfield type="search" name="search" cssClass="form-control input-lg" placeholder="Search" />
+							<button type="submit" id="searchBtn" class="btn btn-default input-lg"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
-				</form>
+				</s:form>
 			</div>
 			<div class="col-sm-4" id="login-form">
 				<!-- Login -->
@@ -59,7 +60,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<button type="submit" class="btn btn-default btn-block input-sm">
+								<button id="loginBtn" type="submit" class="btn btn-default btn-block input-sm">
 									Sign in
 								</button>
 							</div>

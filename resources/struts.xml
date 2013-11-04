@@ -42,6 +42,9 @@
 		<action name="allAuctions" class="com.th5.struts.actions.AllAuctionsAction">
 			<result name="success">/jsp/auctions.jsp</result>
 		</action>
+		<action name="searchAuctions" class="com.th5.struts.actions.SearchAuctionsAction">
+			<result name="success">/jsp/auctions.jsp</result>
+		</action>
 		<action name="viewAction" class="com.th5.struts.actions.ViewAuctionAction">
 			<result name="success">/jsp/view_auction.jsp</result>
 		</action>

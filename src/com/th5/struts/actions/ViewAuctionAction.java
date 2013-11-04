@@ -33,7 +33,7 @@ public class ViewAuctionAction extends ActionSupport{
 	public void validate() {
 		auction = ServiceProvider.getService().getAuctionById(id);
 		if(auction == null){
-			addActionError("Invallid auction Id");
+			addActionError("Invalid auction Id");
 		}
 	}
 

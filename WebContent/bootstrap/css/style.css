@@ -410,6 +410,14 @@ textarea {
 	text-shadow: 1px 1px 3px black;
 }
 
+#searchBtn {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 25px;
+	line-height: 25px;
+}
+
 @media ( max-width : 767px) {
 	.user-box {
 		margin-top: 0px;
@@ -422,7 +430,7 @@ textarea {
 	.logo-part-two {
 		margin-top: 0px;
 	}
-	button[type="submit"] {
+	button[id="loginBtn"] {
 		height: 34px;
 	}
 	#login-form {
