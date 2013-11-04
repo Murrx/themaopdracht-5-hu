@@ -45,7 +45,7 @@
 			</div>
 			<div class="col-sm-4" id="login-form">
 				<!-- Login -->
-				<s:if test="%{#session.user != null}">
+				<s:if test="%{#session.user == null}">
 				<s:form action="login" namespace="/" method="post">
 					<div class="row">
 						<div class="col-sm-7 col-sm-offset-1">
