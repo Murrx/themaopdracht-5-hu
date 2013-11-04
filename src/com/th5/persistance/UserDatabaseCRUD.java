@@ -64,7 +64,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 				//address data
 				int addressId = result.getInt("adr_pk_address_id");
 				String postalCode = result.getString("adr_postal_code");
-				String houseNumber = result.getString("adr_pk_address_id");
+				String houseNumber = result.getString("adr_house_number");
 				String street = result.getString("adr_street");
 				String city = result.getString("adr_city");
 
