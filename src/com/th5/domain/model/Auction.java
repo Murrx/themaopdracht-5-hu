@@ -41,7 +41,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		this.startTime = Calendar.getInstance();
 		this.endTime = endTime;
 		this.startBid = startBid;
-
+		
 		this.category = category;
 		this.status = Status.ACTIVE;
 		this.product = new Product(productName, productDescripion);
@@ -295,12 +295,17 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 
 	@Override
 	public Boolean search(String search) {
-		if(product.getName().toLowerCase().contains(search.toLowerCase()) || 
-		   product.getDescription().toLowerCase().contains(search.toLowerCase())) {
-			return true;
-		} else {
-			return false;
+		String productName = product.getName();
+		String productDescription = product.getDescription();
+		
+		try {
+			if(productName.toLowerCase().contains(search.toLowerCase()) || 
+			   productDescription.toLowerCase().contains(search.toLowerCase())) {
+				return true;
+			}
+		} catch(NullPointerException e) {
 		}
+		return false;
 	}
 
 	@SuppressWarnings("unchecked")

@@ -1,5 +1,6 @@
 package com.th5.domain.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -33,17 +34,20 @@ public class Search<E extends Searchable<E>> {
 	}
 	
 	public Collection<E> getResult() {
-			if(input != null && search != null) {
-				System.out.println(input);
+		result = new ArrayList<E>();
+		if(input != null && search != null) {
+			try {
 				for(E obj : input) {
-					System.out.println(obj);
 					if(obj.search(search)) {
 						result.add(obj);
 					}
 				}
-				return result;
-			} else {
-				return null;
+			} catch(Exception e) {
+				
 			}
+			return result;
+		} else {
+			return null;
+		}
 	}
 }

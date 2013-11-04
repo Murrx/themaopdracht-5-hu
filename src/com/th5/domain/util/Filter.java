@@ -1,5 +1,6 @@
 package com.th5.domain.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
@@ -34,6 +35,7 @@ public class Filter<E extends Filterable<E>> {
 	}
 	
 	public Collection<E> getResult() {
+		result = new ArrayList<E>();
 		if(input != null && flags != null) {
 			Iterator<E> li = result.iterator();
 			while(li.hasNext()) {

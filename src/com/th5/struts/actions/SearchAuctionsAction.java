@@ -25,9 +25,7 @@ public class SearchAuctionsAction extends ActionSupport {
 			Search<Auction> searchResult = new Search<Auction>(auctions, search);
 			allAuctions = searchResult.getResult();
 		} catch(Exception e) {
-			StringWriter errors = new StringWriter();
-			e.printStackTrace(new PrintWriter(errors));
-			System.out.println(errors);
+			e.printStackTrace();
 		}
  		
 		return ActionSupport.SUCCESS;

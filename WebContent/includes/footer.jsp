@@ -21,7 +21,6 @@
 		<s:if test="progressTimers">
 			<!-- Countdown + percentage scripts -->
 			<script src="bootstrap/js/countdown2.js" type="text/javascript"></script>
-			
 			<script type="text/javascript">
 				$(function(){
 					<s:iterator value="allAuctions" >
@@ -30,47 +29,61 @@
 						endDateAuction<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>,<s:property value='endTimeHours'/>,<s:property value='endTimeMinutes'/>);			
 					</s:iterator>
 					
+					function update() {
+						requestAnimationFrame(update);
+						<s:iterator value="allAuctions" >
+							updateGUI(<s:property value='auctionId'/>);
+						</s:iterator>
+					}
+					
+					update();
 				});
-				
-				function update() {
-					requestAnimationFrame(update);
-					<s:iterator value="allAuctions" >
-						updateGUI(<s:property value='auctionId'/>);
-					</s:iterator>
-				}
-				requestAnimationFrame(update);
 
 			</script>
 		</s:if>
 		
 		<s:if test="progressTimersPopularAuctions">
 			<!-- Countdown + percentage scripts -->
-			<script src="bootstrap/js/countdown.js" type="text/javascript"></script>	
+			<script src="bootstrap/js/countdown2.js" type="text/javascript"></script>	
 			<script type="text/javascript">
 				$(function(){
 					<s:iterator value="popularAuctions" >
 						// Scripts for ID <s:property value='auctionId'/> - <s:property value='product.name'/>
 						startDateAuction<s:property value='auctionId'/> = new Date(<s:property value='startTimeYear'/>,<s:property value='startTimeMonth'/>,<s:property value='startTimeDate'/>,<s:property value='startTimeHours'/>,<s:property value='startTimeMinutes'/>);
 						endDateAuction<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>,<s:property value='endTimeHours'/>,<s:property value='endTimeMinutes'/>);			
-						GetCount(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "timer<s:property value='auctionId'/>");
-						GetPercentage(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "percent<s:property value='auctionId'/>", "pbar<s:property value='auctionId'/>");
 					</s:iterator>
+					
+					function update() {
+						requestAnimationFrame(update);
+						<s:iterator value="popularAuctions" >
+							updateGUI(<s:property value='auctionId'/>);
+						</s:iterator>
+					}
+					
+					update();
 				});
 			</script>
 		</s:if>
 		
 		<s:if test="progressTimersLatestAuctions">
 			<!-- Countdown + percentage scripts -->
-			<script src="bootstrap/js/countdown.js" type="text/javascript"></script>	
+			<script src="bootstrap/js/countdown2.js" type="text/javascript"></script>		
 			<script type="text/javascript">
 				$(function(){
 					<s:iterator value="latestAuctions" >
 						// Scripts for ID <s:property value='auctionId'/> - <s:property value='product.name'/>
 						startDateAuction<s:property value='auctionId'/> = new Date(<s:property value='startTimeYear'/>,<s:property value='startTimeMonth'/>,<s:property value='startTimeDate'/>,<s:property value='startTimeHours'/>,<s:property value='startTimeMinutes'/>);
 						endDateAuction<s:property value='auctionId'/> = new Date(<s:property value='endTimeYear'/>,<s:property value='endTimeMonth'/>,<s:property value='endTimeDate'/>,<s:property value='endTimeHours'/>,<s:property value='endTimeMinutes'/>);			
-						GetCount(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "timerLatest<s:property value='auctionId'/>");
-						GetPercentage(startDateAuction<s:property value='auctionId'/>, endDateAuction<s:property value='auctionId'/>, "percentLatest<s:property value='auctionId'/>", "pbarLatest<s:property value='auctionId'/>");
 					</s:iterator>
+					
+					function update() {
+						requestAnimationFrame(update);
+						<s:iterator value="latestAuctions" >
+							updateGUI(<s:property value='auctionId'/>);
+						</s:iterator>
+					}
+					
+					update();
 				});
 			</script>
 		</s:if>
@@ -83,13 +96,14 @@
 					// Dates for auction <s:property value='auctionId'/> - <s:property value='product.name'/>
 					startDateAuction<s:property value='auction.auctionId'/> = new Date(<s:property value='auction.startTimeYear'/>,<s:property value='auction.startTimeMonth'/>,<s:property value='auction.startTimeDate'/>,<s:property value='auction.startTimeHours'/>,<s:property value='auction.startTimeMinutes'/>);
 					endDateAuction<s:property value='auction.auctionId'/> = new Date(<s:property value='auction.endTimeYear'/>,<s:property value='auction.endTimeMonth'/>,<s:property value='auction.endTimeDate'/>,<s:property value='auction.endTimeHours'/>,<s:property value='auction.endTimeMinutes'/>);			
+
+					function update() {
+						requestAnimationFrame(update);
+						updateGUI(<s:property value='auction.auctionId'/>);
+					}
+					update();
 				});
 				
-				function update() {
-					requestAnimationFrame(update);
-					updateGUI(<s:property value='auction.auctionId'/>);
-				}
-				requestAnimationFrame(update);
 			</script>
 		</s:if>
 		
