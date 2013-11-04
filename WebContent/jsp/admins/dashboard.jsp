@@ -5,14 +5,14 @@
 </s:push>
 
 
-<h3>Admin Panel:</h3>
+
 <div class="row">
 
 	<s:include value="/includes/adminMenu.jsp" />
 	
 	<div class="col-xs-12 col-sm-12 col-md-8">
 
-	
+	<h3>Admin Panel:</h3>
 		<div class="well">
 			Welcome to your awesome admin panel.<br /> 
 			Here you manage your website.
@@ -27,7 +27,7 @@
 
 	<div class="col-xs-12 col-sm-12 col-md-6">
 
-		<h3>Amount bids:</h3>
+		<h3>Stats:</h3>
 		<div class="well">Here we'll display a graph or something.</div>
 
 	</div>

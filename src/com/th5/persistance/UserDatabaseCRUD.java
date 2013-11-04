@@ -20,29 +20,33 @@ import com.th5.domain.other.DateConverter;
 import com.th5.domain.service.ServiceProvider;
 
 @SuppressWarnings("hiding")
-public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
+public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 
 	@Override
 	public List<User> retrieve(String identifier, String query) throws AuctifyException {
 		Connection connection = DataSourceService.getConnection();
 		List<User> userList = new ArrayList<User>();
 		PreparedStatement statement = null;
-		
-		try{
+
+		try {
 			statement = connection.prepareStatement(query);
-			try{
-				statement.setInt(1, Integer.parseInt(identifier));
-			}catch(NumberFormatException e){
-				statement.setString(1, identifier);
+			try {
+				if (identifier != null) {
+					statement.setInt(1, Integer.parseInt(identifier));
+				}
+			} catch (NumberFormatException e) {
+				if (identifier != null) {
+					statement.setString(1, identifier);
+				}
 			}
-			
+
 			ResultSet result = statement.executeQuery();
 
-			while(result.next()){
+			while (result.next()) {
 				User user = null;
 				Address address = null;
 				Person person = null;
-				//user data
+				// user data
 				String username = result.getString("usr_email");
 				String password = result.getString("usr_password");
 				String displayName = result.getString("usr_display_name");
@@ -52,33 +56,39 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 
 				user = new User(userId, username, password, displayName, rights, bidCoins);
 
-				//person data
+				try{
+				// person data
 				int personId = result.getInt("prs_pk_person_id");
 				String firstName = result.getString("prs_first_name");
 				String lastName = result.getString("prs_last_name");
 				int gender = result.getInt("prs_gender");
 				java.util.Date birthdate = result.getDate("prs_birthdate");
 
-				person = new Person(personId,firstName, lastName, gender, birthdate);
+				person = new Person(personId, firstName, lastName, gender, birthdate);
 
-				//address data
+				// address data
 				int addressId = result.getInt("adr_pk_address_id");
 				String postalCode = result.getString("adr_postal_code");
 				String houseNumber = result.getString("adr_house_number");
 				String street = result.getString("adr_street");
 				String city = result.getString("adr_city");
 
-				address = new Address(addressId,postalCode, houseNumber, street, city);
+				address = new Address(addressId, postalCode, houseNumber, street, city);
 
 				user.setPerson(person);
 				user.setAddress(address);
-				
+				}
+				catch(SQLException e){
+					// do nothing
+				}
+
 				userList.add(user);
 			}
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new AuctifyException("failed to retrieve user");
-		}finally{
+		} finally {
 			DataSourceService.closeConnection(connection, statement);
 		}
 		return userList;
@@ -91,11 +101,11 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 
 		CallableStatement statement = null;
 
-		try{
+		try {
 			String functionCall = "{? = call pkg_user_modification.f_register_user(?,?,?,?,?,?,?,?,?,?,?,?)}";
 			statement = connection.prepareCall(functionCall);
 
-			// ---  RETURN  ----- //
+			// --- RETURN ----- //
 			statement.registerOutParameter(1, Types.NUMERIC);
 
 			// --- USR_USERS ---- //
@@ -104,7 +114,6 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 			statement.setString(3, user.getPassword());
 			statement.setString(4, user.getDisplayName());
 			statement.setInt(5, user.getBidCoins());
-
 
 			// --- PRS_PERSONS ---- //
 			statement.setString(6, user.getPerson().getFirstName());
@@ -123,10 +132,10 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 			int userId = statement.getInt(1);
 			return userId;
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new AuctifyException("failed to create user");
-		}finally{
+		} finally {
 			DataSourceService.closeConnection(connection, statement);
 		}
 	}
@@ -137,7 +146,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 
 		PreparedStatement statement = null;
 
-		try{
+		try {
 
 			statement = connection.prepareCall("{call pkg_user_modification.pr_update_user(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 
@@ -162,67 +171,67 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer{
 
 			statement.executeQuery();
 
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new AuctifyException(e.getMessage());
-		}finally{
+		} finally {
 			DataSourceService.closeConnection(connection, statement);
 		}
 	}
 
-	 @Deprecated
-	 @Override
-	 public void delete(int userId) throws AuctifyException {
-		 Connection connection = DataSourceService.getConnection();
-		 User user = ServiceProvider.getService().getUserById(Integer.toString(userId));
-		 PreparedStatement statement = null;
+	@Deprecated
+	@Override
+	public void delete(int userId) throws AuctifyException {
+		Connection connection = DataSourceService.getConnection();
+		User user = ServiceProvider.getService().getUserById(Integer.toString(userId));
+		PreparedStatement statement = null;
 
-		 try{
+		try {
 
-			 statement = connection.prepareCall("{call pkg_user_modification.pr_delete_user(?,?,?,?,?,?,?,?,?,?,?)}");
+			statement = connection.prepareCall("{call pkg_user_modification.pr_delete_user(?,?,?,?,?,?,?,?,?,?,?)}");
 
-			 // --- USR_USERS ---- //
-			 statement.setString(1, user.getEmail());
-			 statement.setString(2, user.getPassword());
-			 statement.setString(3, user.getDisplayName());
+			// --- USR_USERS ---- //
+			statement.setString(1, user.getEmail());
+			statement.setString(2, user.getPassword());
+			statement.setString(3, user.getDisplayName());
 
-			 // --- PRS_PERSONS ---- //
-			 statement.setString(4, user.getPerson().getFirstName());
-			 statement.setString(5, user.getPerson().getLastName());
-			 statement.setInt(6, user.getPerson().getGender());
-			 statement.setDate(7, DateConverter.dateToSQLDate(user.getPerson().getBirthdate()));
+			// --- PRS_PERSONS ---- //
+			statement.setString(4, user.getPerson().getFirstName());
+			statement.setString(5, user.getPerson().getLastName());
+			statement.setInt(6, user.getPerson().getGender());
+			statement.setDate(7, DateConverter.dateToSQLDate(user.getPerson().getBirthdate()));
 
-			 // --- ADR_ADRESSES ---- //
-			 statement.setString(8, user.getAddress().getPostalCode());
-			 statement.setString(9, user.getAddress().getHouseNumber());
-			 statement.setString(10, user.getAddress().getStreet());
-			 statement.setString(11, user.getAddress().getCity());
+			// --- ADR_ADRESSES ---- //
+			statement.setString(8, user.getAddress().getPostalCode());
+			statement.setString(9, user.getAddress().getHouseNumber());
+			statement.setString(10, user.getAddress().getStreet());
+			statement.setString(11, user.getAddress().getCity());
 
-			 statement.executeQuery();
+			statement.executeQuery();
 
-		 }catch(SQLException e){
-			 e.printStackTrace();
-			 throw new AuctifyException("failed to delete user");
-		 }finally{
-			 DataSourceService.closeConnection(connection, statement);
-		 }
-	 }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new AuctifyException("failed to delete user");
+		} finally {
+			DataSourceService.closeConnection(connection, statement);
+		}
+	}
 
-	 @Override
-	 public void updateObserver(Object obj) throws AuctifyException {
-		 // TODO Auto-generated method stub
-		 try {
-			 update((User) obj);
-		 } catch (AuctifyException e) {
-			 // TODO Auto-generated catch block
-			 e.printStackTrace();
-			 throw new AuctifyException(e.getMessage());
-		 }
+	@Override
+	public void updateObserver(Object obj) throws AuctifyException {
+		// TODO Auto-generated method stub
+		try {
+			update((User) obj);
+		} catch (AuctifyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new AuctifyException(e.getMessage());
+		}
 
-	 }
+	}
 
-	 @Override
-	 public void setObservable(Observable obs) {
-		 // TODO Auto-generated method stub
-	 }
+	@Override
+	public void setObservable(Observable obs) {
+		// TODO Auto-generated method stub
+	}
 }

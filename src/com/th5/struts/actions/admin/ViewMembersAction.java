@@ -3,10 +3,7 @@ package com.th5.struts.actions.admin;
 import java.util.Collection;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.th5.domain.model.Auction;
-import com.th5.domain.model.Bid;
 import com.th5.domain.model.User;
-import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.persistance.BidDatabaseCRUD;
@@ -26,15 +23,15 @@ public class ViewMembersAction extends ActionSupport {
 	private Collection<User> users;
 	
 	public String execute() {
-		
-		users = null;
-		
+		AuctionServiceInterface service = ServiceProvider.getService();
+		users = service.retrieveAllUsers().values();
 		return ActionSupport.SUCCESS;
 	}
 
-	
-
-	public Collection<User> getAllUsers() {
+	public Collection<User> getUsers() {
 		return users;
 	}
+	
+	
+	
 }

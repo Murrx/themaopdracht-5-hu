@@ -70,7 +70,23 @@ public class AuctionService implements AuctionServiceInterface {
 		}
 		return allBids;
 	}
-
+	
+	public HashMap<String, User> retrieveAllUsers(){
+		HashMap<String,User> allUsers = new HashMap<String,User>();
+		
+		try {
+			UserDatabaseCRUD usrCRUD = new UserDatabaseCRUD();
+			List<User> tempList = usrCRUD.retrieve(null, Queries.selectAllUsers);
+			for (User user : tempList) {
+				allUsers.put(user.getIdentifier(),user);
+			}
+		} catch (AuctifyException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return allUsers;
+	}
+	
 	/**
 	 * Attempt to get an auction from allAuctions
 	 * 
