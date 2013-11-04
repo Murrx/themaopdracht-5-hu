@@ -115,7 +115,7 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 		return bidList;
 	}
 	
-	public List<Bid> processResult(ResultSet results) throws AuctifyException, SQLException{
+	private List<Bid> processResult(ResultSet results) throws AuctifyException, SQLException{
 		List<Bid> bidList = new ArrayList<Bid>();
 		
 		while(results.next()){
