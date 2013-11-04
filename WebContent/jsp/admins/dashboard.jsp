@@ -8,13 +8,8 @@
 <h3>Admin Panel:</h3>
 <div class="row">
 
-	<div class="col-xs-12 col-sm-12 col-md-2">
-
-		<div class="list-group">
-			<a href="#" class="list-group-item active"> Options: </a> <a href="#" class="list-group-item">Manage Members</a> <a href="#" class="list-group-item">Manage Auctions</a> <a href="#"
-				class="list-group-item">Financial Overview</a> <a href="#" class="list-group-item">Statistics</a>
-		</div>
-	</div>
+	<s:include value="/includes/adminMenu.jsp" />
+	
 	<div class="col-xs-12 col-sm-12 col-md-8">
 
 	

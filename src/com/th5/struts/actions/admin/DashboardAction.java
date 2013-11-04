@@ -1,4 +1,4 @@
-package com.th5.struts.actions;
+package com.th5.struts.actions.admin;
 
 import java.util.Collection;
 
