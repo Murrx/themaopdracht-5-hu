@@ -57,6 +57,7 @@ public interface AuctionServiceInterface {
 	 */
 	public Map<String, Auction> getAllAuctions();
 	public Map<String, Bid> getAllBids();
+	public List<Bid> getLatestBids();
 
 	
 	/** Retrieve all User auctions on Auctify
