@@ -419,6 +419,10 @@ textarea {
 }
 
 @media ( max-width : 767px) {
+	.active a {
+		border-bottom-color: #ddd !important;
+	}
+	
 	.user-box {
 		margin-top: 0px;
 		margin-bottom: 10px;
@@ -461,6 +465,9 @@ textarea {
 	nav {
 		height: 43px;
 		overflow: hidden;
+	}
+	.nav {
+		border-bottom-color: transparent !important;
 	}
 	nav:hover {
 		height: auto;
