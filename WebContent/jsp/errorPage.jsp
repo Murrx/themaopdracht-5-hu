@@ -6,11 +6,11 @@
 		<h2>Sorry, something went wrong!</h2>
 		<p>Additional information about what went wrong:</p>
 		
-		<s:if test="actionErrors != null && actionErrors.size > 0">
+		<s:if test="actionErrors != null">
 	    	<s:actionerror />
 	    </s:if>
 		
-		<s:if test="%{exception.message !=''}">
+		<s:if test="%{exception.message != null}">
 			<s:property value="%{exception.message}"/>
 	    </s:if>
 		
