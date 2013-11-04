@@ -45,9 +45,16 @@ margin-right: auto !important;
 					</s:param>
 				</s:url>
 				<p>
-					<s:a href="%{urlTag}" cssClass="btn btn-default btnColor pull-right">
-						(<i class='fa fa-btc'></i><s:property value="nextBidAmount" />) Place new bid!
-					</s:a>
+					<s:if test="%{status.rightsValue != 0}">
+						<s:a href="%{urlTag}" cssClass="btn btn-default btnColor pull-right">
+							(<i class='fa fa-btc'></i><s:property value="nextBidAmount" />) Place new bid!
+						</s:a>
+					</s:if>
+					<s:else>
+						<span class="btn btn-default disabled pull-right">
+							<i class='fa fa-lock'></i> This auction is locked!
+						</span>
+					</s:else>
 				</p>
 			</div>
 			<!-- END AUTHOR PANEL -->
