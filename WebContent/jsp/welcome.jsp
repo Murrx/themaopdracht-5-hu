@@ -12,9 +12,16 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12">
-				<s:iterator value="popularAuctions">
-					<s:include value="/includes/auctionBox.jsp" />
-				</s:iterator>
+				<s:if test="popularAuctions != null">
+					<s:iterator value="popularAuctions">
+						<s:include value="/includes/auctionBox.jsp" />
+					</s:iterator>
+				</s:if>
+				<s:else>
+					<div class="text-center">
+						<span>There are no popular auctions. <a href="<s:url action='addAuctionForm' namespace='/member'/>">Create one!</a></span>
+					</div>
+				</s:else>
 			</div>
 		</div>
 	</div>
@@ -31,7 +38,7 @@
 					<h4 class="headerPurple noPaddingHeader">Recently added auctions:</h4>
 				</div>
 				
-				<s:if test="latestAuctions != ''">
+				<s:if test="latestAuctions != null">
 					<s:iterator value="latestAuctions">
 						<s:include value="/includes/auctionBoxLatest.jsp" />
 					</s:iterator>
@@ -54,7 +61,7 @@
 					<h4 class="headerPurple noPaddingHeader">Recent bids:</h4>
 				</div>
 				
-				<s:if test="latestBids != ''">
+				<s:if test="latestBids > 0">
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<s:iterator value="latestBids">
@@ -95,7 +102,7 @@
 			<span class="glyphicon glyphicon-plus tutImage"></span>
 			<div class="tutText">
 				<h4>2. Buy BidCoins</h4>
-				Auctify uses BidCoins. To bid on an auction you need BidCoins, more information here!
+				Auctify uses BidCoins. To bid on an auction you need BidCoins. Buy some BidCoins <a href="<s:url action='buyBidCoinsForm' namespace='/member' />">here</a>!
 			</div>
 		</div>
 	</div>

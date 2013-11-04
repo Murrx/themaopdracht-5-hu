@@ -269,7 +269,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 
 	private void setOwnerFromUserList() throws AuctifyException {
 		AuctionService service = (AuctionService) ServiceProvider.getService();
-		this.owner = service.getUserById(getIdentifier());
+		this.owner = service.getUserById(Integer.toString(userId));
 	}
 
 	public SyncedMap<String,Bid> getBids(){
