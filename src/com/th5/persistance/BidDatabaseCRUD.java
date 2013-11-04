@@ -62,21 +62,17 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 	public List<Bid> retrieve(String identifier, String query) throws AuctifyException{
 		Connection connection = DataSourceService.getConnection();
 		PreparedStatement statement = null;
-
 		try{
 			statement = connection.prepareStatement(query);
-			try{
-				statement.setInt(1, Integer.parseInt(identifier));
-			}catch(NumberFormatException e){
-				statement.setString(1, identifier);
-			}
+			if(identifier != null)statement.setInt(1, Integer.parseInt(identifier));
+
 
 			ResultSet results = statement.executeQuery();
 			return processResult(results);
-			
+
 		}catch(SQLException e){
 			e.printStackTrace();
-			throw new AuctifyException("Failed search");
+			throw new AuctifyException("BidDatabaseCRUD.retrieve()::Failed");
 		}finally{
 			DataSourceService.closeConnection(connection, statement);
 		}
@@ -91,7 +87,7 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 	public void delete(int auctionId) throws AuctifyException {
 		// TODO Auto-generated method stub
 	}
-	
+
 	//TODO This method should be implemented into retrieve!
 	public static List<Bid> getLatestBids() throws AuctifyException {
 
@@ -118,10 +114,10 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 		}
 		return bidList;
 	}
-	
+
 	private List<Bid> processResult(ResultSet results) throws AuctifyException, SQLException{
 		List<Bid> bidList = new ArrayList<Bid>();
-		
+
 		while(results.next()){
 			Bid bid = new Bid(
 					results.getInt("BID_PK_BID_ID"), 
@@ -133,7 +129,7 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 		}
 		return bidList;
 	}
-	
+
 	public void setupCreateStatement(PreparedStatement statement, Bid bid) throws SQLException{
 		statement.setInt(1, bid.getBid_Id());
 		statement.setInt(2, bid.getAuction().getAuctionId());
