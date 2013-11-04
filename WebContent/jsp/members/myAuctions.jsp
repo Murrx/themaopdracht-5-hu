@@ -4,20 +4,35 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-<h1>My Auctions</h1>
+<<h3 class="headerPurple">My Auctions</h3>
 
 <div class="row" id="allAuctions">
-	<s:iterator value="allAuctions"  >
-		<s:include value="/includes/auctionBox.jsp" />
-	</s:iterator>
+		<s:if test="allAuctions != null">
+		<s:iterator value="allAuctions">
+			<s:include value="/includes/auctionBox.jsp" />
+		</s:iterator>
+		</s:if>
+		<s:else>
+		No auctions available
+		</s:else>
 </div>
 
-<h3 class="headerPurple">Most recent bids:</h3>
-<s:iterator value="allBids" >
-<s:property value='bid.bidAmount'/>"
-<s:property value='bid.action.owner.displayname'/>"
-<s:property value='auction.auctionId'/>"
-</s:iterator>
+<div class="col-sm-12 col-md-12 col-lg-4 ">
+		 <span class="headerPurple"><strong> Bid history: </strong></span><br /><br />
+
+			
+			<table class="table table-striped">
+			<tr>
+				<th>Product:</th>
+ 				<th>bidCoins:</th>
+  				<th>Date:</th>
+  				
+  			</tr>
+			<s:iterator value="allBids">
+					<s:include value="/includes/myListBidAuction.jsp" />
+				</s:iterator>
+				</table>
+	</div>
 
 <s:push value="#{'progressTimers':true}">
 	<s:include value="/includes/footer.jsp" />
