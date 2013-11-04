@@ -2,6 +2,7 @@ package com.th5.domain.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,6 +18,7 @@ import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.EncryptPassword;
 import com.th5.domain.util.UserListManager;
 import com.th5.persistance.AuctionDatabaseCRUD;
+import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.UserDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
@@ -25,10 +27,13 @@ public class AuctionService implements AuctionServiceInterface {
 	private UserDatabaseCRUD udbcrud = new UserDatabaseCRUD();
 	private UserListManager userList;
 	private TreeMap<String,Auction> allAuctions;
+	private HashMap<String, Bid> allBids;
 
 	public AuctionService() {
 		userList = new UserListManager();
 		allAuctions = retrieveAllAuctions();
+		allBids = retrieveAllBids();
+		System.out.println(allBids);
 	}
 
 	/**
@@ -50,6 +55,22 @@ public class AuctionService implements AuctionServiceInterface {
 		}
 		return auctions;
 	}
+	
+	private HashMap<String, Bid> retrieveAllBids(){
+		HashMap<String,Bid> allBids = new HashMap<String,Bid>();
+		
+		try {
+			BidDatabaseCRUD dbCRUD = new BidDatabaseCRUD();
+			List<Bid> tempList = dbCRUD.retrieve(null, Queries.selectAllBids);
+			for (Bid bid : tempList) {
+				allBids.put(bid.getIdentifier(),bid);
+			}
+		} catch (AuctifyException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return allBids;
+	}
 
 	/**
 	 * Attempt to get an auction from allAuctions
@@ -59,6 +80,10 @@ public class AuctionService implements AuctionServiceInterface {
 	 */
 	public Auction getAuctionById(int auctionId) {
 		return allAuctions.get(Integer.toString(auctionId));
+	}
+	
+	public Map<String, Bid> getAllBids(){
+		return allBids;
 	}
 
 	public Map<String,Auction> getAllAuctions() {

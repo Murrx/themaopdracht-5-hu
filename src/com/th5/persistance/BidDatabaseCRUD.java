@@ -65,7 +65,11 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 
 		try{
 			statement = connection.prepareStatement(query);
-			statement.setInt(1, Integer.parseInt(identifier));
+			try{
+				statement.setInt(1, Integer.parseInt(identifier));
+			}catch(NumberFormatException e){
+				statement.setString(1, identifier);
+			}
 
 			ResultSet results = statement.executeQuery();
 			return processResult(results);

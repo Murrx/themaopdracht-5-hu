@@ -50,7 +50,7 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 		this.userId = userId;
 		this.bidCoins = bidCoins;
 		this.myAuctions = new SyncedMap<String,Auction>(userId, Queries.selectAllAuctionsOfUser, new AuctionDatabaseCRUD(), true, ServiceProvider.getService().getAllAuctions());
-		this.myBids = new SyncedMap<String, Bid>(userId, Queries.selectAllBidsOfUser, new BidDatabaseCRUD(),false);
+		this.myBids = new SyncedMap<String, Bid>(userId, Queries.selectAllBidsOfUser, new BidDatabaseCRUD(),false, ServiceProvider.getService().getAllBids());
 	}
 
 	public int createAuction(Auction auction) throws AuctifyException{

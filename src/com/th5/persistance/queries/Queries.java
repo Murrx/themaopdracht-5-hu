@@ -9,6 +9,7 @@ public class Queries {
 	public static final String selectUserByEmail = "SELECT * FROM usr_users, prs_persons, adr_addresses WHERE usr_email = ? AND usr_fk_person_id = prs_pk_person_id AND prs_fk_address_id = adr_pk_address_id";
 	public static final String selectUserById = "SELECT * FROM usr_users, prs_persons, adr_addresses WHERE usr_pk_user_id = ? AND usr_fk_person_id = prs_pk_person_id AND prs_fk_address_id = adr_pk_address_id";
 	
+	public static final String selectAllBids = "SELECT * FROM bid_bids";
 	
 	//Queries used by BidDatabaseCrud::
 	public static final String generateBidId = "{? = call seq_bid_pk_bid_id.nextval }";
