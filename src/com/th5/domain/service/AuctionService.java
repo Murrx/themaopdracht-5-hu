@@ -40,7 +40,7 @@ public class AuctionService implements AuctionServiceInterface {
 		TreeMap<String,Auction> auctions = new TreeMap<String,Auction>();
 		try {
 			AuctionDatabaseCRUD dbCRUD = new AuctionDatabaseCRUD();
-			List<Auction> tempList = dbCRUD.retrieve(null, Queries.selectAllAuctionsOfUser);
+			List<Auction> tempList = dbCRUD.retrieve(null, Queries.selectAllAuctions);
 			for (Auction auction : tempList) {
 				auctions.put(auction.getIdentifier(),auction);
 			}
