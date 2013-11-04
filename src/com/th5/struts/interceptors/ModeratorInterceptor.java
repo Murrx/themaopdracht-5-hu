@@ -24,7 +24,7 @@ public class ModeratorInterceptor implements Interceptor {
 			Map session = actionInvocation.getInvocationContext().getSession();
 			
 			User user = (User) session.get("user");
-			if (user.getRights().getRightsValue() < UserRights.MODDERATOR.getRightsValue()){
+			if (user.getRights().getRightsValue() < UserRights.MODERATOR.getRightsValue()){
 				return Action.LOGIN;
 			}
 			else {

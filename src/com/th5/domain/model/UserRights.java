@@ -1,7 +1,7 @@
 package com.th5.domain.model;
 
 public enum UserRights {
-    BLOCKED(0), INACTIVE(1), USER(5), MODDERATOR(128), ADMIN(256);
+    BLOCKED(0), INACTIVE(1), USER(5), MODERATOR(128), ADMIN(256);
     
     private int rightsValue;
     
@@ -18,7 +18,7 @@ public enum UserRights {
         case 5:
             return USER;
         case 128:
-            return MODDERATOR;
+            return MODERATOR;
         case 256:
             return ADMIN;
         }
