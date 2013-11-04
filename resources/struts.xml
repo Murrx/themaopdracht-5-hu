@@ -5,28 +5,23 @@
 
 <struts>
 	<constant name="struts.custom.i18n.resources" value="global" />
-	<constant name="struts.devMode" value="true" />	
+	<constant name="struts.devMode" value="true" />
 	<constant name="struts.multipart.maxSize" value="10000000" />
 	<constant name="struts.multipart.saveDir" value="/tmp" />
-		
+
 	<package name="visitor" namespace="/" extends="struts-default">
-		
-		<!-- 
-        <global-results>
-		    <result name="Exception">/jsp/errorPage.jsp</result>
-		</global-results>
-	    <global-exception-mappings>
-	        <exception-mapping exception="java.lang.Throwable" result="Exception" />
-	    </global-exception-mappings>
-	     -->
-		
+
+		<!-- <global-results> <result name="Exception">/jsp/errorPage.jsp</result> 
+			</global-results> <global-exception-mappings> <exception-mapping exception="java.lang.Throwable" 
+			result="Exception" /> </global-exception-mappings> -->
+
 		<action name="" class="com.th5.struts.actions.WelcomeAction">
 			<result>/jsp/welcome.jsp</result>
 			<result name="error">/jsp/errorPage.jsp</result>
 		</action>
 		<action name="registerPage">
 			<result>/jsp/register.jsp</result>
-		</action>		
+		</action>
 		<action name="login" class="com.th5.struts.actions.LoginAction">
 			<result name="success" type="redirect">${previousPage}</result>
 			<result name="error" type="redirect">${previousPage}</result>
@@ -50,7 +45,7 @@
 			<result name="success">/jsp/view_auction.jsp</result>
 		</action>
 	</package>
-	
+
 	<package name="member" namespace="/member" extends="struts-default">
 		<interceptors>
 			<interceptor name="authenticationInterceptor"
@@ -61,86 +56,88 @@
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
-	
-		<default-interceptor-ref name="MemberStack" />	
-		
+
+		<default-interceptor-ref name="MemberStack" />
+
 		<global-results>
 			<result name="login">/jsp/notLoggedIn.jsp</result>
 		</global-results>
-		
+
 		<action name="logout" class="com.th5.struts.actions.LogoutAction">
 			<result name="success" type="redirectAction">
 				<param name="actionName">""</param>
 				<param name="namespace">/</param>
 			</result>
 		</action>
-		
+
 		<action name="ViewAllUserAuctionForm" class="com.th5.struts.actions.ViewAllUserAuctionAction">
 			<result name="success">/jsp/members/myAuctions.jsp</result>
 			<result name="error">/jsp/members/myAuctions.jsp</result>
 		</action>
-		
+
 		<action name="buyBidCoinsForm">
 			<result>/jsp/members/addBidCoins.jsp</result>
 		</action>
-		
-		<action name="buyBidCoins" class="com.th5.struts.actions.BuyBidCoinsAction" method="execute">
-			<exception-mapping exception="com.th5.domain.other.AuctifyException" result="error" />
+
+		<action name="buyBidCoins" class="com.th5.struts.actions.BuyBidCoinsAction"
+			method="execute">
+			<exception-mapping exception="com.th5.domain.other.AuctifyException"
+				result="error" />
 			<result>/jsp/welcome.jsp</result>
 			<result name="error">/jsp/members/addBidCoins.jsp</result>
 		</action>
-		
+
 		<action name="editProfileForm">
 			<result>/jsp/members/editProfile.jsp</result>
 		</action>
-		
+
 		<action name="editProfile" class="com.th5.struts.actions.EditProfileAction">
 			<result name="success">/jsp/welcome.jsp</result>
 			<result name="input">/jsp/members/editProfile.jsp</result>
 		</action>
-		
+
 		<action name="addAuctionForm" class="com.th5.struts.actions.AddAuctionFormAction">
 			<result name="success">/jsp/members/addAuction.jsp</result>
 		</action>
-		
+
 		<action name="addAuction" class="com.th5.struts.actions.AddAuctionAction">
 			<result name="redirect" type="redirectAction">
 				<param name="actionName">viewAction</param>
-    	        <param name="namespace">/</param>
-    	        <param name="id">${auctionId}</param>
+				<param name="namespace">/</param>
+				<param name="id">${auctionId}</param>
 			</result>
 			<result name="input">/jsp/members/addAuction.jsp</result>
 		</action>
-		
+
 		<action name="placeBidAction" class="com.th5.struts.actions.PlaceBidAction">
-			
+
 			<result name="success" type="redirectAction">
 				<param name="actionName">viewAction</param>
-    	        <param name="namespace">/</param>
-    	        <param name="id">${auctionId}</param>
-			</result>		
-			
-			<result name ="error">/jsp/errorPage.jsp</result>
-			
+				<param name="namespace">/</param>
+				<param name="id">${auctionId}</param>
+			</result>
+
+			<result name="error">/jsp/errorPage.jsp</result>
+
 		</action>
-		
+
 	</package>
-	
+
 	<package name="moderator" namespace="/moderator" extends="struts-default">
 		<interceptors>
 			<interceptor name="authenticationInterceptor"
 				class="com.th5.struts.interceptors.AuthenticationInterceptor" />
 			<interceptor name="moderatorInterceptor"
 				class="com.th5.struts.interceptors.ModeratorInterceptor" />
-			
+
 			<interceptor-stack name="ModeratorStack">
 				<interceptor-ref name="authenticationInterceptor" />
 				<interceptor-ref name="moderatorInterceptor" />
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
-		<default-interceptor-ref name="ModeratorStack" />	
-		
+		<default-interceptor-ref name="ModeratorStack" />
+
 		<global-results>
 			<result name="login">/jsp/notModerator.jsp</result>
 		</global-results>
@@ -157,12 +154,39 @@
     	        <param name="namespace">/</param>
 			</result>
 		</action>
+
 		<action name="delete_auction" class="com.th5.struts.actions.DeleteAuctionAction">
 			<result name="success" type="redirectAction">
 				<param name="actionName">${previousPage}</param>
-    	        <param name="namespace">/</param>
+				<param name="namespace">/</param>
 			</result>
 		</action>
 	</package>
+
+	<package name="administrator" namespace="/admin" extends="struts-default">
+		<interceptors>
+			<interceptor name="authenticationInterceptor"
+				class="com.th5.struts.interceptors.AuthenticationInterceptor" />
+			<interceptor name="adminInterceptor"
+				class="com.th5.struts.interceptors.AdminInterceptor" />
+
+			<interceptor-stack name="AdminStack">
+				<interceptor-ref name="authenticationInterceptor" />
+				<interceptor-ref name="adminInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="AdminStack" />
+
+		<global-results>
+			<result name="login">/jsp/notAdministrator.jsp</result>
+		</global-results>
+		
+		<action name="ViewAdminPanel">
+			<result>/jsp/admins/dashboard.jsp</result>
+		</action>
+		
+	</package>
+
 
 </struts>

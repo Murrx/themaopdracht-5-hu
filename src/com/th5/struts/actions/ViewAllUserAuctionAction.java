@@ -1,8 +1,6 @@
 package com.th5.struts.actions;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
@@ -21,17 +19,9 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 	@Override
 	public String execute() throws Exception {
 		try {
-
-			allAuctions = user.getMyAuctions().values();
 			
-			/* Has to be fixed!
-			 * 
-			Collection<Auction> tempBidAuctions = user.getRelevantAuctions().values();
-			if (tempBidAuctions != null && tempBidAuctions.size() > 0) {
-				for (Auction auction : (Auction[])tempBidAuctions.toArray()) {
-					allBids.addAll((Collection<? extends Bid>) auction.getBids());
-				}
-			}*/
+			allAuctions = user.getMyAuctions().values();
+			allBids = user.getMyBids().values();
 
 		} catch (Exception e) {
 			e.printStackTrace();
