@@ -11,12 +11,12 @@
 		
 	<package name="visitor" namespace="/" extends="struts-default">
 		
-        <global-results>
+        <!-- global-results>
 		    <result name="Exception ">/jsp/errorPage.jsp</result>
 		</global-results>
 	    <global-exception-mappings>
 	        <exception-mapping exception="java.lang.Throwable" result="Exception" />
-	    </global-exception-mappings>
+	    </global-exception-mappings-->
 			
 		
 		<action name="" class="com.th5.struts.actions.WelcomeAction">
