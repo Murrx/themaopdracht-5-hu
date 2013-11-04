@@ -13,11 +13,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 	margin: 0;
 }
 
-a:hover {
-	color: purple;
-}
-
-a {
+a, a:hover, h1, h2, h3, h4 {
 	color: purple;
 }
 
@@ -136,8 +132,8 @@ footer {
 	color: purple;
 }
 
-.tutText {
-	font-size: 14px;
+.tutContainer {
+	margin-bottom: 20px;
 }
 
 /* ------------ */
