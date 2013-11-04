@@ -8,35 +8,30 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.th5.domain.model.Bid;
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.other.DateConverter;
 import com.th5.domain.util.SortedArrayList;
+import com.th5.persistance.queries.Queries;
 
 public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 
 	public static int generateId() throws AuctifyException {
-
-		int bid_Id;
 		Connection connection = DataSourceService.getConnection();
-
 		CallableStatement statement = null;
 
 		try {
-			String functionCall = "{? = call seq_bid_pk_bid_id.nextval }";
-			statement = connection.prepareCall(functionCall);
-
-			// --- RETURN ----- //
+			statement = connection.prepareCall(Queries.generateBidId);
 			statement.registerOutParameter(1, Types.NUMERIC);
 			statement.executeQuery();
 
-			bid_Id = statement.getInt(1);
-
-			return bid_Id;
+			return statement.getInt(1); 
 
 		} catch (SQLException e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 			throw new AuctifyException("failed to generate new bid ID");
 		} finally {
 			DataSourceService.closeConnection(connection, statement);
@@ -48,14 +43,9 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 		PreparedStatement statement = null;
 
 		try{
-			statement = connection.prepareStatement(
-					"INSERT INTO BID_BIDS(BID_PK_BID_ID, BID_FK_AUCTION_ID, BID_FK_USER_ID, BID_TIMESTAMP, BID_AMOUNT) VALUES (?,?,?,?,?)");
+			statement = connection.prepareStatement(Queries.createBid);
 
-			statement.setInt(1, bid.getBid_Id());
-			statement.setInt(2, bid.getAuction().getAuctionId());
-			statement.setInt(3, bid.getUser().getUserId());
-			statement.setTimestamp(4, new Timestamp(bid.getTimestamp().getTimeInMillis()));
-			statement.setInt(5, bid.getBidAmount());
+			setupCreateStatement(statement, bid);
 
 			statement.executeQuery();
 
@@ -68,6 +58,37 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 		return 0;
 	}
 
+	@Override
+	public List<Bid> retrieve(String identifier, String query) throws AuctifyException{
+		Connection connection = DataSourceService.getConnection();
+		PreparedStatement statement = null;
+
+		try{
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, Integer.parseInt(identifier));
+
+			ResultSet results = statement.executeQuery();
+			return processResult(results);
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			throw new AuctifyException("Failed search");
+		}finally{
+			DataSourceService.closeConnection(connection, statement);
+		}
+	}
+
+	@Override
+	public void update(Bid object) throws AuctifyException {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void delete(int auctionId) throws AuctifyException {
+		// TODO Auto-generated method stub
+	}
+	
+	//TODO This method should be implemented into retrieve!
 	public static List<Bid> getLatestBids() throws AuctifyException {
 
 		Connection connection = DataSourceService.getConnection();
@@ -93,42 +114,27 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 		}
 		return bidList;
 	}
-
-	@Override
-	public List<Bid> retrieve(String identifier, String query) throws AuctifyException{
-		System.out.println("BidDatabaseCRUD.search()::" + query + " " + identifier);
-		Connection connection = DataSourceService.getConnection();
-		List<Bid> bidList = new SortedArrayList<Bid>();
-		PreparedStatement statement = null;
-
-		try{
-			statement = connection.prepareStatement(query);
-			statement.setInt(1, Integer.parseInt(identifier));
-
-			ResultSet results = statement.executeQuery();
-
-			while(results.next()){
-				Bid bid = ResultHandler.restoreBid(results);
-				bidList.add(bid);
-			}
-		}catch(SQLException e){
-			e.printStackTrace();
-			throw new AuctifyException("Failed search");
-		}finally{
-			DataSourceService.closeConnection(connection, statement);
+	
+	public List<Bid> processResult(ResultSet results) throws AuctifyException, SQLException{
+		List<Bid> bidList = new ArrayList<Bid>();
+		
+		while(results.next()){
+			Bid bid = new Bid(
+					results.getInt("BID_PK_BID_ID"), 
+					results.getInt("BID_FK_USER_ID"), 
+					results.getInt("BID_FK_AUCTION_ID"), 
+					DateConverter.SQLDateToCalendar(results.getDate("BID_TIMESTAMP")), 
+					results.getInt("BID_AMOUNT"));
+			bidList.add(bid);
 		}
 		return bidList;
 	}
-
-	@Override
-	public void update(Bid object) throws AuctifyException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(int auctionId) throws AuctifyException {
-		// TODO Auto-generated method stub
-
+	
+	public void setupCreateStatement(PreparedStatement statement, Bid bid) throws SQLException{
+		statement.setInt(1, bid.getBid_Id());
+		statement.setInt(2, bid.getAuction().getAuctionId());
+		statement.setInt(3, bid.getUser().getUserId());
+		statement.setTimestamp(4, new Timestamp(bid.getTimestamp().getTimeInMillis()));
+		statement.setInt(5, bid.getBidAmount());
 	}
 }
