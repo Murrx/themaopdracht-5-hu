@@ -50,7 +50,6 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		Connection connection = DataSourceService.getConnection();
 		List<Auction> auctionList = new ArrayList<Auction>();
 		PreparedStatement statement = null;
-
 		try{
 			statement = connection.prepareStatement(query);
 			if (identifier != null) statement.setInt(1, Integer.parseInt(identifier));

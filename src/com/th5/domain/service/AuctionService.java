@@ -33,7 +33,6 @@ public class AuctionService implements AuctionServiceInterface {
 		userList = new UserListManager();
 		allAuctions = retrieveAllAuctions();
 		allBids = retrieveAllBids();
-		System.out.println(allBids);
 	}
 
 	/**

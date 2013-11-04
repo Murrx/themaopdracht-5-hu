@@ -27,7 +27,7 @@ public class WelcomeAction extends ActionSupport {
 	private Collection<Auction> latestAuctions;
 	private Collection<Bid> latestBids;
 	
-	public String execute() {
+	public String execute() throws Exception {
 		
 		AuctionServiceInterface service = ServiceProvider.getService();
 
