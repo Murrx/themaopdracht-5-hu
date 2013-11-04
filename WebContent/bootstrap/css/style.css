@@ -333,6 +333,7 @@ textarea {
 	opacity: 0.8;
 	filter: alpha(opacity =   80);
 	width: 100%;
+	min-height: 82px;
 }
 
 .auction:hover {

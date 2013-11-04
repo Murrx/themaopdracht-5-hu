@@ -30,8 +30,8 @@ $(function () {
 		});
 	}
 	if($('.auction').length != 0) {
-		$('.auction').click(function(event) {
-			id = $(this).data('id');
+		$('.auction .panel-body').click(function(event) {
+			id = $(this.parentNode).data('id');
 			window.location.href = 'viewAction.action?id=' + id;
 		});
 	}
