@@ -9,6 +9,7 @@ import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.SyncedMap;
 import com.th5.persistance.AuctionDatabaseCRUD;
+import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
 
@@ -17,8 +18,8 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 	private int 	userId, bidCoins;
 	private String 	email, password, displayName;
 
-	private SyncedMap<String,Auction> relevantAuctions;
 	private SyncedMap<String,Auction> myAuctions;
+	private SyncedMap<String, Bid> myBids;
 
 	private Person 	person;
 	private Address	address;
@@ -49,7 +50,7 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 		this.userId = userId;
 		this.bidCoins = bidCoins;
 		this.myAuctions = new SyncedMap<String,Auction>(userId, Queries.selectAllAuctionsOfUser, new AuctionDatabaseCRUD(), true, ServiceProvider.getService().getAllAuctions());
-		this.relevantAuctions = new SyncedMap<String,Auction>(userId, Queries.selectAllBidsOfUser, new AuctionDatabaseCRUD(), false);
+		this.myBids = new SyncedMap<String, Bid>(userId, Queries.selectAllBidsOfUser, new BidDatabaseCRUD(),false);
 	}
 
 	public int createAuction(Auction auction) throws AuctifyException{
@@ -265,11 +266,8 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 
 			Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
-
-			if (!relevantAuctions.containsKey(auction.getIdentifier())){
-				relevantAuctions.put(auction.getIdentifier(),auction);
-			}
 			auction.addBid(bid);
+			myBids.put(bid.getIdentifier(), bid);
 			System.out.println("USER DOMAIN :: Auction: " + auction);
 			System.out.println("USER DOMAIN :: Bid" + bid);			
 		}
@@ -278,13 +276,15 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 		}
 	}
 
-	public SyncedMap<String,Auction> getRelevantAuctions() {
-		return relevantAuctions;
+	public SyncedMap<String,Bid> getMyBids() {
+		return myBids;
 	}
 
 	public void removeAuction(Auction auction){
+		for(Bid bid : auction.getBids().values()){
+			myBids.remove(bid.getIdentifier());
+		}
 		myAuctions.remove(auction.getIdentifier());
-		relevantAuctions.remove(auction.getIdentifier());
 	}
 
 	@Override

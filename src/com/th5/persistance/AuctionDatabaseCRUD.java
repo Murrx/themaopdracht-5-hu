@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -16,7 +15,6 @@ import com.th5.domain.model.Category;
 import com.th5.domain.model.Status;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
-import com.th5.domain.util.SortedArrayList;
 
 public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 
@@ -62,8 +60,11 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 
 				Auction auction = null;
 				//auction data
-				Calendar aucStartTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_start_time"));
-				Calendar aucEndTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_end_time"));
+				Calendar aucStartTime = Calendar.getInstance();
+				Calendar aucEndTime = Calendar.getInstance();
+				aucStartTime.setTimeInMillis(result.getTimestamp("auc_start_time").getTime());
+				aucEndTime.setTimeInMillis(result.getTimestamp("auc_end_time").getTime());
+
 				int aucStatusId = result.getInt("auc_fk_status_id");
 				int auctionID = result.getInt("auc_pk_auction_id");
 
@@ -86,14 +87,14 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 				
 				auctionList.add(auction);
 			}
-
+			
+			return processResult(result);
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new AuctifyException("failed to retrieve auction");
 		}finally{
 			DataSourceService.closeConnection(connection, statement);
 		}
-		return auctionList;
 	}
 
 	/**Add an auction to the database
@@ -158,5 +159,38 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>{
 		}finally{
 			DataSourceService.closeConnection(connection, statement);
 		}
+	}
+	
+	private List<Auction> processResult(ResultSet result) throws AuctifyException, SQLException{
+		List<Auction> auctionList = new ArrayList<Auction>();
+		
+		while(result.next()){
+			Auction auction = null;
+			//auction data
+			Calendar aucStartTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_start_time"));
+			Calendar aucEndTime =  DateConverter.SQLDateToCalendar(result.getDate("auc_end_time"));
+			int aucStatusId = result.getInt("auc_fk_status_id");
+			int auctionID = result.getInt("auc_pk_auction_id");
+
+			int startBid = result.getInt("auc_start_bid");
+			String categoryString = result.getString("auc_fk_category");
+
+			int userId = result.getInt("auc_fk_user_id");
+
+			//product data
+			int productId = result.getInt("prd_pk_product_id");
+			String productName = result.getString("prd_name");
+			String productDescription = result.getString("prd_description");
+			// auction
+
+			auction = new Auction(aucEndTime, startBid, Category.fromString(categoryString), productName, productDescription, auctionID, userId);
+
+			auction.setStartTime(aucStartTime);
+			auction.setStatus(Status.fromInteger(aucStatusId));
+			auction.getProduct().setProductId(productId);
+			
+			auctionList.add(auction);
+		}
+		return auctionList;
 	}
 }
