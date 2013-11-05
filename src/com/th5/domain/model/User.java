@@ -2,6 +2,7 @@ package com.th5.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
@@ -12,7 +13,12 @@ import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
-
+/**themaopdracht5 - Auctify
+ * @author GarbageCollectors 2.0 (Dimiter Geelen, Mark Van Lagen, Martin Bakker, Joris Rijkes and Robin Altena)
+ * 
+ * Contains the most data about a user of Auctify.
+ * Further data about a user is stored in Person and Address 
+ */
 public class User implements Comparable<User>, Observable, Identifiable<String>, IdentifiableByEmail<String>{
 
 	private int userId, bidCoins;
@@ -27,16 +33,14 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 	private final Object MUTEX = new Object();
 	private boolean changed;
 
-	public User(int userId) {
-		this.userId = userId;
-	}
-
+	@Deprecated
 	public User(String email) {
 		this.email = email;
 		this.bidCoins = 0;
 		this.observers = new ArrayList<Observer>();
 	}
 
+	@Deprecated
 	public User(String email, String password, String displayName,
 			UserRights rights) {
 		this(email);
@@ -45,9 +49,20 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		this.rights = rights;
 	}
 
+	/**This constructor should be used to create new Users and to restore users from the database
+	 * @param userId
+	 * @param email
+	 * @param password
+	 * @param displayName
+	 * @param rights
+	 * @param bidCoins
+	 */
 	public User(int userId, String email, String password, String displayName,
 			UserRights rights, int bidCoins) {
-		this(email, password, displayName, rights);
+		this(email);
+		this.password = password;
+		this.displayName = displayName;
+		this.rights = rights;
 		this.userId = userId;
 		this.bidCoins = bidCoins;
 		this.myAuctions = new SyncedMap<String, Auction>(userId,
@@ -58,6 +73,11 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 				ServiceProvider.getService().getAllBids());
 	}
 
+	/**User creates a new Auction
+	 * @param auction the auction to create
+	 * @return the id of the created Auction
+	 * @throws AuctifyException when the database fails to generate an id for the auction
+	 */
 	public int createAuction(Auction auction) throws AuctifyException {
 		auction.setOwner(this);
 		auction.setAuctionId(AuctionDatabaseCRUD.generateId());
@@ -65,10 +85,10 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		return auction.getAuctionId();
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
+	/**Sets the password of the user, and persists the changes to the database by notifying the observers
+	 * @param password
+	 * @throws AuctifyException 
+	 */
 	public void setPassword(String password) throws AuctifyException {
 		String oldPass = this.password;
 		try {
@@ -78,15 +98,15 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		} catch (AuctifyException e) {
 			this.password = oldPass;
 			this.changed = false;
-			throw new AuctifyException(e.getMessage());
+			throw e;
 		}
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) throws AuctifyException {
+	/**Sets the email of the user, and persists the changes to the database by notifying the observers
+	 * @param email
+	 * @throws AuctifyException 
+	 */
+	public void setEmail(String email) throws AuctifyException{
 		String oldEmail = this.email;
 		try {
 			this.email = email;
@@ -95,15 +115,15 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		} catch (AuctifyException e) {
 			this.email = oldEmail;
 			this.changed = false;
-			throw new AuctifyException(e.getMessage());
+			throw e;
 		}
 	}
 
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) throws AuctifyException {
+	/**Sets the person of the user, and persists the changes to the database by notifying the observers
+	 * @param person
+	 * @throws AuctifyException
+	 */
+	public void setPerson(Person person)throws AuctifyException{
 		Person oldPerson = this.person;
 		try {
 			this.person = person;
@@ -112,14 +132,14 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		} catch (AuctifyException e) {
 			this.person = oldPerson;
 			this.changed = false;
-			throw new AuctifyException(e.getMessage());
+			throw e;
 		}
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
+	/**Sets the address of the user, and persists the changes to the database by notifying the observers
+	 * @param address
+	 * @throws AuctifyException
+	 */
 	public void setAddress(Address address) throws AuctifyException {
 		Address oldAddress = this.address;
 		try {
@@ -129,37 +149,14 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		} catch (AuctifyException e) {
 			this.address = oldAddress;
 			this.changed = false;
-			throw new AuctifyException(e.getMessage());
+			throw e;
 		}
 	}
 
-	@Override
-	// TODO:Moet waarschijnlijk opnieuw uitgeschreven worden en vergelijken op
-	// id.
-	public boolean equals(Object obj) {
-		User otherUser = (User) obj;
-		boolean equals = true;
-		equals = equals && email.equals(otherUser.email);
-		equals = equals && password.equals(otherUser.password);
-		System.out.println(equals);
-		return equals;
-	}
-
-	@Override
-	public int compareTo(User user) {
-		return email.compareTo(user.email);
-	}
-
-	@Override
-	public String toString() {
-		return userId + " " + email + " " + password + " " + displayName + " "
-				+ rights + " " + bidCoins;
-	}
-
-	public String getDisplayName() {
-		return displayName;
-	}
-
+	/**Sets the displayName of the user, and persists the changes to the database by notifying the observers
+	 * @param displayName
+	 * @throws AuctifyException
+	 */
 	public void setDisplayName(String displayName) throws AuctifyException {
 		String oldDisplayName = this.displayName;
 		try {
@@ -169,14 +166,14 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		} catch (AuctifyException e) {
 			this.displayName = oldDisplayName;
 			this.changed = false;
-			throw new AuctifyException(e.getMessage());
+			throw e;
 		}
 	}
 
-	public UserRights getRights() {
-		return rights;
-	}
-
+	/**Sets the rights of the user, and persists the changes to the database by notifying the observers
+	 * @param rights
+	 * @throws AuctifyException
+	 */
 	public void setRights(UserRights rights) throws AuctifyException {
 		UserRights oldUserRights = this.rights;
 		try {
@@ -187,16 +184,8 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		} catch (AuctifyException e) {
 			this.rights = oldUserRights;
 			this.changed = false;
-			throw new AuctifyException(e.getMessage());
+			throw e;
 		}
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 
 	/**
@@ -226,12 +215,8 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		} catch (AuctifyException e) {
 			this.bidCoins = oldBidCoins;
 			this.changed = false;
-			throw new AuctifyException(e.getMessage());
+			throw e;
 		}
-	}
-
-	public SyncedMap<String, Auction> getMyAuctions() {
-		return myAuctions;
 	}
 
 	/**
@@ -258,7 +243,6 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 
 	@Override
 	public void register(Observer obs) {
-
 		if (obs == null)
 			throw new NullPointerException("Observer is Null");
 		if (!observers.contains(obs))
@@ -267,14 +251,11 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 
 	@Override
 	public void unregister(Observer obs) {
-		// TODO Auto-generated method stub
 		observers.remove(obs);
-
 	}
 
 	@Override
 	public void notifyObservers() throws AuctifyException {
-		// TODO Auto-generated method stub
 		List<Observer> observersLocal = null;
 		// synchronization is used to make sure any observer registered after
 		// message is received is not notified
@@ -296,12 +277,11 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 
 	}
 
-	@Override
-	public Object getUpdate(Observer obs) {
-		return (User) this;
-	}
-
-	// TODO Write javadocs for this class
+	/**Bid on an auction
+	 * @param auctionId the id of the auction to bid on
+	 * @param bidAmount the amount to bid
+	 * @throws AuctifyException when the user doesn't have enough bidcoins
+	 */
 	public void bidOnAuction(int auctionId, int bidAmount)
 			throws AuctifyException {
 		if (this.bidCoins >= bidAmount) {
@@ -312,26 +292,79 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 			
 			auction.addBid(bid);
 			myBids.put(bid.getIdentifier(), bid);
-			System.out.println("USER DOMAIN :: Auction: " + auction);
-			System.out.println("USER DOMAIN :: Bid" + bid);
 		} else {
 			throw new AuctifyException("Not enough bidcoins available");
 		}
 	}
 
-	public SyncedMap<String, Bid> getMyBids() {
-		return myBids;
-	}
-
+	/**removes an auction and all the bids that were placed on it
+	 * @param auction the auction to remove
+	 */
 	public void removeAuction(Auction auction) {
+		Map<String,Bid> allBids = ServiceProvider.getService().getAllBids();
 		for (Bid bid : auction.getBids().values()) {
+			bid.getUser().myAuctions.remove(bid.getIdentifier());
 			myBids.remove(bid.getIdentifier());
 		}
 		myAuctions.remove(auction.getIdentifier());
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		User otherUser = (User) obj;
+		boolean equals = true;
+		equals = equals && email.equals(otherUser.email);
+		equals = equals && password.equals(otherUser.password);
+		return equals;
+	}
 
+	@Override
+	public int compareTo(User user) {
+		return email.compareTo(user.email);
+	}
+
+	@Override
+	public String toString() {
+		return userId + " " + email + " " + password + " " + displayName + " "
+				+ rights + " " + bidCoins;
+	}
+
+	@Override
+	public Object getUpdate(Observer obs) {
+		return (User) this;
+	}
+	public String getDisplayName() {
+		return displayName;
+	}
 	@Override
 	public String getIdentifier() {
 		return Integer.toString(userId);
+	}
+	public String getPassword() {
+		return password;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public Person getPerson() {
+		return person;
+	}
+	public Address getAddress() {
+		return address;
+	}	
+	public UserRights getRights() {
+		return rights;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public SyncedMap<String, Auction> getMyAuctions() {
+		return myAuctions;
+	}
+	public SyncedMap<String, Bid> getMyBids() {
+		return myBids;
 	}
 }
