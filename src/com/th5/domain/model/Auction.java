@@ -168,11 +168,13 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 
 	public int calculateNextBidAmount() {
 		int highestBidAmount = getHighestBidAmount();
-		int nextBidAmount = 0;
-
-		// TODO Create an algorithm to
-		// increase bid amount.
-		nextBidAmount = (int) (highestBidAmount *1.10);
+		int nextBidAmount;
+		if(bids.isEmpty()){
+			nextBidAmount = startBid;
+			return nextBidAmount;
+		}else{
+			nextBidAmount = (int) (highestBidAmount *1.10);
+		}
 		if( nextBidAmount - highestBidAmount < 1) nextBidAmount++;
 		return nextBidAmount;
 	}
