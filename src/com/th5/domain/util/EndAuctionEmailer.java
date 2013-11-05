@@ -36,9 +36,13 @@ public class EndAuctionEmailer implements Runnable {
 	private String 		messageOwner			= 	"Hi " + nameOwner + "\n\n" +
 													"Your product \"" + auctionName +"\" has been sold.\n" +
 													"Please send the product to the folowing address within 7 days:\n\n" +
-													addressWinner + "\n" +
-													"Kind regards, Auctify";;
-	private String 		MessageProductNotSold	= null;
+													addressWinner + "\n\n" +
+													"Kind regards, Auctify";
+	
+	private String 		MessageProductNotSold	= 	"Hi " + nameOwner + "\n\n" +
+													"Your product \"" + auctionName +"\" was not sold...\n" +
+													"Feel free to give it another try.\n\n" +
+													"Kind regards, Auctify";
 	
 	
 	public EndAuctionEmailer(Auction auction) {
