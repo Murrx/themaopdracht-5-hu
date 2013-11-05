@@ -122,7 +122,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 		CallableStatement statement = null;
 
 		try {
-			String functionCall = "{? = call pkg_user_modification.f_register_user(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+			String functionCall = "{? = call pkg_user_modification.pr_register_user(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 			statement = connection.prepareCall(functionCall);
 
 			statement.setInt(1, user.getUserId());
