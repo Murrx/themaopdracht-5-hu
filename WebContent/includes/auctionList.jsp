@@ -10,6 +10,9 @@
 		<s:elseif test="%{status.rightsValue >= 2}">
 			<span class="label label-danger">Expired</span>
 		</s:elseif>
+		<s:elseif test="%{status.rightsValue >= 1}">
+			<span class="label label-info">Users Notified</span>
+		</s:elseif>
 		<s:else>
 			<span class="label label-default">Blocked</span>
 		</s:else>
@@ -21,7 +24,10 @@
 		</s:url>
 		<s:a href="%{viewAuction}"><s:property value="product.name" /></s:a>
 	</td>
+	<td><s:property value='startTime.time' /></td>
 	<td><s:property value='endTime.time' /></td>
+	<td><s:property value='percentage' />%</td>
+	<td><i class='fa fa-btc'><s:property value='startBid' /></td>
 	
 	<td><s:url action="ViewMemberAction.action" var="viewMember">
 			<s:param name="userId"><s:property value="owner.userId" /></s:param>

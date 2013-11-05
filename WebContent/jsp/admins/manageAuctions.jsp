@@ -13,6 +13,15 @@
 
 		<div class="table-responsive table-condensed">
 			<table class="table table-hover">
+				<tr>
+					<th>Status</th>
+					<th>Name</th>
+					<th>Start date</th>
+					<th>End date</th>
+					<th>Completion</th>
+					<th>Start bid</th>
+					<th>Owner</th>
+				</tr>
 				<s:iterator value="allAuctions">
 					<s:include value="/includes/auctionList.jsp" />
 				</s:iterator>
