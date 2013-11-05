@@ -36,9 +36,9 @@
 
 				<h4> Auction information: </h4>
 				<span class="leftImportant">Owner:</span> <span class="rightInfo"> <s:url action="ViewMemberAction.action" namespace="/member" var="viewMember">
-						<s:param name="userId">
-							<s:property value="auction.owner.userId" />
-						</s:param>
+					<s:param name="userId">
+						<s:property value="auction.owner.userId" />
+					</s:param>
 					</s:url> <s:a href="%{viewMember}">
 						<s:property value='auction.owner.displayName' />
 					</s:a>
@@ -77,7 +77,7 @@
 					</p>
 				</s:if>
 				<s:else>
-					<button type="button" class="btn btn-default disabled">Bidding disabled</button>
+					<button type="button" class="btn btn-default disabled pull-right">Bidding disabled</button>
 				</s:else>
 			</div>
 			<!-- END AUTHOR PANEL -->

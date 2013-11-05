@@ -1,5 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div class="col-xs-12 col-sm-12 col-md-2 admin-menu">
+<div class="col-xs-12 col-sm-4 col-md-2 admin-menu">
 
 		<div class="list-group">
 			<a href="<s:url action='ViewAdminPanel' namespace='/admin'/>" class="list-group-item active"> Options: </a> 

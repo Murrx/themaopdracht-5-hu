@@ -495,7 +495,16 @@ textarea {
 	line-height: 25px;
 }
 
+.block-button {
+	margin-top: 20px;
+}
+
+.block-button button {
+	float: right;
+}
+
 @media ( max-width : 767px) {
+	
 	.active a {
 		border-bottom-color: #ddd !important;
 	}
