@@ -2,7 +2,6 @@ package com.th5.domain.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class Search<E extends Searchable<E>> {
 	private Collection<E> result = null;

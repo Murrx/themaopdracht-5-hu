@@ -11,7 +11,7 @@ public class Queries {
 	
 	public static final String selectAllBids = "SELECT * FROM bid_bids";
 	
-	public static final String selectAllUsers = "SELECT * FROM usr_users ORDER BY USR_DISPLAY_NAME asc";
+	public static final String selectAllUsers = "SELECT * FROM usr_users, prs_persons, adr_addresses WHERE usr_fk_person_id = prs_pk_person_id AND prs_fk_address_id = adr_pk_address_id";
 	
 	//Queries used by BidDatabaseCrud::
 	public static final String generateBidId = "{? = call seq_bid_pk_bid_id.nextval }";

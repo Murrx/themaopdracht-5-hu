@@ -2,7 +2,6 @@ package com.th5.persistance;
 
 import java.util.List;
 
-import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 
 public interface CRUD_Interface<T>{

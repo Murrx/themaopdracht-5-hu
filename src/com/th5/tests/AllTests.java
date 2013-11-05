@@ -7,7 +7,6 @@ import com.th5.tests.domain.model.validators.AddAuctionValidatorTest;
 import com.th5.tests.domain.model.validators.UserAddressValidatorTest;
 import com.th5.tests.domain.model.validators.UserPersonValidatorTest;
 import com.th5.tests.domain.model.validators.UserRegisterValidatorTest;
-import com.th5.tests.domain.other.UserListManagerTest;
 import com.th5.tests.domain.service.AuctionServiceTest;
 import com.th5.tests.persistance.UserDatabaseCRUD_Test;
 
@@ -16,7 +15,6 @@ import com.th5.tests.persistance.UserDatabaseCRUD_Test;
 ({ 
 	//Domain tests
 	AuctionServiceTest.class,
-	UserListManagerTest.class,
 	UserRegisterValidatorTest.class,
 	UserAddressValidatorTest.class,
 	UserPersonValidatorTest.class,

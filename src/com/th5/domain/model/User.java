@@ -12,11 +12,11 @@ import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
-public class User implements Comparable<User>, Observable, Identifiable<String> {
+
+public class User implements Comparable<User>, Observable, Identifiable<String>, IdentifiableByEmail<String>{
 
 	private int userId, bidCoins;
 	private String email, password, displayName;
-
 	private SyncedMap<String, Auction> myAuctions;
 	private SyncedMap<String, Bid> myBids;
 

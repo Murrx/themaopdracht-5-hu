@@ -1,7 +1,6 @@
 package com.th5.domain.service;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +33,7 @@ public interface AuctionServiceInterface {
 	 * @param street
 	 * @param city
 	 * @throws AuctifyException when registration fails
-	 */
-	public void update(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException;
+	 */	public void update(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode, String houseNumber, String street, String city) throws AuctifyException;
 	
 	/** Register a new user with the given parameters
 	 * @param email
@@ -58,6 +56,7 @@ public interface AuctionServiceInterface {
 	public Map<String, Auction> getAllAuctions();
 	public Map<String, Bid> getAllBids();
 	public List<Bid> getLatestBids();
+	public Map<String,User> getUserMap();
 
 	
 	/** Retrieve all User auctions on Auctify
@@ -69,6 +68,5 @@ public interface AuctionServiceInterface {
 	
 	public List<Auction> getPopularAuctions();
 	public List<Auction> getLatestAuctions();
-	public Map<String, User> retrieveAllUsers();
 
 }

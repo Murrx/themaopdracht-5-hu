@@ -4,7 +4,7 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-<<h3 class="headerPurple">My Auctions</h3>
+<h3 class="headerPurple">My Auctions</h3>
 
 <div class="row" id="allAuctions">
 		<s:if test="allAuctions != null">

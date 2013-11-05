@@ -14,9 +14,6 @@ import org.junit.Test;
 
 import com.th5.domain.model.Address;
 import com.th5.domain.model.validators.UserAddressValidator;
-import com.th5.domain.observation.Observable;
-import com.th5.domain.observation.Observer;
-import com.th5.domain.other.AuctifyException;
 
 public class UserRegisterValidatorTest{
 

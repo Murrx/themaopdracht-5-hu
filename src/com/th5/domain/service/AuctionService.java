@@ -2,7 +2,6 @@ package com.th5.domain.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,7 +15,7 @@ import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.EncryptPassword;
-import com.th5.domain.util.UserListManager;
+import com.th5.domain.util.LazyMap;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.UserDatabaseCRUD;
@@ -25,12 +24,12 @@ import com.th5.persistance.queries.Queries;
 public class AuctionService implements AuctionServiceInterface {
 
 	private UserDatabaseCRUD udbcrud = new UserDatabaseCRUD();
-	private UserListManager userList;
+	private LazyMap<String, User> userMap;
 	private TreeMap<String,Auction> allAuctions;
 	private TreeMap<String, Bid> allBids;
 
 	public AuctionService() {
-		userList = new UserListManager();
+		userMap = new LazyMap<>(true, udbcrud);
 		allAuctions = retrieveAllAuctions();
 		allBids = retrieveAllBids();
 	}
@@ -71,22 +70,6 @@ public class AuctionService implements AuctionServiceInterface {
 		return allBids;
 	}
 	
-	public HashMap<String, User> retrieveAllUsers(){
-		HashMap<String,User> allUsers = new HashMap<String,User>();
-		
-		try {
-			UserDatabaseCRUD usrCRUD = new UserDatabaseCRUD();
-			List<User> tempList = usrCRUD.retrieve(null, Queries.selectAllUsers);
-			for (User user : tempList) {
-				allUsers.put(user.getIdentifier(),user);
-			}
-		} catch (AuctifyException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		return allUsers;
-	}
-	
 	/**
 	 * Attempt to get an auction from allAuctions
 	 * 
@@ -108,9 +91,12 @@ public class AuctionService implements AuctionServiceInterface {
 	@Override
 	public User login(String email, String password) throws AuctifyException {
 		password = EncryptPassword.encryptPassword(password);
-		User user = userList.retrieve(email);
+		User user = userMap.get(email);
 		if (user == null || !user.getPassword().equals(password)) {
 			throw new AuctifyException("Username op password incorrect");
+		}
+		if (user.getRights().getRightsValue() < 5){
+			throw new AuctifyException("User is blocked.");
 		}
 		user.register(udbcrud);
 		return user;
@@ -128,7 +114,7 @@ public class AuctionService implements AuctionServiceInterface {
 		user.setAddress(address);
 		user.setPerson(person);
 
-		userList.create(user);
+		userMap.put(user.getIdentifier(), user);
 	}
 
 	@Override
@@ -136,24 +122,23 @@ public class AuctionService implements AuctionServiceInterface {
 			String houseNumber, String street, String city) throws AuctifyException {
 		password = EncryptPassword.encryptPassword(password);
 
-		User u = userList.retrieve(email);
+		User user = userMap.get(email);
 
 		Person person = new Person(firstName, lastName, gender, birthdate);
 		Address address = new Address(postalCode, houseNumber, street, city);
 
-		u.setEmail(email);
-		u.setPassword(password);
-		u.setDisplayName(displayName);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setDisplayName(displayName);
 
-		u.setAddress(address);
-		u.setPerson(person);
+		user.setAddress(address);
+		user.setPerson(person);
 
-		udbcrud.update(u);
+		udbcrud.update(user);
 	}
 
-	public User getUserById(String identifier) throws AuctifyException {
-		User user = userList.retrieveById(identifier);
-		return user;
+	public User getUserById(String identifier){
+		return userMap.get(identifier);
 	}
 
 	public List<Auction> getPopularAuctions() {
@@ -190,8 +175,9 @@ public class AuctionService implements AuctionServiceInterface {
 		        latestBids.add(bid.getValue());
 		    }
 		}
-		return latestBids;
-		
+		return latestBids;	
 	}
-
+	public Map<String,User> getUserMap(){
+		return userMap;
+	}
 }

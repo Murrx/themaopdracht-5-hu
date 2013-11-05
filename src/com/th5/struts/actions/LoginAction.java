@@ -54,7 +54,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	public void validate() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		previousPage = request.getHeader("referer");
-		System.out.println(previousPage);
 		if (login_email == null) {
 			addFieldError("login_email", "email is required");
 		} else if ("".equals(login_email.trim())) {

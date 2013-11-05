@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.List;
 import com.th5.domain.model.Bid;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
-import com.th5.domain.util.SortedArrayList;
 import com.th5.persistance.queries.Queries;
 
 public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
