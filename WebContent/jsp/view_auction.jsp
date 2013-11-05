@@ -33,8 +33,8 @@
 			<!-- ImageColumn -->
 			<div class="col-xs-6 col-md-3 col-lg-3">
 				<!-- BEGIN AUTHOR PANEL -->
-				<span class="headerPurple"><strong> Auction information: </strong></span> <br />
-				<br /> <span class="leftImportant">Owner:</span> <span class="rightInfo"> <s:url action="ViewMemberAction.action" namespace="/member" var="viewMember">
+				<h4> Auction information: </h4>
+				<span class="leftImportant">Owner:</span> <span class="rightInfo"> <s:url action="ViewMemberAction.action" namespace="/member" var="viewMember">
 						<s:param name="userId">
 							<s:property value="auction.owner.userId" />
 						</s:param>
@@ -97,9 +97,12 @@
 		</div>
 	</div>
 
+
 	<div class="col-sm-12 col-md-12 col-lg-4 ">
-		<span class="headerPurple"><strong> Bid history: </strong></span> <br />
-		<br />
+		<s:if test="%{auction.bids.isEmpty() != true}">
+		
+		<h4>Bid history: </h4>  
+	
 		<table class="table table-striped">
 			<tr>
 				<th>bidCoins</th>
@@ -110,6 +113,13 @@
 				<s:include value="/includes/listBidAuction.jsp" />
 			</s:iterator>
 		</table>
+		</s:if>
+		<s:else>
+		<h4>Bid history: </h4>  
+		<div class="well">
+			No bids have been placed on this auction yet!
+		</div>
+		</s:else>
 	</div>
 </div>
 
