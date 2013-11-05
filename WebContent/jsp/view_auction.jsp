@@ -52,7 +52,7 @@
 					</s:url> <s:a href="%{filterAuction}">
 						<s:property value='highestBid.user.displayName' />
 					</s:a></span><br /> <span class="leftImportant">End date:</span><span class="rightInfo"> <s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /></span><br />
-				<span class="leftImportant">Category:</span><span class="rightInfo"> <s:url action="FilterAuctionAction.action" namespace="/" var="filterAuction">
+				<span class="leftImportant">Category:</span><span class="rightInfo"> <s:url action="AuctionsByCategory.action" namespace="/" var="filterAuction">
 						<s:param name="category">
 							<s:property value="auction.category" />
 						</s:param>

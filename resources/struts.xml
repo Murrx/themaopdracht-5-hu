@@ -45,7 +45,7 @@
 			<result name="success">/jsp/view_auction.jsp</result>
 		</action>
 		
-			<action name="FilterAuctionAction" class="com.th5.struts.actions.member.FilterAuctionAction">
+			<action name="AuctionsByCategory" class="com.th5.struts.actions.member.AuctionsByCategory">
 			<result>/jsp/auctions.jsp</result>
 		</action>
 	</package>

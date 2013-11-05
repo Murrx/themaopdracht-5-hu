@@ -7,7 +7,7 @@ import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
 
 @SuppressWarnings("serial")
-public class FilterAuctionAction extends ActionSupport {
+public class AuctionsByCategory extends ActionSupport {
 	
 	public String execute() {
 
