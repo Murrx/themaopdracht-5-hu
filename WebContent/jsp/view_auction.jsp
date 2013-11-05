@@ -48,19 +48,43 @@ margin-right: auto !important;
 		</s:url>
 		<s:a href="%{viewMember}"><s:property value='highestBid.user.displayName' /></s:a></span><br />
 				<span class="leftImportant">End date:</span><span class="rightInfo">	<s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /></span><br />
-				<span class="leftImportant">Category:</span><span class="rightInfo">	<s:property value="auction.category" /></span>
+				<span class="leftImportant">Category:</span><span class="rightInfo">	<s:property value="auction.category" /></span><br />
+				<span class="leftImportant">Status:</span>
+				
+				<s:if test="auction.status.rightsValue >= 7">
+					<span class="rightInfo label label-warning">Special</span>
+				</s:if>
+				<s:elseif test="auction.status.rightsValue >= 5">
+					<span class="rightInfo label label-success">Active</span>
+				</s:elseif>
+				<s:elseif test="auction.status.rightsValue >= 2">
+					<span class="rightInfo label label-danger">Expired</span>
+				</s:elseif>
+				<s:elseif test="auction.status.rightsValue >= 1">
+					<span class="rightInfo label label-info">Users Notified</span>
+				</s:elseif>
+				<s:else>
+					<span class="rightInfo label label-default">Blocked</span>
+				</s:else>
+				
 			</div>
 			<div class="col-xs-6 col-md-3 col-lg-3">
-				<s:url action="placeBidAction.action" namespace="/member" var="urlTag">
-					<s:param name="auctionId">
-						<s:property value="%{#parameters.id}" />
-					</s:param>
-				</s:url>
-				<p>
-					<s:a href="%{urlTag}" cssClass="btn btn-default btnColor pull-right">
-						(<i class='fa fa-btc'></i><s:property value="nextBidAmount" />) Place new bid!
-					</s:a>
-				</p>
+			
+				<s:if test="auction.status.rightsValue >= 5"> 
+					<s:url action="placeBidAction.action" namespace="/member" var="urlTag">
+						<s:param name="auctionId">
+							<s:property value="%{#parameters.id}" />
+						</s:param>
+					</s:url>
+					<p>
+						<s:a href="%{urlTag}" cssClass="btn btn-default btnColor pull-right">
+							(<i class='fa fa-btc'></i><s:property value="nextBidAmount" />) Place new bid!
+						</s:a>
+					</p>
+				</s:if>
+				<s:else>
+					<button type="button" class="btn btn-default disabled">Bidding disabled</button>
+				</s:else>
 			</div>
 			<!-- END AUTHOR PANEL -->
 		</div>
