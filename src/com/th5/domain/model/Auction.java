@@ -18,6 +18,7 @@ import com.th5.domain.util.Filterable;
 import com.th5.domain.util.IntegerRange;
 import com.th5.domain.util.Searchable;
 import com.th5.domain.util.SyncedMap;
+import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
@@ -76,6 +77,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		if(status.getRightsValue() >= Status.ACTIVE.getRightsValue()){
 			if(Calendar.getInstance().getTimeInMillis() > endTime.getTimeInMillis()){
 				try{
+					this.register(new AuctionDatabaseCRUD());
 					this.setStatus(Status.EXPIRED);
 					this.getOwner().addBidCoins(this.getHighestBidAmount());
 
