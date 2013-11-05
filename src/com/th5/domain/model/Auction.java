@@ -236,6 +236,11 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 	}
 
 	public Status getStatus() {
+		try {
+			refreshStatus();
+		} catch (AuctifyException e) {
+			e.printStackTrace();
+		}
 		return status;
 	}
 

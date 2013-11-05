@@ -28,7 +28,7 @@
   				<th>Product:</th>
   				<th>bidCoins:</th>
   			</tr>
-					<s:iterator value="allBids">
+					<s:iterator value="relevantAuctions.values()">
 						<s:include value="/includes/myRelevantBidAuction.jsp" />
 					</s:iterator>
 				</table>

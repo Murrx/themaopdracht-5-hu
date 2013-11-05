@@ -1,6 +1,8 @@
 package com.th5.struts.actions;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
@@ -15,6 +17,7 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 	private Collection<Auction> allAuctions;
 	private User user;
 	private Collection<Bid> allBids;
+	private Map<String, Bid> relevantAuctions = new HashMap<String, Bid>();
 
 	@Override
 	public String execute() throws Exception {
@@ -22,6 +25,9 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 			
 			allAuctions = user.getMyAuctions().values();
 			allBids = user.getMyBids().values();
+			for(Bid bid : allBids){
+				relevantAuctions.put(bid.getAuction().getIdentifier(), bid);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,5 +53,9 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 	public void setUser(User user) {
 		this.user = user;
 
+	}
+	
+	public Map<String, Bid> getRelevantAuctions() {
+		return relevantAuctions;
 	}
 }

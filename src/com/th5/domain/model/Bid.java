@@ -3,6 +3,7 @@ package com.th5.domain.model;
 import java.util.Calendar;
 
 import com.th5.domain.other.AuctifyException;
+import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.persistance.BidDatabaseCRUD;
 
@@ -164,7 +165,14 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 	}
 	
 	public void generateBidStatus(Auction auction){
-		if (auction.getStatus() == Status.ACTIVE) {
+		boolean highestBid = auction.getHighestBid().equals(this);
+		boolean auctionStillActive = auction.getStatus().getRightsValue() >= Status.ACTIVE.getRightsValue();
+		
+		if (highestBid && auctionStillActive) {
+			this.setBidStatus(BidStatus.WINNING);
+		} else if (highestBid && !auctionStillActive) {
+			this.setBidStatus(BidStatus.WON);
+		} else if (!highestBid && auctionStillActive) {
 			this.setBidStatus(BidStatus.LOSING);
 		} else {
 			this.setBidStatus(BidStatus.LOST);
