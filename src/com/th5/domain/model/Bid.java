@@ -170,7 +170,8 @@ public class Bid implements Comparable<Bid>, Identifiable<String>, Filterable {
 	}
 	
 	public void generateBidStatus(Auction auction){
-		boolean highestBid = auction.getHighestBid().equals(this);
+	
+		boolean highestBid = this.equals(auction.getHighestBid()) || auction.getHighestBid() == null;
 		boolean auctionStillActive = auction.getStatus().getRightsValue() >= Status.ACTIVE.getRightsValue();
 		
 		if (highestBid && auctionStillActive) {
