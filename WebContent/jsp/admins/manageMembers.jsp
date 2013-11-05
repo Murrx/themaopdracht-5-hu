@@ -15,7 +15,7 @@
 
 		
 		
-			<div class="table-responsive">
+			<div class="table-responsive table-condensed">
 				<table class="table table-hover">
 					<s:iterator value="users">
 						<s:include value="/includes/memberList.jsp" />

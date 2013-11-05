@@ -27,7 +27,7 @@ public class AuctionService implements AuctionServiceInterface {
 	private UserDatabaseCRUD udbcrud = new UserDatabaseCRUD();
 	private UserListManager userList;
 	private TreeMap<String,Auction> allAuctions;
-	private HashMap<String, Bid> allBids;
+	private TreeMap<String, Bid> allBids;
 
 	public AuctionService() {
 		userList = new UserListManager();
@@ -55,8 +55,8 @@ public class AuctionService implements AuctionServiceInterface {
 		return auctions;
 	}
 	
-	private HashMap<String, Bid> retrieveAllBids(){
-		HashMap<String,Bid> allBids = new HashMap<String,Bid>();
+	private TreeMap<String, Bid> retrieveAllBids(){
+		TreeMap<String,Bid> allBids = new TreeMap<String,Bid>();
 		
 		try {
 			BidDatabaseCRUD dbCRUD = new BidDatabaseCRUD();
@@ -182,8 +182,14 @@ public class AuctionService implements AuctionServiceInterface {
 	
 	public List<Bid> getLatestBids(){
 		
-		List<Bid> latestBids = null;
-		
+		int amountToReturn = 6;
+		List<Bid> latestBids = new ArrayList<>();
+		int i = 0;
+		for (Entry<String, Bid> bid: allBids.descendingMap().entrySet()) {
+		    if (i++ < amountToReturn) {
+		        latestBids.add(bid.getValue());
+		    }
+		}
 		return latestBids;
 		
 	}

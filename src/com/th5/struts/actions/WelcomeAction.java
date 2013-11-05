@@ -36,12 +36,7 @@ public class WelcomeAction extends ActionSupport {
 		popularAuctions = service.getPopularAuctions();
 		latestAuctions = service.getLatestAuctions();
 		
-		try{ 
-			latestBids = BidDatabaseCRUD.getLatestBids();
-		} catch (AuctifyException AE) {
-			AE.printStackTrace();
-			return ActionSupport.ERROR;
-		}
+		latestBids = service.getLatestBids();
 		return ActionSupport.SUCCESS;
 	}
 

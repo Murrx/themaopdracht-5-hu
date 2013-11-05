@@ -88,33 +88,6 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 		// TODO Auto-generated method stub
 	}
 
-	//TODO This method should be implemented into retrieve!
-	public static List<Bid> getLatestBids() throws AuctifyException {
-
-		Connection connection = DataSourceService.getConnection();
-		List<Bid> bidList = new SortedArrayList<>();
-		PreparedStatement statement = null;
-
-		try{
-			Statement statementx = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			ResultSet results = statementx.executeQuery("SELECT * FROM (SELECT * FROM BID_BIDS ORDER BY BID_PK_BID_ID DESC) WHERE ROWNUM <7");
-
-			results.afterLast();
-
-			while(results.previous()){
-				Bid bid = ResultHandler.restoreBid(results);
-				bidList.add(bid);
-			}
-
-		}catch(SQLException e){
-			e.printStackTrace();
-			throw new AuctifyException("failed to get latest bids");
-		}finally{
-			DataSourceService.closeConnection(connection, statement);
-		}
-		return bidList;
-	}
-
 	private List<Bid> processResult(ResultSet results) throws AuctifyException, SQLException{
 		List<Bid> bidList = new ArrayList<Bid>();
 
