@@ -71,8 +71,8 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		
 	}
 	
-	private void refreshStatus() throws AuctifyException{
-		if(status == Status.ACTIVE){
+	public void refreshStatus() throws AuctifyException{
+		if(status.getRightsValue() >= Status.ACTIVE.getRightsValue()){
 			if(Calendar.getInstance().getTimeInMillis() > endTime.getTimeInMillis()){
 				try{
 					this.setStatus(Status.EXPIRED);

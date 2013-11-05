@@ -27,13 +27,15 @@ public class AuctionService implements AuctionServiceInterface {
 
 	private UserDatabaseCRUD udbcrud = new UserDatabaseCRUD();
 	private LazyMap<String, User> userMap;
-	private TreeMap<String, Auction> allAuctions;
+	private TreeMap<String,Auction> allAuctions;
 	private TreeMap<String, Bid> allBids;
 
+	
 	public AuctionService() {
 		userMap = new LazyMap<>(true, udbcrud);
 		allAuctions = retrieveAllAuctions();
 		allBids = retrieveAllBids();
+//		RefreshAuctionsTimer timer = new RefreshAuctionsTimer();
 	}
 
 	/**
@@ -67,19 +69,9 @@ public class AuctionService implements AuctionServiceInterface {
 			if (tempList != null) {
 				System.out.println("AuctionService retrieveallbids r68: " + "templist != null");
 				for (Bid bid : tempList) {
-					System.out.println("AuctionService retrieveallbids r70: " + "Bid: " + bid.getBid_Id() + ", templist");
-					Auction tempAuction = getAuctionById(bid.getAuctionId());
-					System.out.println("AuctionService retrieveallbids r74: " + "Auction: " + tempAuction.getAuctionId() + ", tempAuctionlist");
-					tempAuctionList.add(tempAuction);
-					System.out.println("AuctionService retrieveallbids r76: " + "Auction status =: " + tempAuction.getStatus());
-					if (tempAuction.getStatus() == Status.ACTIVE) {
-						bid.setBidStatus(BidStatus.LOSING);
-						System.out.println("AuctionService retrieveallbids r77: " + "Bid status losing: " + bid.getBidStatus());
-					} else {
-						bid.setBidStatus(BidStatus.LOST);
-						System.out.println("AuctionService retrieveallbids r80: " + "Bid status: lost" + bid.getBidStatus());
-					}
-					bid.setAuction(tempAuction);
+					Auction bidAuction = getAuctionById(bid.getAuctionId());
+					bid.generateBidStatus(bidAuction);
+					bid.setAuction(bidAuction);
 
 					allBids.put(bid.getIdentifier(), bid);
 				}
@@ -217,5 +209,16 @@ public class AuctionService implements AuctionServiceInterface {
 
 	public Map<String, User> getUserMap() {
 		return userMap;
+	}
+	public void refreshAllAuctions(){
+		for(Auction auction : allAuctions.values()){
+			if(auction.getStatus().getRightsValue() >= 2 ){
+				try {
+					auction.refreshStatus();
+				} catch (AuctifyException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

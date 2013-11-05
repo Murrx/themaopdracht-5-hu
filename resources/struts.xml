@@ -44,6 +44,10 @@
 		<action name="viewAction" class="com.th5.struts.actions.ViewAuctionAction">
 			<result name="success">/jsp/view_auction.jsp</result>
 		</action>
+		
+			<action name="AuctionsByCategory" class="com.th5.struts.actions.member.AuctionsByCategory">
+			<result>/jsp/auctions.jsp</result>
+		</action>
 	</package>
 
 	<package name="member" namespace="/member" extends="struts-default">
@@ -124,6 +128,8 @@
 		<action name="ViewMemberAction" class="com.th5.struts.actions.member.ViewMemberAction">
 			<result>/jsp/members/viewMember.jsp</result>
 		</action>
+		
+	
 		
 
 	</package>
