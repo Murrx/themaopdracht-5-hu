@@ -9,7 +9,12 @@
 			<span class="label label-success">Member</span>
 		</s:else></td>
 
-	<td><a href=""><s:property value='email' /></a></td>
+	<td>
+		<s:url action="ViewMemberAction.action" var="viewMember" >
+		<s:param name="userId"><s:property value="userId" /></s:param>
+		</s:url>
+		<s:a href="%{viewMember}"><s:property value="email" /></s:a>
+	</td>
 	<td><s:property value='displayName' /></td>
 	<td><s:property value='bidCoins' /></td>
 

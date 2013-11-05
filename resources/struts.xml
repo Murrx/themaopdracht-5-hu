@@ -141,17 +141,17 @@
 		<global-results>
 			<result name="login">/jsp/notModerator.jsp</result>
 		</global-results>
-		
+
 		<action name="block_auction" class="com.th5.struts.actions.BlockAuctionAction">
 			<result name="success" type="redirectAction">
 				<param name="actionName">${previousPage}</param>
-    	        <param name="namespace">/</param>
+				<param name="namespace">/</param>
 			</result>
 		</action>
 		<action name="unblock_auction" class="com.th5.struts.actions.UnblockAuctionAction">
 			<result name="success" type="redirectAction">
 				<param name="actionName">${previousPage}</param>
-    	        <param name="namespace">/</param>
+				<param name="namespace">/</param>
 			</result>
 		</action>
 
@@ -181,15 +181,26 @@
 		<global-results>
 			<result name="login">/jsp/notAdministrator.jsp</result>
 		</global-results>
-		
+
 		<action name="ViewAdminPanel">
 			<result>/jsp/admins/dashboard.jsp</result>
 		</action>
-		
-			<action name="ViewMembersAction" class="com.th5.struts.actions.admin.ViewMembersAction">
+
+		<action name="ViewMembersAction" class="com.th5.struts.actions.admin.ViewMembersAction">
 			<result>/jsp/admins/manageMembers.jsp</result>
 		</action>
-		
+
+		<action name="ViewMemberAction" class="com.th5.struts.actions.admin.ViewMemberAction">
+			<result>/jsp/admins/editMember.jsp</result>
+		</action>
+
+		<action name="BlockMemberAction" class="com.th5.struts.actions.admin.BlockMemberAction">
+			<result name="success" type="redirectAction">
+				<param name="actionName">${previousPage}</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+
 	</package>
 
 

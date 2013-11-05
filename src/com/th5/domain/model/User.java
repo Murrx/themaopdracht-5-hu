@@ -161,6 +161,11 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 	public UserRights getRights(){
 		return rights;
 	}
+	
+	public void setRights(UserRights rights) {
+		this.rights = rights;
+	}
+
 	public int getUserId() {
 		return userId;
 	}
