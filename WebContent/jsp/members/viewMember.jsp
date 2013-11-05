@@ -54,10 +54,6 @@
 				<td><s:property value='user.person.firstName' /></td>
 			</tr>
 			<tr>
-				<td>Last name:</td>
-				<td><s:property value='user.person.lastName' /></td>
-			</tr>
-			<tr>
 				<td>Gender:</td>
 				<td><s:if test="%{user.person.gender == 1}">
 				<i class="fa fa-male"></i>
