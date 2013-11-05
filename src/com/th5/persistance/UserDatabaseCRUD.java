@@ -95,7 +95,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 	}
 
 	@Override
-	public int create(User user) throws AuctifyException {
+	public void create(User user) throws AuctifyException {
 
 		Connection connection = DataSourceService.getConnection();
 
@@ -130,7 +130,6 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 			statement.executeQuery();
 
 			int userId = statement.getInt(1);
-			return userId;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,7 +178,6 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 		}
 	}
 
-	@Deprecated
 	@Override
 	public void delete(int userId) throws AuctifyException {
 		Connection connection = DataSourceService.getConnection();

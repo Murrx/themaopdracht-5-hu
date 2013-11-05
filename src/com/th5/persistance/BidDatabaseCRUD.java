@@ -30,13 +30,13 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new AuctifyException("failed to generate new bid ID");
+			throw new AuctifyException("BidDatabaseCRUD.generateId()::failed to generate new bid ID");
 		} finally {
 			DataSourceService.closeConnection(connection, statement);
 		}
 	}
 
-	public int create(Bid bid) throws AuctifyException {
+	public void create(Bid bid) throws AuctifyException {
 		Connection connection = DataSourceService.getConnection();
 		PreparedStatement statement = null;
 
@@ -49,11 +49,10 @@ public class BidDatabaseCRUD implements CRUD_Interface<Bid>{
 
 		}catch(SQLException e){
 			e.printStackTrace();
-			throw new AuctifyException("failed to bid on auction");
+			throw new AuctifyException("BidDatabaseCRUD.create()::failed to bid on auction");
 		}finally{
 			DataSourceService.closeConnection(connection, statement);
 		}
-		return 0;
 	}
 
 	@Override
