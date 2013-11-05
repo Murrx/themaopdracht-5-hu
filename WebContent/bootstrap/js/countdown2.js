@@ -67,7 +67,7 @@
 			.css('width', percentage + "%");
 		}
 
-		$this.find('span').html(message);
+		$this.find('.progress-bar-label').html(message);
 	});
 	
 		

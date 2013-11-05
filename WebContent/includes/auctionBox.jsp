@@ -39,7 +39,7 @@
 						
 						<div class="btn-group">
 						  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-						    Admin tools <span class="caret"></span>
+						  	Admin tools <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" role="menu">
 						  	<s:if test="%{status.rightsValue != 0}">
@@ -51,8 +51,8 @@
 						    <li><a href="<s:property value='#urlTagDel' />"><i class="fa fa-trash-o"></i> Delete Auction</a></li>
 						  </ul>
 						</div>
+						
 					</div>
-				</s:if>	
-	  			
+				</s:if>
 			</div>
 		</div>
