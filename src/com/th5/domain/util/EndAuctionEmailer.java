@@ -28,21 +28,11 @@ public class EndAuctionEmailer implements Runnable {
 	private final String subjectOwner = "Your product has been sold";
 	private final String subjectProductNotSold = "Your auction ended";
 	
-	private String 		messageWinner			= 	"Hi " + nameWinner + "\n\n" +
-													"You have won the auction \"" + auctionName +"\"\n" +
-													"Your product will be send to you within 7 days.\n\n" +
-													"Kind regards, Auctify";
+	private String 		messageWinner;
 	
-	private String 		messageOwner			= 	"Hi " + nameOwner + "\n\n" +
-													"Your product \"" + auctionName +"\" has been sold.\n" +
-													"Please send the product to the folowing address within 7 days:\n\n" +
-													addressWinner + "\n\n" +
-													"Kind regards, Auctify";
+	private String 		messageOwner;
 	
-	private String 		MessageProductNotSold	= 	"Hi " + nameOwner + "\n\n" +
-													"Your product \"" + auctionName +"\" was not sold...\n" +
-													"Feel free to give it another try.\n\n" +
-													"Kind regards, Auctify";
+	private String 		MessageProductNotSold;
 	
 	
 	public EndAuctionEmailer(Auction auction) {
@@ -59,6 +49,7 @@ public class EndAuctionEmailer implements Runnable {
 			emailWinner = winner.getEmail();
 			addressWinner = winner.getAddress();
 		}
+		setupMessages();
 	}
 	
 	public EndAuctionEmailer(){
@@ -70,11 +61,31 @@ public class EndAuctionEmailer implements Runnable {
 		emailWinner = "altenarobin@gmail.com";
 		addressWinner = new Address("3766MC", "74", "Insingerstraat 74", "Soest");
 		auctionName = "*auctionName*";
+		setupMessages();
+	}
+	
+	private void setupMessages(){
+		messageWinner = 		"Hi " + nameWinner + "\n\n" +
+				"You have won the auction \"" + auctionName +"\"\n" +
+				"Your product will be send to you within 7 days.\n\n" +
+				"Kind regards, Auctify";
+
+		messageOwner = 			"Hi " + nameOwner + "\n\n" +
+				"Your product \"" + auctionName +"\" has been sold.\n" +
+				"Please send the product to the folowing address within 7 days:\n\n" +
+				addressWinner + "\n\n" +
+				"Kind regards, Auctify";
+
+		MessageProductNotSold= 	"Hi " + nameOwner + "\n\n" +
+				"Your product \"" + auctionName +"\" was not sold...\n" +
+				"Feel free to give it another try.\n\n" +
+				"Kind regards, Auctify";
 	}
 			
 	
 	
 	public void run() {
+		System.out.println("EndAuctionEmailer.run()::Sending mail");
 		if(winner != null){
 			sendMail(emailWinner, messageWinner, subjectWinner);
 			sendMail(emailOwner, messageOwner, subjectOwner);
