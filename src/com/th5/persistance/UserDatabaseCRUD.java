@@ -122,7 +122,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 		CallableStatement statement = null;
 
 		try {
-			String functionCall = "{? = call pkg_user_modification.pr_register_user(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+			String functionCall = "{call pkg_user_modification.pr_register_user(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 			statement = connection.prepareCall(functionCall);
 
 			statement.setInt(1, user.getUserId());
@@ -145,11 +145,9 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 
 			statement.executeQuery();
 
-			int userId = statement.getInt(1);
-
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new AuctifyException("failed to create user");
+			throw new AuctifyException("UserDatabaseCRUD.create()::failed to create user");
 		} finally {
 			DataSourceService.closeConnection(connection, statement);
 		}
