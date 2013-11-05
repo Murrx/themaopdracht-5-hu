@@ -8,10 +8,23 @@
 
 	<s:include value="/includes/adminMenu.jsp" />
 	
-	<div class="col-xs-12 col-sm-12 col-md-8">
+	<div class="col-xs-12 col-sm-12 col-md-10">
 
 	<h3>View stats:</h3>
-		<div class="well">
+		<script type="text/javascript">
+			function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+					['November', 'Bids', 'Auctions created', 'Auctions ended'] ,
+					<s:iterator value="data">		 	
+						['<s:property value="key" /> nov', <s:property value="value[0]" />, <s:property value="value[1]" />, <s:property value="value[2]" />],
+					</s:iterator>
+				]);
+				
+				var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+				chart.draw(data);
+			}
+		</script>
+		<div class="chart-well well">
 			<div id="chart_div"></div>
 		</div>
 
@@ -22,28 +35,11 @@
 
 <div class="row">
 
-	<div class="col-xs-12 col-sm-12 col-md-6">
+	<div class="col-xs-12 col-sm-12 col-md-12">
 
 		<h3>Stats:</h3>
 		<div class="well">Here we'll display a graph or something.</div>
-		<script type="text/javascript">
-			function drawChart() {
-				var data = google.visualization.arrayToDataTable([
-					['Year', 'numBids'] ,
-					<s:iterator value="allBids">		 	
-						[<s:property value="key" />, <s:property value="value" />],
-					</s:iterator>
-				]);
-				
-				var options = {
-					title: 'Company Performance',
-					hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
-				};
-				
-				var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-				chart.draw(data, options);
-			}
-		</script>	
+	
 	</div>
 
 </div>

@@ -503,6 +503,14 @@ textarea {
 	float: right;
 }
 
+#chart_div {
+	width: 2000px;
+}
+
+.chart-well {
+	overflow: scroll;
+}
+
 @media ( max-width : 767px) {
 	
 	.active a {
