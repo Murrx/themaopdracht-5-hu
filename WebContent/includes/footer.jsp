@@ -17,6 +17,13 @@
 		<script src="//code.jquery.com/jquery-latest.js" type="text/javascript"></script>		
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="bootstrap/js/countdown2.js" type="text/javascript"></script>
+		<s:if test="bidGraph">
+			<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+			<script type="text/javascript">
+				google.load("visualization", "1", {packages:["corechart"]});
+				google.setOnLoadCallback(drawChart);
+			</script>
+		</s:if>
 		
 		<s:if test="dateRangePicker">
 			<script type="text/javascript" src="bootstrap/js/dateRangePicker/moment.min.js"></script>

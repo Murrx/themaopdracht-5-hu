@@ -3,7 +3,7 @@ package com.th5.domain.util;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Search<E extends Searchable<E>> {
+public class Search<E extends Searchable> {
 	private Collection<E> result = null;
 	private Collection<E> input = null;
 	private String search = null;

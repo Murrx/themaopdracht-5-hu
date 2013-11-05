@@ -166,9 +166,21 @@ $(function () {
 	});
 	$('[name="priceRangeLow"]').on('change', function() {
 		$('.slider').val($(this).val());
-	})
+	});
 	$('[name="priceRangeHigh"]').on('change', function() {
 		$('.slider').val([null, $(this).val()]);
-	})
+	});
+	if($("#chart_div").length != 0) {
+	    google.load("visualization", "1", {packages:["corechart"]});
+	    google.setOnLoadCallback(drawChart);
+	    function drawChart() {
+	      var options = {
+	        title: 'Company Performance',
+	        hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+	      };
+
+	      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+	    }
+	}
 });
 

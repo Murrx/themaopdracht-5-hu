@@ -19,7 +19,6 @@ public class RefreshAuctionsTimer{
 
 	private class RefreshAuctionsTask extends TimerTask {
 		public void run() {
-			System.out.println("Refreshing auctions");
 			ServiceProvider.getService().refreshAllAuctions();
 
 		}

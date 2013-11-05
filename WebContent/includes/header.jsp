@@ -132,27 +132,7 @@
 			
 			
 		<!-- SCRIPT FOR COLUMN CHART -->	
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-		['Year', 'numBids'] ,
-		<s:iterator value="allBids">		 	
-			['2013',<s:property value='numBids'/>],
-		</s:iterator>
-        ]);
 
-        var options = {
-          title: 'Company Performance',
-          hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
-        };
-
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
 			
 			
 			

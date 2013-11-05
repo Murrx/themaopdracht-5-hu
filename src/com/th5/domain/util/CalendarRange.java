@@ -3,6 +3,10 @@ package com.th5.domain.util;
 import java.util.Calendar;
 
 public class CalendarRange extends Range<Calendar> {
+	
+	public CalendarRange() {
+	}
+	
 	public CalendarRange(Calendar low, Calendar high) {
 		super(low, high);
 	}

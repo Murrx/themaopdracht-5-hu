@@ -6,11 +6,9 @@
 	<td><a
 		href="viewAction.action?id=<s:property value='auctionId'/>"><s:property
 				value='product.name' /></a></td>
-	<td><s:property
-			value="endTimeHours" />:<s:property
-			value="endTimeMinutes" />:<s:property value="00" />-<s:property value="endTimeDate" />/<s:property value="endTimeMonth" />/<s:property
-			value="endTimeYear" />
-			</td>
+	<td><s:property value="endTimeDate" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /> 
+	<s:property value="endTimeHours" />:<s:property value="endTimeMinutes" /> 
+	</td>
 
 	<td><span class="label label-info"><i class='fa fa-btc'></i>
 			<s:property value='startBid' /></span></td>

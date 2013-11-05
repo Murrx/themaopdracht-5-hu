@@ -26,9 +26,27 @@
 
 		<h3>Stats:</h3>
 		<div class="well">Here we'll display a graph or something.</div>
-
+		<script type="text/javascript">
+			function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+					['Year', 'numBids'] ,
+					<s:iterator value="allBids">		 	
+						[<s:property value="key" />, <s:property value="value" />],
+					</s:iterator>
+				]);
+				
+				var options = {
+					title: 'Company Performance',
+					hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+				};
+				
+				var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+			}
+		</script>	
 	</div>
 
 </div>
-
-<s:include value="/includes/footer.jsp" />
+<s:push value="#{'bidGraph': true}">
+	<s:include value="/includes/footer.jsp" />
+</s:push>

@@ -25,5 +25,8 @@ abstract class Range<E> {
 		this.high = high;
 	}
 	
+	public Range() {
+	}
+	
 	abstract Boolean withinRange(E subject);
 }

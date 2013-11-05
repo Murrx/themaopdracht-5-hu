@@ -55,7 +55,7 @@
 		<div class="col-sm-12">
 			<div class="form-group">
 				<label>Category</label>
-				<s:iterator value="categories" status="s">
+				<s:iterator value="categories">
 					<div class="checkbox">
 						<label>
 							<s:if test="[0].name in selectedCategories">

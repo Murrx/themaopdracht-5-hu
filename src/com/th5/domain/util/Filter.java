@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-public class Filter<E extends Filterable<E>> {
+public class Filter<E extends Filterable> {
 	private Collection<E> result = null;
 	private Collection<E> input = null;
 	private Map<String, Object> flags = null;

@@ -1,12 +1,17 @@
 package com.th5.domain.model;
 
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.domain.util.CalendarRange;
+import com.th5.domain.util.Filterable;
 import com.th5.persistance.BidDatabaseCRUD;
 
-public class Bid implements Comparable<Bid>, Identifiable<String> {
+public class Bid implements Comparable<Bid>, Identifiable<String>, Filterable {
 
 	private int bid_Id;
 	private int userId;
@@ -38,7 +43,7 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 	/**Use this constructor to restore bids from database
 	 * @param bidId
 	 * @param userId of the user that created the bid
-	 * @param auctionId of the auction the bid belongs to
+	 * @param auctionId of the auction the bid belongs to8
 	 * @param timestamp
 	 * @param bidAmount
 	 * @throws AuctifyException 
@@ -178,4 +183,31 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 			this.setBidStatus(BidStatus.LOST);
 		}
 	}
+
+	@Override
+	public Boolean filter(Map<String, Object> filter) {
+		Boolean valid = true;
+		if(filter != null) {
+			Iterator<Entry<String, Object>> it = filter.entrySet().iterator();
+			while(it.hasNext()) {
+				Entry<String, Object> obj = it.next();
+				switch(obj.getKey()) {
+					case "date":
+						if(obj.getValue() instanceof CalendarRange) {
+							if(!((CalendarRange)obj.getValue()).withinRange(timestamp)) {
+								valid = false;
+							}
+						} else if(obj.getValue() instanceof Calendar) {
+							if(!timestamp.equals(obj.getValue())) {
+								valid = false;
+							}
+						}
+					break;
+				}
+			}
+		}
+		return valid;
+	}
+
+
 }
