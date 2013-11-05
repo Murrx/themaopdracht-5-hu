@@ -2,12 +2,11 @@ package com.th5.struts.interceptors;
 
 import java.util.Map;
 
-import com.th5.domain.model.User;
-import com.th5.struts.awareness.UserAware;
-
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
+import com.th5.domain.model.User;
+import com.th5.struts.awareness.UserAware;
 
 @SuppressWarnings("serial")
 public class AuthenticationInterceptor implements Interceptor{

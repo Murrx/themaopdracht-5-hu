@@ -2,13 +2,11 @@ package com.th5.struts.actions;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
-import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
 
 @Conversion()

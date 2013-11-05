@@ -6,7 +6,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
 import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.persistance.BidDatabaseCRUD;
 
 /**
  * Class that contains all the login-related methods.
@@ -24,7 +23,7 @@ public class ViewMembersAction extends ActionSupport {
 	
 	public String execute() {
 		AuctionServiceInterface service = ServiceProvider.getService();
-		users = service.retrieveAllUsers().values();
+		users = service.getUserMap().values();
 		return ActionSupport.SUCCESS;
 	}
 
