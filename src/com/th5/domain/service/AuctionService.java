@@ -69,19 +69,9 @@ public class AuctionService implements AuctionServiceInterface {
 			if (tempList != null) {
 				System.out.println("AuctionService retrieveallbids r68: " + "templist != null");
 				for (Bid bid : tempList) {
-					System.out.println("AuctionService retrieveallbids r70: " + "Bid: " + bid.getBid_Id() + ", templist");
-					Auction tempAuction = getAuctionById(bid.getAuctionId());
-					System.out.println("AuctionService retrieveallbids r74: " + "Auction: " + tempAuction.getAuctionId() + ", tempAuctionlist");
-					tempAuctionList.add(tempAuction);
-					System.out.println("AuctionService retrieveallbids r76: " + "Auction status =: " + tempAuction.getStatus());
-					if (tempAuction.getStatus() == Status.ACTIVE) {
-						bid.setBidStatus(BidStatus.LOSING);
-						System.out.println("AuctionService retrieveallbids r77: " + "Bid status losing: " + bid.getBidStatus());
-					} else {
-						bid.setBidStatus(BidStatus.LOST);
-						System.out.println("AuctionService retrieveallbids r80: " + "Bid status: lost" + bid.getBidStatus());
-					}
-					bid.setAuction(tempAuction);
+					Auction bidAuction = getAuctionById(bid.getAuctionId());
+					bid.generateBidStatus(bidAuction);
+					bid.setAuction(bidAuction);
 
 					allBids.put(bid.getIdentifier(), bid);
 				}

@@ -147,10 +147,11 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 	}
 	
 	public BidStatus getBidStatus() {
+		this.generateBidStatus(ServiceProvider.getService().getAuctionById(auctionId));
 		return bidStatus;
 	}
 
-	public void setBidStatus(BidStatus bidStatus) throws AuctifyException {
+	public void setBidStatus(BidStatus bidStatus){
 		this.bidStatus = bidStatus;
 	}
 	
@@ -160,5 +161,13 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 	
 	public int getUserId() {
 		return userId;
+	}
+	
+	public void generateBidStatus(Auction auction){
+		if (auction.getStatus() == Status.ACTIVE) {
+			this.setBidStatus(BidStatus.LOSING);
+		} else {
+			this.setBidStatus(BidStatus.LOST);
+		}
 	}
 }
