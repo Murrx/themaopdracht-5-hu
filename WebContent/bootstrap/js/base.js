@@ -2,6 +2,9 @@ $(function () {
 	if($(".user-box-mine, .user-box-edit").length != 0) {
 		$(".user-box-mine, .user-box-edit").tooltip({placement: "bottom", container: "body"});
 	}
+	if($(".user-box-admin").length != 0) {
+		$(".user-box-admin").tooltip({placement: "bottom", container: "body"});
+	}
 	$(".navbar-toggle").click(function() {
 		$("#login-form").toggle();
 	});
@@ -9,13 +12,13 @@ $(function () {
 		event.preventDefault();
 	});
 	if($('#register_birthdate').length != 0) {
-		$('#register_birthdate').datetimepicker({
+		$('#register_birthdate').datepicker({
 			format: 'dd-mm-yyyy',
 			viewMode: 2
 		});
 	}
 	if($('#edit_birthdate').length != 0) {
-		$('#edit_birthdate').datetimepicker({
+		$('#edit_birthdate').datepicker({
 			format: 'dd-mm-yyyy',
 			viewMode: 2
 		});
@@ -35,12 +38,12 @@ $(function () {
 			window.location.href = 'viewAction.action?id=' + id;
 		});
 	}
-	if(startDateLow != "") {
+	if(!startDateLow || startDateLow != "") {
 		startDateLowStart = moment(startDateLow, "DD-MM-YYYY");
 	} else {
 		startDateLowStart = moment();
 	}
-	if(startDateHigh != "") {
+	if(!startDateHigh || startDateHigh != "") {
 		startDateHighStart = moment(startDateHigh, "DD-MM-YYYY").subtract('days', 1);
 	} else {
 		startDateHighStart = moment();

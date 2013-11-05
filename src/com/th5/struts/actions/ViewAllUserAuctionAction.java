@@ -7,7 +7,9 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
+import com.th5.domain.model.Status;
 import com.th5.domain.model.User;
+import com.th5.domain.util.Filter;
 import com.th5.struts.awareness.UserAware;
 
 @SuppressWarnings("serial")
@@ -22,13 +24,17 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 	@Override
 	public String execute() throws Exception {
 		try {
-			
-			allAuctions = user.getMyAuctions().values();
 			allBids = user.getMyBids().values();
 			for(Bid bid : allBids){
 				relevantAuctions.put(bid.getAuction().getIdentifier(), bid);
 			}
-
+			
+			HashMap<String, Object> flags = new HashMap<String, Object>();
+			Filter<Auction> filterResult = new Filter<Auction>(user.getMyAuctions().values());
+			flags.put("status", Status.ACTIVE);
+			filterResult.setFlags(flags);
+		
+			allAuctions = filterResult.getResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("error: " + e.getMessage());

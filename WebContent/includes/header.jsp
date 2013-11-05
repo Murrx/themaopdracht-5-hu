@@ -91,7 +91,7 @@
 							<s:if test="%{#session.user.rights.rightsValue >= 256}">
 							<div class="user-box-admin" title="Admin Panel">
 							<a href="<s:url action='ViewAdminPanel' namespace='/admin'/>">
-									<i class="fa fa-lock"></i>
+									<i class="fa fa-wrench"></i>
 							</a>
 							</div>
 							</s:if>
