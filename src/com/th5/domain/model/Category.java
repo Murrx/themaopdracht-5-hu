@@ -26,4 +26,12 @@ public enum Category {
 			return null;
 		}
 	}
+	
+	public Boolean equals(Category category) {
+		if(category.name.equals(name)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

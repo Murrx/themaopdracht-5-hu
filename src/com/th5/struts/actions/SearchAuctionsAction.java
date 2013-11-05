@@ -52,7 +52,6 @@ public class SearchAuctionsAction extends ActionSupport {
 			
 			
 			if(flags != null && !flags.isEmpty()) {
-				System.out.println(flags);
 				filterResult.setFlags(flags);
 				allAuctions = filterResult.getResult();
 			} else {

@@ -354,14 +354,12 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 					break;
 					case "price":
 						if(!((IntegerRange)obj.getValue()).withinRange(new Integer(getHighestBidAmount()))) {
-							System.out.println("no price match");
 							valid = false;
 						}
 					break;
 					case "startDate":
 						if(obj.getValue() instanceof CalendarRange) {
 							if(!((CalendarRange)obj.getValue()).withinRange(startTime)) {
-								System.out.println("no start match");
 								valid = false;
 							}
 						} else {
@@ -373,7 +371,6 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 					case "endDate":
 						if(obj.getValue() instanceof CalendarRange) {
 							if(!((CalendarRange)obj.getValue()).withinRange(endTime)) {
-								System.out.println("no end match");
 								valid = false;
 							}
 						} else {
@@ -384,7 +381,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 					break;
 					case "category":
 						ArrayList<Category> value = new ArrayList<Category>();
-						if(obj.getValue() instanceof Category) {
+						if(obj.getValue() instanceof Category && !(obj.getValue() instanceof List)) {
 							value.add((Category)obj.getValue());
 						} else {
 							value = (ArrayList<Category>)obj.getValue();
@@ -393,11 +390,12 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 						Boolean found = false;
 						while(catIt.hasNext()) {
 							Category category = catIt.next();
-							if(category.equals(this.category)) {
+							if(this.category.equals(category)) {
 								found = true;
+								break;
 							}
 						}
-						valid = found;
+						if(!found) valid = false;
 					break;
 					case "status":
 						ArrayList<Status> statValue = new ArrayList<Status>();
@@ -414,7 +412,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 								statusFound = true;
 							}
 						}
-						valid = statusFound;
+						if(!statusFound) valid = false;
 						
 					break;
 				}
