@@ -54,18 +54,6 @@ public class EndAuctionEmailer implements Runnable {
 		setupMessages();
 	}
 	
-	public EndAuctionEmailer(){
-		winner = new User(1);
-		nameOwner = "*ownerName*";
-		emailOwner = "altenarobin@gmail.com";
-		
-		nameWinner = "*winnerName*";
-		emailWinner = "altenarobin@gmail.com";
-		addressWinner = new Address("3766MC", "74", "Insingerstraat 74", "Soest");
-		auctionName = "*auctionName*";
-		setupMessages();
-	}
-	
 	private void setupMessages(){
 		messageWinner = 		"Hi " + nameWinner + "\n\n" +
 				"You have won the auction \"" + auctionName +"\"\n" +
@@ -116,9 +104,5 @@ public class EndAuctionEmailer implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	public static void main(String[]args){
-		EndAuctionEmailer end = new EndAuctionEmailer();
-		end.run();
 	}
 }
