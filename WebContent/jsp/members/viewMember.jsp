@@ -4,28 +4,36 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-<h3 class="headerPurple">View Member</h3>
+<s:if test="%{#session.user.rights.rightsValue >= 256}">
+	
+	<br />
+	<s:url action="ViewMemberAction.action" namespace="/admin" var="viewMember">
+		<s:param name="userId">
+			<s:property value="userId" />
+		</s:param>
+	</s:url>
+	<s:a href="%{viewMember}">
+		<button type="button" class="btn btn-danger">Admin: view member</button>
+	</s:a>
+
+
+</s:if>
+
+<h3>
+	View Member: "
+	<s:property value='user.displayName' />
+	"
+
+</h3>
 
 <div class="row">
 
-	<div class="col-xs-12 col-sm-8 col-md-5">
-		<s:if test="%{#session.user.rights.rightsValue >= 256}">
-
-			<s:url action="ViewMemberAction.action" namespace="/admin" var="viewMember">
-				<s:param name="userId">
-					<s:property value="userId" />
-				</s:param>
-			</s:url>
-			<s:a href="%{viewMember}">
-				<button type="button" class="btn btn-danger">Edit member</button>
-			</s:a>
+	<div class="col-xs-12 col-sm-12 col-md-4">
 
 
-		</s:if>
-
-		<h3>Member information:</h3>
 		<table class="table table-striped table-bordered">
 			<tr class="adminView">
+				<h4>Member information:</h4>
 				<!-- BASIC USER INFORMATION -->
 				<th>Basic user information</th>
 				<td></td>
@@ -56,10 +64,10 @@
 			<tr>
 				<td>Gender:</td>
 				<td><s:if test="%{user.person.gender == 1}">
-				<i class="fa fa-male"></i>
-				</s:if> <s:else>
-				<i class="fa fa-female"></i>
-				</s:else></td>
+						<i class="fa fa-male"></i>
+					</s:if> <s:else>
+						<i class="fa fa-female"></i>
+					</s:else></td>
 			</tr>
 			<tr>
 				<!-- ADDRESS INFORMATION -->
@@ -73,7 +81,29 @@
 
 		</table>
 	</div>
-	<div class="col-xs-12 col-sm-5 col-md-5">
+	<div class="col-xs-12 col-sm-12 col-md-6">
+
+		<h4>Bidding history:</h4>
+		<s:if test="%{user.myBids.isEmpty() != true}">
+			<table class="table table-striped table-bordered ">
+				<tr>
+					<th>BidCoins:</th>
+					<th>Product:</th>
+					<th>Date:</th>
+				</tr>
+				<s:iterator value="user.myBids.values()">
+					<s:include value="/includes/myListBidAuction.jsp" />
+				</s:iterator>
+			</table>
+		</s:if>
+		<s:else>
+			<div class="well">The user didn't place any bids yet.</div>
+		</s:else>
+	</div>
+</div>
+<div class="row">
+
+	<div class="col-xs-12 col-sm-12 col-md-10">
 		<h3>Member auctions:</h3>
 		<div class="well">
 			<s:if test="%{user.myAuctions.isEmpty() != true}">
@@ -88,20 +118,7 @@
 				</s:else>
 		</div>
 	</div>
-	<div class="col-xs-12 col-sm-5 col-md-5">
-		<h3>Member bids:</h3>
 
-		<s:if test="%{user.myBids.isEmpty() != true}">
-			<table class="table table-striped table-bordered ">
-				<s:iterator value="user.myBids.values()">
-					<s:include value="/includes/myListBidAuction.jsp" />
-				</s:iterator>
-			</table>
-		</s:if>
-		<s:else>
-			<div class="well">The user didn't place any bids yet.</div>
-		</s:else>
-	</div>
 </div>
 
 

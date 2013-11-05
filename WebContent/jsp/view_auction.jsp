@@ -32,9 +32,21 @@ margin-right: auto !important;
 				<!-- BEGIN AUTHOR PANEL -->
 				<span class="headerPurple"><strong> Auction information: </strong></span>
 				<br /><br />
-				<span class="leftImportant">Owner:</span> <span class="rightInfo"> <s:property value="auction.owner.displayName" /> </span> <br />
+				<span class="leftImportant">Owner:</span> <span class="rightInfo"> 
+				
+				
+				<s:url action="ViewMemberAction.action" namespace="/member" var="viewMember" >
+				<s:param name="userId"><s:property value="auction.owner.userId" /></s:param>
+				</s:url>
+				<s:a href="%{viewMember}"><s:property value='auction.owner.displayName' /></s:a>
+				
+				
+				 </span> <br />
 				<span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bid:</span><span class="rightInfo"> <s:property value="highestBid.bidAmount" /></span><br />  					
-				<span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bidder:</span>	<span class="rightInfo">	<s:property value="highestBid.user.displayName" /></span><br />
+				<span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bidder:</span>	<span class="rightInfo">	<s:url action="ViewMemberAction.action" namespace="/member" var="viewMember" >
+		<s:param name="userId"><s:property value="highestBid.user.userId" /></s:param>
+		</s:url>
+		<s:a href="%{viewMember}"><s:property value='highestBid.user.displayName' /></s:a></span><br />
 				<span class="leftImportant">End date:</span><span class="rightInfo">	<s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /></span><br />
 				<span class="leftImportant">Category:</span><span class="rightInfo">	<s:property value="auction.category" /></span>
 			</div>
