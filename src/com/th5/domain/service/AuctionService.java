@@ -27,15 +27,13 @@ public class AuctionService implements AuctionServiceInterface {
 
 	private UserDatabaseCRUD udbcrud = new UserDatabaseCRUD();
 	private LazyMap<String, User> userMap;
-	private TreeMap<String,Auction> allAuctions;
+	private TreeMap<String, Auction> allAuctions;
 	private TreeMap<String, Bid> allBids;
 
-	
 	public AuctionService() {
 		userMap = new LazyMap<>(true, udbcrud);
 		allAuctions = retrieveAllAuctions();
 		allBids = retrieveAllBids();
-//		RefreshAuctionsTimer timer = new RefreshAuctionsTimer();
 	}
 
 	/**
@@ -67,33 +65,25 @@ public class AuctionService implements AuctionServiceInterface {
 			List<Bid> tempList = dbCRUD.retrieve(null, Queries.selectAllBids);
 			List<Auction> tempAuctionList = new ArrayList<Auction>();
 			if (tempList != null) {
-				System.out.println("AuctionService retrieveallbids r68: " + "templist != null");
+
 				for (Bid bid : tempList) {
-					System.out.println("AuctionService retrieveallbids r70: " + "Bid: " + bid.getBid_Id() + ", templist");
+
 					Auction tempAuction = getAuctionById(bid.getAuctionId());
-					System.out.println("AuctionService retrieveallbids r74: " + "Auction: " + tempAuction.getAuctionId() + ", tempAuctionlist");
+
 					tempAuctionList.add(tempAuction);
-					System.out.println("AuctionService retrieveallbids r76: " + "Auction status =: " + tempAuction.getStatus());
+
 					if (tempAuction.getStatus() == Status.ACTIVE) {
 						bid.setBidStatus(BidStatus.LOSING);
-						System.out.println("AuctionService retrieveallbids r77: " + "Bid status losing: " + bid.getBidStatus());
+
 					} else {
 						bid.setBidStatus(BidStatus.LOST);
-						System.out.println("AuctionService retrieveallbids r80: " + "Bid status: lost" + bid.getBidStatus());
+
 					}
 					bid.setAuction(tempAuction);
 
 					allBids.put(bid.getIdentifier(), bid);
 				}
-				for (Auction tempAuction : tempAuctionList) {
-					if (tempAuction.getStatus() == Status.ACTIVE) {
-						tempAuction.getHighestBid().setBidStatus(
-								BidStatus.WINNING);
-					} else {
-						tempAuction.getHighestBid()
-								.setBidStatus(BidStatus.LOST);
-					}
-				}
+				
 			}
 		} catch (AuctifyException e) {
 			System.out.println(e.getMessage());
@@ -202,9 +192,9 @@ public class AuctionService implements AuctionServiceInterface {
 		}
 		return latestAuctions;
 	}
-	
-	public List<Bid> getLatestBids(){
-		
+
+	public List<Bid> getLatestBids() {
+
 		int amountToReturn = 9;
 
 		List<Bid> latestBids = new ArrayList<>();
@@ -220,15 +210,10 @@ public class AuctionService implements AuctionServiceInterface {
 	public Map<String, User> getUserMap() {
 		return userMap;
 	}
-	public void refreshAllAuctions(){
-		for(Auction auction : allAuctions.values()){
-			if(auction.getStatus().getRightsValue() >= 2 ){
-				try {
-					auction.refreshStatus();
-				} catch (AuctifyException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+
+	@Override
+	public void refreshAllAuctions() {
+		// TODO Auto-generated method stub
+		
 	}
 }
