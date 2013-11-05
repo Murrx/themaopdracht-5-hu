@@ -4,7 +4,7 @@
 		<div class="list-group">
 			<a href="<s:url action='ViewAdminPanel' namespace='/admin'/>" class="list-group-item active"> Options: </a> 
 			<a href="<s:url action='ViewMembersAction' namespace='/admin'/>" class="list-group-item">Manage Members</a> 
-			<a href="#" class="list-group-item">Manage Auctions</a> 
+			<a href="<s:url action='ManageAuctionsAction' namespace='/admin'/>" class="list-group-item">Manage Auctions</a> 
 			<a href="#"	class="list-group-item">Financial Overview</a> 
 			<a href="#" class="list-group-item">Statistics</a>
 		</div>

@@ -192,6 +192,10 @@
 		<action name="UnblockMemberAction" class="com.th5.struts.actions.admin.UnblockMemberAction">
 			<result name="success" type="redirect">${previousPage}</result>
 		</action>
+		
+		<action name="ManageAuctionsAction" class="com.th5.struts.actions.AllAuctionsAction">
+			<result name="success">/jsp/admins/manageAuctions.jsp</result>
+		</action>
 
 	</package>
 

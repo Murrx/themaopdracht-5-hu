@@ -1,12 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<s:push value="#{'title':'Auctions', 'location': 'auctions', 'filter': true}">
+	<s:include value="/includes/header.jsp" />
+</s:push>
 
-</body>
-</html>
+<h1>Manage auctions</h1>
+
+<div class="row" id="allAuctions">
+	<s:iterator value="allAuctions">
+		<s:include value="/includes/auctionBoxAdminView.jsp" />
+	</s:iterator>
+</div>
+
+<s:push value="#{'progressTimers':true, 'dateRangePicker':true, 'rangePicker': true}">
+	<s:include value="/includes/footer.jsp" />
+</s:push>
