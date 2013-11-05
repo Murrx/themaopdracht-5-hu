@@ -10,15 +10,6 @@ import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 import com.th5.struts.awareness.UserAware;
 
-/**
- * Class that contains all the login-related methods.
- * 
- * @author Robin Altena
- * @author Martin Bakker
- * @author Dimiter Geelen
- * @author Joris Rijkes
- * @version 0.1 alpha
- */
 @SuppressWarnings("serial")
 public class BuyBidCoinsAction extends ActionSupport implements UserAware, SessionAware {
 
@@ -27,20 +18,11 @@ public class BuyBidCoinsAction extends ActionSupport implements UserAware, Sessi
 	
 	private SessionMap<String, Object> userSession;
 
-	/**
-	 * This function executes the login action. If the email and the password
-	 * both equal <code>admin</code>, then the user is logged in.
-	 * 
-	 * @return <code>success</code> if the login is succesful, <br>
-	 *         <code>error</code> if the login information is wrong.
-	 * @throws AuctifyException 
-	 */
 	public String execute() throws AuctifyException {
 		try {
 			user.addBidCoins(amount);
 		} catch (AuctifyException e) {
-			// TODO Auto-generated catch block
-			throw new AuctifyException(e.getMessage());
+			throw e;
 		}
 		return ActionSupport.SUCCESS;
 	}

@@ -133,10 +133,10 @@ public class AuctionService implements AuctionServiceInterface {
 			String postalCode, String houseNumber, String street, String city)
 			throws AuctifyException {
 		password = EncryptPassword.encryptPassword(password);
-
+		int userId = UserDatabaseCRUD.generateId();
 		Person person = new Person(firstName, lastName, gender, birthdate);
 		Address address = new Address(postalCode, houseNumber, street, city);
-		User user = new User(email, password, displayName, UserRights.USER);
+		User user = new User(userId, email, password, displayName, UserRights.USER, 0);
 
 		user.setAddress(address);
 		user.setPerson(person);

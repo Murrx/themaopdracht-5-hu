@@ -18,9 +18,29 @@ import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.DateConverter;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.persistance.queries.Queries;
 
 @SuppressWarnings("hiding")
 public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
+
+	public static int generateId() throws AuctifyException {
+		Connection connection = DataSourceService.getConnection();
+		CallableStatement statement = null;
+
+		try {
+			statement = connection.prepareCall(Queries.generateUserId);
+			statement.registerOutParameter(1, Types.NUMERIC);
+			statement.executeQuery();
+
+			return statement.getInt(1); 
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new AuctifyException("UserDatabaseCRUD.generateId()::failed to generate new user ID");
+		} finally {
+			DataSourceService.closeConnection(connection, statement);
+		}
+	}
 
 	@Override
 	public List<User> retrieve(String identifier, String query) throws AuctifyException {
@@ -95,21 +115,17 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 	}
 
 	@Override
-	public int create(User user) throws AuctifyException {
+	public void create(User user) throws AuctifyException {
 
 		Connection connection = DataSourceService.getConnection();
 
 		CallableStatement statement = null;
 
 		try {
-			String functionCall = "{? = call pkg_user_modification.f_register_user(?,?,?,?,?,?,?,?,?,?,?,?)}";
+			String functionCall = "{call pkg_user_modification.pr_register_user(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 			statement = connection.prepareCall(functionCall);
 
-			// --- RETURN ----- //
-			statement.registerOutParameter(1, Types.NUMERIC);
-
-			// --- USR_USERS ---- //
-
+			statement.setInt(1, user.getUserId());
 			statement.setString(2, user.getEmail());
 			statement.setString(3, user.getPassword());
 			statement.setString(4, user.getDisplayName());
@@ -129,12 +145,9 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 
 			statement.executeQuery();
 
-			int userId = statement.getInt(1);
-			return userId;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new AuctifyException("failed to create user");
+			throw new AuctifyException("UserDatabaseCRUD.create()::failed to create user");
 		} finally {
 			DataSourceService.closeConnection(connection, statement);
 		}
@@ -179,7 +192,6 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 		}
 	}
 
-	@Deprecated
 	@Override
 	public void delete(int userId) throws AuctifyException {
 		Connection connection = DataSourceService.getConnection();

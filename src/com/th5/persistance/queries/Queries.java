@@ -13,7 +13,10 @@ public class Queries {
 	
 	public static final String selectAllUsers = "SELECT * FROM usr_users, prs_persons, adr_addresses WHERE usr_fk_person_id = prs_pk_person_id AND prs_fk_address_id = adr_pk_address_id";
 	
-	//Queries used by BidDatabaseCrud::
+	//Queries used by BidDatabaseCRUD::
 	public static final String generateBidId = "{? = call seq_bid_pk_bid_id.nextval }";
 	public static final String createBid = "INSERT INTO BID_BIDS(BID_PK_BID_ID, BID_FK_AUCTION_ID, BID_FK_USER_ID, BID_TIMESTAMP, BID_AMOUNT) VALUES (?,?,?,?,?)";
+	
+	//Queries used by UserDatabaseCRUD::
+	public static final String generateUserId = "{? = call SEQ_USR_PK_USER_ID.nextval }";
 }

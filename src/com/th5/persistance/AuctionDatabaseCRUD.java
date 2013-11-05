@@ -71,7 +71,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>, Observer {
 	 * @throws AuctifyException when the connection fails, or the auction cannot be added
 	 */
 	@Override
-	public int create(Auction auction) throws AuctifyException {
+	public void create(Auction auction) throws AuctifyException {
 
 		Connection connection = DataSourceService.getConnection();
 		CallableStatement statement = null;
@@ -100,7 +100,6 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>, Observer {
 		}finally{
 			DataSourceService.closeConnection(connection, statement);
 		}
-		return 0;
 	}
 
 	@Override
