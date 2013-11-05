@@ -399,18 +399,19 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 					case "status":
 						ArrayList<Status> statValue = new ArrayList<Status>();
 						if(obj.getValue() instanceof String) {
-							value.add((Status)obj.getValue());
+							statValue.add((Status)obj.getValue());
 						} else {
-							value = (ArrayList<Status>)obj.getValue();
+							statValue = (ArrayList<Status>)obj.getValue();
 						}
-						Iterator<Status> statIt = value.iterator();
+						Iterator<Status> statIt = statValue.iterator();
 						Boolean statusFound = false;
 						while(statIt.hasNext()) {
-							Status status = catIt.next();
+							Status status = statIt.next();
 							if(status.equals(this.status)) {
-								found = true;
+								statusFound = true;
 							}
 						}
+						valid = statusFound;
 						
 					break;
 				}

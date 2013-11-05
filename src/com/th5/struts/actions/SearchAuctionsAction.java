@@ -47,6 +47,7 @@ public class SearchAuctionsAction extends ActionSupport {
 			Search<Auction> searchResult = new Search<Auction>(auctions, search);
 			Collection<Auction> searchAuctions = searchResult.getResult();
 			Filter<Auction> filterResult = new Filter<Auction>(searchAuctions);
+			//flags.put('status', )
 			
 			
 			if(flags != null && !flags.isEmpty()) {
