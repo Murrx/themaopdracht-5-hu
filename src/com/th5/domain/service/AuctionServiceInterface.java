@@ -68,5 +68,6 @@ public interface AuctionServiceInterface {
 	
 	public List<Auction> getPopularAuctions();
 	public List<Auction> getLatestAuctions();
+	public void refreshAllAuctions();
 
 }

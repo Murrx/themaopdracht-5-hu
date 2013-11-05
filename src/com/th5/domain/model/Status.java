@@ -27,5 +27,4 @@ public enum Status {BLOCKED(0), NOTIFIED_USERS(1), EXPIRED(2), ACTIVE(5), SPECIA
 	    public int getRightsValue(){
 	    	return rightsValue;
 	    }
-
 }

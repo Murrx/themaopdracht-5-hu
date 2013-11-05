@@ -17,6 +17,7 @@ import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.other.EncryptPassword;
+import com.th5.domain.other.RefreshAuctionsTimer;
 import com.th5.domain.util.LazyMap;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.BidDatabaseCRUD;
@@ -34,6 +35,7 @@ public class AuctionService implements AuctionServiceInterface {
 		userMap = new LazyMap<>(true, udbcrud);
 		allAuctions = retrieveAllAuctions();
 		allBids = retrieveAllBids();
+//		RefreshAuctionsTimer timer = new RefreshAuctionsTimer();
 	}
 
 	/**
@@ -217,5 +219,16 @@ public class AuctionService implements AuctionServiceInterface {
 
 	public Map<String, User> getUserMap() {
 		return userMap;
+	}
+	public void refreshAllAuctions(){
+		for(Auction auction : allAuctions.values()){
+			if(auction.getStatus().getRightsValue() >= 2 ){
+				try {
+					auction.refreshStatus();
+				} catch (AuctifyException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
