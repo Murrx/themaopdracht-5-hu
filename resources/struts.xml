@@ -44,7 +44,7 @@
 		<action name="viewAction" class="com.th5.struts.actions.ViewAuctionAction">
 			<result name="success">/jsp/view_auction.jsp</result>
 		</action>
-		
+
 		<action name="AuctionsByCategory" class="com.th5.struts.actions.AuctionsByCategory">
 			<result>/jsp/auctionsByCategory.jsp</result>
 		</action>
@@ -124,13 +124,13 @@
 			<result name="error">/jsp/errorPage.jsp</result>
 
 		</action>
-		
+
 		<action name="ViewMemberAction" class="com.th5.struts.actions.member.ViewMemberAction">
 			<result>/jsp/members/viewMember.jsp</result>
 		</action>
-		
-	
-		
+
+
+
 
 	</package>
 
@@ -199,13 +199,17 @@
 		<action name="BlockMemberAction" class="com.th5.struts.actions.admin.BlockMemberAction">
 			<result name="success" type="redirect">${previousPage}</result>
 		</action>
-		
+
 		<action name="UnblockMemberAction" class="com.th5.struts.actions.admin.UnblockMemberAction">
 			<result name="success" type="redirect">${previousPage}</result>
 		</action>
-		
+
 		<action name="ManageAuctionsAction" class="com.th5.struts.actions.AllAuctionsAction">
 			<result name="success">/jsp/admins/manageAuctions.jsp</result>
+		</action>
+
+		<action name="ViewStatsAction" class="com.th5.struts.actions.admin.ViewStatsAction">
+			<result name="success">/jsp/admins/statsOverview.jsp</result>
 		</action>
 
 	</package>

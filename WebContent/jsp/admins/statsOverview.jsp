@@ -1,12 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<s:push value="#{'title':'View stats','adminPanel': true ,'location': 'home'}">
+	<s:include value="/includes/header.jsp" />
+</s:push>
 
-</body>
-</html>
+<div class="row">
+
+	<s:include value="/includes/adminMenu.jsp" />
+	
+	<div class="col-xs-12 col-sm-12 col-md-8">
+
+	<h3>View stats:</h3>
+		<div class="well">
+			<div id="chart_div"></div>
+		</div>
+
+	</div>
+
+
+</div>
+
+<div class="row">
+
+	<div class="col-xs-12 col-sm-12 col-md-6">
+
+		<h3>Stats:</h3>
+		<div class="well">Here we'll display a graph or something.</div>
+
+	</div>
+
+</div>
+
+<s:include value="/includes/footer.jsp" />
