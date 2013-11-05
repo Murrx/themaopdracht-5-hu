@@ -12,51 +12,56 @@ import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
+public class User implements Comparable<User>, Observable, Identifiable<String> {
 
-public class User implements Comparable<User>, Observable, Identifiable<String>{
+	private int userId, bidCoins;
+	private String email, password, displayName;
 
-	private int 	userId, bidCoins;
-	private String 	email, password, displayName;
-
-	private SyncedMap<String,Auction> myAuctions;
+	private SyncedMap<String, Auction> myAuctions;
 	private SyncedMap<String, Bid> myBids;
 
-	private Person 	person;
-	private Address	address;
+	private Person person;
+	private Address address;
 	private UserRights rights;
 	private List<Observer> observers;
-	private final Object MUTEX= new Object();
+	private final Object MUTEX = new Object();
 	private boolean changed;
 
 	public User(int userId) {
 		this.userId = userId;
 	}
 
-	public User(String email){
+	public User(String email) {
 		this.email = email;
 		this.bidCoins = 0;
 		this.observers = new ArrayList<Observer>();
 	}
 
-	public User(String email,String password, String displayName, UserRights rights){
+	public User(String email, String password, String displayName,
+			UserRights rights) {
 		this(email);
 		this.password = password;
 		this.displayName = displayName;
 		this.rights = rights;
 	}
 
-	public User(int userId, String email, String password, String displayName, UserRights rights, int bidCoins){
+	public User(int userId, String email, String password, String displayName,
+			UserRights rights, int bidCoins) {
 		this(email, password, displayName, rights);
 		this.userId = userId;
 		this.bidCoins = bidCoins;
-		this.myAuctions = new SyncedMap<String,Auction>(userId, Queries.selectAllAuctionsOfUser, new AuctionDatabaseCRUD(), true, ServiceProvider.getService().getAllAuctions());
-		this.myBids = new SyncedMap<String, Bid>(userId, Queries.selectAllBidsOfUser, new BidDatabaseCRUD(),false, ServiceProvider.getService().getAllBids());
+		this.myAuctions = new SyncedMap<String, Auction>(userId,
+				Queries.selectAllAuctionsOfUser, new AuctionDatabaseCRUD(),
+				true, ServiceProvider.getService().getAllAuctions());
+		this.myBids = new SyncedMap<String, Bid>(userId,
+				Queries.selectAllBidsOfUser, new BidDatabaseCRUD(), false,
+				ServiceProvider.getService().getAllBids());
 	}
 
-	public int createAuction(Auction auction) throws AuctifyException{
+	public int createAuction(Auction auction) throws AuctifyException {
 		auction.setOwner(this);
-		auction.setAuctionId(AuctionDatabaseCRUD.generateId());		
-		myAuctions.put(auction.getIdentifier(),auction);
+		auction.setAuctionId(AuctionDatabaseCRUD.generateId());
+		myAuctions.put(auction.getIdentifier(), auction);
 		return auction.getAuctionId();
 	}
 
@@ -97,6 +102,7 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 	public Person getPerson() {
 		return person;
 	}
+
 	public void setPerson(Person person) throws AuctifyException {
 		Person oldPerson = this.person;
 		try {
@@ -109,9 +115,11 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 			throw new AuctifyException(e.getMessage());
 		}
 	}
+
 	public Address getAddress() {
 		return address;
 	}
+
 	public void setAddress(Address address) throws AuctifyException {
 		Address oldAddress = this.address;
 		try {
@@ -124,25 +132,31 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 			throw new AuctifyException(e.getMessage());
 		}
 	}
+
 	@Override
-	//TODO:Moet waarschijnlijk opnieuw uitgeschreven worden en vergelijken op id.
+	// TODO:Moet waarschijnlijk opnieuw uitgeschreven worden en vergelijken op
+	// id.
 	public boolean equals(Object obj) {
-		User otherUser = (User)obj;
+		User otherUser = (User) obj;
 		boolean equals = true;
 		equals = equals && email.equals(otherUser.email);
 		equals = equals && password.equals(otherUser.password);
 		System.out.println(equals);
 		return equals;
 	}
+
 	@Override
 	public int compareTo(User user) {
 		return email.compareTo(user.email);
 	}
+
 	@Override
 	public String toString() {
-		return userId+ " " + email + " " + password + " " + displayName + " " + rights + " " + bidCoins;
+		return userId + " " + email + " " + password + " " + displayName + " "
+				+ rights + " " + bidCoins;
 	}
-	public String getDisplayName(){
+
+	public String getDisplayName() {
 		return displayName;
 	}
 
@@ -158,21 +172,32 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 			throw new AuctifyException(e.getMessage());
 		}
 	}
-	public UserRights getRights(){
+
+	public UserRights getRights() {
 		return rights;
 	}
-	
-	public void setRights(UserRights rights) {
-		this.rights = rights;
+
+	public void setRights(UserRights rights) throws AuctifyException {
+		UserRights oldUserRights = this.rights;
+		try {
+			this.rights = rights;
+			this.changed = true;
+			notifyObservers();
+			
+		} catch (AuctifyException e) {
+			this.rights = oldUserRights;
+			this.changed = false;
+			throw new AuctifyException(e.getMessage());
+		}
 	}
 
 	public int getUserId() {
 		return userId;
 	}
+
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
 
 	/**
 	 * Returns the users' BidcCoins
@@ -187,11 +212,12 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 	/**
 	 * Increments the users' BidCoins by a certain amount.
 	 * 
-	 * @param amount Number of BidCoins to increment with
+	 * @param amount
+	 *            Number of BidCoins to increment with
 	 * @see #getBidCoins
 	 * @see #takeBidCoins
 	 */
-	public void addBidCoins (int amount) throws AuctifyException {
+	public void addBidCoins(int amount) throws AuctifyException {
 		int oldBidCoins = this.bidCoins;
 		try {
 			this.bidCoins += amount;
@@ -204,18 +230,20 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 		}
 	}
 
-	public SyncedMap<String,Auction> getMyAuctions() {
+	public SyncedMap<String, Auction> getMyAuctions() {
 		return myAuctions;
 	}
+
 	/**
 	 * Decrements the users' BidCoins by a certain amount.
 	 * 
-	 * @param amount Number of BidCoins to decrement with
-	 * @throws AuctifyException 
+	 * @param amount
+	 *            Number of BidCoins to decrement with
+	 * @throws AuctifyException
 	 * @see #getBidCoins
 	 * @see #addBidCoins
 	 */
-	public void takeBidCoins (int amount) throws AuctifyException {
+	public void takeBidCoins(int amount) throws AuctifyException {
 		int oldBidCoins = this.bidCoins;
 		try {
 			this.bidCoins -= amount;
@@ -231,62 +259,70 @@ public class User implements Comparable<User>, Observable, Identifiable<String>{
 	@Override
 	public void register(Observer obs) {
 
-		if(obs == null) throw new NullPointerException("Observer is Null");
-		if(!observers.contains(obs)) observers.add(obs);
+		if (obs == null)
+			throw new NullPointerException("Observer is Null");
+		if (!observers.contains(obs))
+			observers.add(obs);
 	}
+
 	@Override
 	public void unregister(Observer obs) {
 		// TODO Auto-generated method stub
 		observers.remove(obs);
 
 	}
+
 	@Override
-	public void notifyObservers() throws AuctifyException{
+	public void notifyObservers() throws AuctifyException {
 		// TODO Auto-generated method stub
 		List<Observer> observersLocal = null;
-		//synchronization is used to make sure any observer registered after message is received is not notified
+		// synchronization is used to make sure any observer registered after
+		// message is received is not notified
 		synchronized (MUTEX) {
 			if (!changed)
 				return;
 			observersLocal = new ArrayList<>(this.observers);
-			this.changed=false;
+			this.changed = false;
 		}
 		for (Observer obs : observersLocal) {
 			try {
 				obs.updateObserver(this);
+
 			} catch (AuctifyException e) {
 				throw new AuctifyException(e.getMessage());
 			}
 		}
 
 	}
+
 	@Override
 	public Object getUpdate(Observer obs) {
 		return (User) this;
 	}
 
 	// TODO Write javadocs for this class
-	public void bidOnAuction(int auctionId, int bidAmount) throws AuctifyException{
-		if (this.bidCoins >= bidAmount){
+	public void bidOnAuction(int auctionId, int bidAmount)
+			throws AuctifyException {
+		if (this.bidCoins >= bidAmount) {
 
-			Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
+			Auction auction = ServiceProvider.getService().getAuctionById(
+					auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
 			auction.addBid(bid);
 			myBids.put(bid.getIdentifier(), bid);
 			System.out.println("USER DOMAIN :: Auction: " + auction);
-			System.out.println("USER DOMAIN :: Bid" + bid);			
-		}
-		else{
+			System.out.println("USER DOMAIN :: Bid" + bid);
+		} else {
 			throw new AuctifyException("Not enough bidcoins available");
 		}
 	}
 
-	public SyncedMap<String,Bid> getMyBids() {
+	public SyncedMap<String, Bid> getMyBids() {
 		return myBids;
 	}
 
-	public void removeAuction(Auction auction){
-		for(Bid bid : auction.getBids().values()){
+	public void removeAuction(Auction auction) {
+		for (Bid bid : auction.getBids().values()) {
 			myBids.remove(bid.getIdentifier());
 		}
 		myAuctions.remove(auction.getIdentifier());

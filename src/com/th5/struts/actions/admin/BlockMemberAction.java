@@ -1,15 +1,11 @@
 package com.th5.struts.actions.admin;
 
-import java.util.Collection;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.persistance.AuctionDatabaseCRUD;
-import com.th5.persistance.BidDatabaseCRUD;
 
 @SuppressWarnings("serial")
 public class BlockMemberAction extends ActionSupport {
@@ -19,16 +15,18 @@ public class BlockMemberAction extends ActionSupport {
 
 	public String execute() {
 		AuctionServiceInterface service = ServiceProvider.getService();
-		
+
 		try {
 			user = service.getUserById(Integer.toString(userId));
 		} catch (AuctifyException e) {
 			e.printStackTrace();
 		}
-		
-		user.setRights(UserRights.BLOCKED);
-		System.out.println(user.getRights());
-			
+
+		try {
+			user.setRights(UserRights.BLOCKED);
+		} catch (AuctifyException e) {
+			e.printStackTrace();
+		}
 		return ActionSupport.SUCCESS;
 	}
 
@@ -46,7 +44,6 @@ public class BlockMemberAction extends ActionSupport {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}	
-	
-	
+	}
+
 }

@@ -147,8 +147,8 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 		PreparedStatement statement = null;
 
 		try {
-
-			statement = connection.prepareCall("{call pkg_user_modification.pr_update_user(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			
+			statement = connection.prepareCall("{call pkg_user_modification.pr_update_user(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 
 			// --- USR_USERS ---- //
 			statement.setInt(1, object.getUserId());
@@ -156,18 +156,18 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 			statement.setString(3, object.getPassword());
 			statement.setString(4, object.getDisplayName());
 			statement.setInt(5, object.getBidCoins());
-
+			statement.setInt(6, object.getRights().getRightsValue());
 			// --- PRS_PERSONS ---- //
-			statement.setString(6, object.getPerson().getFirstName());
-			statement.setString(7, object.getPerson().getLastName());
-			statement.setInt(8, object.getPerson().getGender());
-			statement.setDate(9, DateConverter.dateToSQLDate(object.getPerson().getBirthdate()));
+			statement.setString(7, object.getPerson().getFirstName());
+			statement.setString(8, object.getPerson().getLastName());
+			statement.setInt(9, object.getPerson().getGender());
+			statement.setDate(10, DateConverter.dateToSQLDate(object.getPerson().getBirthdate()));
 
 			// --- ADR_ADRESSES ---- //
-			statement.setString(10, object.getAddress().getPostalCode());
-			statement.setString(11, object.getAddress().getHouseNumber());
-			statement.setString(12, object.getAddress().getStreet());
-			statement.setString(13, object.getAddress().getCity());
+			statement.setString(11, object.getAddress().getPostalCode());
+			statement.setString(12, object.getAddress().getHouseNumber());
+			statement.setString(13, object.getAddress().getStreet());
+			statement.setString(14, object.getAddress().getCity());
 
 			statement.executeQuery();
 
@@ -222,6 +222,7 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 		// TODO Auto-generated method stub
 		try {
 			update((User) obj);
+		
 		} catch (AuctifyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

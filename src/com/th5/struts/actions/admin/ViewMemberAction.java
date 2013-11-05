@@ -1,16 +1,10 @@
 package com.th5.struts.actions.admin;
 
-import java.util.Collection;
-
 import com.opensymphony.xwork2.ActionSupport;
-import com.th5.domain.model.Auction;
-import com.th5.domain.model.Bid;
 import com.th5.domain.model.User;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
-import com.th5.domain.util.UserListManager;
-import com.th5.persistance.BidDatabaseCRUD;
 
 @SuppressWarnings("serial")
 public class ViewMemberAction extends ActionSupport {
