@@ -95,6 +95,9 @@ public class AuctionService implements AuctionServiceInterface {
 		if (user == null || !user.getPassword().equals(password)) {
 			throw new AuctifyException("Username op password incorrect");
 		}
+		if (user.getRights().getRightsValue() < 5){
+			throw new AuctifyException("User is blocked.");
+		}
 		user.register(udbcrud);
 		return user;
 	}
