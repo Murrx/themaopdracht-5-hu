@@ -20,7 +20,8 @@ public class EndAuctionEmailer implements Runnable {
 						emailOwner,
 	
 						nameWinner,
-						emailWinner;
+						emailWinner,
+						lastNameWinner;
 	private	Address 	addressWinner;
 	private User 		winner;
 	
@@ -46,6 +47,7 @@ public class EndAuctionEmailer implements Runnable {
 		
 		if(winner != null){
 			nameWinner = winner.getPerson().getFirstName();
+			lastNameWinner = winner.getPerson().getLastName();
 			emailWinner = winner.getEmail();
 			addressWinner = winner.getAddress();
 		}
@@ -73,6 +75,7 @@ public class EndAuctionEmailer implements Runnable {
 		messageOwner = 			"Hi " + nameOwner + "\n\n" +
 				"Your product \"" + auctionName +"\" has been sold.\n" +
 				"Please send the product to the folowing address within 7 days:\n\n" +
+				nameWinner + " " + lastNameWinner + "\n" +
 				addressWinner + "\n\n" +
 				"Kind regards, Auctify";
 
@@ -85,11 +88,13 @@ public class EndAuctionEmailer implements Runnable {
 	
 	
 	public void run() {
-		System.out.println("EndAuctionEmailer.run()::Sending mail");
+		
 		if(winner != null){
+			System.out.println("EndAuctionEmailer.run()::Sending mail to " + emailWinner + " and " + emailOwner);
 			sendMail(emailWinner, messageWinner, subjectWinner);
 			sendMail(emailOwner, messageOwner, subjectOwner);
 		}else{
+			System.out.println("EndAuctionEmailer.run()::Sending mail to " +  emailOwner);
 			sendMail(emailOwner, MessageProductNotSold, subjectProductNotSold);
 		}
 	}
