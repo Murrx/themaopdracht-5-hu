@@ -4,6 +4,7 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
+
 <div class="row">
 	<s:include value="/includes/adminMenu.jsp" />
 

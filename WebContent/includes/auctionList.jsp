@@ -5,7 +5,10 @@
 			<span class="label label-warning">Special</span>
 		</s:if>
 		<s:elseif test="%{status.rightsValue >= 5}">
-			<span class="label label-success">Active</span>
+			<s:url action="block_auction.action" namespace="moderator" var="urlTagBlock" >
+  				<s:param name="auctionId"><s:property value='auctionId'/></s:param>
+			</s:url>
+			<a href="<s:property value='#urlTagBlock'/>"><span class="label label-success">Active</span></a>
 		</s:elseif>
 		<s:elseif test="%{status.rightsValue >= 2}">
 			<span class="label label-danger">Expired</span>
@@ -14,7 +17,10 @@
 			<span class="label label-info">Users Notified</span>
 		</s:elseif>
 		<s:else>
-			<span class="label label-default">Blocked</span>
+			<s:url action="unblock_auction.action" namespace="moderator" var="urlTagUnblock" >
+  				<s:param name="auctionId"><s:property value='auctionId'/></s:param>
+			</s:url>
+			<a href="<s:property value='#urlTagUnblock'/>"><span class="label label-default">Blocked</span></a>
 		</s:else>
 	</td>
 
