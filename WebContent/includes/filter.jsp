@@ -4,18 +4,23 @@
 <link rel="stylesheet" type="text/css" media="all" href="bootstrap/js/nouislider/jquery.nouislider.min.css" />
 <h1>Filter</h1>
 <div class="row">
-	<s:form action="allAuctions" namespace="/" method="get">
+	<s:form action="searchAuctions" namespace="/" method="post">
+		<s:textfield type="hidden" name="search" value="%{search}" />
 		<div class="col-sm-12">
 			<div class="form-group price-range">
 				<label>Highest Bid</label>
 				<div class="slider" id="priceRange"></div>
 				<div class="row">
 					<div class="col-xs-6">
-						<input type="text" disabled name="priceRangeLow" class="form-control" />
+						<s:textfield type="text" name="priceRangeLow" cssClass="form-control" value="%{priceRangeLow}" />
 					</div>
 					<div class="col-xs-6">
-						<input type="text" disabled name="priceRangeHigh" class="form-control"/>
+						<s:textfield type="text" name="priceRangeHigh" cssClass="form-control" value="%{priceRangeHigh}"/>
 					</div>
+					<script>
+						var sliderStart = <s:property value="%{priceRangeLow}" />;
+						var sliderEnd = <s:property value="%{priceRangeHigh}" />;
+					</script>
 				</div>
 			</div>
 		</div>
@@ -26,6 +31,10 @@
 					<button class="btn btn-default btn-block"></button>
 					<input type="hidden" name="startDateLow" />
 					<input type="hidden" name="startDateHigh" />
+					<script>
+						var startDateLow = "<s:property value="%{startDateLowDate}" />";
+						var startDateHigh = "<s:property value="%{startDateHighDate}" />";
+					</script>
 				</div>
 			</div>
 		</div>
@@ -36,6 +45,10 @@
 					<button class="btn btn-default btn-block"></button>
 					<input type="hidden" name="endDateLow" />
 					<input type="hidden" name="endDateHigh" />
+					<script>
+						var endDateLow = "<s:property value="%{endDateLowDate}" />";
+						var endDateHigh = "<s:property value="%{endDateHighDate}" />";
+					</script>
 				</div>
 			</div>
 		</div>
@@ -45,8 +58,13 @@
 				<s:iterator value="categories" status="s">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" name="<s:property value="categories[#s.index]"/>" value="<s:property value="categories[#s.index]" />">
-					    		<s:property value="categories[#s.index]" />
+							<s:if test="[0].name in selectedCategories">
+								<input type="checkbox" checked name="selectedCategories" value="<s:property />">
+							</s:if>
+							<s:else>
+								<input type="checkbox" name="selectedCategories" value="<s:property />">
+							</s:else>
+					    		<s:property />
 						</label>
 					</div>
 				</s:iterator>

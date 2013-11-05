@@ -37,7 +37,7 @@
 					<div class="form-group" id="search-bar">
 						<div id="floater"></div>
 						<div id="search-bar-content">
-							<s:textfield type="search" name="search" cssClass="form-control input-lg" placeholder="Search" />
+							<s:textfield type="search" name="search" cssClass="form-control input-lg" placeholder="Search" value="%{search}" />
 							<button type="submit" id="searchBtn" class="btn btn-default input-lg"><i class="fa fa-search"></i></button>
 						</div>
 					</div>

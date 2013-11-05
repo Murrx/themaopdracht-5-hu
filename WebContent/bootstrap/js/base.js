@@ -35,10 +35,20 @@ $(function () {
 			window.location.href = 'viewAction.action?id=' + id;
 		});
 	}
+	if(startDateLow != "") {
+		startDateLowStart = moment(startDateLow, "DD-MM-YYYY");
+	} else {
+		startDateLowStart = moment();
+	}
+	if(startDateHigh != "") {
+		startDateHighStart = moment(startDateHigh, "DD-MM-YYYY").subtract('days', 1);
+	} else {
+		startDateHighStart = moment();
+	}
 	if($('#startDateRange').length != 0) {
 		$('#startDateRange').daterangepicker({
-			startDate: moment(),
-			endDate: moment(),
+			startDate: startDateLowStart,
+			endDate: startDateHighStart,
 			maxDate: moment(),
 			showDropdowns: true,
 			showWeekNumbers: true,
@@ -71,16 +81,28 @@ $(function () {
 		},
 			function(start, end) {
 				$('#startDateRange button').html('<i class="fa fa-calendar"></i>' + start.format('MMMM D, YYYY') + '<br /> -<br /> ' + end.format('MMMM D, YYYY'));
-				$('#startDateRange [name="startDateLow"]').val(start);
-				$('#startDateRange [name="startDateHigh"]').val(end);
+				$('#startDateRange [name="startDateLow"]').val(start.format('DD-MM-YYYY HH:mm'));
+				$('#startDateRange [name="startDateHigh"]').val(end.add('days', 1).format('DD-MM-YYYY HH:mm'));
 			}
 		);
-		$('#startDateRange button').html('<i class="fa fa-calendar"></i>' + moment().format('MMMM D, YYYY') + '<br /> -<br /> ' + moment().format('MMMM D, YYYY'));
+		$('#startDateRange button').html('<i class="fa fa-calendar"></i>' + startDateLowStart.format('MMMM D, YYYY') + '<br /> -<br /> ' + startDateHighStart.format('MMMM D, YYYY'));
+		$('#startDateRange [name="startDateLow"]').val(startDateLowStart.format('DD-MM-YYYY HH:mm'));
+		$('#startDateRange [name="startDateHigh"]').val(startDateHighStart.add('days', 1).format('DD-MM-YYYY HH:mm'));
+	}
+	if(endDateLow != "") {
+		startDateLowEnd = moment(endDateLow, "DD-MM-YYYY");
+	} else {
+		startDateLowEnd = moment();
+	}
+	if(endDateHigh != "") {
+		startDateHighEnd = moment(endDateHigh, "DD-MM-YYYY").subtract('days', 1);
+	} else {
+		startDateHighEnd = moment();
 	}
 	if($('#endDateRange').length != 0) {
 		$('#endDateRange').daterangepicker({
-			startDate: moment(),
-			endDate: moment(),
+			startDate: startDateLowEnd,
+			endDate: startDateHighEnd,
 			minDate: moment(),
 			showDropdowns: true,
 			showWeekNumbers: true,
@@ -113,16 +135,24 @@ $(function () {
 		},
 			function(start, end) {
 				$('#endDateRange button').html('<i class="fa fa-calendar"></i>' + start.format('MMMM D, YYYY') + '<br /> -<br /> ' + end.format('MMMM D, YYYY'));
-				$('#endDateRange [name="endDateLow"]').val(start);
-				$('#endDateRange [name="endDateHigh"]').val(end);
+				$('#endDateRange [name="endDateLow"]').val(start.format('DD-MM-YYYY HH:mm'));
+				$('#endDateRange [name="endDateHigh"]').val(end.add('days', 1).format('DD-MM-YYYY HH:mm'));
 			}
 		);
-		$('#endDateRange button').html('<i class="fa fa-calendar"></i>' + moment().format('MMMM D, YYYY') + '<br /> -<br /> ' + moment().format('MMMM D, YYYY'));
+		$('#endDateRange button').html('<i class="fa fa-calendar"></i>' + startDateLowEnd.format('MMMM D, YYYY') + '<br /> -<br /> ' + startDateHighEnd.format('MMMM D, YYYY'));
+		$('#endDateRange [name="endDateLow"]').val(startDateLowEnd.format('DD-MM-YYYY HH:mm'));
+		$('#endDateRange [name="endDateHigh"]').val(startDateHighEnd.add('days', 1).format('DD-MM-YYYY HH:mm'));
 	}
-	if($('.slider').length != 0){
+	if(!sliderStart) {
+		sliderStart = 0;
+	}
+	if(!sliderEnd) {
+		sliderEnd = 1000;
+	}
+	$(function() {
 		$('.slider').noUiSlider({
 			range: [0, 1000],
-			start: [250, 750],
+			start: [sliderStart, sliderEnd],
 			handles: 2,
 			connect: true,
 			serialization: {
@@ -130,6 +160,12 @@ $(function () {
 				resolution: 1
 			}
 		});
-	}
+	});
+	$('[name="priceRangeLow"]').on('change', function() {
+		$('.slider').val($(this).val());
+	})
+	$('[name="priceRangeHigh"]').on('change', function() {
+		$('.slider').val([null, $(this).val()]);
+	})
 });
 

@@ -37,7 +37,7 @@ public class Filter<E extends Filterable<E>> {
 	public Collection<E> getResult() {
 		result = new ArrayList<E>();
 		if(input != null && flags != null) {
-			Iterator<E> li = result.iterator();
+			Iterator<E> li = input.iterator();
 			while(li.hasNext()) {
 				E obj = li.next();
 				if(obj.filter(flags)) {

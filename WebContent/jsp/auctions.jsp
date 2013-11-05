@@ -6,10 +6,6 @@
 
 <h1>Auctions</h1>
 
-<s:if test="%{search}">
-	<h2><s:property value="search" /></h2>
-</s:if>
-
 <div class="row" id="allAuctions">
 	<s:iterator value="allAuctions">
 		<s:include value="/includes/auctionBox.jsp" />

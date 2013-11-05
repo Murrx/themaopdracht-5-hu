@@ -35,7 +35,7 @@
 		<action name="registerForm">
 			<result name="success">/jsp/register.jsp</result>
 		</action>
-		<action name="allAuctions" class="com.th5.struts.actions.AllAuctionsAction">
+		<action name="allAuctions" class="com.th5.struts.actions.SearchAuctionsAction">
 			<result name="success">/jsp/auctions.jsp</result>
 		</action>
 		<action name="searchAuctions" class="com.th5.struts.actions.SearchAuctionsAction">

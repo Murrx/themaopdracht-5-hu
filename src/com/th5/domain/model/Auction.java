@@ -89,7 +89,6 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		if(this.status == Status.EXPIRED){
 			throw new AuctifyException("The auction has expired");
 		}
-		System.out.println("Auction.addBid()::BidId = " + bid.getUser() + " OwnerId = " + owner);
 		if (bid.getUser().getUserId() == this.owner.getUserId()) {
 			throw new AuctifyException("You are not allowed to place bids on your own auctions.");
 		}
@@ -123,7 +122,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 	}
 
 	public int getHighestBidAmount() {
-		int highestBidAmount = 0;
+		int highestBidAmount = startBid;
 		if (!bids.isEmpty()) {
 			highestBidAmount = bids.getMaxEntry().getValue().getBidAmount();
 		}
@@ -134,10 +133,10 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		int highestBidAmount = getHighestBidAmount();
 		int nextBidAmount;
 
-		if (highestBidAmount == 0) {
+		if (highestBidAmount == startBid) {
 			nextBidAmount = startBid;
 		} else {
-			//			nextBidAmount = highestBidAmount % 100 * 5; // TODO Create an algorithm to
+			// TODO Create an algorithm to
 			// increase bid amount.
 			nextBidAmount = highestBidAmount +=5;
 		}
@@ -342,63 +341,64 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 	@SuppressWarnings("unchecked")
 	@Override
 	public Boolean filter(Map<String, Object> filter) {
-		Boolean valid = false;
-		Iterator<Entry<String, Object>> it = filter.entrySet().iterator();
-		while(it.hasNext()) {
-			Entry<String, Object> obj = it.next();
-			switch(obj.getKey()) {
-				case "owner":
-					if(obj.getValue().equals(new Integer(userId))) {
-						valid = true;
-					}
-				break;
-				case "price":
-					if(((IntegerRange)obj.getValue()).withinRange(new Integer(getHighestBidAmount()))) {
-						valid = true;
-					}
-				break;
-				case "startTime":
-					if(obj.getValue() instanceof CalendarRange) {
-						if(((CalendarRange)obj.getValue()).withinRange(startTime)) {
-							valid = true;
+		Boolean valid = true;
+		if(filter != null) {
+			Iterator<Entry<String, Object>> it = filter.entrySet().iterator();
+			while(it.hasNext()) {
+				Entry<String, Object> obj = it.next();
+				switch(obj.getKey()) {
+					case "owner":
+						if(!obj.getValue().equals(new Integer(userId))) {
+							valid = false;
 						}
-					} else {
-						if(startTime.equals(obj.getValue())) {
-							valid = true;
+					break;
+					case "price":
+						if(!((IntegerRange)obj.getValue()).withinRange(new Integer(getHighestBidAmount()))) {
+							valid = false;
 						}
-					}
-				break;
-				case "endTime":
-					if(obj.getValue() instanceof CalendarRange) {
-						if(((CalendarRange)obj.getValue()).withinRange(endTime)) {
-							valid = true;
+					break;
+					case "startDate":
+						if(obj.getValue() instanceof CalendarRange) {
+							if(!((CalendarRange)obj.getValue()).withinRange(startTime)) {
+								valid = false;
+							}
+						} else {
+							if(!startTime.equals(obj.getValue())) {
+								valid = false;
+							}
 						}
-					} else {
-						if(endTime.equals(obj.getValue())) {
-							valid = true;
+					break;
+					case "endDate":
+						if(obj.getValue() instanceof CalendarRange) {
+							if(!((CalendarRange)obj.getValue()).withinRange(endTime)) {
+								valid = false;
+							}
+						} else {
+							if(!endTime.equals(obj.getValue())) {
+								valid = false;
+							}
 						}
-					}
-				break;
-				case "category":
-					ArrayList<String> value = new ArrayList<String>();
-					if(obj.getValue() instanceof String) {
-						value.add((String)obj.getValue());
-					} else {
-						value = (ArrayList<String>)obj.getValue();
-					}
-					Iterator<String> catIt = value.iterator();
-					while(catIt.hasNext()) {
-						String category = catIt.next();
-						try {
-							Enum.valueOf(Category.class, category);
-							valid = true;
-						} catch(IllegalArgumentException e) {
+					break;
+					case "category":
+						ArrayList<Category> value = new ArrayList<Category>();
+						if(obj.getValue() instanceof String) {
+							value.add((Category)obj.getValue());
+						} else {
+							value = (ArrayList<Category>)obj.getValue();
 						}
-					}
-				break;
+						Iterator<Category> catIt = value.iterator();
+						Boolean found = false;
+						while(catIt.hasNext()) {
+							Category category = catIt.next();
+							if(category.equals(this.category)) {
+								found = true;
+							}
+						}
+						valid = found;
+					break;
+				}
 			}
 		}
-		
 		return valid;
 	}
 
