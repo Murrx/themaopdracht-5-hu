@@ -13,7 +13,7 @@ public class RefreshAuctionsTimer{
 		timer.schedule(
 				new RefreshAuctionsTask(),
 				0,
-				1000
+				1000*60
 				);
 	}
 
