@@ -2,6 +2,9 @@ package com.th5.struts.actions;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -15,11 +18,15 @@ public class BlockAuctionAction extends ActionSupport implements SessionAware{
 	private int auctionId;
 	private Map<String, Object> session;
 	private AuctionDatabaseCRUD adbcrud = new AuctionDatabaseCRUD();
+	private String previousPage;
 	
 	@Override
 	public String execute() throws Exception {
 
 		Auction auction = ServiceProvider.getService().getAuctionById(auctionId);
+		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		previousPage = request.getHeader("referer");
 
 		auction.register(adbcrud);
 		
@@ -36,4 +43,14 @@ public class BlockAuctionAction extends ActionSupport implements SessionAware{
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
+
+	public String getPreviousPage() {
+		return previousPage;
+	}
+
+	public void setPreviousPage(String previousPage) {
+		this.previousPage = previousPage;
+	}
+	
+	
 }

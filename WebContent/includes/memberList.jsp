@@ -5,7 +5,11 @@
 <tr>
 	<td><s:if test="%{rights.rightsValue >= 256}">
 			<span class="label label-danger">Admin</span>
-		</s:if> <s:else>
+		</s:if>
+		<s:elseif test="%{rights.rightsValue < 5}">
+			<span class="label label-default">Blocked</span>
+		</s:elseif>
+		 <s:else>
 			<span class="label label-success">Member</span>
 		</s:else></td>
 
