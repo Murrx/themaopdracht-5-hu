@@ -28,10 +28,10 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 		try {
 			allBids = user.getMyBids().values();
 			if (allBids != null) {
-			for(Bid bid : allBids){
-				relevantAuctions.put(bid.getAuction().getIdentifier(), bid);
+				for(Bid bid : allBids){
+					relevantAuctions.put(bid.getAuction().getIdentifier(), bid);
+				}
 			}
-<<<<<<< HEAD
 			
 			HashMap<String, Object> flags = new HashMap<String, Object>();
 			Filter<Auction> filterResult = new Filter<Auction>(user.getMyAuctions().values());
@@ -39,9 +39,6 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 			filterResult.setFlags(flags);
 		
 			allAuctions = filterResult.getResult();
-=======
-			}
->>>>>>> branch 'master' of https://github.com/Murrx/th5.git
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("error: " + e.getMessage());
