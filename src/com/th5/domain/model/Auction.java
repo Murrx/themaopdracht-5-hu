@@ -100,11 +100,12 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 
 		if (bid.getBidAmount() == this.calculateNextBidAmount()) {
 			if (highestBid != null) {
+				highestBid.setBidStatus(BidStatus.LOSING);
 				highestBid.refundBidCoins();
 			}
 
 			bid.takeBidCoins();
-
+			bid.setBidStatus(BidStatus.WINNING);
 			bids.put(bid.getIdentifier(),bid);
 		} else {
 			throw new AuctifyException("Bid has to be higher than current bid. Please refresh your page and try again! NOOOOOO");

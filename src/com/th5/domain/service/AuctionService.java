@@ -10,7 +10,9 @@ import java.util.TreeMap;
 import com.th5.domain.model.Address;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
+import com.th5.domain.model.BidStatus;
 import com.th5.domain.model.Person;
+import com.th5.domain.model.Status;
 import com.th5.domain.model.User;
 import com.th5.domain.model.UserRights;
 import com.th5.domain.other.AuctifyException;
@@ -25,7 +27,7 @@ public class AuctionService implements AuctionServiceInterface {
 
 	private UserDatabaseCRUD udbcrud = new UserDatabaseCRUD();
 	private LazyMap<String, User> userMap;
-	private TreeMap<String,Auction> allAuctions;
+	private TreeMap<String, Auction> allAuctions;
 	private TreeMap<String, Bid> allBids;
 
 	public AuctionService() {
@@ -39,13 +41,14 @@ public class AuctionService implements AuctionServiceInterface {
 	 * 
 	 * @return List<Auction> with all auctions
 	 */
-	private TreeMap<String,Auction> retrieveAllAuctions() {
-		TreeMap<String,Auction> auctions = new TreeMap<String,Auction>();
+	private TreeMap<String, Auction> retrieveAllAuctions() {
+		TreeMap<String, Auction> auctions = new TreeMap<String, Auction>();
 		try {
 			AuctionDatabaseCRUD dbCRUD = new AuctionDatabaseCRUD();
-			List<Auction> tempList = dbCRUD.retrieve(null, Queries.selectAllAuctions);
+			List<Auction> tempList = dbCRUD.retrieve(null,
+					Queries.selectAllAuctions);
 			for (Auction auction : tempList) {
-				auctions.put(auction.getIdentifier(),auction);
+				auctions.put(auction.getIdentifier(), auction);
 			}
 		} catch (AuctifyException e) {
 			System.out.println(e.getMessage());
@@ -53,15 +56,42 @@ public class AuctionService implements AuctionServiceInterface {
 		}
 		return auctions;
 	}
-	
-	private TreeMap<String, Bid> retrieveAllBids(){
-		TreeMap<String,Bid> allBids = new TreeMap<String,Bid>();
-		
+
+	private TreeMap<String, Bid> retrieveAllBids() {
+		TreeMap<String, Bid> allBids = new TreeMap<String, Bid>();
+
 		try {
 			BidDatabaseCRUD dbCRUD = new BidDatabaseCRUD();
 			List<Bid> tempList = dbCRUD.retrieve(null, Queries.selectAllBids);
-			for (Bid bid : tempList) {
-				allBids.put(bid.getIdentifier(),bid);
+			List<Auction> tempAuctionList = new ArrayList<Auction>();
+			if (tempList != null) {
+				System.out.println("AuctionService retrieveallbids r68: " + "templist != null");
+				for (Bid bid : tempList) {
+					System.out.println("AuctionService retrieveallbids r70: " + "Bid: " + bid.getBid_Id() + ", templist");
+					Auction tempAuction = getAuctionById(bid.getAuctionId());
+					System.out.println("AuctionService retrieveallbids r74: " + "Auction: " + tempAuction.getAuctionId() + ", tempAuctionlist");
+					tempAuctionList.add(tempAuction);
+					System.out.println("AuctionService retrieveallbids r76: " + "Auction status =: " + tempAuction.getStatus());
+					if (tempAuction.getStatus() == Status.ACTIVE) {
+						bid.setBidStatus(BidStatus.LOSING);
+						System.out.println("AuctionService retrieveallbids r77: " + "Bid status losing: " + bid.getBidStatus());
+					} else {
+						bid.setBidStatus(BidStatus.LOST);
+						System.out.println("AuctionService retrieveallbids r80: " + "Bid status: lost" + bid.getBidStatus());
+					}
+					bid.setAuction(tempAuction);
+
+					allBids.put(bid.getIdentifier(), bid);
+				}
+				for (Auction tempAuction : tempAuctionList) {
+					if (tempAuction.getStatus() == Status.ACTIVE) {
+						tempAuction.getHighestBid().setBidStatus(
+								BidStatus.WINNING);
+					} else {
+						tempAuction.getHighestBid()
+								.setBidStatus(BidStatus.LOST);
+					}
+				}
 			}
 		} catch (AuctifyException e) {
 			System.out.println(e.getMessage());
@@ -69,7 +99,7 @@ public class AuctionService implements AuctionServiceInterface {
 		}
 		return allBids;
 	}
-	
+
 	/**
 	 * Attempt to get an auction from allAuctions
 	 * 
@@ -79,12 +109,12 @@ public class AuctionService implements AuctionServiceInterface {
 	public Auction getAuctionById(int auctionId) {
 		return allAuctions.get(Integer.toString(auctionId));
 	}
-	
-	public Map<String, Bid> getAllBids(){
+
+	public Map<String, Bid> getAllBids() {
 		return allBids;
 	}
 
-	public Map<String,Auction> getAllAuctions() {
+	public Map<String, Auction> getAllAuctions() {
 		return allAuctions;
 	}
 
@@ -95,7 +125,7 @@ public class AuctionService implements AuctionServiceInterface {
 		if (user == null || !user.getPassword().equals(password)) {
 			throw new AuctifyException("Username op password incorrect");
 		}
-		if (user.getRights().getRightsValue() < 5){
+		if (user.getRights().getRightsValue() < 5) {
 			throw new AuctifyException("User is blocked.");
 		}
 		user.register(udbcrud);
@@ -103,8 +133,10 @@ public class AuctionService implements AuctionServiceInterface {
 	}
 
 	@Override
-	public void register(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode,
-			String houseNumber, String street, String city) throws AuctifyException {
+	public void register(String email, String password, String displayName,
+			String firstName, String lastName, int gender, Date birthdate,
+			String postalCode, String houseNumber, String street, String city)
+			throws AuctifyException {
 		password = EncryptPassword.encryptPassword(password);
 
 		Person person = new Person(firstName, lastName, gender, birthdate);
@@ -118,8 +150,10 @@ public class AuctionService implements AuctionServiceInterface {
 	}
 
 	@Override
-	public void update(String email, String password, String displayName, String firstName, String lastName, int gender, Date birthdate, String postalCode,
-			String houseNumber, String street, String city) throws AuctifyException {
+	public void update(String email, String password, String displayName,
+			String firstName, String lastName, int gender, Date birthdate,
+			String postalCode, String houseNumber, String street, String city)
+			throws AuctifyException {
 		password = EncryptPassword.encryptPassword(password);
 
 		User user = userMap.get(email);
@@ -137,7 +171,7 @@ public class AuctionService implements AuctionServiceInterface {
 		udbcrud.update(user);
 	}
 
-	public User getUserById(String identifier){
+	public User getUserById(String identifier) {
 		return userMap.get(identifier);
 	}
 
@@ -145,10 +179,11 @@ public class AuctionService implements AuctionServiceInterface {
 		int amountToReturn = 3;
 		List<Auction> latestAuctions = new ArrayList<>();
 		int i = 0;
-		for (Entry<String, Auction> auction: allAuctions.descendingMap().entrySet()) {
-		    if (i++ < amountToReturn) {
-		        latestAuctions.add(auction.getValue());
-		    }
+		for (Entry<String, Auction> auction : allAuctions.descendingMap()
+				.entrySet()) {
+			if (i++ < amountToReturn) {
+				latestAuctions.add(auction.getValue());
+			}
 		}
 		return latestAuctions;
 	}
@@ -157,10 +192,11 @@ public class AuctionService implements AuctionServiceInterface {
 		int amountToReturn = 4;
 		List<Auction> latestAuctions = new ArrayList<>();
 		int i = 0;
-		for (Entry<String, Auction> auction: allAuctions.descendingMap().entrySet()) {
-		    if (i++ < amountToReturn) {
-		        latestAuctions.add(auction.getValue());
-		    }
+		for (Entry<String, Auction> auction : allAuctions.descendingMap()
+				.entrySet()) {
+			if (i++ < amountToReturn) {
+				latestAuctions.add(auction.getValue());
+			}
 		}
 		return latestAuctions;
 	}
@@ -168,16 +204,18 @@ public class AuctionService implements AuctionServiceInterface {
 	public List<Bid> getLatestBids(){
 		
 		int amountToReturn = 9;
+
 		List<Bid> latestBids = new ArrayList<>();
 		int i = 0;
-		for (Entry<String, Bid> bid: allBids.descendingMap().entrySet()) {
-		    if (i++ < amountToReturn) {
-		        latestBids.add(bid.getValue());
-		    }
+		for (Entry<String, Bid> bid : allBids.descendingMap().entrySet()) {
+			if (i++ < amountToReturn) {
+				latestBids.add(bid.getValue());
+			}
 		}
-		return latestBids;	
+		return latestBids;
 	}
-	public Map<String,User> getUserMap(){
+
+	public Map<String, User> getUserMap() {
 		return userMap;
 	}
 }

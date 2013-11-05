@@ -309,6 +309,7 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 			Auction auction = ServiceProvider.getService().getAuctionById(
 					auctionId);
 			Bid bid = new Bid(this, auction, bidAmount);
+			
 			auction.addBid(bid);
 			myBids.put(bid.getIdentifier(), bid);
 			System.out.println("USER DOMAIN :: Auction: " + auction);
