@@ -43,7 +43,7 @@ public class EndAuctionEmailer implements Runnable {
 			msg.setRecipients(Message.RecipientType.TO, email); 
 			msg.setSubject("U bent geregistreerd!"); 
 			msg.setSentDate(Calendar.getInstance().getTime());
-			msg.setText("Beste " + ownerName + ", \n\nU bent geregistreerd met gebruikersnaam " + userName + "\n"); 
+			msg.setText("Beste " + ", \n\nU bent geregistreerd met gebruikersnaam " + "\n"); 
 			Transport.send(msg, "auctify@smartlapus.com", "garbageiscool");
 		} catch (Exception e) {
 			e.printStackTrace();
