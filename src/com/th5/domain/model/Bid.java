@@ -13,10 +13,10 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 	private int auctionId;
 	private User user;
 	private Auction auction;
-
+	
 	private Calendar timestamp;
 	private int bidAmount;
-
+	private BidStatus bidStatus;
 	
 	/**Use this constructor to create new Bids
 	 * @param user that creates the bid
@@ -144,5 +144,21 @@ public class Bid implements Comparable<Bid>, Identifiable<String> {
 			equals = this.bid_Id == otherBid.bid_Id;
 		}
 		return equals;
+	}
+	
+	public BidStatus getBidStatus() {
+		return bidStatus;
+	}
+
+	public void setBidStatus(BidStatus bidStatus) throws AuctifyException {
+		this.bidStatus = bidStatus;
+	}
+	
+	public int getAuctionId() {
+		return auctionId;
+	}
+	
+	public int getUserId() {
+		return userId;
 	}
 }

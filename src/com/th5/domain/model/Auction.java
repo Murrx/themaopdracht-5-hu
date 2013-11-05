@@ -71,8 +71,8 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		
 	}
 	
-	private void refreshStatus() throws AuctifyException{
-		if(status == Status.ACTIVE){
+	public void refreshStatus() throws AuctifyException{
+		if(status.getRightsValue() >= Status.ACTIVE.getRightsValue()){
 			if(Calendar.getInstance().getTimeInMillis() > endTime.getTimeInMillis()){
 				try{
 					this.setStatus(Status.EXPIRED);
@@ -100,11 +100,12 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 
 		if (bid.getBidAmount() == this.calculateNextBidAmount()) {
 			if (highestBid != null) {
+				highestBid.setBidStatus(BidStatus.LOSING);
 				highestBid.refundBidCoins();
 			}
 
 			bid.takeBidCoins();
-
+			bid.setBidStatus(BidStatus.WINNING);
 			bids.put(bid.getIdentifier(),bid);
 		} else {
 			throw new AuctifyException("Bid has to be higher than current bid. Please refresh your page and try again! NOOOOOO");

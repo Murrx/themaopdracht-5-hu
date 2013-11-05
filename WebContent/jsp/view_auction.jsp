@@ -6,12 +6,14 @@
 
 <!-- Css BugFix Modal Displacement OS X -->
 <style type="text/css">
-.modal-open, .modal-open .navbar-fixed-top {
-margin-right: auto !important;
+.modal-open,.modal-open .navbar-fixed-top {
+	margin-right: auto !important;
 }
 </style>
 
-<h2><span class="headerPurple"><s:property value='auction.product.name' /></span></h2>
+<h2>
+	<span class="headerPurple"><s:property value='auction.product.name' /></span>
+</h2>
 <!-- Container -->
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-8">
@@ -22,7 +24,8 @@ margin-right: auto !important;
 				<!-- AUCTION IMAGE PANEL -->
 				<div class="panel panel-default imgpreview" data-id="<s:property value='auction.auctionId'/>">
 					<div class="panel-body individualAuctionImage">
-						<a data-toggle="modal" data-target="#imgModal"><img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive"></a>
+						<a data-toggle="modal" data-target="#imgModal"><img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>"
+							class="img-responsive"></a>
 					</div>
 				</div>
 				<!-- END AUCTION IMAGE PANEL  -->
@@ -30,25 +33,34 @@ margin-right: auto !important;
 			<!-- ImageColumn -->
 			<div class="col-xs-6 col-md-3 col-lg-3">
 				<!-- BEGIN AUTHOR PANEL -->
-				<span class="headerPurple"><strong> Auction information: </strong></span>
-				<br /><br />
-				<span class="leftImportant">Owner:</span> <span class="rightInfo"> 
-				
-				
-				<s:url action="ViewMemberAction.action" namespace="/member" var="viewMember" >
-				<s:param name="userId"><s:property value="auction.owner.userId" /></s:param>
-				</s:url>
-				<s:a href="%{viewMember}"><s:property value='auction.owner.displayName' /></s:a>
-				
-				
-				 </span> <br />
-				<span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bid:</span><span class="rightInfo"> <s:property value="highestBid.bidAmount" /></span><br />  					
-				<span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bidder:</span>	<span class="rightInfo">	<s:url action="ViewMemberAction.action" namespace="/member" var="viewMember" >
-		<s:param name="userId"><s:property value="highestBid.user.userId" /></s:param>
-		</s:url>
-		<s:a href="%{viewMember}"><s:property value='highestBid.user.displayName' /></s:a></span><br />
-				<span class="leftImportant">End date:</span><span class="rightInfo">	<s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /></span><br />
-				<span class="leftImportant">Category:</span><span class="rightInfo">	<s:property value="auction.category" /></span>
+				<span class="headerPurple"><strong> Auction information: </strong></span> <br />
+				<br /> <span class="leftImportant">Owner:</span> <span class="rightInfo"> <s:url action="ViewMemberAction.action" namespace="/member" var="viewMember">
+						<s:param name="userId">
+							<s:property value="auction.owner.userId" />
+						</s:param>
+					</s:url> <s:a href="%{viewMember}">
+						<s:property value='auction.owner.displayName' />
+					</s:a>
+
+
+				</span> <br /> <span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bid:
+				</span><span class="rightInfo"> <s:property value="highestBid.bidAmount" /></span><br /> <span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bidder:
+				</span> <span class="rightInfo"> <s:url action="ViewMemberAction.action" namespace="/member" var="viewMember">
+						<s:param name="userId">
+							<s:property value="highestBid.user.userId" />
+						</s:param>
+					</s:url> <s:a href="%{filterAuction}">
+						<s:property value='highestBid.user.displayName' />
+					</s:a></span><br /> <span class="leftImportant">End date:</span><span class="rightInfo"> <s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /></span><br />
+				<span class="leftImportant">Category:</span><span class="rightInfo"> <s:url action="AuctionsByCategory.action" namespace="/" var="filterAuction">
+						<s:param name="category">
+							<s:property value="auction.category" />
+						</s:param>
+					</s:url> <s:a href="%{filterAuction}">
+						<s:property value='auction.category' />
+					</s:a>
+
+				</span>
 			</div>
 			<div class="col-xs-6 col-md-3 col-lg-3">
 				<s:url action="placeBidAction.action" namespace="/member" var="urlTag">
@@ -58,7 +70,8 @@ margin-right: auto !important;
 				</s:url>
 				<p>
 					<s:a href="%{urlTag}" cssClass="btn btn-default btnColor pull-right">
-						(<i class='fa fa-btc'></i><s:property value="nextBidAmount" />) Place new bid!
+						(<i class='fa fa-btc'></i>
+						<s:property value="nextBidAmount" />) Place new bid!
 					</s:a>
 				</p>
 			</div>
@@ -72,27 +85,27 @@ margin-right: auto !important;
 				</div>
 			</div>
 		</div>
-	
+
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
-				<span class="headerPurple"><strong> Product description: </strong></span>
-				<br /><br />
+				<span class="headerPurple"><strong> Product description: </strong></span> <br />
+				<br />
 				<div class="well">
 					<s:property value="auction.product.description" />
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="col-sm-12 col-md-12 col-lg-4 ">
-		<span class="headerPurple"><strong> Bid history: </strong></span>
-		<br /><br />
+		<span class="headerPurple"><strong> Bid history: </strong></span> <br />
+		<br />
 		<table class="table table-striped">
 			<tr>
 				<th>bidCoins</th>
-				<th>Username</th>
-				<th>Date:</th>
-	 		</tr>
+				<th>Display name</th>
+				<th>Date</th>
+			</tr>
 			<s:iterator value="auction.bids.values()">
 				<s:include value="/includes/listBidAuction.jsp" />
 			</s:iterator>
@@ -105,12 +118,17 @@ margin-right: auto !important;
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="imgModalLabel"><s:property value='auction.product.name'/></h4>
+				<h4 class="modal-title" id="imgModalLabel">
+					<s:property value='auction.product.name' />
+				</h4>
 			</div>
 			<img src="http://smartlapus.com/garbage/<s:property value='auction.auctionId'/>.jpg" alt="<s:property value='auction.product.name'/>" class="img-responsive imgModal">
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <s:push value="#{'progressTimersOneAuction':true}">
 	<s:include value="/includes/footer.jsp" />
 </s:push>

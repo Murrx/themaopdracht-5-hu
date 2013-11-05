@@ -4,8 +4,6 @@
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-
-
 <div class="row">
 	<s:include value="/includes/adminMenu.jsp" />
 
@@ -13,20 +11,19 @@
 
 		<h3>Manage Members</h3>
 
-		
-		
 			<div class="table-responsive table-condensed">
 				<table class="table table-hover">
+					<tr>
+						<th>Rights</th>
+						<th>Email</th>
+						<th>Display Name</th>
+						<th>Bidcoins</th>
+					</tr>
 					<s:iterator value="users">
 						<s:include value="/includes/memberList.jsp" />
 					</s:iterator>
 				</table>
 			</div>
-		
-
-
-
-
 	</div>
 </div>
 
