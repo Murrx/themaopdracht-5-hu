@@ -305,6 +305,7 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 		for (Bid bid : auction.getBids().values()) {
 			bid.getUser().myAuctions.remove(bid.getIdentifier());
 			myBids.remove(bid.getIdentifier());
+			ServiceProvider.getService().getAllBids().remove(bid.getIdentifier());
 		}
 		myAuctions.remove(auction.getIdentifier());
 	}
