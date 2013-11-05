@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<s:push value="#{'title':'Auctions', 'location': 'auctions'}">
+<s:push value="#{'title': category, 'location': 'auctions'}">
 	<s:include value="/includes/header.jsp" />
 </s:push>
 
-<h1>Auctions</h1>
+<h1><s:property value="%{category}" /></h1>
 
 <div class="row">
 	<s:iterator value="allAuctions">
