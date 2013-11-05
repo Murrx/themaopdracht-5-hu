@@ -22,6 +22,10 @@ import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.BidDatabaseCRUD;
 import com.th5.persistance.queries.Queries;
 
+/**themaopdracht5 - Auctify
+ * @author GarbageCollectors 2.0 (Dimiter Geelen, Mark Van Lagen, Martin Bakker, Joris Rijkes and Robin Altena)
+ * Contains information about Auction and the methods to perform actions on it.
+ */
 public class Auction implements Comparable<Auction>, Identifiable<String>, Searchable, Filterable, Observable {
 
 	private SyncedMap<String,Bid> bids;
@@ -42,7 +46,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 	private final Object MUTEX= new Object();
 	private boolean changed;
 
-
+	@Deprecated
 	public Auction(int auctionId) {
 		this.auctionId = auctionId;
 	}
@@ -73,6 +77,12 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 
 	}
 
+	/**Check if the auction has ended. If so the status is set to expired, and the Owner of the auction receives the amount of bidcoins bid on the auction.
+	 * Persists this change to the database
+	 * and sends an email to the owner and the winner of the action
+	 * 
+	 * @throws AuctifyException in case the attemp to persist the statuschange fails
+	 */
 	public void refreshStatus() throws AuctifyException{
 		if(status.getRightsValue() >= Status.ACTIVE.getRightsValue()){
 			if(Calendar.getInstance().getTimeInMillis() > endTime.getTimeInMillis()){
@@ -89,9 +99,14 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		}
 	}
 
+
+	/**Add a bid tho this Auction
+	 * @param bid the bid to add.
+	 * @throws AuctifyException when the auction has expired, the user trying to bid owns the auction or when the bidding user already is the highest bidder.
+	 */
 	public synchronized void addBid(Bid bid) throws AuctifyException {
 
-		refreshStatus();
+		this.refreshStatus();
 		if(this.status == Status.EXPIRED){
 			throw new AuctifyException("The auction has expired");
 		}
@@ -119,34 +134,46 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 
 	}
 
+	/**Get the highest bid on this auction
+	 * @return the highest Bid object
+	 */
 	public Bid getHighestBid() {
 		Bid highestBid = null;
-
+		int highestBidAmount = 0;
 		if (!bids.isEmpty()) {
-			highestBid = bids.getMaxEntry().getValue();
+			for(Bid bid:bids.values()){
+				if(bid.getBidAmount() > highestBidAmount){
+					highestBid = bid;
+					highestBidAmount = bid.getBidAmount();
+				}
+			}
 		}
 		return highestBid;
 	}
 
+	/**Get the highest bid amount on this Auction
+	 * @return the amount of the highest bid.
+	 */
 	public int getHighestBidAmount() {
 		int highestBidAmount = startBid;
 		if (!bids.isEmpty()) {
-			highestBidAmount = bids.getMaxEntry().getValue().getBidAmount();
+			for(Bid bid:bids.values()){
+				if(bid.getBidAmount() > highestBidAmount){
+					highestBidAmount = bid.getBidAmount();
+				}
+			}
 		}
 		return highestBidAmount;
 	}
 
 	public int calculateNextBidAmount() {
 		int highestBidAmount = getHighestBidAmount();
-		int nextBidAmount;
+		int nextBidAmount = 0;
 
-		if (highestBidAmount == startBid) {
-			nextBidAmount = startBid;
-		} else {
-			// TODO Create an algorithm to
-			// increase bid amount.
-			nextBidAmount = highestBidAmount +=5;
-		}
+		// TODO Create an algorithm to
+		// increase bid amount.
+		nextBidAmount = (int) (highestBidAmount *1.10);
+		if( nextBidAmount - highestBidAmount < 1) nextBidAmount++;
 		return nextBidAmount;
 	}
 
@@ -254,7 +281,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		} catch (AuctifyException e) {
 			this.status = oldStatus;
 			this.changed = false;
-			throw new AuctifyException(e.getMessage());
+			throw e;
 		}
 
 	}
@@ -346,87 +373,87 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 	}
 
 	@SuppressWarnings("unchecked")
-    @Override
-    public Boolean filter(Map<String, Object> filter) {
-            Boolean valid = true;
-            if(filter != null) {
-                    Iterator<Entry<String, Object>> it = filter.entrySet().iterator();
-                    while(it.hasNext()) {
-                            Entry<String, Object> obj = it.next();
-                            switch(obj.getKey()) {
-                                    case "owner":
-                                            if(!obj.getValue().equals(new Integer(userId))) {
-                                                    valid = false;
-                                            }
-                                    break;
-                                    case "price":
-                                            if(!((IntegerRange)obj.getValue()).withinRange(new Integer(getHighestBidAmount()))) {
-                                                    valid = false;
-                                            }
-                                    break;
-                                    case "startDate":
-                                            if(obj.getValue() instanceof CalendarRange) {
-                                                    if(!((CalendarRange)obj.getValue()).withinRange(startTime)) {
-                                                            valid = false;
-                                                    }
-                                            } else {
-                                                    if(!startTime.equals(obj.getValue())) {
-                                                            valid = false;
-                                                    }
-                                            }
-                                    break;
-                                    case "endDate":
-                                            if(obj.getValue() instanceof CalendarRange) {
-                                                    if(!((CalendarRange)obj.getValue()).withinRange(endTime)) {
-                                                            valid = false;
-                                                    }
-                                            } else {
-                                                    if(!endTime.equals(obj.getValue())) {
-                                                            valid = false;
-                                                    }
-                                            }
-                                    break;
-                                    case "category":
-                                            ArrayList<Category> value = new ArrayList<Category>();
-                                            if(obj.getValue() instanceof Category && !(obj.getValue() instanceof List)) {
-                                                    value.add((Category)obj.getValue());
-                                            } else {
-                                                    value = (ArrayList<Category>)obj.getValue();
-                                            }
-                                            Iterator<Category> catIt = value.iterator();
-                                            Boolean found = false;
-                                            while(catIt.hasNext()) {
-                                                    Category category = catIt.next();
-                                                    if(this.category.equals(category)) {
-                                                            found = true;
-                                                            break;
-                                                    }
-                                            }
-                                            if(!found) valid = false;
-                                    break;
-                                    case "status":
-                                            ArrayList<Status> statValue = new ArrayList<Status>();
-                                            if(obj.getValue() instanceof Status) {
-                                                    statValue.add((Status)obj.getValue());
-                                            } else {
-                                                    statValue = (ArrayList<Status>)obj.getValue();
-                                            }
-                                            Iterator<Status> statIt = statValue.iterator();
-                                            Boolean statusFound = false;
-                                            while(statIt.hasNext()) {
-                                                    Status status = statIt.next();
-                                                    if(status.equals(this.status)) {
-                                                            statusFound = true;
-                                                    }
-                                            }
-                                            if(!statusFound) valid = false;
-                                            
-                                    break;
-                            }
-                    }
-            }
-            return valid;
-    }
+	@Override
+	public Boolean filter(Map<String, Object> filter) {
+		Boolean valid = true;
+		if(filter != null) {
+			Iterator<Entry<String, Object>> it = filter.entrySet().iterator();
+			while(it.hasNext()) {
+				Entry<String, Object> obj = it.next();
+				switch(obj.getKey()) {
+				case "owner":
+					if(!obj.getValue().equals(new Integer(userId))) {
+						valid = false;
+					}
+					break;
+				case "price":
+					if(!((IntegerRange)obj.getValue()).withinRange(new Integer(getHighestBidAmount()))) {
+						valid = false;
+					}
+					break;
+				case "startDate":
+					if(obj.getValue() instanceof CalendarRange) {
+						if(!((CalendarRange)obj.getValue()).withinRange(startTime)) {
+							valid = false;
+						}
+					} else {
+						if(!startTime.equals(obj.getValue())) {
+							valid = false;
+						}
+					}
+					break;
+				case "endDate":
+					if(obj.getValue() instanceof CalendarRange) {
+						if(!((CalendarRange)obj.getValue()).withinRange(endTime)) {
+							valid = false;
+						}
+					} else {
+						if(!endTime.equals(obj.getValue())) {
+							valid = false;
+						}
+					}
+					break;
+				case "category":
+					ArrayList<Category> value = new ArrayList<Category>();
+					if(obj.getValue() instanceof Category && !(obj.getValue() instanceof List)) {
+						value.add((Category)obj.getValue());
+					} else {
+						value = (ArrayList<Category>)obj.getValue();
+					}
+					Iterator<Category> catIt = value.iterator();
+					Boolean found = false;
+					while(catIt.hasNext()) {
+						Category category = catIt.next();
+						if(this.category.equals(category)) {
+							found = true;
+							break;
+						}
+					}
+					if(!found) valid = false;
+					break;
+				case "status":
+					ArrayList<Status> statValue = new ArrayList<Status>();
+					if(obj.getValue() instanceof Status) {
+						statValue.add((Status)obj.getValue());
+					} else {
+						statValue = (ArrayList<Status>)obj.getValue();
+					}
+					Iterator<Status> statIt = statValue.iterator();
+					Boolean statusFound = false;
+					while(statIt.hasNext()) {
+						Status status = statIt.next();
+						if(status.equals(this.status)) {
+							statusFound = true;
+						}
+					}
+					if(!statusFound) valid = false;
+
+					break;
+				}
+			}
+		}
+		return valid;
+	}
 
 	@Override
 	public void register(Observer obs) throws NullPointerException {
