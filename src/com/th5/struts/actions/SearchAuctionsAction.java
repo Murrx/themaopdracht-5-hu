@@ -14,6 +14,7 @@ import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Category;
+import com.th5.domain.model.Status;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.CalendarRange;
 import com.th5.domain.util.Filter;
@@ -47,10 +48,11 @@ public class SearchAuctionsAction extends ActionSupport {
 			Search<Auction> searchResult = new Search<Auction>(auctions, search);
 			Collection<Auction> searchAuctions = searchResult.getResult();
 			Filter<Auction> filterResult = new Filter<Auction>(searchAuctions);
-			//flags.put('status', )
+			flags.put("status", Status.ACTIVE);
 			
 			
 			if(flags != null && !flags.isEmpty()) {
+				System.out.println(flags);
 				filterResult.setFlags(flags);
 				allAuctions = filterResult.getResult();
 			} else {

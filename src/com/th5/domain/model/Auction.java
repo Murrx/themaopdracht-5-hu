@@ -354,12 +354,14 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 					break;
 					case "price":
 						if(!((IntegerRange)obj.getValue()).withinRange(new Integer(getHighestBidAmount()))) {
+							System.out.println("no price match");
 							valid = false;
 						}
 					break;
 					case "startDate":
 						if(obj.getValue() instanceof CalendarRange) {
 							if(!((CalendarRange)obj.getValue()).withinRange(startTime)) {
+								System.out.println("no start match");
 								valid = false;
 							}
 						} else {
@@ -371,6 +373,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 					case "endDate":
 						if(obj.getValue() instanceof CalendarRange) {
 							if(!((CalendarRange)obj.getValue()).withinRange(endTime)) {
+								System.out.println("no end match");
 								valid = false;
 							}
 						} else {
@@ -381,7 +384,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 					break;
 					case "category":
 						ArrayList<Category> value = new ArrayList<Category>();
-						if(obj.getValue() instanceof String) {
+						if(obj.getValue() instanceof Category) {
 							value.add((Category)obj.getValue());
 						} else {
 							value = (ArrayList<Category>)obj.getValue();
@@ -398,7 +401,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 					break;
 					case "status":
 						ArrayList<Status> statValue = new ArrayList<Status>();
-						if(obj.getValue() instanceof String) {
+						if(obj.getValue() instanceof Status) {
 							statValue.add((Status)obj.getValue());
 						} else {
 							statValue = (ArrayList<Status>)obj.getValue();
