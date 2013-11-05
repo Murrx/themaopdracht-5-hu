@@ -106,8 +106,10 @@
 	<div class="col-sm-12 col-md-12 col-lg-4 ">
 		<s:if test="%{auction.bids.isEmpty() != true}">
 		
-		<h4>Bid history: </h4>  
-	
+		<div class="panel panel-default">
+			<div class="panel-heading ">
+				<h4 class="noPaddingHeader">Bid history</h4>
+			</div>
 		<table class="table table-striped">
 			<tr>
 				<th>bidCoins</th>
@@ -118,6 +120,7 @@
 				<s:include value="/includes/listBidAuction.jsp" />
 			</s:iterator>
 		</table>
+		</div>
 		</s:if>
 		<s:else>
 		<h4>Bid history: </h4>  

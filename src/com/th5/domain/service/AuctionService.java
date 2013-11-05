@@ -36,7 +36,7 @@ public class AuctionService implements AuctionServiceInterface {
 		userMap = new LazyMap<>(true, udbcrud);
 		allAuctions = retrieveAllAuctions();
 		allBids = retrieveAllBids();
-		timer = new RefreshAuctionsTimer();
+		// timer = new RefreshAuctionsTimer();
 	}
 
 	/**
