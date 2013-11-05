@@ -13,7 +13,14 @@
 			<button type="button" class="btn btn-danger disabled">Admin can't be blocked</button>
 		</s:if>
 		<s:elseif test="%{user.rights.rightsValue < 5}">
-			<button type="button" class="btn btn-success">Unblock user</button>
+			<s:url action="UnblockMemberAction.action" var="unblockUser">
+				<s:param name="userId">
+					<s:property value="userId" />
+				</s:param>
+			</s:url>
+			<s:a href="%{unblockUser}">
+				<button type="button" class="btn btn-success">Unblock user</button>
+			</s:a>
 		</s:elseif>
 		<s:else>
 			<s:url action="BlockMemberAction.action" var="blockUser">
@@ -21,7 +28,8 @@
 					<s:property value="userId" />
 				</s:param>
 			</s:url>
-			<s:a href="%{blockUser}"><button type="button" class="btn btn-danger">Block user</button>
+			<s:a href="%{blockUser}">
+				<button type="button" class="btn btn-danger">Block user</button>
 			</s:a>
 		</s:else>
 
@@ -44,7 +52,11 @@
 				<td>Right:</td>
 				<td><s:if test="%{user.rights.rightsValue >= 256}">
 						<span class="label label-danger"><s:property value='user.rights' /></span>
-					</s:if> <s:else>
+					</s:if> 
+					<s:elseif test="%{user.rights.rightsValue < 5}">
+						<span class="label label-default"><s:property value='user.rights' /></span>
+					</s:elseif> 
+					<s:else>
 						<span class="label label-success"><s:property value='user.rights' /></span>
 					</s:else></td>
 			</tr>

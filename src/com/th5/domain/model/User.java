@@ -183,7 +183,7 @@ public class User implements Comparable<User>, Observable, Identifiable<String> 
 			this.rights = rights;
 			this.changed = true;
 			notifyObservers();
-			
+
 		} catch (AuctifyException e) {
 			this.rights = oldUserRights;
 			this.changed = false;
@@ -279,8 +279,9 @@ public class User implements Comparable<User>, Observable, Identifiable<String> 
 		// synchronization is used to make sure any observer registered after
 		// message is received is not notified
 		synchronized (MUTEX) {
-			if (!changed)
+			if (!changed) {
 				return;
+			}
 			observersLocal = new ArrayList<>(this.observers);
 			this.changed = false;
 		}

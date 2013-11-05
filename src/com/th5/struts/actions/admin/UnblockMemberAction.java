@@ -13,7 +13,7 @@ import com.th5.domain.service.ServiceProvider;
 import com.th5.persistance.UserDatabaseCRUD;
 
 @SuppressWarnings("serial")
-public class BlockMemberAction extends ActionSupport {
+public class UnblockMemberAction extends ActionSupport {
 
 	private User user;
 	private int userId;
@@ -29,7 +29,7 @@ public class BlockMemberAction extends ActionSupport {
 		try {
 			user = service.getUserById(Integer.toString(userId));
 			user.register(obs);
-			user.setRights(UserRights.BLOCKED);
+			user.setRights(UserRights.USER);
 		} catch (AuctifyException e) {
 			e.printStackTrace();
 		}
@@ -52,13 +52,11 @@ public class BlockMemberAction extends ActionSupport {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
 	public String getPreviousPage() {
 		return previousPage;
 	}
 	public void setPreviousPage(String previousPage) {
 		this.previousPage = previousPage;
 	}
-	
 
 }
