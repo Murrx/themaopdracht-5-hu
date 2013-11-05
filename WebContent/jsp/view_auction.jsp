@@ -116,7 +116,7 @@
 				<th>Display name</th>
 				<th>Date</th>
 			</tr>
-			<s:iterator value="auction.bids.values()">
+			<s:iterator value="bids.values()">
 				<s:include value="/includes/listBidAuction.jsp" />
 			</s:iterator>
 		</table>

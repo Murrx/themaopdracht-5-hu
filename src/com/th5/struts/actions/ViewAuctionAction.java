@@ -1,5 +1,8 @@
 package com.th5.struts.actions;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
@@ -13,6 +16,7 @@ public class ViewAuctionAction extends ActionSupport{
 	User owner;
 	int nextBidAmount;
 	Bid highestBid;
+	Map<Integer, Bid> bids;
 	
 	int endTimeDay, endTimeMonth, endTimeYear;
 	
@@ -26,6 +30,10 @@ public class ViewAuctionAction extends ActionSupport{
 		
 		owner = ServiceProvider.getService().getUserById(auction.getOwner().getIdentifier());
 		nextBidAmount = auction.calculateNextBidAmount();
+		bids = new TreeMap<Integer, Bid>();
+		for(Bid bid : auction.getBids().values()){
+			bids.put(bid.getBidAmount(), bid);
+		}
 		return ActionSupport.SUCCESS;
 	}
 
@@ -67,4 +75,7 @@ public class ViewAuctionAction extends ActionSupport{
 	public int getNextBidAmount() {
 		return nextBidAmount;
 	}	
+	public Map<Integer,Bid> getBids(){
+		return bids;
+	}
 }
