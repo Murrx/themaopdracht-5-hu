@@ -167,7 +167,7 @@ public class AuctionService implements AuctionServiceInterface {
 	
 	public List<Bid> getLatestBids(){
 		
-		int amountToReturn = 6;
+		int amountToReturn = 9;
 		List<Bid> latestBids = new ArrayList<>();
 		int i = 0;
 		for (Entry<String, Bid> bid: allBids.descendingMap().entrySet()) {

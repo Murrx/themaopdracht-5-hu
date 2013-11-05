@@ -17,6 +17,10 @@ a, a:hover, h1, h2, h3, h4 {
 	color: purple;
 }
 
+a {
+	font-weight: bold;
+}
+
 .list-group .active {
 	background-color: purple !important;
 }

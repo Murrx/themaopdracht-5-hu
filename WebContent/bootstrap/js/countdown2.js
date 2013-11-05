@@ -42,15 +42,21 @@
 
 			if (days > 1) {
 				message = days+" days";
-			} else if (days != 0) {
+			} else if (days != 0 && hours != 0) {
 				message = days+" day and "+hours+" hour";
 				if(hours!=1) message+="s";
-			} else if (hours >= 1) {
+			} else if (days != 0 && hours == 0) {
+				message = days+" day";
+			} else if (hours >= 1 && mins != 0) {
 				message = hours+" hour"; if(hours!=1) message+="s";
 				message += " and "+mins+" minute"; if(mins!=1) message+="s";
-			} else if (mins >= 1) {
+			} else if (hours >= 1 && mins == 0) {
+				message = hours+" hour"; if(hours!=1) message+="s";
+			} else if (mins >= 1 && secs != 0) {
 				message = mins+" minute"; if(mins!=1) message+="s";
 				message += " and "+secs+" second"; if(secs!=1) message+="s";
+			} else if (mins >= 1 && secs == 0) {
+				message = mins+" minute"; if(mins!=1) message+="s";
 			} else {
 				message = secs+" second"; if(secs!=1) message+="s";
 			}

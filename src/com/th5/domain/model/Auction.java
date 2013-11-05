@@ -396,6 +396,23 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 						}
 						valid = found;
 					break;
+					case "status":
+						ArrayList<Status> statValue = new ArrayList<Status>();
+						if(obj.getValue() instanceof String) {
+							value.add((Status)obj.getValue());
+						} else {
+							value = (ArrayList<Status>)obj.getValue();
+						}
+						Iterator<Status> statIt = value.iterator();
+						Boolean statusFound = false;
+						while(statIt.hasNext()) {
+							Status status = catIt.next();
+							if(status.equals(this.status)) {
+								found = true;
+							}
+						}
+						
+					break;
 				}
 			}
 		}
