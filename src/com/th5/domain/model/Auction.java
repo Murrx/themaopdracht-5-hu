@@ -13,6 +13,7 @@ import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.domain.util.CalendarRange;
+import com.th5.domain.util.EndAuctionEmailer;
 import com.th5.domain.util.Filterable;
 import com.th5.domain.util.IntegerRange;
 import com.th5.domain.util.Searchable;
@@ -23,7 +24,7 @@ import com.th5.persistance.queries.Queries;
 public class Auction implements Comparable<Auction>, Identifiable<String>, Searchable<Auction>, Filterable<Auction>, Observable {
 
 	private SyncedMap<String,Bid> bids;
-	
+
 	private int auctionId;
 	private Calendar startTime;
 	private Calendar endTime;
@@ -35,11 +36,11 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 
 	private int userId;
 	private User owner;
-	
+
 	private List<Observer> observers = new ArrayList<Observer>();
 	private final Object MUTEX= new Object();
 	private boolean changed;
-	
+
 
 	public Auction(int auctionId) {
 		this.auctionId = auctionId;
@@ -49,7 +50,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		this.startTime = Calendar.getInstance();
 		this.endTime = endTime;
 		this.startBid = startBid;
-		
+
 		this.category = category;
 		this.status = Status.ACTIVE;
 		this.product = new Product(productName, productDescripion);
@@ -68,21 +69,26 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		this.status = status;
 		this.product.setProductId(productId);
 
-		
+
 	}
-	
+
 	public void refreshStatus() throws AuctifyException{
 		if(status.getRightsValue() >= Status.ACTIVE.getRightsValue()){
+			System.out.println("refreshin auctiong" + this);
 			if(Calendar.getInstance().getTimeInMillis() > endTime.getTimeInMillis()){
 				try{
 					this.setStatus(Status.EXPIRED);
+					System.out.println("set status to expired");
+					this.getOwner().addBidCoins(this.getHighestBidAmount());
+
+					new Thread(new EndAuctionEmailer(this)).start();
 				} catch(AuctifyException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 	}
-	
+
 	public synchronized void addBid(Bid bid) throws AuctifyException {
 
 		refreshStatus();
@@ -92,7 +98,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		if (bid.getUser().getUserId() == this.owner.getUserId()) {
 			throw new AuctifyException("You are not allowed to place bids on your own auctions.");
 		}
-		
+
 		Bid highestBid = getHighestBid();
 		if (highestBid != null && highestBid.getUser().getUserId() == bid.getUser().getUserId()) {
 			throw new AuctifyException("You are already the highest bidder.");
@@ -236,11 +242,6 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 	}
 
 	public Status getStatus() {
-		try {
-			refreshStatus();
-		} catch (AuctifyException e) {
-			e.printStackTrace();
-		}
 		return status;
 	}
 
@@ -255,7 +256,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 			this.changed = false;
 			throw new AuctifyException(e.getMessage());
 		}
-		
+
 	}
 
 	public Product getProduct() {
@@ -321,7 +322,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 			equals = this.auctionId == otherAuction.auctionId;
 		}
 		return equals;
-		
+
 	}
 
 	@Override
@@ -333,10 +334,10 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 	public Boolean search(String search) {
 		String productName = product.getName();
 		String productDescription = product.getDescription();
-		
+
 		try {
 			if(productName.toLowerCase().contains(search.toLowerCase()) || 
-			   productDescription.toLowerCase().contains(search.toLowerCase())) {
+					productDescription.toLowerCase().contains(search.toLowerCase())) {
 				return true;
 			}
 		} catch(NullPointerException e) {
@@ -353,73 +354,75 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 			while(it.hasNext()) {
 				Entry<String, Object> obj = it.next();
 				switch(obj.getKey()) {
-					case "owner":
-						if(!obj.getValue().equals(new Integer(userId))) {
+				case "owner":
+					if(!obj.getValue().equals(new Integer(userId))) {
+						valid = false;
+					}
+					break;
+				case "price":
+					if(!((IntegerRange)obj.getValue()).withinRange(new Integer(getHighestBidAmount()))) {
+						System.out.println("no price match");
+						valid = false;
+					}
+					break;
+				case "startDate":
+					if(obj.getValue() instanceof CalendarRange) {
+						if(!((CalendarRange)obj.getValue()).withinRange(startTime)) {
+							System.out.println("no start match");
 							valid = false;
 						}
-					break;
-					case "price":
-						if(!((IntegerRange)obj.getValue()).withinRange(new Integer(getHighestBidAmount()))) {
+					} else {
+						if(!startTime.equals(obj.getValue())) {
 							valid = false;
 						}
+					}
 					break;
-					case "startDate":
-						if(obj.getValue() instanceof CalendarRange) {
-							if(!((CalendarRange)obj.getValue()).withinRange(startTime)) {
-								valid = false;
-							}
-						} else {
-							if(!startTime.equals(obj.getValue())) {
-								valid = false;
-							}
+				case "endDate":
+					if(obj.getValue() instanceof CalendarRange) {
+						if(!((CalendarRange)obj.getValue()).withinRange(endTime)) {
+							System.out.println("no end match");
+							valid = false;
 						}
+					} else {
+						if(!endTime.equals(obj.getValue())) {
+							valid = false;
+						}
+					}
 					break;
-					case "endDate":
-						if(obj.getValue() instanceof CalendarRange) {
-							if(!((CalendarRange)obj.getValue()).withinRange(endTime)) {
-								valid = false;
-							}
-						} else {
-							if(!endTime.equals(obj.getValue())) {
-								valid = false;
-							}
+				case "category":
+					ArrayList<Category> value = new ArrayList<Category>();
+					if(obj.getValue() instanceof Category) {
+						value.add((Category)obj.getValue());
+					} else {
+						value = (ArrayList<Category>)obj.getValue();
+					}
+					Iterator<Category> catIt = value.iterator();
+					Boolean found = false;
+					while(catIt.hasNext()) {
+						Category category = catIt.next();
+						if(category.equals(this.category)) {
+							found = true;
 						}
+					}
+					valid = found;
 					break;
-					case "category":
-						ArrayList<Category> value = new ArrayList<Category>();
-						if(obj.getValue() instanceof Category && !(obj.getValue() instanceof List)) {
-							value.add((Category)obj.getValue());
-						} else {
-							value = (ArrayList<Category>)obj.getValue();
+				case "status":
+					ArrayList<Status> statValue = new ArrayList<Status>();
+					if(obj.getValue() instanceof Status) {
+						statValue.add((Status)obj.getValue());
+					} else {
+						statValue = (ArrayList<Status>)obj.getValue();
+					}
+					Iterator<Status> statIt = statValue.iterator();
+					Boolean statusFound = false;
+					while(statIt.hasNext()) {
+						Status status = statIt.next();
+						if(status.equals(this.status)) {
+							statusFound = true;
 						}
-						Iterator<Category> catIt = value.iterator();
-						Boolean found = false;
-						while(catIt.hasNext()) {
-							Category category = catIt.next();
-							if(this.category.equals(category)) {
-								found = true;
-								break;
-							}
-						}
-						if(!found) valid = false;
-					break;
-					case "status":
-						ArrayList<Status> statValue = new ArrayList<Status>();
-						if(obj.getValue() instanceof Status) {
-							statValue.add((Status)obj.getValue());
-						} else {
-							statValue = (ArrayList<Status>)obj.getValue();
-						}
-						Iterator<Status> statIt = statValue.iterator();
-						Boolean statusFound = false;
-						while(statIt.hasNext()) {
-							Status status = statIt.next();
-							if(status.equals(this.status)) {
-								statusFound = true;
-							}
-						}
-						if(!statusFound) valid = false;
-						
+					}
+					valid = statusFound;
+
 					break;
 				}
 			}
@@ -432,7 +435,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		if(obs == null) throw new NullPointerException("Observer is Null");
 		if(!observers.contains(obs)) observers.add(obs);
 	}
-	
+
 	@Override
 	public void unregister(Observer obs) {
 		observers.remove(obs);
@@ -457,7 +460,7 @@ public class Auction implements Comparable<Auction>, Identifiable<String>, Searc
 		}
 
 	}
-	
+
 	@Override
 	public Object getUpdate(Observer obs) {
 		return (Auction) this;
