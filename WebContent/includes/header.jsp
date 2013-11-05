@@ -137,7 +137,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<!-- Breadcrumbs -->
-						<a href="/themaopdracht5">Home</a> 
+						<a href=".action">Home</a> 
 						<s:if test="%{parent != null}">
 							> <a href="<s:url action='%{parent}' namespace='/'/> "><s:property value="parentName" /></a>
 						</s:if>

@@ -1,20 +1,28 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
-
 		<div class="col-xs-12 col-sm-12 col-md-4">
-			<div class="auction panel panel-default" data-id="<s:property value='auctionId'/>">
+			<div class="auction panel panel-default" 
+			data-id="<s:property value='auctionId'/>" 
+			data-start-year="<s:property value='startTimeYear'/>" 
+			data-start-month="<s:property value='startTimeMonth'/>" 
+			data-start-day="<s:property value='startTimeDate'/>" 
+			data-start-hour="<s:property value='startTimeHours'/>" 
+			data-start-min="<s:property value='startTimeMinutes'/>" 
+			data-end-year="<s:property value='endTimeYear'/>" 
+			data-end-month="<s:property value='endTimeMonth'/>" 
+			data-end-day="<s:property value='endTimeDate'/>" 
+			data-end-hour="<s:property value='endTimeHours'/>" 
+			data-end-min="<s:property value='endTimeMinutes'/>">
 	  			<div class="panel-body fullimage">
 	  				<div class="auction-title-box text-center">
 	  					<h3><s:property value='product.name'/></h3>
-	  					
-	  					<p><span id="percent<s:property value='auctionId'/>">0</span>% complete</p>
 	  				</div>  			
 			    	<img src="http://smartlapus.com/garbage/<s:property value='auctionId'/>.jpg"
 			    		alt="<s:property value='product.name'/>"
 			    		class="img-responsive">
 			    				 
 		  			<div class="progress <s:if test='%{percentage != 100}'>progress-striped active </s:if>text-center">
-	  					<div id="pbar<s:property value='auctionId'/>" class="progress-bar"  role="progressbar" aria-valuenow="<s:property value='percentage'/>" aria-valuemin="0" aria-valuemax="100"></div>
-	  					<span class="progress-bar-label" id="timer<s:property value='auctionId'/>"></span>
+	  					<div class="progress-bar" role="progressbar" aria-valuenow="<s:property value='percentage'/>" aria-valuemin="0" aria-valuemax="100"></div>
+	  					<span class="progress-bar-label"></span>
 					</div>
 	  			</div>
 	  			<s:if test="%{#session.user.rights.rightsValue >= 128}">

@@ -470,6 +470,18 @@ textarea {
 	text-shadow: 1px 1px 3px black;
 }
 
+.progress-bar-warning {
+	width: 100% !important;
+}
+
+.progress-bar-succes {
+	width: 100% !important;
+}
+
+.progress-bar-danger {
+	width: 100% !important;
+}
+
 #searchBtn {
 	position: absolute;
 	top: 0;
