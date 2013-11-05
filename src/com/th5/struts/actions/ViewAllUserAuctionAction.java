@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import oracle.net.aso.i;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
@@ -25,10 +27,11 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 			
 			allAuctions = user.getMyAuctions().values();
 			allBids = user.getMyBids().values();
+			if (allBids != null) {
 			for(Bid bid : allBids){
 				relevantAuctions.put(bid.getAuction().getIdentifier(), bid);
 			}
-
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("error: " + e.getMessage());

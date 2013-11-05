@@ -3,7 +3,6 @@ package com.th5.domain.model;
 import java.util.Calendar;
 
 import com.th5.domain.other.AuctifyException;
-import com.th5.domain.service.AuctionService;
 import com.th5.domain.service.ServiceProvider;
 import com.th5.persistance.BidDatabaseCRUD;
 
