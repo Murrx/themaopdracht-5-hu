@@ -1,6 +1,6 @@
 package com.th5.domain.model;
 
-public enum Status {BLOCKED(0), EXPIRED(2), ACTIVE(5), SPECIAL(7);
+public enum Status {BLOCKED(0), NOTIFIED_USERS(1), EXPIRED(2), ACTIVE(5), SPECIAL(7);
 	    
 	    private int rightsValue;
 	    
@@ -12,6 +12,8 @@ public enum Status {BLOCKED(0), EXPIRED(2), ACTIVE(5), SPECIAL(7);
 	        switch(x) {
 	        case 0:
 	            return BLOCKED;
+	        case 1:
+	        	return NOTIFIED_USERS;
 	        case 2:
 	            return EXPIRED;
 	        case 5:
