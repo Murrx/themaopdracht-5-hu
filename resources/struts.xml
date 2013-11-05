@@ -120,6 +120,11 @@
 			<result name="error">/jsp/errorPage.jsp</result>
 
 		</action>
+		
+		<action name="ViewMemberAction" class="com.th5.struts.actions.member.ViewMemberAction">
+			<result>/jsp/members/viewMember.jsp</result>
+		</action>
+		
 
 	</package>
 
