@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import oracle.net.aso.i;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
@@ -25,9 +27,11 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 	public String execute() throws Exception {
 		try {
 			allBids = user.getMyBids().values();
+			if (allBids != null) {
 			for(Bid bid : allBids){
 				relevantAuctions.put(bid.getAuction().getIdentifier(), bid);
 			}
+<<<<<<< HEAD
 			
 			HashMap<String, Object> flags = new HashMap<String, Object>();
 			Filter<Auction> filterResult = new Filter<Auction>(user.getMyAuctions().values());
@@ -35,6 +39,9 @@ public class ViewAllUserAuctionAction extends ActionSupport implements
 			filterResult.setFlags(flags);
 		
 			allAuctions = filterResult.getResult();
+=======
+			}
+>>>>>>> branch 'master' of https://github.com/Murrx/th5.git
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("error: " + e.getMessage());
