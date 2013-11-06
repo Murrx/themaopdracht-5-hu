@@ -107,7 +107,19 @@
 			</div>
 			<!-- END AUTHOR PANEL -->
 		</div>
-		<div class="row">
+		<div class="row singlepbar"
+			data-id="<s:property value='auction.auctionId'/>" 
+			data-start-year="<s:property value='auction.startTimeYear'/>" 
+			data-start-month="<s:property value='auction.startTimeMonth'/>" 
+			data-start-day="<s:property value='auction.startTimeDate'/>" 
+			data-start-hour="<s:property value='auction.startTimeHours'/>" 
+			data-start-min="<s:property value='auction.startTimeMinutes'/>" 
+			data-end-year="<s:property value='auction.endTimeYear'/>" 
+			data-end-month="<s:property value='auction.endTimeMonth'/>" 
+			data-end-day="<s:property value='auction.endTimeDate'/>" 
+			data-end-hour="<s:property value='auction.endTimeHours'/>" 
+			data-end-min="<s:property value='auction.endTimeMinutes'/>"
+		>
 			<div class="col-sm-12">
 				<div class="single progress <s:if test='%{percentage != 100}'>progress-striped active </s:if>text-center">
 					<div id="pbar<s:property value='auction.auctionId'/>" class="progress-bar" role="progressbar" aria-valuenow="<s:property value='auction.percentage'/>" aria-valuemin="0" aria-valuemax="100"></div>

@@ -3,7 +3,7 @@
  */
 
 (function updateProgressBars() {
-	$('.auction').each(function() {
+	$('.auction, .singlepbar').each(function() {
 		$this = $(this);
 		now = new Date();
 		startDate = new Date($this.data('start-year'),$this.data('start-month'),$this.data('start-day'),$this.data('start-hour'),$this.data('start-min'));
