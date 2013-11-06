@@ -32,7 +32,7 @@
 
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12">
-		<h3>Stats:</h3>
+		<h3>Most popular Auction</h3>
 		<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-6">
 			<div class="auction panel panel-default" data-id="<s:property value='popularAuction.auctionId'/>">

@@ -1,6 +1,7 @@
 package com.th5.domain.model;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -34,7 +35,7 @@ public class Bid implements Comparable<Bid>, Identifiable<String>, Filterable {
 		
 		this.auction = auction;
 		this.bidAmount = bidAmount;
-		this.timestamp = Calendar.getInstance();
+		this.timestamp = new GregorianCalendar();
 		this.bid_Id = BidDatabaseCRUD.generateId();
 		generateBidStatus(auction);
 

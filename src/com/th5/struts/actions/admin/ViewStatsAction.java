@@ -107,6 +107,7 @@ public class ViewStatsAction extends ActionSupport {
 		popularAuction = Collections.max(auctions, new PopularComparator());
 		
 		now = new GregorianCalendar();
+		now.add(Calendar.DATE, 1);
 		ArrayList<Integer> nullData = new ArrayList<Integer>();
 		nullData.add(0);
 		nullData.add(0);
