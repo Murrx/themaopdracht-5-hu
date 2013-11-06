@@ -49,7 +49,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>, Observer {
 	@Override
 	public List<Auction> retrieve(String identifier, String query) throws AuctifyException {
 		Connection connection = DataSourceService.getConnection();
-		List<Auction> auctionList = new ArrayList<Auction>();
+		
 		PreparedStatement statement = null;
 		try{
 			statement = connection.prepareStatement(query);
@@ -84,7 +84,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>, Observer {
 			statement.setInt(1, auction.getAuctionId());
 			statement.setTimestamp(2, new java.sql.Timestamp(auction.getStartTime().getTimeInMillis()));
 			statement.setTimestamp(3, new java.sql.Timestamp(auction.getEndTime().getTimeInMillis()));
-			//statement.setDate(3, DateConverter.calendarToSQLDate(auction.getEndTime()));
+			
 			statement.setString(4, auction.getCategory().name());
 			statement.setInt(5, auction.getOwner().getUserId());
 			statement.setInt(6, auction.getStartBid());

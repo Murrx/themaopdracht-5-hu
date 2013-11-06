@@ -53,6 +53,9 @@ public class Person {
 		this.birthdate = birthdate;
 	}
 	
+	public int getId() {
+		return id;
+	}
 	
 
 }

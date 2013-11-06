@@ -24,6 +24,7 @@ import com.th5.persistance.queries.Queries;
 public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 
 	public static int generateId() throws AuctifyException {
+		System.out.println("Checkpoint reached UserDatabaseCrud");
 		Connection connection = DataSourceService.getConnection();
 		CallableStatement statement = null;
 
@@ -200,24 +201,16 @@ public class UserDatabaseCRUD implements CRUD_Interface<User>, Observer {
 
 		try {
 
-			statement = connection.prepareCall("{call pkg_user_modification.pr_delete_user(?,?,?,?,?,?,?,?,?,?,?)}");
-
+			statement = connection.prepareCall("{call pkg_user_modification.pr_delete_user(?,?,?)}");
+			
 			// --- USR_USERS ---- //
-			statement.setString(1, user.getEmail());
-			statement.setString(2, user.getPassword());
-			statement.setString(3, user.getDisplayName());
+			statement.setInt(1, user.getUserId());
 
 			// --- PRS_PERSONS ---- //
-			statement.setString(4, user.getPerson().getFirstName());
-			statement.setString(5, user.getPerson().getLastName());
-			statement.setInt(6, user.getPerson().getGender());
-			statement.setDate(7, DateConverter.dateToSQLDate(user.getPerson().getBirthdate()));
+			statement.setInt(2, user.getPerson().getId());
 
 			// --- ADR_ADRESSES ---- //
-			statement.setString(8, user.getAddress().getPostalCode());
-			statement.setString(9, user.getAddress().getHouseNumber());
-			statement.setString(10, user.getAddress().getStreet());
-			statement.setString(11, user.getAddress().getCity());
+			statement.setInt(3, user.getAddress().getId());
 
 			statement.executeQuery();
 

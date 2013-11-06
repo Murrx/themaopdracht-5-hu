@@ -49,6 +49,10 @@ public class Address {
 		this.city = city;
 	}
 	
+	public int getId() {
+		return id;
+	}
+	
 	@Override
 	public String toString() {
 		String result = 
