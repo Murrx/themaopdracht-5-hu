@@ -1,6 +1,7 @@
 package com.th5.struts.actions;
 
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.TreeMap;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -16,7 +17,7 @@ public class ViewAuctionAction extends ActionSupport{
 	User owner;
 	int nextBidAmount;
 	Bid highestBid;
-	Map<Integer, Bid> bids;
+	TreeMap<Integer, Bid> bids;
 	
 	int endTimeDay, endTimeMonth, endTimeYear;
 	
@@ -75,7 +76,7 @@ public class ViewAuctionAction extends ActionSupport{
 	public int getNextBidAmount() {
 		return nextBidAmount;
 	}	
-	public Map<Integer,Bid> getBids(){
-		return bids;
+	public NavigableMap<Integer,Bid> getBids(){
+		return bids.descendingMap();
 	}
 }
