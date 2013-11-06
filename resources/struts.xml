@@ -87,7 +87,10 @@
 			method="execute">
 			<exception-mapping exception="com.th5.domain.other.AuctifyException"
 				result="error" />
-			<result>/jsp/welcome.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">allAuctions</param>
+				<param name="namespace">/</param>
+			</result>
 			<result name="error">/jsp/members/addBidCoins.jsp</result>
 		</action>
 
@@ -96,7 +99,10 @@
 		</action>
 
 		<action name="editProfile" class="com.th5.struts.actions.EditProfileAction">
-			<result name="success">/jsp/welcome.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">""</param>
+				<param name="namespace">/</param>
+			</result>
 			<result name="input">/jsp/members/editProfile.jsp</result>
 		</action>
 
