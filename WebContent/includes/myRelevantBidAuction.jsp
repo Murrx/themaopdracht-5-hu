@@ -11,13 +11,14 @@
 
 	<td><span class="label label-warning"><i class='fa fa-btc'></i>
 			<s:property value='bidAmount' /></span></td>
-	<td><s:if test="%{bidStatus.StatusValue == 2}">
+	
+	<td><s:if test="%{bidStatus.statusValue == 2}">
 			<span class="label label-danger">Lost</span>
-		</s:if> <s:elseif test="%{bidStatus.StatusValue == 1}">
+		</s:if> <s:elseif test="%{bidStatus.statusValue == 1}">
 			<span class="label label-warning">Losing</span>
-		</s:elseif> <s:elseif test="%{bidStatus.StatusValue == 0}">
+		</s:elseif> <s:elseif test="%{bidStatus.statusValue == 0}">
 			<span class="label label-info">Winning</span>
-		</s:elseif> <s:elseif test="%{bidStatus.StatusValue == 3}">
+		</s:elseif> <s:elseif test="%{bidStatus.statusValue == 3}">
 			<span class="label label-info">Won</span>
 		</s:elseif> <s:else>
 			<span class="label label-success">Unknown</span>
