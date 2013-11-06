@@ -1,12 +1,16 @@
 package com.th5.struts.actions;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.th5.domain.model.Auction;
 import com.th5.domain.model.Bid;
+import com.th5.domain.model.Status;
 import com.th5.domain.service.AuctionServiceInterface;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.domain.util.Filter;
 
 /**
  * Class that contains all the login-related methods.
@@ -20,19 +24,24 @@ import com.th5.domain.service.ServiceProvider;
 @SuppressWarnings("serial")
 public class WelcomeAction extends ActionSupport {
 
-	private Collection<Auction> auctions;
 	private Collection<Auction> popularAuctions;
 	private Collection<Auction> latestAuctions;
 	private Collection<Bid> latestBids;
 	
 	public String execute() throws Exception {
+		Map<String, Object> flags = new HashMap<String, Object>();
+		flags.put("status", Status.ACTIVE);
 		
 		AuctionServiceInterface service = ServiceProvider.getService();
 
-		auctions = service.getAllAuctions().values();
+		Filter<Auction> popularFilter = new Filter<Auction>(service.getPopularAuctions());
+		popularFilter.setFlags(flags);
+		Filter<Auction> latestFilter = new Filter<Auction>(service.getLatestAuctions());
+		latestFilter.setFlags(flags);
+
 		
-		popularAuctions = service.getPopularAuctions();
-		latestAuctions = service.getLatestAuctions();
+		popularAuctions = popularFilter.getResult();
+		latestAuctions = latestFilter.getResult();
 		
 		latestBids = service.getLatestBids();
 		return ActionSupport.SUCCESS;
