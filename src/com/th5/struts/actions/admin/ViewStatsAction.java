@@ -96,15 +96,15 @@ public class ViewStatsAction extends ActionSupport {
 
 			@Override
 			public int compare(Auction o1, Auction o2) {
-				Integer o1Bid = o1.getBids().size();
-				Integer o2Bid = o2.getBids().size();
+				Integer o1Bid = o1.getBids().values().size();
+				Integer o2Bid = o2.getBids().values().size();
 				
 				return o1Bid.compareTo(o2Bid);
 			}
 			
 		}
 		
-		setPopularAuction((Collections.max(auctions, new PopularComparator())));
+		popularAuction = Collections.max(auctions, new PopularComparator());
 		
 		now = new GregorianCalendar();
 		ArrayList<Integer> nullData = new ArrayList<Integer>();
@@ -119,7 +119,7 @@ public class ViewStatsAction extends ActionSupport {
 			data.put(day, nullData);
 			now.add(Calendar.DATE, 1);
 		}
-		System.out.println(data);
+
 		return ActionSupport.SUCCESS;
 	}
 

@@ -33,7 +33,22 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12">
 		<h3>Stats:</h3>
-		<div class="well">Here we'll display a graph or something.</div>
+		<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-6">
+			<div class="auction panel panel-default" data-id="<s:property value='popularAuction.auctionId'/>">
+	  			<div class="panel-body fullimage">
+	  				<div class="auction-title-box text-center">
+	  					<h3><s:property value='popularAuction.product.name'/></h3>
+	  					
+	  					
+	  				</div>  			
+			    	<img src="http://smartlapus.com/garbage/<s:property value='popularAuction.auctionId'/>.jpg"
+			    		alt="<s:property value='popularAuction.product.name'/>"
+			    		class="img-responsive">
+	  			</div>
+			</div>
+		</div>
+		</div>
 	</div>
 </div>
 <script type="text/javascript">
