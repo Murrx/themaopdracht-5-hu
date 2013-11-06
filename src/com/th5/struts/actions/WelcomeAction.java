@@ -29,7 +29,7 @@ public class WelcomeAction extends ActionSupport {
 	private Collection<Bid> latestBids;
 	
 	public String execute() throws Exception {
-		Map<String, Object> flags = new HashMap<String, Object>();
+		HashMap<String, Object> flags = new HashMap<String, Object>();
 		flags.put("status", Status.ACTIVE);
 		
 		AuctionServiceInterface service = ServiceProvider.getService();

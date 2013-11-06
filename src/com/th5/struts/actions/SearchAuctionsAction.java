@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -38,7 +39,7 @@ public class SearchAuctionsAction extends ActionSupport {
 	
 	private ArrayList<String> selectedCategories;
 	
-	private Map<String, Object> flags;
+	private HashMap<String, Object> flags;
 
 	@Override
 	public String execute() {
@@ -66,7 +67,7 @@ public class SearchAuctionsAction extends ActionSupport {
 	}
 	
 	public void validate() {
-		flags = new TreeMap<String, Object>();
+		flags = new HashMap<String, Object>();
 		if(startDateLow != null && startDateHigh != null) {
 			CalendarRange startDateRange = new CalendarRange(startDateLow, startDateHigh);
 			flags.put("startDate", startDateRange);

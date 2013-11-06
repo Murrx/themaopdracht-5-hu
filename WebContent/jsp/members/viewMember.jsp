@@ -107,7 +107,7 @@
 					</table>
 				</s:if>
 				<s:else>
-					<div class="well">The user didn't place any bids yet.</div>
+					<div class="well">The user hasn't placed any bids yet.</div>
 				</s:else>
 			</div>
 		</div>
@@ -116,15 +116,15 @@
 			<div class="col-xs-12 col-sm-12 col-md-12">
 				<h3>Member auctions:</h3>
 				<div class="well">
-					<s:if test="%{user.myAuctions.isEmpty() != true}">
+					<s:if test="%{user.myActiveAuctions.isEmpty() != true}">
 						<div class="panel-body">
-							<s:iterator value="user.myAuctions.values()">
-								<s:include value="/includes/auctionBoxAdminView.jsp" />
+							<s:iterator value="user.myActiveAuctions">
+								<s:include value="/includes/auctionBox.jsp" />
 							</s:iterator>
 						</div>
 					</s:if>
 					<s:else>
-					The user didn't place any auctions yet.
+					The user hasn't placed any auctions yet.
 				</s:else>
 				</div>
 			</div>

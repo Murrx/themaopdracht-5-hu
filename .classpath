@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib/javax.mail.jar"/>
 	<classpathentry kind="lib" path="lib/commons-net-3.3.jar" sourcepath="lib/commons-net-3.3-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-net-3.3-sources.jar"/>
+	<classpathentry kind="lib" path="lib/thumbnailator-0.4.6-all.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

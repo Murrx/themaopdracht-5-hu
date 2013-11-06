@@ -34,9 +34,9 @@ public class ViewStatsAction extends ActionSupport {
 		
 		data = new TreeMap<Integer, ArrayList<Integer>>();
 
-		Map<String, Object> bidFlags = new HashMap<String, Object>();
-		Map<String, Object> auctionStartFlags = new HashMap<String, Object>();
-		Map<String, Object> auctionEndFlags = new HashMap<String, Object>();
+		HashMap<String, Object> bidFlags = new HashMap<String, Object>();
+		HashMap<String, Object> auctionStartFlags = new HashMap<String, Object>();
+		HashMap<String, Object> auctionEndFlags = new HashMap<String, Object>();
 		CalendarRange dayRange = new CalendarRange();
 		
 		Calendar now = new GregorianCalendar();

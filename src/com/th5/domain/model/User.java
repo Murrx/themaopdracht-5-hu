@@ -1,6 +1,8 @@
 package com.th5.domain.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +10,7 @@ import com.th5.domain.observation.Observable;
 import com.th5.domain.observation.Observer;
 import com.th5.domain.other.AuctifyException;
 import com.th5.domain.service.ServiceProvider;
+import com.th5.domain.util.Filter;
 import com.th5.domain.util.SyncedMap;
 import com.th5.persistance.AuctionDatabaseCRUD;
 import com.th5.persistance.BidDatabaseCRUD;
@@ -364,6 +367,12 @@ public class User implements Comparable<User>, Observable, Identifiable<String>,
 	}
 	public SyncedMap<String, Auction> getMyAuctions() {
 		return myAuctions;
+	}
+	public Collection<Auction> getMyActiveAuctions() {
+		HashMap<String, Object> flag = new HashMap<String, Object>();
+		flag.put("status", Status.ACTIVE);
+		Filter<Auction> myActiveAuctions = new Filter<Auction>(myAuctions.values(), flag);
+		return myActiveAuctions.getResult();
 	}
 	public SyncedMap<String, Bid> getMyBids() {
 		return myBids;
