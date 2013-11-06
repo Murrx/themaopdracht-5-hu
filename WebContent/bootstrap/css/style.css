@@ -507,6 +507,20 @@ textarea {
 	overflow: scroll;
 }
 
+.list-group > a.disabled {
+	color: #999999;
+	pointer-events: none;
+}
+
+.list-group > a.disabled:hover,
+.list-group > a.disabled:focus {
+	color: #999999;
+	text-decoration: none;
+	background-color: transparent;
+	cursor: not-allowed;
+}
+
+
 @media ( max-width : 767px) {
 	
 	.active a {
