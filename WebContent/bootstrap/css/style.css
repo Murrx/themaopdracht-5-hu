@@ -503,10 +503,6 @@ textarea {
 	float: right;
 }
 
-#chart_div {
-	width: 2000px;
-}
-
 .chart-well {
 	overflow: scroll;
 }

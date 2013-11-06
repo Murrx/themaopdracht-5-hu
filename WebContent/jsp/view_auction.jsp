@@ -67,18 +67,43 @@
 				<s:if test="auction.status.rightsValue >= 5"> 
 					<s:url action="placeBidAction.action" namespace="/member" var="urlTag">
 						<s:param name="auctionId">
-							<s:property value="%{#parameters.id}" />
+							<s:property value="auction.auctionId" />
 						</s:param>
 					</s:url>
-					<p>
-						<s:a href="%{urlTag}" cssClass="btn btn-default btnColor pull-right">
-							(<i class='fa fa-btc'></i><s:property value="nextBidAmount" />) Place new bid!
-						</s:a>
-					</p>
+					<s:a href="%{urlTag}" cssClass="btn btn-default btnColor pull-right">
+						(<i class='fa fa-btc'></i><s:property value="nextBidAmount" />) Place new bid!
+					</s:a>
 				</s:if>
 				<s:else>
 					<button type="button" class="btn btn-default disabled pull-right">Bidding disabled</button>
 				</s:else>
+				<s:if test="%{#session.user.rights.rightsValue >= 128}">
+					<s:url action="delete_auction.action" namespace="moderator" var="urlTagDel" >
+    					<s:param name="auctionId" value="auction.auctionId" />
+					</s:url>
+					<s:url action="block_auction.action" namespace="moderator" var="urlTagBlock" >
+    					<s:param name="auctionId" value="auction.auctionId" />
+					</s:url>
+					<s:url action="unblock_auction.action" namespace="moderator" var="urlTagUnblock" >
+    					<s:param name="auctionId" value="auction.auctionId" />
+					</s:url>
+					
+					<div class="btn-group pull-right">
+					  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+					  	Admin tools <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu">
+					  	<s:if test="%{auction.status.rightsValue != 0}">
+					    	<li><a href="<s:property value='#urlTagBlock'/>"><i class="fa fa-lock"></i> Block Auction</a></li>
+					    </s:if>
+					    <s:else>
+					    	<li><a href="<s:property value='#urlTagUnblock'/>"><i class="fa fa-unlock"></i> Unblock Auction</a></li>
+					    </s:else>
+					    <li><a href="<s:property value='#urlTagDel' />"><i class="fa fa-trash-o"></i> Delete Auction</a></li>
+					  </ul>
+					</div>
+				</s:if>
+				
 			</div>
 			<!-- END AUTHOR PANEL -->
 		</div>

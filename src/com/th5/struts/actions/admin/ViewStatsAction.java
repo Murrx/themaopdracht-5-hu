@@ -3,6 +3,8 @@ package com.th5.struts.actions.admin;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class ViewStatsAction extends ActionSupport {
 
 
 	private Map<Integer, ArrayList<Integer>> data;
+	private Auction popularAuction;
 	
 	public String execute() {
 		
@@ -56,7 +59,26 @@ public class ViewStatsAction extends ActionSupport {
 			auctionStartFlags.put("startDate", dayRange);
 			auctionEndFlags.put("endDate", dayRange);
 			
-			int numBids = new Filter<Bid>(bids, bidFlags).getResult().size();
+			Collection<Bid> filteredBids = new Filter<Bid>(bids, bidFlags).getResult();
+
+			class MaxComparator implements Comparator<Bid> {
+
+				@Override
+				public int compare(Bid o1, Bid o2) {
+					Integer o1Bid = o1.getBidAmount();
+					Integer o2Bid = o2.getBidAmount();
+					
+					return o1Bid.compareTo(o2Bid);
+				}
+				
+			}
+			
+			int numBids = filteredBids.size();
+			int maxBid = 0;
+			try {
+				maxBid = (Collections.max(filteredBids, new MaxComparator())).getBidAmount();
+			} catch(Exception e) {
+			}
 			int numCreations = new Filter<Auction>(auctions, auctionStartFlags).getResult().size();
 			int numEndings = new Filter<Auction>(auctions, auctionEndFlags).getResult().size();
 			
@@ -64,13 +86,29 @@ public class ViewStatsAction extends ActionSupport {
 			dayData.add(numBids);
 			dayData.add(numCreations);
 			dayData.add(numEndings);
+			dayData.add(maxBid);
 			
 			data.put(day, dayData);
 			now.add(Calendar.DATE, -1);
 		}
 		
+		class PopularComparator implements Comparator<Auction> {
+
+			@Override
+			public int compare(Auction o1, Auction o2) {
+				Integer o1Bid = o1.getBids().size();
+				Integer o2Bid = o2.getBids().size();
+				
+				return o1Bid.compareTo(o2Bid);
+			}
+			
+		}
+		
+		setPopularAuction((Collections.max(auctions, new PopularComparator())));
+		
 		now = new GregorianCalendar();
 		ArrayList<Integer> nullData = new ArrayList<Integer>();
+		nullData.add(0);
 		nullData.add(0);
 		nullData.add(0);
 		nullData.add(0);
@@ -87,5 +125,13 @@ public class ViewStatsAction extends ActionSupport {
 
 	public Map<Integer, ArrayList<Integer>> getData() {
 		return data;
+	}
+
+	public Auction getPopularAuction() {
+		return popularAuction;
+	}
+
+	public void setPopularAuction(Auction popularAuction) {
+		this.popularAuction = popularAuction;
 	}
 }
