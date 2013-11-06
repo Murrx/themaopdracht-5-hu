@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - Saturday-November-02-2013   
+--  File created - Wednesday-November-06-2013   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Sequence SEQ_ADR_PK_ADDRESS_ID
@@ -10,12 +10,12 @@
 --  DDL for Sequence SEQ_AUC_PK_AUCTION_ID
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "THO5_2013_2A_TEAM5"."SEQ_AUC_PK_AUCTION_ID"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 401 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "THO5_2013_2A_TEAM5"."SEQ_AUC_PK_AUCTION_ID"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 421 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_BID_PK_BID_ID
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "THO5_2013_2A_TEAM5"."SEQ_BID_PK_BID_ID"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 461 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "THO5_2013_2A_TEAM5"."SEQ_BID_PK_BID_ID"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 521 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_GEN_IDENTITY
 --------------------------------------------------------
@@ -333,7 +333,7 @@
 --------------------------------------------------------
 
   ALTER TABLE "THO5_2013_2A_TEAM5"."CAT_CATEGORIES" ADD PRIMARY KEY ("CAT_CATEGORY")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
   TABLESPACE "USERS1314"  ENABLE;
