@@ -55,7 +55,8 @@ public class EditProfileAction extends ActionSupport implements UserAware, Sessi
 					edit_firstName, edit_lastName, edit_gender,
 					edit_birthdate, edit_postalCode,
 					edit_houseNumber, edit_street, edit_city);
-
+			
+			session.put("user", ServiceProvider.getService().getUserById(Integer.toString(this.user.getUserId())));
 		} catch (AuctifyException e) {
 			addFieldError("edit_password", e.getMessage());
 			return ActionSupport.ERROR;
@@ -157,6 +158,7 @@ public class EditProfileAction extends ActionSupport implements UserAware, Sessi
 		
 		if (!hasFieldErrors()) {
 			
+			@SuppressWarnings("deprecation")
 			User user = new User(edit_email, edit_password,
 					edit_displayName, null);
 			UserRegisterValidator urv = new UserRegisterValidator();
