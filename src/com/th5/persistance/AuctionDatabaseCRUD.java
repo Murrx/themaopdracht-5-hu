@@ -49,7 +49,6 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>, Observer {
 	@Override
 	public List<Auction> retrieve(String identifier, String query) throws AuctifyException {
 		Connection connection = DataSourceService.getConnection();
-		List<Auction> auctionList = new ArrayList<Auction>();
 		PreparedStatement statement = null;
 		try{
 			statement = connection.prepareStatement(query);
@@ -79,7 +78,7 @@ public class AuctionDatabaseCRUD implements CRUD_Interface<Auction>, Observer {
 		try{
 			String functionCall = "{call pkg_auction.p_create_auction(?,?,?,?,?,?,?,?)}";
 			statement = connection.prepareCall(functionCall);
-
+			
 			// --- AUC_AUCTIONS ---- //
 			statement.setInt(1, auction.getAuctionId());
 			statement.setTimestamp(2, new java.sql.Timestamp(auction.getStartTime().getTimeInMillis()));

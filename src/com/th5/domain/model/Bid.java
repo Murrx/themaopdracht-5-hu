@@ -199,9 +199,15 @@ public class Bid implements Comparable<Bid>, Identifiable<String>, Filterable {
 							if(!((CalendarRange)obj.getValue()).withinRange(timestamp)) {
 								valid = false;
 							}
+							if(valid) {
+								System.out.println(bid_Id + " valid for " + ((CalendarRange)obj.getValue()).getLow().get(Calendar.DATE));
+							}
 						} else if(obj.getValue() instanceof Calendar) {
 							if(!timestamp.equals(obj.getValue())) {
 								valid = false;
+							}
+							if(valid) {
+								System.out.println(bid_Id + " valid for " + ((Calendar)obj.getValue()).get(Calendar.DATE));
 							}
 						}
 					break;
