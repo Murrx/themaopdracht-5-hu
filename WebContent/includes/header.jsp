@@ -47,15 +47,21 @@
 				<!-- Login -->
 				<s:if test="%{#session.user == null}">
 				<s:form action="login" namespace="/" method="post">
+					<s:if test="fieldErrors.containsKey('login_email') || fieldErrors.containsKey('login_password')">
+						<div class="row">
+							<div class="col-sm-11 col-sm-offset-1">
+								<s:fielderror fieldName="login_email"/>
+								<s:fielderror fieldName="login_password"/>
+							</div>
+						</div>
+					</s:if>
 					<div class="row">
 						<div class="col-sm-7 col-sm-offset-1">
 							<div class="form-group">
 								<s:textfield name="login_email" type="email" cssClass="form-control input-sm" id="inputEmail1" placeholder="E-mail" />
-								<s:fielderror fieldName="login_email"/>
 							</div>
 							<div class="form-group">
 								<s:password name="login_password" cssClass="form-control input-sm" id="inputPassword1" placeholder="Password" />
-								<s:fielderror fieldName="login_password"/>
 							</div>
 						</div>
 						<div class="col-sm-4">
@@ -76,9 +82,6 @@
 				<s:else>
 					<div>
 						<div class="user-box">
-							<div class="user-box-edit" title="Edit Profile">
-								<a href="<s:url action='editProfileForm' namespace='/member'/>"><i class="fa fa-cog"></i></a>
-							</div>
 							<div class="user-box-mine" title="View Own Auctions">
 								<a href="<s:url action='ViewAllUserAuctionForm' namespace='/member'/>">
 									<span class="icon-stack">
@@ -86,6 +89,9 @@
 										<i class="fa fa-user"></i>
 									</span>
 								</a>
+							</div>
+							<div class="user-box-edit" title="Edit Profile">
+								<a href="<s:url action='editProfileForm' namespace='/member'/>"><i class="fa fa-cog"></i></a>
 							</div>
 							
 							<s:if test="%{#session.user.rights.rightsValue >= 256}">

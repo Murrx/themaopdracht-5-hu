@@ -24,8 +24,8 @@
 		</action>
 		<action name="login" class="com.th5.struts.actions.LoginAction">
 			<result name="success" type="redirect">${previousPage}</result>
-			<result name="error" type="redirect">${previousPage}</result>
-			<result name="input" type="redirect">${previousPage}</result>
+			<result name="error">/jsp/errorPage.jsp</result>
+			<result name="input">/jsp/errorPage.jsp</result>
 		</action>
 		<action name="register" class="com.th5.struts.actions.RegisterAction">
 			<result name="success">/jsp/registerSuccess.jsp</result>

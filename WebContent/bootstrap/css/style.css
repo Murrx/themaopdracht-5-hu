@@ -251,6 +251,10 @@ tr.adminView td{
 	height: 58px;
 }
 
+.user-box-edit {
+	margin-left: 10px;
+}
+
 .user-box-edit:hover, .user-box-admin:hover {
 	background-color: lightgray;
 }
@@ -263,11 +267,6 @@ tr.adminView td{
 	margin-left: -2px;
 	margin-top: -1px;
 	color: #d9534f;
-}
-
-.user-box-admin {
-margin-left: 10px;	
-	
 }
 
 .user-box-edit:hover i, .user-box-admin:hover i {
@@ -431,7 +430,6 @@ textarea {
 	margin: 0;
 	overflow: hidden;
 	padding: 0;
-	/*	background-image: url('../../images/auction-hammer.jpg'); */
 	background-size: cover;
 }
 
