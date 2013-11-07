@@ -77,7 +77,11 @@ public class SearchAuctionsAction extends ActionSupport {
 			flags.put("endDate", endDateRange);
 		}
 		if(priceRangeHigh != 0) {
-			IntegerRange priceRange = new IntegerRange(new Integer(priceRangeLow), new Integer(priceRangeHigh));
+			Integer priceRangeHighInt = priceRangeHigh;
+			if(priceRangeHigh == 1000) {
+				priceRangeHighInt = Integer.MAX_VALUE;
+			}
+			IntegerRange priceRange = new IntegerRange(new Integer(priceRangeLow), priceRangeHighInt);
 			flags.put("price", priceRange);
 		}
 		if(selectedCategories != null) {

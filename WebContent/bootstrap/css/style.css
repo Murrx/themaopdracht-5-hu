@@ -21,6 +21,19 @@ a {
 	font-weight: bold;
 }
 
+.view-auction-tools {
+	position: absolute;
+	top: 0;
+	right: 15px;
+	text-align: right;
+	width: 182px;
+}
+
+.view-auction-tools .dropdown-menu {
+	right: 0;
+	left: auto;
+}
+
 .list-group .active {
 	background-color: purple !important;
 }

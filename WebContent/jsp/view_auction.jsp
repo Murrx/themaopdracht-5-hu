@@ -31,7 +31,7 @@
 				<!-- END AUCTION IMAGE PANEL  -->
 			</div>
 			<!-- ImageColumn -->
-			<div class="col-xs-6 col-md-3 col-lg-3">
+			<div class="col-xs-12 col-md-6 col-lg-6">
 				<!-- BEGIN AUTHOR PANEL -->
 
 				<h4> Auction information: </h4>
@@ -44,15 +44,25 @@
 					</s:a>
 
 
-				</span> <br /> <span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bid:
-				</span><span class="rightInfo"> <s:property value="highestBid.bidAmount" /></span><br /> <span class="leftImportant"> <span class="glyphicon glyphicon-arrow-up"></span> Bidder:
-				</span> <span class="rightInfo"> <s:url action="ViewMemberAction.action" namespace="/member" var="viewMember">
+				</span> <br /> 
+				<span class="leftImportant">
+					<span class="glyphicon glyphicon-arrow-up"></span> Bid:
+				</span>
+				<span class="rightInfo"> <s:property value="highestBid.bidAmount" /></span><br /> 
+				<span class="leftImportant"> 
+					<span class="glyphicon glyphicon-arrow-up"></span> Bidder:
+				</span> 
+				<span class="rightInfo"> 
+					<s:url action="ViewMemberAction.action" namespace="/member" var="viewMember">
 						<s:param name="userId">
 							<s:property value="highestBid.user.userId" />
 						</s:param>
-					</s:url> <s:a href="%{viewMember}">
+					</s:url>
+					<s:a href="%{viewMember}">
 						<s:property value='highestBid.user.displayName' />
-					</s:a></span><br /> <span class="leftImportant">End date:</span><span class="rightInfo"> <s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /></span><br />
+					</s:a>
+				</span><br /> 
+				<span class="leftImportant">End date:</span><span class="rightInfo"> <s:property value="endTimeDay" />/<s:property value="endTimeMonth" />/<s:property value="endTimeYear" /></span><br />
 				<span class="leftImportant">Category:</span><span class="rightInfo"> <s:url action="AuctionsByCategory.action" namespace="/" var="filterAuction">
 						<s:param name="category">
 							<s:property value="auction.category" />
@@ -62,21 +72,21 @@
 					</s:a>
 
 				</span>
-			</div>
-			<div class="col-xs-6 col-md-3 col-lg-3">
+			<div class="view-auction-tools">
 				<s:if test="auction.status.rightsValue >= 5"> 
 					<s:url action="placeBidAction.action" namespace="/member" var="urlTag">
 						<s:param name="auctionId">
 							<s:property value="auction.auctionId" />
 						</s:param>
 					</s:url>
-					<s:a href="%{urlTag}" cssClass="btn btn-default btnColor pull-right">
+					<s:a href="%{urlTag}" cssClass="btn btn-default btnColor">
 						(<i class='fa fa-btc'></i><s:property value="nextBidAmount" />) Place new bid!
 					</s:a>
 				</s:if>
 				<s:else>
-					<button type="button" class="btn btn-default disabled pull-right">Bidding disabled</button>
+					<button type="button" class="btn btn-default disabled">Bidding disabled</button>
 				</s:else>
+				<br />
 				<s:if test="%{#session.user.rights.rightsValue >= 128}">
 					<s:url action="delete_auction.action" namespace="moderator" var="urlTagDel" >
     					<s:param name="auctionId" value="auction.auctionId" />
@@ -88,7 +98,7 @@
     					<s:param name="auctionId" value="auction.auctionId" />
 					</s:url>
 					
-					<div class="btn-group pull-right">
+					<div class="btn-group">
 					  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
 					  	Admin tools <span class="caret"></span>
 					  </button>
@@ -104,6 +114,7 @@
 					</div>
 				</s:if>
 				
+			</div>
 			</div>
 			<!-- END AUTHOR PANEL -->
 		</div>
