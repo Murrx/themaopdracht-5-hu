@@ -49,13 +49,12 @@ public class ViewStatsAction extends ActionSupport {
 		
 		while(now.get(Calendar.MONTH) == currentMonth) {
 			Integer day = now.get(Calendar.DATE);
-			Calendar dayLow = now;
 			Calendar dayHigh = (Calendar)now.clone();
 			dayHigh.add(Calendar.DATE, 1);
 			
-			dayRange = new CalendarRange(dayLow, dayHigh);
+			dayRange = new CalendarRange(now, dayHigh);
 			
-			bidFlags.put("date", dayRange);
+			bidFlags.put("date", now);
 			auctionStartFlags.put("startDate", dayRange);
 			auctionEndFlags.put("endDate", dayRange);
 			
