@@ -3,6 +3,79 @@
 	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 }
 
+/* breadcrumbs jonguh */
+.breadcrumbs {
+	text-align: center;
+}
+
+.breadcrumbs ul {
+	list-style: none;
+	padding: 0;
+}
+.breadcrumbs ul li {
+}
+
+.breadcrumbs ul li a {
+	display: block;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	background: lightgray;
+	text-align: center;
+	padding-left: 15px;
+	padding-right: 15px;
+	position: relative;
+	margin: 0 5px 0 0; 
+	
+	font-size: 14px;
+	text-decoration: none;
+	color: black;
+	font-weight: normal;
+}
+.breadcrumbs ul li a:after {
+	content: "";  
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+	border-left: 10px solid lightgray;
+	position: absolute; right: -10px; top: 0;
+	z-index: 1;
+}
+
+.breadcrumbs ul li a:before {
+	content: "";  
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+	border-left: 10px solid white;
+	position: absolute; left: 0; top: 0;
+}
+
+.breadcrumbs ul li:first-child a {
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px;
+}
+.breadcrumbs ul li:first-child a:before {
+	display: none; 
+}
+
+.breadcrumbs ul li:last-child a {
+	background: purple;
+	color: white;
+	padding-right: 15px;
+	border-top-right-radius: 5px; 
+	border-bottom-right-radius: 5px;
+}
+.breadcrumbs ul li:last-child a:after {
+	display: none; 
+}
+
+.breadcrumbs ul li a:hover {
+	color: white;
+	background: purple;
+}
+.breadcrumbs ul li a:hover:after {
+	border-left-color: purple;
+}
+
 html {
 	height: 100%;
 }

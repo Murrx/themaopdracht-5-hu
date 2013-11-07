@@ -31,10 +31,10 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12">
+	<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2">
 		<h3>Most popular Auction</h3>
 		<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-6">
+		<div class="col-xs-12 col-sm-12 col-md-12">
 			<div class="auction panel panel-default" data-id="<s:property value='popularAuction.auctionId'/>">
 	  			<div class="panel-body fullimage">
 	  				<div class="auction-title-box text-center">

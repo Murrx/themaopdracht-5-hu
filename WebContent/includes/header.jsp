@@ -151,16 +151,28 @@
 			<div class="col-sm-12">
 				<s:include value="menu.jsp" />
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-sm-12 breadcrumbs">
 						<!-- Breadcrumbs -->
-						<a href=".action">Home</a> 
+						<ul>
+							<li>
+								<a href=".action">Home</a>
+							</li> 
 						<s:if test="%{parent != null}">
-							> <a href="<s:url action='%{parent}' namespace='/'/> "><s:property value="parentName" /></a>
+							<li>
+								<a href="<s:url action='%{parent}' namespace='/'/> "><s:property value="parentName" /></a>
+							</li>
 						</s:if>
 						<s:if test="adminPanel">
-							> <a href="<s:url action='ViewAdminPanel' namespace='/admin'/> ">Admin Panel</a>
+							<li>
+								<a href="<s:url action='ViewAdminPanel' namespace='/admin'/> ">Admin Panel</a>
+							</li>
 						</s:if>
-						> <s:property value="title" />
+							<li>
+								<a href="#">
+									<s:property value="title" />
+								</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 				<div class="row">
