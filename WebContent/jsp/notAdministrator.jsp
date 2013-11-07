@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<s:push value="#{'title':'Acces denied', 'location': 'home'}">
+<s:push value="#{'title':'Access denied', 'location': 'home'}">
 	<s:include value="/includes/header.jsp" />
 </s:push>
 		<h2>Authorization required!</h2>
