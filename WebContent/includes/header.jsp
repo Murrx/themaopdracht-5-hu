@@ -11,7 +11,8 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css">
 		<link rel="stylesheet" href="bootstrap/css/style.css">
-
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+		
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 			<script src="bootstrap/js/html5shiv.js"></script>
@@ -82,25 +83,27 @@
 				<s:else>
 					<div>
 						<div class="user-box">
-							<div class="user-box-mine" title="View Own Auctions">
-								<a href="<s:url action='ViewAllUserAuctionForm' namespace='/member'/>">
-									<span class="icon-stack">
-										<i class="fa fa-gavel"></i>
-										<i class="fa fa-user"></i>
-									</span>
+							<div class="user-box-icons">
+								<div class="user-box-mine" title="View Own Auctions">
+									<a href="<s:url action='ViewAllUserAuctionForm' namespace='/member'/>">
+										<span class="icon-stack">
+											<i class="fa fa-gavel"></i>
+											<i class="fa fa-user"></i>
+										</span>
+									</a>
+								</div>
+								<div class="user-box-edit" title="Edit Profile">
+									<a href="<s:url action='editProfileForm' namespace='/member'/>"><i class="fa fa-cog"></i></a>
+								</div>
+								
+								<s:if test="%{#session.user.rights.rightsValue >= 256}">
+								<div class="user-box-admin" title="Admin Panel">
+								<a href="<s:url action='ViewAdminPanel' namespace='/admin'/>">
+										<i class="fa fa-wrench"></i>
 								</a>
+								</div>
+								</s:if>
 							</div>
-							<div class="user-box-edit" title="Edit Profile">
-								<a href="<s:url action='editProfileForm' namespace='/member'/>"><i class="fa fa-cog"></i></a>
-							</div>
-							
-							<s:if test="%{#session.user.rights.rightsValue >= 256}">
-							<div class="user-box-admin" title="Admin Panel">
-							<a href="<s:url action='ViewAdminPanel' namespace='/admin'/>">
-									<i class="fa fa-wrench"></i>
-							</a>
-							</div>
-							</s:if>
 							
 							
 							<div class="user-box-info">
