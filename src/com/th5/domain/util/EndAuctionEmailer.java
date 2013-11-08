@@ -89,7 +89,7 @@ public class EndAuctionEmailer implements Runnable {
 
 	private void sendMail(String email, String message, String subject) {
 		Properties props = new Properties(); 
-		props.put("mail.smtp.host", "gator3182.hostgator.com"); 
+		props.put("mail.smtp.host", "smtp.gmail.com"); 
 		props.put("mail.smtp.port", 465); 
 		props.put("mail.smtp.ssl.enable", true);
 		Session mailSession = Session.getInstance(props);
@@ -100,7 +100,7 @@ public class EndAuctionEmailer implements Runnable {
 			msg.setSubject(subject); 
 			msg.setSentDate(Calendar.getInstance().getTime());
 			msg.setText(message); 
-			Transport.send(msg, "auctify@smartlapus.com", "garbageiscool");
+			Transport.send(msg, "markvlpublic@gmail.com", "kijktUMaar1");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
